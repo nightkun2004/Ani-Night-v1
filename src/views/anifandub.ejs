@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FanAnime ThaiDub | แฟนอนิเมะพากย์ไทย</title>
+    <link rel="stylesheet" href="./css/indexv2.css">
+    <link rel="stylesheet" href="./css/acticle.css">
+    <link rel="stylesheet" href="./css/pages/manga.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- <link rel="stylesheet" href="./css/acticle.css"> -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
+    <script type="text/javascript" src="/js/index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</head>
+
+<body>
+    <div class="fixed inset-x-0 z-20" id="navbar">
+        <%- include('./navbar') %>
+    </div>
+    <section class="mx-auto px-4 xl:max-w-7xl pt-[110px]" id="home">
+        <div class="mt-8 mb-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+            <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">อนิเมะพากย์ไทยอัพเดตปี 2024</h2>
+            <div class="mangas_update bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm relative">
+                <% if (Array.isArray(animeList)) { %>
+                    <% animeList.forEach(anime=> { %>
+                        <div class="manga_update">
+                            <a href="#" data-modal-target="modal-<%= anime.animeid %>" data-modal-toggle="modal-<%= anime.animeid %>">
+                                <div class="manga_pic">
+                                    <img src="<%= anime.poster %>" alt="<%= anime.name %> Poster">
+                                </div>
+                                <div class="manga_text">
+                                    <h3><%= anime.name %></h3>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Main modal -->
+                        <div id="modal-<%= anime.animeid %>" class="modal hidden fixed z-50 inset-0 overflow-y-auto">
+                            <div class="modal-content bg-white p-4 md:max-w-lg mx-auto my-8" style="height: 500px; overflow: scroll;">
+                                <div class="modal-header border-b pb-2 mb-4">
+                                    <h3><%= anime.name %></h3>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- images =================================== -->
+                                    <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                                        <div class="mt-4">
+                                            <img src="<%= anime.poster %>" alt="" class="shadow-lg m-auto rounded-lg w-48">
+                                            <p class="text-2xl mt-2 text-center tracking-wider text-gray-700 mt-4">
+                                                <%= anime.name %>
+                                            </p>
+                                        </div>
+                                        <div class="flex items-center justify-center mt-4">
+                                            <p>จำนวนตอนทั้งหมด <%= anime.Episodes %></p>
+                                        </div>
+                                        <div class="flex items-center justify-center mt-4">
+                                            <p>สตูดิโอ <%= anime.studio %></p>
+                                        </div>
+                                        <div class="flex items-center justify-center mt-4">
+                                            <p>ความยาว <%= anime.Duration %></p>
+                                        </div>
+                                        <div class="flex items-center justify-center mt-4">
+                                            <p class="inline-flex items-center border border-gray-300 px-4 rounded-full engfont-bold text-gray-800"><%= anime.production %></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-8 mb-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                                        <p class="pl-3 text-slate-500">เรื่องย่อ</p>
+                                        <p><%= anime.dec %></p>
+                                    </div>
+
+                                    <div class="mt-8 mb-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                                        <% if (anime.dub && anime.dub.length > 0) { %>
+                                            <h2 class="text-center">นักพากย์ไทยเรื่องนี้</h2>
+                                            <% anime.dub.forEach(dub => { %>
+                                                <div class="flex items-center gap-4 mt-[20px]">
+                                                    <img class="w-10 h-10 rounded-full" src="<%= dub.imagevoice %>" alt="">
+                                                    <div class="font-medium dark:text-white">
+                                                        <div><p><%= dub.character %></p></div>
+                                                        <div class="text-sm text-gray-500 dark:text-gray-400"> <%= dub.voice %></div>
+                                                    </div>
+                                                </div>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <p>No data</p>
+                                        <% } %>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No anime data available</p>
+                <% } %>
+                
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-white-bg');
+            } else {
+                navbar.classList.remove('navbar-white-bg');
+            }
+        });
+    </script>
+</body>
+
+</html>
