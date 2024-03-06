@@ -59,7 +59,7 @@ app.use(videosRoute)
 app.use(loginRoute)
 app.use(singupRoute)
 app.use(profileRoute)
-app.use(videosprofileRoute)
+app.use(videosprofileRoute) 
 app.use(vidoechannelRoute)
 
 app.use((req, res, next) => {
