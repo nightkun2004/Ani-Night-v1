@@ -1,0 +1,58 @@
+.container-singup {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    margin-bottom: 60px;
+}
+
+
+.form_signup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+form label {
+    margin-bottom: 8px;
+    color: #000;
+}
+
+form p {
+    text-align: center;
+}
+
+form p a {
+    text-decoration: none;
+    color: #000;
+    font-size: 13px;
+    font-weight: 400;
+    border-bottom: 1px solid #057eff;
+}
+
+.form_signup input[type=text],
+input[type=email],
+input[type=password] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.form_signup .btn-singup {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form_signup .btn-singup:hover {
+    background-color: #0056b3;
+}

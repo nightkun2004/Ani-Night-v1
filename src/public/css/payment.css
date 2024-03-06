@@ -1,0 +1,121 @@
+.payment-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #000;
+}
+
+.save-payment {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info_text {
+    display: flex;
+    align-items: center;
+}
+
+.photo-payment img {
+    width: 100px;
+    height: auto;
+}
+
+.text_info {
+    padding-left: 25px;
+}
+
+.payment-form {
+    margin-bottom: 20px;
+}
+
+
+.radio {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio label {
+    display: block;
+    margin-bottom: 5px;
+    padding-left: 20px;
+}
+
+.payment-form input[type="text"],
+.payment-form input[type="number"],
+.payment-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.payment-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.payment-form button:hover {
+    background-color: #0056b3;
+}
+
+.pro_con {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.tube-container {
+    width: 100px;
+    height: 400px;
+    background-color: #ddd;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+}
+
+.tube {
+    width: 20%;
+    height: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress {
+    width: 100%;
+    height: 0;
+    background: linear-gradient(180deg, rgba(174, 247, 247, 1) 8%, rgba(204, 240, 255, 1) 45%, rgba(88, 206, 255, 1) 100%);
+    position: absolute;
+    bottom: 0;
+    transition: height .5s ease;
+    animation: wave 2s infinite;
+    transform-origin: top right; 
+    overflow: hidden;
+}
+
+@keyframes wave {
+    0% { transform: scaleX(1); } 
+    20% { transform: scaleY(1.5); } 
+    50% { transform: scaleY(2.5); } 
+    100% { transform: scaleX(1); }
+}
+
+.amount {
+    font-size: 24px;
+    margin-top: 20px;
+}

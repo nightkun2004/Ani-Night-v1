@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลลัพธ์การค้นหาสำหรับ "<%= searchQuery %>"</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/acticle.css">
+    <link rel="stylesheet" href="/css/font/font1.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
+    <script type="text/javascript" src="/js/index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="fixed inset-x-0 z-20" id="navbar">
+        <%- include('navbar') %>
+    </div>
+    <section class="searchsearch mx-auto px-4 xl:max-w-7xl pt-[110px]">
+        <div class="bg-white px-6 md:px-12 py-8 mb-[40px] md:py-12 mt-8 shadow-sm relative">
+            <form action="">
+                <div class="relative mt-1">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                        </svg>
+                    </div>
+                    <input type="search" name="query" id="search" placeholder="ค้นหา..."
+                        class="block w-full p-4 ps-10 text-lg text-black-900 border border-gray-50 rounded-full h-10 bg-gray-50">
+                </div>
+                <div class="flex items-center justify-center mt-[40px]">
+                    <button type="submit" class="bg-sky-100 p-[10px] rounded-lg">
+                        ค้นหา
+                    </button>
+                </div>
+            </form>
+        </div>
+        <h2 class="text-1xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">ผลลัพธ์การค้นหาสำหรับ "<%= searchQuery %>
+                "</h2>
+
+        <!-- Ads  -->
+        <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
+            <script async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                crossorigin="anonymous"></script>
+            <!-- Ani Night -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6579807593228261"
+                data-ad-slot="9626337250" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div id="queryq" class="mb-[50px] mt-[20px]">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <% articles.forEach((article, index)=> { %>
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <a href="/read/<%= article.url %>">
+                            <img class="w-full h-48 object-cover object-center"
+                                src="/acticles_images/<%= article.photo %>" alt="">
+                            <% if (article.author && article.author.id) { %>
+                                <div class="p-4">
+                                    <img style="width: 50px; height: 50px; border-radius: 50%;"
+                                        class=" object-cover object-center"
+                                        src="/profiles/<%= article.author.id.profile %>" alt="">
+                                    <div class="text-info">
+                                        <h3 class="text-gray-800 font-semibold text-lg mb-2">
+                                            <%= article.title %>
+                                        </h3>
+                                        <p class="text-gray-600">เขียนโดย: <a href="/editor/<%= article.author.id.username %>"> <%= article.author.id.username %></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% } else { %>
+                                    <p>Author: Unknown</p>
+                                    <% } %>
+                        </a>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-white-bg');
+            } else {
+                navbar.classList.remove('navbar-white-bg');
+            }
+        });
+    </script>
+</body>
+
+</html>

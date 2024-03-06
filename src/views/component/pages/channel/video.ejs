@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= userData.username %></title>
+    <link rel="stylesheet" href="../../css/acticle.css">
+    <link rel="stylesheet" href="../../css/font/font1.css">
+    <link rel="stylesheet" href="../../css/pages/profile.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <div class="fixed inset-x-0 z-20" id="navbar">
+        <%- include('../../../navbar') %>
+    </div>
+    <section class="editor mx-auto px-4 xl:max-w-7xl pt-[110px]" id="video">
+        <div class="grid grid-cols-1 grid-rows-1 md:grid-cols-3 gap-4 mt-8">
+            <!-- ======================= card profile ================== -->
+            <div class="shadow-lg bg-white rounded-xl px-8 py-8 w-full h-full">
+                <div class="flex items-center md">
+                    <div class="flex items-center md">
+                        <img class="w-[100px] h-[100px] p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                            src="/profiles/<%= userData.profile %>" alt="Profile User">
+                    </div>
+                    <div class="pl-[20px] md">
+                        <h2 class="text-3xl">
+                            <%= userData.username %>
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="flex items-center md">
+                    <p class="m-10"> ผู้ติดตาม <%= userData.followed %> คน </p><br>
+                    <p class="followers"> กำลังกดติดตาม <%= userData.followers %> คน </p>
+                </div>
+
+                <div class="mt-[20px]">
+                    <p>
+                        <%= userData.bio %>
+                    </p>
+                </div>
+
+
+            </div>
+
+            <!-- ================================================
+            cardd Editor Right ================================== -->
+            <div class="col-span-2 bg-white shadow-lg rounded-xl px-8 py-8 w-full">
+                <div class="flex items-center">
+                    <div class="btn_sub">
+                        <a href="">
+                            <button class="edit_profile">
+                                ติดตาม
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================
+        Menus Editor ==================================== -->
+        <div
+            class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+            <ul class="navbar_profile flex flex-wrap -mb-px">
+                <li class="me-2 categoryButton">
+                    <a href="/editor/<%= userData.username %>"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700">หน้าหลัก</a>
+                </li>
+                <li class="me-2 categoryButton">
+                    <a href="/editor/<%= userData.username %>/video"
+                        class="inline-block p-4 border-b-2 text-sky-500 border-b-2 border-sky-500 rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700"
+                        aria-current="page">วีดีโอ</a>
+                </li>
+            </ul>
+        </div>
+        <!-- ===================================
+            content Editor ========================= -->
+            <div class="videos">
+                <p style="text-align: center; color: #000;">ยังไม่มีเนื้อหาวีดีโอที่สร้างครับ.</p>
+            </div>
+    </section>
+    <script>
+        window.addEventListener('scroll', function () {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-white-bg');
+            } else {
+                navbar.classList.remove('navbar-white-bg');
+            }
+        });
+
+    </script>
+</body>
+
+</html>

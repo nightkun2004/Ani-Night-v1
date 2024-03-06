@@ -1,0 +1,67 @@
+.videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 5px;
+}
+
+.video {
+    background-color: #fff;
+    box-shadow: 0 0 0 #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pic_phoho {
+    position: relative;
+}
+
+.pic_phoho img {
+    width: 100%;
+}
+
+.time {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.55);
+    border-radius: 2px;
+    padding: 10px;
+}
+
+.text_video h2 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.text_video p {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+@media screen and (max-width: 280px) {
+    .profile img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .btn_deit {
+        margin-top: 20px;
+        font-size: 10px;
+    }
+    .f_text P {
+        font-size: 12px;
+    }
+
+    .text_video h2 {
+        font-size: 12px;
+    }
+    .bio {
+        font-size: 12px;
+    }
+    .text_video p {
+        font-size: 10px;
+    }
+}

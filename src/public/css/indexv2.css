@@ -1,0 +1,301 @@
+@import url('https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Anuphan", sans-serif;
+    background-color: #f6f6f6;
+}
+
+/* nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    width: 100%;
+} */
+
+nav .narbar-left {
+    display: flex;
+    align-items: center;
+}
+
+nav .narbar-left .narbar-mobilib {
+    display: none;
+}
+
+nav .narbar-left .navbar-pc {
+    display: block;
+}
+
+nav .narbar-left .navbar-pc .logo a {
+    display: flex;
+    align-items: center;
+
+    & img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    & p {
+        padding-left: 10px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+nav .navbar-right .menus ul {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+nav .navbar-right .menus ul li {
+    margin: 5px;
+}
+
+nav .navbar-right .menus ul li a {
+    position: relative;
+}
+
+.menus ul li a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #00b7ff;
+    transition: width 0.3s ease-in-out;
+}
+
+ .menus ul li a:hover::after {
+    width: 100%;
+}
+
+.navbar-white-bg {
+    background-color: white;
+    /* อื่น ๆ ที่คุณต้องการให้เปลี่ยนแปลง เช่น สีตัวอักษร */
+}
+
+
+.home{
+    padding:0;
+}
+
+.home .box{
+    min-height: 100vh;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display: flex;
+    align-items: center;
+    background-size: cover !important;
+    background-position: center !important;
+    justify-content:flex-end;
+    padding:2rem 9%;
+}
+
+.home .box{
+    justify-content: flex-start;
+}
+
+.home .box.second{
+    justify-content: flex-end;
+}
+
+.home .box .content{
+    width:50rem;
+}
+
+.pagination {
+    display: inline-block;
+    background-color: #fff;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.home .box .content h3{
+    font-size: 22px;
+    color: #fff;
+    padding-top: .5rem;
+    text-transform: uppercase;
+}
+
+.home .box .content p{
+    line-height: 2;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+
+.home .box .content .btn {
+    background-color: #00b7ff;
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 9px;
+    text-decoration: none;
+}
+
+.swiper-slide {
+    text-align: center;
+    color: #fff;
+    background-size: cover !important;
+    background-position: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-slide .content {
+    width: 50rem;
+}
+
+.swiper-slide h3 {
+    font-size: 22px;
+    color: #fff;
+    padding-top: .5rem;
+    text-transform: uppercase;
+}
+
+.swiper-slide p {
+    line-height: 2;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+
+
+footer {
+    background-color: #111111;
+    color: #fff;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    padding: 10px 12px;
+    margin: 0 auto;
+}
+
+.footer .logo a img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.footer .logo a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 22px;
+}
+
+.manga_update .ch {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    & .profile-logo img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+    & a {
+        display: flex;
+    align-items: center;
+        text-decoration: none;
+        color: #000;
+        padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    nav .narbar-left .narbar-mobilib {
+        display: block;
+    }
+
+    .monil {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        & button {
+            background: none;
+            border: none;
+        }
+    }
+
+    .home .box .content h3 {
+        font-size: 19px;
+    }
+    .home .box .content p {
+
+        font-size: 14px;
+    }
+    nav .search_box  {
+        display: none;
+    }
+
+    .monil .menus-card {
+        position: absolute;
+        top: 60px;
+        left: 5px;
+        background-color: #fff;
+        border-radius: 7px;
+        border: 1px solid rgb(235, 235, 235);
+        width: 300px;
+    }
+
+    .monil .menus-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .monil .menus-card ul li {
+        padding: 10px 12px;
+        margin-bottom: 10px;
+    }
+
+    .monil .menus-card ul li a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .monil .menus-card ul li:hover {
+        background-color: #eee;
+    }
+
+    .nav .narbar-left .narbar-mobilib .monil .logo a {
+        display: flex;
+        align-items: center;
+        & img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding-left: 10px;
+        }
+    }
+
+    nav .narbar-left .navbar-pc , nav .navbar-right .menus {
+        display: none;
+    }
+}

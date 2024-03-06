@@ -1,0 +1,65 @@
+body {
+    background-color: #f2f2f2;
+}
+
+.videoEdits {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    background-color: #fff;
+    display: flex;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.img_edit img {
+    width: 220px;
+}
+
+.text_info {
+    position: relative;
+}
+
+.text_info h2 {
+    font-size: 19px;
+    font-weight: 500;
+    color: #000;
+}
+
+.btn_edit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn_edit button[type=submit] {
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(45, 209, 45);
+    color: #fff;
+    padding: 10px 12px;
+}
+
+.btn_edit .btnde{
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(255, 0, 0);
+    color: #fff;
+    padding: 10px 12px;
+}
+
+@media screen and (max-width:480px) {
+    .item {
+        flex-direction: column;
+        height: auto;
+    }
+    .text_info {
+        bottom: 0;
+        left: 0;
+        height: auto;
+    }
+}

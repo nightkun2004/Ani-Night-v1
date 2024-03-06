@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/acticle.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/font/font1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="fixed inset-x-0 z-20" id="navbar">
+        <%- include('../en/navbar') %>
+    </div>
+
+    <section class="login mx-auto px-4 xl:max-w-7xl pt-[130px]" id="login">
+        <div class="container-login bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm rela">
+            <form action="/login" method="POST">
+                <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">Login</h2>
+                <label for="username">Email:</label>
+                <input type="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input class="mb-2" type="password" id="password" name="password" required>
+
+                <button class="btn-login" type="submit">Login</button>
+
+                <div class="flex justify-between pt-[20px]">
+                        <p class="text_login">Forgot your password?</p>
+                        <p><a href="/forgot-password">Reset password?</a></p>
+                    </div>
+                <div class="reg">
+                    <p class="pt-[10px] flex justify-between">Don't have an account yet? Click to apply now:<span><a href="/singup"
+                                class="text-1xl">SignUp</a></span></p>
+                </div>
+            </form>
+
+            <div class="tiktok-login">
+                <a href="/auth/tiktok">
+                    <button class="login_button">
+                        <img src="/images/logo/tiktok_logo.webp" alt="">
+                        <div class="login_text" style="display: flex; flex-direction: column;">
+                            or login with TikTok
+                        </div>
+                    </button>
+                </a>
+            </div>
+
+            <div class="google-login">
+                <a href="/auth/google">
+                    <button class="login_button">
+                        <img src="/images/logo/google_logo.png" alt="">
+                        <div class="login_text">
+                            or login with Google
+                        </div>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
+    <script src="../js/search.js"></script>
+    <script>
+        window.addEventListener('scroll', function () {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-white-bg');
+            } else {
+                navbar.classList.remove('navbar-white-bg');
+            }
+        });
+
+    </script>
+</body>
+
+</html>

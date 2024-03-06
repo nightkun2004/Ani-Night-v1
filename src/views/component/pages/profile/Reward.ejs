@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= usersesstion.username %>
+    </title>
+    <link rel="stylesheet" href="../css/acticle.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/pages/profile.css">
+    <link rel="stylesheet" href="../css/pages/reward.css">
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="fixed inset-x-0 z-20" id="navbar">
+        <%- include('../../../navbar') %>
+    </div>
+
+    <section class="reward mx-auto px-4 xl:max-w-7xl pt-[110px]" id="rewsrd">
+        <div class="grid grid-cols-1 grid-rows-1 md:grid-cols-3 gap-4 mt-8">
+            <!-- ======================= card profile ================== -->
+            <div class="shadow-lg bg-white rounded-xl px-8 py-8 w-full h-full">
+                <div class="flex items-center md">
+                    <div class="flex items-center md">
+                        <img class="w-[100px] h-[100px] p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                            src="/profiles/<%= usersesstion.profile %>" alt="Profile User">
+                    </div>
+                    <div class="pl-[20px] md">
+                        <h2 class="text-3xl">
+                            <%= usersesstion.username %>
+                        </h2>
+                        <p class="text-2xl">
+                            <%= usersesstion.email %>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="flex items-center md">
+                    <p class="m-5"> ผู้ติดตาม <%= usersesstion.followed %> คน </p><br>
+                    <p class="followers"> กำลังกดติดตาม <%= usersesstion.followers %> คน </p>
+                </div>
+
+                <div class="mt-[20px]">
+                    <p>
+                        <%= usersesstion.bio %>
+                    </p>
+                </div>
+
+
+            </div>
+
+            <!-- card profile right -->
+            <div class="col-span-2 bg-white shadow-lg rounded-xl px-8 py-8 w-full">
+                <div class="flex items-center md">
+                    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                        class="block  m-2 text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800"
+                        type="button">
+                        แก้ไขโปรไฟล์
+                    </button>
+                    <button
+                        class="focus:outline-none pl-[20px] m-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        <a href="/logout/<%= usersesstion._id %>" onclick="confirmLogout(event)">ออกจากระบบ</a>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- form edit Profile -->
+        <div id="crud-modal" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            แก้ไขโปรไฟล์ของคุณ
+                        </h3>
+                        <button type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-toggle="crud-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form class="p-4 md:p-5" action="/edit_profile" method="POST" enctype="multipart/form-data">
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อช่อง</label>
+                                <input type="text" name="name" id="name"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    value="<%= usersesstion.name %>">
+                            </div>
+                            <div class="col-span-2">
+                                <label for="price"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อผู้ใช้</label>
+                                <input type="text" name="username" id="username"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    value="<%= usersesstion.username %>">
+                            </div>
+                            <div class="col-span-2">
+                                <label for="price"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แก้ไข
+                                    url</label>
+                                <input type="text" name="url" id="url"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    value="<%= usersesstion.url %>">
+                            </div>
+                            <div class="col-span-2">
+                                <label for="price"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แก้ไขประวิติของคุณ</label>
+                                <input type="text" name="bio" id="bio"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    value="<%= usersesstion.bio %>">
+                            </div>
+                            <div class="col-span-2">
+                                <label for="category"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แก้ไขโปรไฟล์</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="dropzone-file"
+                                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 20 16">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                            </svg>
+                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                                    class="font-semibold">คลิกที่นี่เพื่ออัปโหลด</span>
+                                                หรือลากไฟล์มาทีนี่
+                                            </p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">รองรับไฟล์ PNG, JPG
+                                                , jPAGE </p>
+                                        </div>
+                                        <input id="dropzone-file" type="file" name="profileprofile" accept="image/*"
+                                            onchange="previewImage(this)" class="hidden" />
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="col-span-2">
+                                <img class="w-20 h-20" id="preview" style="border-radius: 50%; border: 1px solid #eee;"
+                                    src="" alt="">
+                            </div>
+                        </div>
+                        <button type="submit"
+                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            บันทึก
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================================
+        Menus Reward 
+    =========================================================================== -->
+        <div
+            class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+            <ul class="navbar_profile flex flex-wrap -mb-px">
+                <li class="me-2 categoryButton">
+                    <a href="/<%= usersesstion.url %>"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700">หน้าหลัก</a>
+                </li>
+                <li class="me-2 categoryButton">
+                    <a href="/<%= usersesstion.url %>/video"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700"
+                        aria-current="page">วีดีโอ</a>
+                </li>
+                <li class="me-2 categoryButton">
+                    <a href="/<%= usersesstion.url %>/reward"
+                        class="inline-block p-4 border-b-2 text-sky-500 border-b-2 border-sky-500 rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700">รางวัล</a>
+                </li>
+                <li class="me-2 categoryButton">
+                    <a href="/<%= usersesstion.url %>/live"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700">Live</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ======================
+        content menus
+    ===================================================== -->
+        <div class="homes">
+            <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">รางวัล</h2>
+            <div class="reward">
+                <div class="reward_code">
+                    <form action="/reward" method="post">
+                        <input type="text" name="reward_code" id="reward_code" placeholder="ใส่โค้ดเพื่อรับรางวัล">
+                        <button type="submit">รับรางวัล</button>
+                    </form>
+                </div>
+                <div class="banner">
+                    <div class="text">
+                        <h2>คุณสามารถรับรางวัลได้ที่นี่</h2>
+                        <p>อั่งเปาจะแจกทุกวัน เสาร์ จันทร์ พูธ อัตเดตอั่งเปาเวลา 00:00 น ของทุกคืน</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('preview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+                preview.style.display = 'none';
+            }
+        }
+    </script>
+    <script>
+        window.addEventListener('scroll', function () {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-white-bg');
+            } else {
+                navbar.classList.remove('navbar-white-bg');
+            }
+        });
+
+    </script>
+    <script>
+        function confirmLogout(event) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: 'ยืนยันการออกจากระบบ',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'ใช่, ออกจากระบบ',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = event.target.href;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

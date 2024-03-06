@@ -1,0 +1,152 @@
+<nav class="flex relative justify-between items-center max-w-7xl md:px-2 px-4 h-20 mx-auto">
+    <div class="narbar-left">
+        <div class="narbar-mobilib">
+            <div class="monil">
+                <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none"
+                        stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="logo">
+                    <a href="/">
+                        <img class="w-10" src="/images/logo/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div id="dropdownNavbar"
+                    class="menus-card z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <ul>
+                        <% if (!usersesstion) { %>
+                            <li class="<%= active === 'home' ? 'active' : '' %>">
+                                <a href="/">
+                                    หน้าหลัก
+                                </a>
+                            </li>
+                            <li class="<%= active === 'actcile' ? 'active' : '' %>">
+                                <a href="/acticle">
+                                    บทความ
+                                </a>
+                            </li>
+                            <li class="<%= active === 'trending' ? 'active' : '' %>">
+                                <a href="/trending">
+                                    ยอดนิยม
+                                </a>
+                            </li>
+                            <li class="<%= active === 'login' ? 'active' : '' %>">
+                                <a href="/login">
+                                    เข้าสู่ระบบ
+                                </a>
+                            </li>
+                            <li class="<%= active === 'singup' ? 'active' : '' %>">
+                                <a href="/singup">
+                                    สมัครสมาชิก
+                                </a>
+                            </li>
+                            <% } else { %>
+                                <li class="<%= active === 'home' ? 'active' : '' %>">
+                                    <a href="/">
+                                        หน้าหลัก
+                                    </a>
+                                </li>
+                                <li class="<%= active === 'actcile' ? 'active' : '' %>">
+                                    <a href="/acticle">
+                                        บทความ
+                                    </a>
+                                </li>
+                                <li class="<%= active === 'trending' ? 'active' : '' %>">
+                                    <a href="/trending">
+                                        ยอดนิยม
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/upload_acticle">
+                                        อัพโหลด
+                                    </a>
+                                </li>
+                                <li class="<%= active === 'profile' ? 'active' : '' %>">
+                                    <a href="/<%= usersesstion.url %>">
+                                        โปรไฟล์
+                                    </a>
+                                </li>
+                                <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-pc">
+            <div class="logo">
+                <a href="/">
+                    <img src="/images/logo/logo.png" alt="logo">
+                    <p>Ani Night</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar-right">
+        <div class="menus">
+            <ul>
+                <% if (!usersesstion) { %>
+                    <li class="<%= active === 'home' ? 'active' : '' %>">
+                        <a href="/">
+                            หน้าหลัก
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/search">
+                            ค้นหา
+                        </a>
+                    </li>
+                    <li class="<%= active === 'actcile' ? 'active' : '' %>">
+                        <a href="/acticle">
+                            บทความ
+                        </a>
+                    </li>
+                    <li class="<%= active === 'trending' ? 'active' : '' %>">
+                        <a href="/trending">
+                            ยอดนิยม
+                        </a>
+                    </li>
+                    <li class="<%= active === 'login' ? 'active' : '' %>">
+                        <a href="/login">
+                            เข้าสู่ระบบ
+                        </a>
+                    </li>
+                    <li class="<%= active === 'singup' ? 'active' : '' %>">
+                        <a href="/singup">
+                            สมัครสมาชิก
+                        </a>
+                    </li>
+                    <% } else { %>
+                        <li class="<%= active === 'home' ? 'active' : '' %>">
+                            <a href="/">
+                                หน้าหลัก
+                            </a>
+                        </li>
+                        <li class="<%= active === 'actcile' ? 'active' : '' %>">
+                            <a href="/acticle">
+                                บทความ
+                            </a>
+                        </li>
+                        <li class="<%= active === 'trending' ? 'active' : '' %>">
+                            <a href="/trending">
+                                ยอดนิยม
+                            </a>
+                        </li>
+                        <li >
+                            <a href="/upload_acticle">
+                                อัพโหลด
+                            </a>
+                        </li>
+                        <li class="<%= active === 'profile' ? 'active' : '' %>">
+                            <a href="/<%= usersesstion.url %>">
+                                โปรไฟล์
+                            </a>
+                        </li>
+                        <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>

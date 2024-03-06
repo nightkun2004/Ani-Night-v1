@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Reward Code</title>
+    <link rel="stylesheet" href="../css/admin/dash.css">
+    <link rel="stylesheet" href="../css/admin/code.css">
+    <link rel="stylesheet" href="../css/admin/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css"
+        integrity="sha512-d0olNN35C6VLiulAobxYHZiXJmq+vl+BGIgAxQtD5+kqudro/xNMvv2yIHAciGHpExsIbKX3iLg+0B6d0k4+ZA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <%- include('../admin/sidebar') %>
+            <div class="main" id="main">
+                <div class="sidebarleft">
+                    <%- include('../admin/sidebar') %>
+                </div>
+                <div class="content">
+                    <form action="/reward/update-link-code" method="post">
+                        <label for="new_code">link Code:</label>
+                        <input type="text" id="linkcode" name="linkcode" placeholder="Enter link code"><br><br>
+                        <button type="submit">Update lonk Code</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>

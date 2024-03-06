@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/admin/dash.css">
+    <link rel="stylesheet" href="../css/admin/sidebar.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/acticle.css">
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="fixed inset-x-0 z-20" id="navbar">
+        <%- include('../admin/sidebars/navbar') %>
+    </div>
+    <section class="dash mx-auto px-4 xl:max-w-7xl pt-[110px]">
+        <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+            <div class="boxs">
+                <div class="box">
+                    <h2>จำนวนการสมัคร</h2>
+                    <p><%= userCount %> ผู้ใช้</p>
+                    <box-icon name='user'></box-icon>
+                </div>
+                <div class="box">
+                    <h2>ยอดเข้าชมหน้าเว็บ</h2>
+                    <p>0</p>
+                    <box-icon name='user'></box-icon>
+                </div>
+                <div class="box">
+                    <h2>ผู้ใช้ทั้งหมดที่ได้รับ</h2>
+                    <p>0</p>
+                    <box-icon name='user'></box-icon>
+                </div>
+                <div class="box">
+                    <h2>จำนวนบทความ</h2>
+                    <p>0</p>
+                    <box-icon name='user'></box-icon>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function () {
+           var navbar = document.getElementById('navbar');
+           if (window.scrollY > 50) {
+               navbar.classList.add('navbar-white-bg');
+           } else {
+               navbar.classList.remove('navbar-white-bg');
+           }
+       });
+   </script>
+</body>
+
+</html>

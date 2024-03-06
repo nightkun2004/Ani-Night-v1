@@ -1,0 +1,449 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Anuphan", sans-serif;
+    background-color: #f6f6f6;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    background-color: #fff;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left .logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.nav-left .logo img {
+    pointer-events: none;
+}
+
+.nav-left .menus {
+    padding-left: 20px;
+    position: relative;
+}
+
+.nav-left .menus button {
+    background: none;
+    border: none;
+    font-size: 29px;
+    cursor: pointer;
+}
+
+.nav-left .menus .menus-popup ul {
+    padding: 0;
+    margin: 0;
+}
+
+.nav-left .menus .menus-popup {
+    position: absolute;
+    top: 40px;
+    z-index: 1;
+    left: 0;
+    background-color: #f6f6f6;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left .menus .menus-popup ul li {
+    padding: 10px;
+    position: relative;
+    list-style: none;
+    text-align: left;
+}
+
+.nav-left .menus .menus-popup ul li a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+}
+
+.nav-left .search_box {
+    background-color: #f9f9f9;
+    width: 500px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.nav-left .search_box .iconsearch {
+    padding-right: 10px;
+}
+
+.nav-left .search_box form input[type=search] {
+    background-color: #f9f9f9;
+    width: 420px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.nav-left .search_box form {
+    display: flex;
+}
+
+.nav-left .search_box button[type=submit] {
+    background-color: #fff;
+    padding: 10px;
+    border: none;
+    outline: none;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.menus-popup ul li a svg {
+    margin-right: 5px;
+}
+
+.iconright {
+    margin-left: auto;
+}
+
+.nav-left .menus .menus-popup ul li p {
+    padding-left: 20px;
+}
+
+.nav-left .menus .menus-popup ul li .iconright {
+    position: absolute;
+    right: 0;
+}
+
+.nav-left .menus .menus-popup ul li .hone-icon {
+    color: #0099ff;
+}
+
+.nav-left .menus .menus-popup ul li .article-icon {
+    color: #ffd000;
+}
+
+.nav-left .menus .menus-popup ul li .trand-icon {
+    color: #ff4800;
+}
+
+.togle-btn:hover+.menus-popup,
+.menus-popup:hover {
+    display: block;
+}
+
+
+
+/* เมื่อเม้าส์ hover ที่เมนูป๊อปอัพ */
+.menus-popup:hover {
+    display: block;
+}
+
+.mangas_update {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 4fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.manga_update {
+    border-radius: 12px;
+}
+
+.manga_update .manga_pic img {
+    width: 100%;
+    height: 400px;
+    border-radius: 12px 12px 0 0;
+    object-fit: cover;
+}
+
+.manga_update .manga_text{
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.mangas_update .btn-read {
+    padding: 10px;
+    width: 100%;
+    & a {
+        text-decoration: none;
+        color: #000;
+        background-color: #ff9100;
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+}
+
+.profiles-card a img {
+    width: 59px;
+    border-radius: 50%;
+}
+
+.menus-profile-poup {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: #fff;
+    min-width: 120px;
+    border-radius: 15px;
+    z-index: 1;
+}
+
+/* สไตล์เมนูรายการ */
+.menus-profile-poup ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menus-profile-poup ul li {
+    padding: 10px;
+    font-size: 19px;
+    text-align: left;
+}
+
+/* สไตล์เมนูลิงก์ */
+.menus-profile-poup ul li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.menus-profile-poup ul li a p {
+    padding-left: 10px;
+}
+
+.menus-profile-poup ul li a .user-icon {
+    color: #0099ff;
+    font-size: 29px;
+}
+
+.menus-profile-poup ul li a .seting-icon {
+    color: #a603b4;
+    font-size: 29px;
+}
+
+/* สไตล์ไอคอน */
+.menus-profile-poup ul li a svg {
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+/* สไตล์ไอคอนทางด้านขวา */
+.menus-profile-poup ul li .iconright {
+    margin-left: auto;
+}
+
+/* เมื่อคลิกที่ปุ่มโปรไฟล์ */
+#btnOpenprofile:hover+.menus-profile-poup,
+.menus-profile-poup:hover {
+    display: block;
+}
+
+/* เมื่อเมาส์อยู่ในเมนูป๊อปอัพ */
+.menus-profile-poup:hover {
+    display: block;
+} */
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.catagory {
+    display: flex;
+    align-items: center;
+}
+
+.catagory p {
+    margin: 10px;
+}
+
+.catagory p a {
+    text-decoration: none;
+    color: #000;
+    font-size: 15px;
+}
+
+.read .card_info {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info_edtor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    & h2 {
+        padding-left: 20px;
+        font-size: 19px;
+    }
+}
+
+.profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.article_pic img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+
+.read .card_info .info-text {
+    text-align: center;
+    & h2 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.info-text .views , .data-time{
+    font-size: 15px;
+    color: #ccc;
+}
+
+.ads1 {
+    background-color: #f9f9f9;
+    width: 100%;
+    height: 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.read .article-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.article-content .content-left {
+    width: 100%;
+    
+}
+
+.content-raws {
+    background-color: #fff;
+    padding: 20px;
+}
+.article-content .content-right{
+    width: auto;
+    margin: 10px;
+}
+
+.foryou-articles {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    height: auto;
+}
+
+.foryou-articles .items {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.foryou-articles h2 {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.item {
+    min-width: 250px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    & a {
+        text-decoration: none;
+        color: #000;
+    }
+}
+
+.item .pic-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+}
+
+.footer {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+@media screen and (max-width: 780px) {
+    .articles {
+        height: 500px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .foryou-articles {
+        margin: 10px;
+    }
+
+    .card_info {
+        margin: 10px;
+    }
+
+    .nav-left .search_box {
+        display: none;
+    }
+    .read .article-content {
+        flex-direction: column;
+    }
+    .article-content .content-left , .content-right{
+        width: 100%;
+    }
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+}
