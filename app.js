@@ -66,6 +66,6 @@ app.use((req, res, next) => {
   res.status(404).render('404');
 });
 
-app.listen(8000,()=> {
-    console.log(`server is Runing to http://localhost:8000`)
+app.listen(3000,()=> {
+    console.log(`server is Runing to http://localhost:3000`)
 })
