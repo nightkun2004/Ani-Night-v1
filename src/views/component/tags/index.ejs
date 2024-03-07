@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tags</title>
+    <link rel="stylesheet" href="../css/acticle.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <%- include('../../navbar') %>
+        <section class="tags mx-auto px-4 xl:max-w-7xl pt-[110px]">
+            <div class="bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm h-full">
+                <h2 class="text-2xl text-center">แท็กของคุณ: <%= tagname %>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <% articlesWithTag.forEach(item=> { %>
+                        <div >
+                            <a data-lightbox="post-blog-left" title="<%= item.title %>"
+                                style="text-decoration: none; color: #000;"
+                                href="/read/<%= item.url %>?lang=<%= language %>"
+                                class="flex flex-col justify-between bg-white rounded-lg shadow-md overflow-hidden">
+                                <div class="pic-image-actice">
+                                    <img src="/acticles_images/<%= item.photo %>" alt="" class="w-full h-auto object-cover">
+                                    <p class="tag px-4 py-2 bg-gray-200 text-sm">
+                                        <%= item.categories %>
+                                    </p>
+                                </div>
+                                <div class="p-4">
+                                    <h2 class="title-actice text-lg font-semibold truncate">
+                                        <%= item.title.substring(0, 40) + '.....' %>
+                                    </h2>
+                                    <div class="flex justify-between items-center mt-2ce">
+                                            <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"><a href="/read/<%= item.url %>" class="text-white">อ่านต่อ</a></button>
+                                        </div>
+                                        <div class="views">
+                                            <% function formatNumber(number) { if (number>= 1000000)
+                                                {
+                                                return (number / 1000000).toFixed(1) + 'm';
+                                                } else if (number >= 1000) {
+                                                return (number / 1000).toFixed(1) + 'k';
+                                                } else {
+                                                return number;
+                                                }
+                                                }
+        
+                                                var number1 = 100;
+                                                var number2 = 500;
+                                                var number3 = 1500;
+                                                var number4 = 1200000;
+                                                %>
+                                                <p  class="text-sm text-gray-500">การดู : <span  class="font-bold">
+                                                        <%= formatNumber(item.views) %>
+                                                    </span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        <% }) %>
+                </div>
+                <div class="overflow-hidden">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-fb+5w+4e-db+86"
+     data-ad-client="ca-pub-6579807593228261"
+     data-ad-slot="9650032767"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+                </div>
+            </div>
+        </section>
+        <%- include('../../footer') %>
+</body>
+
+</html>

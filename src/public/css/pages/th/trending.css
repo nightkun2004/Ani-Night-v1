@@ -1,0 +1,176 @@
+.trams {
+    display: flex;
+    flex-direction: column;
+}
+
+.img_pic_acticle {
+    width: 220px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.pic {
+    position: relative;
+}
+
+.top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    background-color: rgb(255, 179, 79);
+    color: #fff;
+    border-radius: 0 0 60px 0;
+}
+
+.title {
+    color: #333;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding-left: 5px;
+}
+
+.top span {
+    font-size: 29px;
+    font-weight: bold;
+}
+
+.item_tra {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.trending-container {
+    min-height: 740px;
+    background-size: 100% 640px;
+    background-image: linear-gradient(180deg, #53d4fc 0%, #98f3ff 23%, #66cfff 54%, #FAFAFA 77%, #FAFAFA 100%);
+    background-repeat: no-repeat;
+}
+
+.trending-card__container {
+    background: top right / 320px 320px no-repeat url(https://p.bstarstatic.com/fe-lib/images/web/anime-ranking-icon.png), linear-gradient(-213deg, #FFFFFF 0%, #FAFAFA 19%, rgba(250, 250, 250, 0) 41%), linear-gradient(-206deg, #FAF4E6 0%, #FAFAFA 43%, #FAFAFA 95%);
+}
+
+.trending-card__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.trending-card__title-text {
+    color: #8c6b1c;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+.trending-card__subtitle[data-v-7926129b] {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    font-weight: 400;
+}
+
+.mangas_update {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+@media screen and (max-width: 680px) {
+    .mangas_update {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+/* 
+ol, ul, li {
+    list-style: none;
+}
+
+.trending-list[data-v-4list] {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 24px;
+    grid-row-gap: 42px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.card-col {
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+}
+
+.card-cover {
+    position: relative;
+    background: transparent;
+}
+
+/* .trd {
+    position: relative;
+    padding-top: 56.25%;
+    background-position: 0 0;
+    background-size: 100%;
+    background-image: url(data:image/png;base64,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);
+    overflow: hidden;
+    transform: translateZ(0);
+
+.text {
+    display: block;
+    text-align: right;
+    line-height: 1;
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff;
+    transform: scaleY(-1);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+    white-space: pre;
+}
+
+.night-over {
+    position: absolute;
+    top: -6px;
+    left: 0;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 700;
+    user-select: none;
+    width: 42px;
+    height: 42px;
+}
+
+.night-over>span {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 75%;
+    width: 85%;
+    justify-content: center;
+    align-items: center;
+}
+
+.info{
+    display: grid;
+}
+
+
+.card-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media screen and (max-width: 680px) {
+    .card-list {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+ */

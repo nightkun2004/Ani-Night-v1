@@ -7,9 +7,10 @@
     <title>
         <%= acticle.title %>
     </title>
-    <link rel="stylesheet" href="./css/acticle.css">
-    <link rel="stylesheet" href="./css/font/font1.css">
-    <link rel="stylesheet" href="./css/pages/manga.css">
+    <link rel="stylesheet" href="../css/acticle.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <link rel="stylesheet" href="../css/pages/manga.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="keyword" content="<%= acticle.title %>">
     <meta property="og:title" content="<%= acticle.title %>">
@@ -48,7 +49,7 @@
         <%- include('../en/navbar') %>
     </div>
     <section class="readsec mx-auto px-4 xl:max-w-7xl pt-[110px]">
-        <p class="text-lg mb-6 text-gray-600"><a href="/">หน้าหลัก</a><span class="engfont-bold m-2"> &gt; </span>
+        <p class="text-lg mb-6 text-gray-600"><a href="/">Home</a><span class="engfont-bold m-2"> &gt; </span>
             <%= acticle.title.substring(0, 20) + '...' %>
         </p>
         <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
@@ -77,11 +78,11 @@
                         var number4 = 1200000;
                         %>
                         <p class="pl-3">
-                            การดู <%= formatNumber(acticle.views) %> ครั้ง
+                            viewing <%= formatNumber(acticle.views) %> Views
                         </p>
                 </div>
                 <div class="data-time">
-                    <p class="pl-3 text-slate-500">เขียนเมื่อ
+                    <p class="pl-3 text-slate-500"> * written when 
                         <%= new Date(acticle.createdAt).toLocaleDateString('en-EN') %>
                     </p>
                 </div>
@@ -113,7 +114,7 @@
                                 href="/tag/${tag}">${tag}</a>`).join(', ')
                             %></h2>
                     <% } else { %>
-                        <h2>Tags: ไม่มีแท็ก</h2>
+                        <h2>Tags: NoTags</h2>
                         <% } %>
             </div>
             <div class="absolute md:right-12 md:bottom-4 right-4 bottom-4 px-2 py-2 rounded-full">
@@ -125,10 +126,10 @@
                             <path
                                 d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5" />
                         </svg>
-                        <p class="pl-2">แชร์</p>
+                        <p class="pl-2">Share</p>
                     </button>
                     <div class="popup ml-2" id="popup" style="display: none;">
-                        <span class="popup-text" id="popupText">คัดลอกลิงค์แล้ว!</span>
+                        <span class="popup-text" id="popupText">Link copied!</span>
                     </div>
                 </div>
 
@@ -158,40 +159,43 @@
 
         <!-- For You -->
         <div class="bg-white px-6 md:px-12 mb-[50px] py-8 md:py-12 mt-6 shadow-sm relative">
-            <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">แนะนำ</h2>
+            <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">For You</h2>
             <div class="mangas_update">
                 <% articleforyou.forEach((article) => { %>
                     <div class="manga_update">
-                        <div class="manga_pic">
-                            <img src="/acticles_images/<%= article.photo %>"
-                                alt="https://ani-night.online/acticles_images/<%= article.photo %>">
-                        </div>
-                        <div class="manga_text">
-                            <h3><%= article.title %></h3>
-                        </div>
-                        <% if (article.author && article.author.id) { %>
-                            <div class="ch">
-                                <div class="profile-logo">
+                        <a href="/read/<%= article.url %>?lang=<%= language %>">
+                            <div class="manga_pic">
+                                <img src="/acticles_images/<%= article.photo %>"
+                                    alt="https://ani-night.online/acticles_images/<%= article.photo %>">
+                            </div>
+                            <div class="manga_text">
+                                <h3><%= article.title %></h3>
+                            </div>
+                            <% if (article.author && article.author.id) { %>
+                                <div class="ch">
+                                    <div class="profile-logo">
+                                        <a href="/editor/<%= article.author.id.username %>">
+                                            <img src="/profiles/<%= article.author.id.profile %>" alt="">
+                                        </a>
+                                    </div>
                                     <a href="/editor/<%= article.author.id.username %>">
-                                        <img src="/profiles/<%= article.author.id.profile %>" alt="">
+                                        <h2><%= article.author.id.username %></h2>
                                     </a>
                                 </div>
-                                <a href="/editor/<%= article.author.id.username %>">
-                                    <h2><%= article.author.id.username %></h2>
-                                </a>
+                                <% } else { %>
+                                    <p>Author: No Author</p> 
+                                <% } %>  
+                            <div class="btn-read">
+                                <a href="">อ่าน</a>
                             </div>
-                            <% } else { %>
-                                <p>Author: ไม่พบผู้เขียน</p> 
-                            <% } %>  
-                        <div class="btn-read">
-                            <a href="/read/<%= article.url %>?lang=<%= language %>">อ่าน</a>
-                        </div>
+                        </a>
                     </div>
                     <% }) %>
             </div>
         </div>
     </section>
 
+    <%- include('../footer') %>
 
     <script src="/js/script.js"></script>
     <script>

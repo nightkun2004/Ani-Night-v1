@@ -8,6 +8,7 @@
         <%= acticle.title %>
     </title>
     <link rel="stylesheet" href="../css/acticle.css">
+    <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/font/font1.css">
     <link rel="stylesheet" href="../css/pages/manga.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -106,16 +107,17 @@
                         <% } %>
             </div>
             <div class="mt-4 mb-12">
-                <% if (acticle && acticle.tags && acticle.tags.length> 0) { %>
-                    <h2
-                        class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6   text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 focus:border-info-600 focus:text-info-600 focus:outline-none focus:ring-0 active:border-info-700 active:text-info-700">
-                        Tags: <%- acticle.tags.map(tag=> `<a class="text-sky-500"
-                                href="/tag/${tag}">${tag}</a>`).join(', ')
-                            %></h2>
-                    <% } else { %>
-                        <h2>Tags: ไม่มีแท็ก</h2>
-                        <% } %>
+                <% if (acticle && acticle.tags && acticle.tags.length > 0) { %>
+                    <h2 class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 focus:border-info-600 focus:text-info-600 focus:outline-none focus:ring-0 active:border-info-700 active:text-info-700">
+                        Tags: <% acticle.tags.forEach(tag => { %>
+                            <a class="text-sky-500" href="/tag/<%= tag %>"><%= tag %></a>
+                        <% }); %>
+                    </h2>
+                <% } else { %>
+                    <h2>Tags: ไม่มีแท็ก</h2>
+                <% } %>
             </div>
+            
             <div class="absolute md:right-12 md:bottom-4 right-4 bottom-4 px-2 py-2 rounded-full">
                 <div class="flex items-center">
                     <button id="copylink"
@@ -192,6 +194,7 @@
         </div>
     </section>
 
+    <%- include('../footer') %>
 
     <script src="/js/script.js"></script>
     <script>

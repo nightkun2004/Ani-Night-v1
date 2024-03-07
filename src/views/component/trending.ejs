@@ -9,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/pages/th/trending.css">
     <link rel="stylesheet" href="./css/acticle.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/font/font1.css">
@@ -24,91 +25,86 @@
         integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<style>
-    .trams {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .img_pic_acticle {
-        width: 220px;
-        height: 120px;
-        object-fit: contain;
-    }
-
-    .pic {
-        position: relative;
-    }
-
-    .top {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100px;
-        background-color: rgb(255, 179, 79);
-        color: #fff;
-        border-radius: 0 0 60px 0;
-    }
-
-    .title {
-        color: #333;
-        font-size: 20px;
-        font-weight: 500;
-        margin-bottom: 20px;
-        padding-left: 5px;
-    }
-
-    .top span {
-        font-size: 29px;
-        font-weight: bold;
-    }
-
-    .item_tra {
-        display: flex;
-        margin-bottom: 30px;
-    }
-</style>
 
 <body>
     <div class="fixed inset-x-0 z-20" id="navbar">
         <%- include('../navbar') %>
     </div>
 
-    <section class="trending mx-auto px-4 xl:max-w-7xl pt-[120px]" id="trending">
-        <div class="trams bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm relative">
-            <p class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">มาแรงตอนนี้</p>
+    <section class="trending-container mx-auto px-4 xl:max-w-7xl pt-[120px]" id="trending">
+        <div class="trams trending-card__container bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm relative">
+            <div class="trending-card__title">
+                <span class="trending-card__title-text">มาแรงในตอนนี้</span>
+            </div>
+            <div data-v-7926129b="" class="trending-card__subtitle">ยอดวิวสามารถเปลี่ยนแปลงได้ทุกวัน</div>
             <% topViewedActicles.forEach((article, index)=> { %>
-                <div class="item_tra flex">
-                    <a href="/read/<%= article.url %>?lang=<%= language %>">
-                        <div class="pic">
-                            <img src="/acticles_images/<%= article.photo %>" alt="" class="img_pic_acticle">
-                            <h2 class="top"><span>
-                                    <%= index + 1 %>
-                                </span></h2>
-                        </div>
-                        <h2 class="title">
-                            <%= article.title %>
-                        </h2>
-                    </a>
-                </div>
+                <!-- <section class="visible">
+                    <ul class="grid grid-cols-2 gap-4">
+                        <li class="mb-[30px]">
+                            <div class="card-col grid grid-cols-2 gap-4">
+                                <div class="card-cover">
+                                    <div class="trd" style="width: 227px; height: 127px;">
+                                        <a href="/read/<%= article.url %>?lang=<%= language %>" target="_blank">
+                                            <img src="/acticles_images/<%= article.photo %>" alt="/acticles_images/<%= article.photo %>" loading="lazy">
+                                        </a>
+                                    </div>
+                                    <p class="night-over">
+                                        <span><%= index + 1 %></span>
+                                    </p>
+                                </div>
+                                <div class="bstar-video-card__text-wrap">
+                                    <div class="info">
+                                        <p class="mb-4">
+                                            <a class="bstar-video-card__title-text" href="/read/<%= article.url %>?lang=<%= language %>" target="_blank"><%= article.title %></a>
+                                        </p>
+                                        <p class="flex items-center flex-wrap">
+                                            <span class="videocard-slot__playinfo-text videocard-slot__playinfo-vv"><%= article.views %> views</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section> -->
+
+                <section class="munes-list">
+                    <ul class="mangas_update grid grid-cols-2 gap-4 sm:grid-cols-1 ">
+                        <li class="mb-4">
+                            <div class="relative">
+                                <!-- รูปภาพด้านซ้าย -->
+                                <img class="w-full" src="/acticles_images/<%= article.photo %>" alt="Article Photo">
+                                <!-- index หมายถึงจำนวนที่อยู่ในรูปภาพมุ่มบนซ้าย -->
+                                <p class="absolute flex items-center top-0 left-0 bg-orange-300 w-[50px] text-white px-2 py-1"><%= index + 1 %></p>
+                            </div>
+                            <!-- ข้อมูลได้ขวา -->
+                            <div class="info px-4 py-2">
+                                <a href="/read/<%= article.url %>?lang=<%= language %>">
+                                    <h2 class="text-lg font-bold mb-2"><%= article.title %></h2>
+                                <div class="views text-gray-500"><%= article.views %> views</div>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+               
                 <% }) %>
         </div>
     </section>
 
     <%- include('../footer') %>
 
-    <script src="/js/search.js"></script>
-    <script>
+        <script src="/js/search.js"></script>
+        <script>
 
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
-    </script>
+            window.addEventListener('scroll', function () {
+                var navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('navbar-white-bg');
+                } else {
+                    navbar.classList.remove('navbar-white-bg');
+                }
+            });
+        </script>
 </body>
 
 </html>
