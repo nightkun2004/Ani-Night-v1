@@ -37,57 +37,34 @@
                 <span class="trending-card__title-text">มาแรงในตอนนี้</span>
             </div>
             <div data-v-7926129b="" class="trending-card__subtitle">ยอดวิวสามารถเปลี่ยนแปลงได้ทุกวัน</div>
-            <% topViewedActicles.forEach((article, index)=> { %>
-                <!-- <section class="visible">
-                    <ul class="grid grid-cols-2 gap-4">
-                        <li class="mb-[30px]">
-                            <div class="card-col grid grid-cols-2 gap-4">
-                                <div class="card-cover">
-                                    <div class="trd" style="width: 227px; height: 127px;">
-                                        <a href="/read/<%= article.url %>?lang=<%= language %>" target="_blank">
-                                            <img src="/acticles_images/<%= article.photo %>" alt="/acticles_images/<%= article.photo %>" loading="lazy">
-                                        </a>
-                                    </div>
-                                    <p class="night-over">
-                                        <span><%= index + 1 %></span>
-                                    </p>
-                                </div>
-                                <div class="bstar-video-card__text-wrap">
-                                    <div class="info">
-                                        <p class="mb-4">
-                                            <a class="bstar-video-card__title-text" href="/read/<%= article.url %>?lang=<%= language %>" target="_blank"><%= article.title %></a>
-                                        </p>
-                                        <p class="flex items-center flex-wrap">
-                                            <span class="videocard-slot__playinfo-text videocard-slot__playinfo-vv"><%= article.views %> views</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </section> -->
-
-                <section class="munes-list">
-                    <ul class="mangas_update grid grid-cols-2 gap-4 sm:grid-cols-1 ">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <% topViewedActicles.forEach((article, index)=> { %>
+                    <ul>
                         <li class="mb-4">
                             <div class="relative">
                                 <!-- รูปภาพด้านซ้าย -->
                                 <img class="w-full" src="/acticles_images/<%= article.photo %>" alt="Article Photo">
                                 <!-- index หมายถึงจำนวนที่อยู่ในรูปภาพมุ่มบนซ้าย -->
-                                <p class="absolute flex items-center top-0 left-0 bg-orange-300 w-[50px] text-white px-2 py-1"><%= index + 1 %></p>
+                                <p
+                                    class="absolute flex items-center top-0 left-0 bg-orange-300 w-[50px] text-white px-2 py-1">
+                                    <%= index + 1 %>
+                                </p>
                             </div>
                             <!-- ข้อมูลได้ขวา -->
                             <div class="info px-4 py-2">
                                 <a href="/read/<%= article.url %>?lang=<%= language %>">
-                                    <h2 class="text-lg font-bold mb-2"><%= article.title %></h2>
-                                <div class="views text-gray-500"><%= article.views %> views</div>
+                                    <h2 class="text-lg font-bold mb-2">
+                                        <%= article.title %>
+                                    </h2>
+                                    <div class="views text-gray-500">
+                                        <%= article.views %> views
+                                    </div>
                                 </a>
                             </div>
                         </li>
                     </ul>
-                </section>
-               
-                <% }) %>
+                    <% }) %>
+            </div>
         </div>
     </section>
 

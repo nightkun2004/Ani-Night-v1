@@ -1,3 +1,5 @@
 node_modules/
+src/public/videos
+src/public/acticles_images
 
-.env/
+package-lock.json

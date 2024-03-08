@@ -6,6 +6,7 @@ const videoSchema = new mongoose.Schema({
     description: String,
     tags: [String],
     filePath: String,
+    categories: String,
     videoid: {
         type: String
     },
@@ -41,6 +42,12 @@ const videoSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
+        },
+    ],
+    subtitles: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Subtitle',
         },
     ],
     watched: {

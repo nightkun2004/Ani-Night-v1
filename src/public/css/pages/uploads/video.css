@@ -1,0 +1,104 @@
+:root {
+    --color-base-skyblue: #00a8f4;
+    --color-base-red: #dc0000;
+    --color-base-deepblue: #003fad;
+    --color-base-yellow: #ffea5c;
+    --color-base-pink: #ff6463;
+    --color-hightlight-yellow: #fff6d5;
+    --color-hightlight-red: #ff6463;
+    --color-theme-top: #4bceec;
+    --color-theme-movieanime: #4bceec;
+    --color-theme-reading: #4bceec;
+    --color-theme-goods: #ff9ca7;
+    --color-theme-game: #52c9a7;
+    --color-theme-special: #ffa360;
+    --color-theme-fworld: #00a8f4;
+    --color-white: #fff;
+    --color-black: #000;
+    --color-shodow: #ccc;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    position: relative;
+    height: auto;
+    font-family: 'Kanit', sans-serif;
+}
+
+.videos {
+    position: relative;
+    width: 100%;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post-video {
+    width: 330px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: absolute;
+    font-family: 'Kanit', sans-serif;
+}
+
+#previewVideo {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#progressPopup {
+    text-align: center;
+}
+
+#progressBarContainer {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+#progressBar {
+    width: 0;
+    height: 5px;
+    border-radius: 10px;
+    background-color: #3498db;
+}
+
+#progressPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+#succeed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    text-align: center;
+    align-items: center;
+}
+
+#succeed button {
+    border: none;
+    background-color: var(--color-base-red);
+    border-radius: 7px;
+    padding: 10px;
+    & a {
+        text-decoration: none;
+        color: var(--color-white);
+    }
+}

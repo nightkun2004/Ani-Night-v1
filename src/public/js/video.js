@@ -1,45 +1,65 @@
-let canvas = document.getElementById('gameCanvas');
-let context = canvas.getContext('2d');
+const videos = document.querySelector('.videos');
+const videoWidth = 220;
 
-// สร้าง Player
-let player = {
-    x: 50,
-    y: canvas.height / 2,
-    width: 50,
-    height: 50,
-    speed: 5,
-    color: '#FF0000',
-
-    draw: function() {
-        context.fillStyle = this.color;
-        context.fillRect(this.x, this.y, this.width, this.height);
-    },
-
-    update: function() {
-        if (keys['ArrowUp'] && this.y > 0) this.y -= this.speed;
-        if (keys['ArrowDown'] && this.y < canvas.height - this.height) this.y += this.speed;
-        if (keys['ArrowLeft'] && this.x > 0) this.x -= this.speed;
-        if (keys['ArrowRight'] && this.x < canvas.width - this.width) this.x += this.speed;
+function layout() {
+    function getInfo() {
+        const videofallWidth = videos.offsetWidth;
+        const column = Math.floor(videofallWidth / videoWidth);
+        const gapCount = column - 1;
+        const freeSpace = videofallWidth - videoWidth * column;
+        const gap = freeSpace / gapCount;
+        return {
+            gap: gap,
+            column: column,
+        };
     }
-};
 
-let keys = {};
+    function renderVideosLayout(videosInfo) {
+        const videos = document.querySelectorAll('.post-video');
+        let currentTop = new Array(videosInfo.column).fill(0);
+    
+        videos.forEach((video) => {
+            const videoHeight = video.offsetHeight + videosInfo.gap;
+            const minIndex = currentTop.indexOf(Math.min(...currentTop));
+            const leftPos = minIndex * (videoWidth + videosInfo.gap);
+    
+            // video.style.position = 'absolute';
+            video.style.width = videoWidth + 'px'; 
+            video.style.transform = `translate(${leftPos}px, ${currentTop[minIndex]}px)`;
+            currentTop[minIndex] += videoHeight;
+        });
 
-document.addEventListener('keydown', function(event) {
-    keys[event.key] = true;
-});
+        const maxHeight = Math.max(...currentTop);
+        videosContainer.style.height = maxHeight + 'px';
+    }
+    
 
-document.addEventListener('keyup', function(event) {
-    keys[event.key] = false;
-});
-
-function update() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    player.update();
-    player.draw();
-
-    requestAnimationFrame(update);
+    const videosInfo = getInfo();
+    renderVideosLayout(videosInfo);
 }
 
-update();
+const videosContainer = document.querySelector('.videos');
+const paginatedVideosData = videosContainer.dataset.paginatedVideos;
+
+if (paginatedVideosData) {
+    const paginatedVideos = JSON.parse(paginatedVideosData);
+    layout();
+} else {
+    console.error("Error: No paginatedVideos data found.");
+}
+
+window.addEventListener('load', () => layout());
+window.addEventListener('resize', () => layout());
+window.addEventListener('orientationchange', layout());
+
+// window.addEventListener('load', handleWindowSize);
+// window.addEventListener('resize', handleWindowSize);
+
+// function handleWindowSize() {
+//     const windowWidth = window.innerWidth;
+
+//     if (windowWidth <= 520) {
+//         window.location.href = '/videos/for-you/mobile';
+//     }
+// }
+

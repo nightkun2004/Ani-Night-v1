@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const mongoose = require("../../../config")
 const Reward = require("../../../models/code")
+const videos = require('../videos/router')
 
 router.get('/:url/video', async (req, res) => {
     try {
@@ -64,5 +65,6 @@ router.get('/:url/live', async (req, res) => {
     }
 })
 
+router.use(videos)
 
 module.exports = router
