@@ -1,5 +1,5 @@
 node_modules/
-
+src/public/videos
 src/public/acticles_images
 
 package-lock.json

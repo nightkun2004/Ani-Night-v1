@@ -420,26 +420,18 @@ video_players.forEach(video_player => {
         progressAreaTime.style.setProperty("--x", `${x}px`);
         progressAreaTime.style.display = "block";
         thumbnail.style.setProperty("--x", `${x}px`);
-        thumbnail.style.display = "block";
-        if (x >= progressWidthval - 80) {
-            x = progressWidthval - 80;
-        } else if (x <= 75) {
-            x = 75;
-        } else {
-            x = e.offsetX;
-        }
 
         for (var item of thumbnails) {
             var data = item.sec.find(xl => xl.index === Math.floor(progressTime));
-
             if (data) {
                 if (data.item != undefined) {
-                    thumbnail.setAttribute("style", `background-image: url(${item.data});
-                    background-position-x: ${data.backgroundPositionX}px;background-position-y: ${data.
-                            backgroundPositionY};--x: ${x}px;display: block; `)
-
-                    return
+                    thumbnail.style.backgroundImage = `url(${item.data})`;
+                    thumbnail.style.backgroundPositionX = `${data.backgroundPositionX}px`;
+                    thumbnail.style.backgroundPositionY = `${data.backgroundPositionY}`;
+                    thumbnail.style.display = 'block'; // แสดง thumbnail เมื่อมีภาพ
+                    return;
                 }
+                generateThumbnail(progressTime);
             }
         }
 
@@ -447,9 +439,21 @@ video_players.forEach(video_player => {
         progressAreaTime.innerHTML = `${currentMin} : ${currentSec}`;
     });
 
+    progressArea.addEventListener("mouseleave", () => {
+        progressAreaTime.style.display = "none";
+        thumbnail.style.display = "none";
+    });
+
     function generateThumbnail(time) {
+        // ตรวจสอบว่าวิดีโอถูกเลือกไว้หรือไม่
+        if (!mainVideo.paused) {
+            return;
+        }
+
         let canvas = document.createElement('canvas');
         let context = canvas.getContext('2d');
+        let thumbnailWidth = 165;
+        let thumbnailHeight = 90;
         canvas.width = thumbnailWidth;
         canvas.height = thumbnailHeight;
 
@@ -467,11 +471,6 @@ video_players.forEach(video_player => {
         thumbnail.style.display = 'block';
     }
 
-
-    progressArea.addEventListener("mouseleave", () => {
-        thumbnail.style.display = "none";
-        progressAreaTime.style.display = "none";
-    });
 
     // Auto play
     //   auto_play.addEventListener("click", () => {
@@ -512,62 +511,62 @@ video_players.forEach(video_player => {
         }
     });
 
-// Open settings
-settingsBtn.addEventListener("click", () => {
-    settings.classList.toggle("active");
-    settingsBtn.classList.toggle("active");
-    if (
-        captionsBtn.classList.contains("active") ||
-        captions.classList.contains("active")
-    ) {
-        captions.classList.remove("active");
-        captionsBtn.classList.remove("active");
-    } else if (
-        audioBtn.classList.contains("active") ||
-        audios.classList.contains("active")
-    ) {
-        audios.classList.remove("active");
-        audioBtn.classList.remove("active");
-    }
-});
+    // Open settings
+    settingsBtn.addEventListener("click", () => {
+        settings.classList.toggle("active");
+        settingsBtn.classList.toggle("active");
+        if (
+            captionsBtn.classList.contains("active") ||
+            captions.classList.contains("active")
+        ) {
+            captions.classList.remove("active");
+            captionsBtn.classList.remove("active");
+        } else if (
+            audioBtn.classList.contains("active") ||
+            audios.classList.contains("active")
+        ) {
+            audios.classList.remove("active");
+            audioBtn.classList.remove("active");
+        }
+    });
 
-// Open caption
-captionsBtn.addEventListener("click", () => {
-    captions.classList.toggle("active");
-    captionsBtn.classList.toggle("active");
-    if (
-        settingsBtn.classList.contains("active") ||
-        settings.classList.contains("active")
-    ) {
-        settings.classList.remove("active");
-        settingsBtn.classList.remove("active");
-    } else if (
-        audioBtn.classList.contains("active") ||
-        audios.classList.contains("active")
-    ) {
-        audios.classList.remove("active");
-        audioBtn.classList.remove("active");
-    }
-});
+    // Open caption
+    captionsBtn.addEventListener("click", () => {
+        captions.classList.toggle("active");
+        captionsBtn.classList.toggle("active");
+        if (
+            settingsBtn.classList.contains("active") ||
+            settings.classList.contains("active")
+        ) {
+            settings.classList.remove("active");
+            settingsBtn.classList.remove("active");
+        } else if (
+            audioBtn.classList.contains("active") ||
+            audios.classList.contains("active")
+        ) {
+            audios.classList.remove("active");
+            audioBtn.classList.remove("active");
+        }
+    });
 
-// Open audios
-audioBtn.addEventListener("click", () => {
-    audios.classList.toggle("active");
-    audioBtn.classList.toggle("active");
-    if (
-        settingsBtn.classList.contains("active") ||
-        settings.classList.contains("active")
-    ) {
-        settings.classList.remove("active");
-        settingsBtn.classList.remove("active");
-    } else if (
-        captionsBtn.classList.contains("active") ||
-        captions.classList.contains("active")
-    ) {
-        captions.classList.remove("active");
-        captionsBtn.classList.remove("active");
-    }
-});
+    // Open audios
+    audioBtn.addEventListener("click", () => {
+        audios.classList.toggle("active");
+        audioBtn.classList.toggle("active");
+        if (
+            settingsBtn.classList.contains("active") ||
+            settings.classList.contains("active")
+        ) {
+            settings.classList.remove("active");
+            settingsBtn.classList.remove("active");
+        } else if (
+            captionsBtn.classList.contains("active") ||
+            captions.classList.contains("active")
+        ) {
+            captions.classList.remove("active");
+            captionsBtn.classList.remove("active");
+        }
+    });
 
 
     // Playback Rate
@@ -597,7 +596,7 @@ audioBtn.addEventListener("click", () => {
             changeAudio(event);
         });
     });
-    
+
 
     let track = mainVideo.textTracks;
 

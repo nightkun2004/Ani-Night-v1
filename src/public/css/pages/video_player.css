@@ -113,7 +113,7 @@ video::cue {
     width: 165px;
     height: 90px;
     background: #fff;
-    border: 2px solid #fff;
+    border: none;
     border-radius: 1px;
     display: none;
 }
@@ -164,6 +164,15 @@ video::cue {
     height: 5px;
     margin: auto;
     background: #f0f0f063;
+    cursor: pointer;
+    position: relative;
+}
+
+.video_player .controls .progress-thumbnail {
+    width: 100%;
+    height: 5px;
+    margin: auto;
+    background: #5d5d5d;
     cursor: pointer;
     position: relative;
 }
