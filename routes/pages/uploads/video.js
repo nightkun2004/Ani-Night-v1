@@ -8,14 +8,26 @@ const User = require('../../../models/user')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'src/public/videos');
+        cb(null, 'src/public/videos');
     },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' + file.originalname);
+        cb(null, Date.now() + '-' + file.originalname);
     }
-  });
-  
-  const upload = multer({ storage: storage });
+});
+
+// const storageSubtitle = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, 'src/public/subtitles'); // กำหนดโฟลเดอร์ที่จะบันทึกไฟล์
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, Date.now() + '-' + file.originalname); // กำหนดชื่อไฟล์ที่จะถูกบันทึก
+//     }
+// });
+
+// // Initialize multer
+// const uploadSubtitle = multer({ storage: storageSubtitle });
+
+const upload = multer({ storage: storage });
 
 router.get('/upload_video', async (req, res) => {
     try {
@@ -63,8 +75,22 @@ router.post('/video-upload', upload.single('file_video'), async (req, res) => {
             filePath: newFileName,
             videoid: postId,
             username: usersesstion.username,
-            profile: usersesstion.profile
+            profile: usersesstion.profile,
+            published: req.body.published ? req.body.published : true,
+            author: {
+                id: usersesstion._id,
+                username: usersesstion.username, 
+                profile: usersesstion.profile
+            },
         });
+
+        // เพิ่มข้อมูลซับไตในโมเดล Video
+        // newVideo.subtitles = {
+        //     subthai: subthai || '', // ตั้งชื่อตามความเหมาะสม หรือเป็นค่าว่างหากไม่มีค่า
+        //     subeng: subeng || '', // กำหนดชื่อซับไตภาษาอังกฤษ (ถ้ามี) หรือเป็นค่าว่างหากไม่มีค่า
+        //     subjpan: subjpan || '', // กำหนดชื่อซับไตภาษาญี่ปุ่น (ถ้ามี) หรือเป็นค่าว่างหากไม่มีค่า
+        // };
+
 
         await newVideo.save();
         await User.findByIdAndUpdate(usersesstion._id, { $push: { videos: newVideo._id } }, { new: true });

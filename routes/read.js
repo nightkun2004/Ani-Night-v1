@@ -22,7 +22,7 @@ router.get('/read/:url', async (req, res) => {
             return res.redirect('404');
         }
         
-        const acticle = await Acticle.findOneAndUpdate(
+        const acticle = await Acticle.findOneAndUpdate( 
             { url: url },
             { $inc: { views: 1 } },
             { new: true, upsert: false }

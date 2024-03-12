@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const indexRoute = require("./routes/index")
-const dashboard = require('./routes/dashboard')
 const editActicleRoute = require('./routes/edit')
 const searchRoute = require('./routes/search')
 const rulesRoute = require('./routes/rules')
@@ -25,6 +24,7 @@ const vidoechannelRoute = require("./routes/pages/channel/video")
 const uploadRoute = require('./routes/pages/uploads/uplaods')
 const updateReward = require('./routes/admin/updateReward')
 const admin = require('./routes/admin')
+const routersRoute = require('./routes/pages/router')
 
 app.use(session({
     secret: '12345678900987654321',
@@ -44,8 +44,8 @@ app.use(express.static(path.join(__dirname, 'src/public')));
 app.use(uploadRoute)
 app.use(updateReward)
 app.use(admin)
+app.use(routersRoute)
 app.use(indexRoute)
-app.use(dashboard)
 app.use(searchRoute)
 app.use(rulesRoute)
 app.use(editActicleRoute)

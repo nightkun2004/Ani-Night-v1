@@ -1,5 +1,7 @@
 const mongoose = require('../config')
 const User = require('../models/user')
+const Commentvideo = require('../models/commentvideo')
+const Subtitle = require('../models/subtitle');
 
 const videoSchema = new mongoose.Schema({
     name: String,
@@ -25,30 +27,30 @@ const videoSchema = new mongoose.Schema({
     commentvideo: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'commentvideo',
-        },
-    ],
+            ref: 'Commentvideo',
+        }
+    ], 
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
     },
     likedBy: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-        },
-    ],
+        }
+    ], 
     notLikedBy: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-        },
+        }
     ],
     subtitles: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Subtitle',
-        },
+            ref: 'Subtitle', // ระบุ ref เป็น 'Subtitle'
+        }
     ],
     watched: {
         type: Boolean,
@@ -56,7 +58,7 @@ const videoSchema = new mongoose.Schema({
     },
     coverImage: {
         type: String,
-        default: "viedo-tum.png"
+        default: "viedo-tum.png" 
     },
     username: String,
     profile: {
@@ -66,6 +68,16 @@ const videoSchema = new mongoose.Schema({
         type: Boolean,
         ref: 'Datapolicy',
         default: false,
+    },
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User" 
+        },
+        username: String, 
+        profile: {
+            type: String 
+        },
     },
     createdAt: {
         type: Date,

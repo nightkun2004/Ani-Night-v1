@@ -1,0 +1,30 @@
+.row-card {
+    display: grid;
+    grid-template-rows: repeat(2,1fr);
+    gap: 5px;
+}
+
+.view-character-staff[data-v-0a465567] {
+    grid-template-areas: "character staff";
+}
+
+.character {
+    display: inline-grid;
+    grid-template-columns: 60px auto;
+    grid-template-areas: "image content";
+}
+
+.voice{
+    display: grid;
+    grid-template-areas: "content image";
+    grid-template-columns: auto 60px;
+}
+
+.row-card .character .cover[data-v-0a465567] {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100px;
+    width: 100%;
+    grid-area: image;
+}

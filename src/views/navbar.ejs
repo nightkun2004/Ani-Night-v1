@@ -50,6 +50,11 @@
                                         หน้าหลัก
                                     </a>
                                 </li>
+                                <li class="<%= active === 'dashboard' ? 'active' : '' %>">
+                                    <a href="/<%= usersesstion.url %>/dashboard">
+                                        แดชบอร์ด
+                                    </a>
+                                </li>
                                
                                 <li>
                                     <a href="/search">
@@ -129,6 +134,11 @@
                         <li class="<%= active === 'home' ? 'active' : '' %>">
                             <a href="/">
                                 หน้าหลัก
+                            </a>
+                        </li>
+                        <li class="<%= active === 'dashboard' ? 'active' : '' %>">
+                            <a href="/<%= usersesstion.url %>/dashboard">
+                                แดชบอร์ด
                             </a>
                         </li>
                         <li>

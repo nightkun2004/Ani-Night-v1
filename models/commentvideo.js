@@ -1,4 +1,4 @@
-const mongoose = require('../config/database');
+const mongoose = require('../config');
 const Viedo = require('../models/video')
 const User = require('../models/user')
 
@@ -29,6 +29,6 @@ const commentvideoSchema = new mongoose.Schema({
   }
 });
 
-const Commentvideo = mongoose.model('commentvideo', commentvideoSchema);
+const Commentvideo = mongoose.model('Commentvideo', commentvideoSchema); // ปรับเปลี่ยนชื่อเป็น 'Commentvideo'
 
 module.exports = Commentvideo;

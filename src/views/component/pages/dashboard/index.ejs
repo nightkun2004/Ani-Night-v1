@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการรายการต่างๆ</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/acticle.css">
+    <link rel="stylesheet" href="../css/pages/uploads/video.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/pages/videos.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
+    <script type="text/javascript" src="/js/index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <%- include('../../../navbar') %>
+        <section class="mx-auto px-4 xl:max-w-7xl pt-[110px]">
+            <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">ภาพรวม</h2>
+            <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+                <ul class="flex items-center -space-x-px h-10 text-base">
+                    <li>
+                        <a href="/<%= usersesstion.url %>/dashboard"
+                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
+                         จัดการบทความ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/<%= usersesstion.url %>/dashboard/video"
+                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
+                         จัดการวีดีโอ
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                <div class="videos_edits">
+                    <ul class="videoEdits grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <% if (userData && userData.acticles && userData.acticles.length> 0) { %>
+                            <% userData.acticles.forEach(acticle=> { %>
+                                <li class="item rounded-lg border-inherit p-2 bg-gray-50">
+                                    <div class="img_edit">
+                                        <img src="/acticles_images/<%= acticle.photo %>" alt="">
+                                    </div>
+                                    <div class="text_info">
+                                        <h class="p-[10px] mb-[10px] text-2xl" title="<%= acticle.title %>">
+                                            <%= acticle.title %>
+                                        </h>
+                                        <div class="btn_edit">
+                                            <form action="/edit_acticle" method="POST">
+                                                <input type="hidden" name="edit_id" value="<%= acticle._id %>">
+                                                <button type="submit"
+                                                    class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
+                                            </form>
+                                            <button class="btnde bg-red-500 p-2 rounded-lg w-full"><a
+                                                    class="delete-button" href="/delete/<%= acticle._id %>"
+                                                    onclick="confirmDelete(event)">ลบ</a></button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <% }); %>
+                                    <% } else { %>
+                                        <p style="text-align: center; color: #000;">ยังไม่มีเนื้อหาบทความที่สร้างครับ.
+                                        </p>
+                                        <% } %>
+
+                    </ul>
+                </div>
+                <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+                    <ul class="flex items-center -space-x-px h-10 text-base">
+                        <% if (prevPage) { %>
+                            <li>
+                                <a href="/<%= usersesstion.url %>/dashboard?page=<%= prevPage %>"
+                                    class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Previous</span>
+                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M5 1 1 5l4 4" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <% } %>
+
+                                <% for (let i=1; i <=lastPage; i++) { %>
+                                    <li>
+                                        <a href="/<%= usersesstion.url %>/dashboard?page=<%= i %>"
+                                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                            <%= i %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+
+                                        <% if (nextPage) { %>
+                                            <li>
+                                                <a href="/<%= usersesstion.url %>/dashboard?page=<%= nextPage %>"
+                                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                    <span class="sr-only">Next</span>
+                                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 6 10">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <%- include('../../../footer') %>
+</body>
+
+</html>
