@@ -190,20 +190,20 @@
             class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
             <ul class="navbar_profile flex flex-wrap -mb-px">
                 <li class="me-2 categoryButton">
-                    <a href="/<%= usersesstion.url %>"
+                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken%>"
                         class="inline-block p-4 border-b-2 text-sky-500 border-b-2 border-sky-500 rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700">หน้าหลัก</a>
                 </li>
                 <li class="me-2 categoryButton">
-                    <a href="/<%= usersesstion.url %>/video"
+                    <a href="/<%= usersesstion.url %>/video?tokenlogin=<%= usersesstion.accessToken%>"
                         class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700"
                         aria-current="page">วีดีโอ</a>
                 </li>
                 <li class="me-2 categoryButton">
-                    <a href="/<%= usersesstion.url %>/reward"
+                    <a href="/<%= usersesstion.url %>/reward?tokenlogin=<%= usersesstion.accessToken%>"
                         class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700">รางวัล</a>
                 </li>
                 <li class="me-2 categoryButton">
-                    <a href="/<%= usersesstion.url %>/live"
+                    <a href="/<%= usersesstion.url %>/live?tokenlogin=<%= usersesstion.accessToken%>"
                         class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700">Live</a>
                 </li>
             </ul>

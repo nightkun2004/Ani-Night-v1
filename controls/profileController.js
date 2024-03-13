@@ -1,6 +1,9 @@
 const User = require("../models/user")
 const Acticle = require("../models/acticle")
 const Payment = require('../models/playment')
+// const authenticatetoken = require('../middleware/auth')
+// const jwt = require('jsonwebtoken')
+
 
 exports.getProfile = async (req, res) => {
     try {
@@ -65,6 +68,7 @@ exports.logOut = async (req, res) => {
                         return res.status(500).send('Internal Server Error');
                     }
 
+                    res.clearCookie('login-token'); 
                     return res.redirect('/');
                 });
             } else {

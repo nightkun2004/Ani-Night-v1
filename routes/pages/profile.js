@@ -4,7 +4,10 @@ const multer = require('multer')
 const path = require('path')
 const User = require('../../models/user')
 const jwt = require('jsonwebtoken');
+// const authenticatetoken = require('../../middleware/auth')
+const authenticatetoken = require('../../middleware/authtoken')
 const profileController = require("../../controls/profileController")
+
 
 function generateToken(user) {
     // กำหนดข้อมูลใน Payload
@@ -47,7 +50,7 @@ const upload = multer({
     storage: uploadprofile
 });
 
-router.get('/:url', profileController.getProfile) 
+router.get('/:url', authenticatetoken, profileController.getProfile) 
 router.post('/playment', profileController.playment)
 router.get('/logout/:id', profileController.logOut)
 

@@ -3,8 +3,9 @@ const router = express.Router()
 const mongoose = require("../../../config")
 const Reward = require("../../../models/code")
 const videos = require('../videos/router')
+const authenticatetoken = require("../../../middleware/authtoken")
 
-router.get('/:url/video', async (req, res) => {
+router.get('/:url/video', authenticatetoken, async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         if (!usersesstion) {

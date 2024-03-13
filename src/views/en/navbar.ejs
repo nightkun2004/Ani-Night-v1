@@ -71,7 +71,7 @@
                                     </a>
                                 </li>
                                 <li class="<%= active === 'profile' ? 'active' : '' %>">
-                                    <a href="/<%= usersesstion.url %>">
+                                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken%>">
                                         Profile
                                     </a>
                                 </li>
@@ -146,7 +146,7 @@
                             </a>
                         </li>
                         <li class="<%= active === 'profile' ? 'active' : '' %>">
-                            <a href="/<%= usersesstion.url %>">
+                            <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken%>">
                                 Profile
                             </a>
                         </li>

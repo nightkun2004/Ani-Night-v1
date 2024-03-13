@@ -1,5 +1,8 @@
 const User = require("../models/user")
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+require('dotenv').config()
 
 exports.getAllUser = async (req, res) => {
     const Userdata = ({
@@ -43,7 +46,7 @@ exports.getAllUser = async (req, res) => {
 exports.getLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const userlogin = await User.findOne({ email })
+        const userlogin = await User.findOne({ email }) 
 
         if(!userlogin) {
             return res.redirect('/login?alertMessage=เราไม่พบชื่อผู้ใช้');
@@ -55,6 +58,9 @@ exports.getLogin = async (req, res) => {
         if(!isPasswordValid) {
             return res.redirect('/login?alertMessage=รหัสผ่านไม่ถูกต้อง');
         }
+
+        const accessToken = jwt.sign({ userlogin: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+        res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
 
         req.session.userlogin = {
             _id: userlogin._id,
@@ -74,10 +80,14 @@ exports.getLogin = async (req, res) => {
             youtube: userlogin.youtube,
             tiktok: userlogin.tiktok,
             facebook: userlogin.facebook,
+            accessToken: accessToken
         };
-        res.redirect(`/${userlogin.url}`);
+        res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}`);
     } catch(error) {
         console.log(error)
         return res.redirect('/login?alertMessage=เกิดข้อผิดพลาด');
     }
 };
+
+// const secretKey = crypto.randomBytes(32).toString('hex');
+// console.log(secretKey);

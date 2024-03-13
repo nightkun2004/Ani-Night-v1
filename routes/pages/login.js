@@ -11,7 +11,7 @@ router.get('/login', async (req, res) => {
         console.error(err);
         res.status(500).send('Internal Server Error', err);
     }
-})
+}) 
 
 router.post('/login', userController.getLogin);
 module.exports = router

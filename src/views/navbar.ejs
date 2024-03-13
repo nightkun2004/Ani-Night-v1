@@ -13,6 +13,7 @@
                 <div class="logo">
                     <a href="/">
                         <img class="w-10" src="/images/logo/logo.png" alt="logo">
+                        ANI NIGHT
                     </a>
                 </div>
                 <div id="dropdownNavbar"
@@ -72,12 +73,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/upload_acticle">
+                                    <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken%>">
                                         อัพโหลด
                                     </a>
                                 </li>
                                 <li class="<%= active === 'profile' ? 'active' : '' %>">
-                                    <a href="/<%= usersesstion.url %>">
+                                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken%>">
                                         โปรไฟล์
                                     </a>
                                 </li>
@@ -157,12 +158,12 @@
                             </a>
                         </li>
                         <li >
-                            <a href="/upload_acticle">
+                            <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken%>">
                                 อัพโหลด
                             </a>
                         </li>
                         <li class="<%= active === 'profile' ? 'active' : '' %>">
-                            <a href="/<%= usersesstion.url %>">
+                            <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken%>">
                                 โปรไฟล์
                             </a>
                         </li>
