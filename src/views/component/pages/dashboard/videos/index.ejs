@@ -33,26 +33,26 @@
             <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
                 <ul class="flex items-center -space-x-px h-10 text-base">
                     <li>
-                        <a href="/<%= usersesstion.url %>/dashboard"
+                        <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
                          ย้อนกลับ
                         </a>
                     </li>
                     <li>
-                        <a href="/<%= usersesstion.url %>/dashboard/video"
+                        <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
                          จัดการวีดีโอ
                         </a>
                     </li>
                     <li>
-                        <a href="/<%= usersesstion.url %>/dashboard"
+                        <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
                             จัดการบทความ
                         </a>
                     </li>
                 </ul>
             </nav>
-            <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+            <!-- <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
                 <div class="videos_edits">
                     <ul class="videoEdits grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         <% if (userData && userData.videos && userData.videos.length> 0) { %>
@@ -86,7 +86,7 @@
 
                     </ul>
                 </div>
-            </div>
+            </div> -->
 
         </section>
 

@@ -128,6 +128,37 @@ form .btn-login:hover {
 }
 
 
+.popup-content {
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    height: 500px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 16px;
+}
+
+.popup-content .popup-header {
+    background-color: #f6f6f6;
+    height: 50px;
+    align-items: center;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding: 16px;
+}
+
+.popup-content .popup-header .btn_close i {
+    cursor: pointer;
+    font-size: 29px;
+    color: #000;
+}
+
 @media screen and (max-width: 280px) {
     form h2 {
         font-size: 12px;

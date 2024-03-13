@@ -52,7 +52,7 @@
                                     </a>
                                 </li>
                                 <li class="<%= active === 'dashboard' ? 'active' : '' %>">
-                                    <a href="/<%= usersesstion.url %>/dashboard">
+                                    <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>">
                                         แดชบอร์ด
                                     </a>
                                 </li>
@@ -138,7 +138,7 @@
                             </a>
                         </li>
                         <li class="<%= active === 'dashboard' ? 'active' : '' %>">
-                            <a href="/<%= usersesstion.url %>/dashboard">
+                            <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>">
                                 แดชบอร์ด
                             </a>
                         </li>

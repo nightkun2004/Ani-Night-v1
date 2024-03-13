@@ -62,18 +62,62 @@
         margin-top: 20px;
         text-align: center;
     }
+
+    .popup-content {
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    height: 500px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 16px;
+}
+
+.btn-next {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.btn-next button {
+    background-color: none;
+    border: none;
+}
+
+.btn-next button a {
+    width: 100%;
+    background-color: #0dff00;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #000;
+}
 </style>
 <body>
     <div class="container">
         <div class="main">
             <div class="box">
                 <img src="/images/truemoney-wallet.png" alt="">
-                <a href="/">
+                <a href="void:javascript(0)">
                     รับตอนนี้
                 </a>
+            </div>
+        </div>
 
-                <div class="popup-container">
-                    
+        <div class="popup-container">
+            <div class="popup-content">
+                <div class="ads">
+
+                </div>
+                <div class="btn-next">
+                    <button>
+                        <a href="#">
+                            รับรางวัล
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>

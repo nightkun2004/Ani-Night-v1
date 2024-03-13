@@ -14,6 +14,10 @@ exports.getProfile = async (req, res) => {
             return res.redirect('/');
         }
 
+        if (usersesstion.url !== url) {
+            return res.redirect('/');
+        }
+
         const userData = await User.findOne({ _id: usersesstion._id, url: url })
             .populate('acticles');
 

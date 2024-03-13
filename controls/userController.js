@@ -79,7 +79,7 @@ exports.getLogin = async (req, res) => {
             followers: userlogin.followers,
             youtube: userlogin.youtube,
             tiktok: userlogin.tiktok,
-            facebook: userlogin.facebook,
+            facebook: userlogin.facebook, 
             accessToken: accessToken
         };
         res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}`);
@@ -88,6 +88,8 @@ exports.getLogin = async (req, res) => {
         return res.redirect('/login?alertMessage=เกิดข้อผิดพลาด');
     }
 };
+
+
 
 // const secretKey = crypto.randomBytes(32).toString('hex');
 // console.log(secretKey);

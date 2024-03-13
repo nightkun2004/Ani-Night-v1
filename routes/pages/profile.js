@@ -6,7 +6,7 @@ const User = require('../../models/user')
 const jwt = require('jsonwebtoken');
 // const authenticatetoken = require('../../middleware/auth')
 const authenticatetoken = require('../../middleware/authtoken')
-const profileController = require("../../controls/profileController")
+const profileController = require("../../controls/profileController") 
 
 
 function generateToken(user) {
@@ -93,7 +93,7 @@ router.post('/edit_profile', upload.single('profileprofile'), async (req,res) =>
             bio: usersesstion.bio,
         });
 
-        res.redirect(`${usersesstion.url}`);
+        res.redirect(`${usersesstion.url}?tokenlogin=${usersesstion.accessToken}`);
     } catch (error) {
         console.error(error);
         res.send('เกิดข้อผิดพลาดในการแก้ไขโปรไฟล์');

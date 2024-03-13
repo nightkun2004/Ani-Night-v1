@@ -11,12 +11,15 @@
     <link rel="stylesheet" href="./css/font/font1.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
-    <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
+    <meta name="keywords" content="ข้าสู่ระบบ">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
-</head> 
+</head>
 
 <body>
 
@@ -37,9 +40,9 @@
                 <button class="btn-login" type="submit">เข้าสู่ระบบ</button>
 
                 <div class="flex justify-between pt-[20px]">
-                        <p class="text_login">ลืมรหัสผ่านใช่ไหม !</p>
-                        <p><a href="/forgot-password">ลืมรหัสผ่าน</a></p>
-                    </div>
+                    <p class="text_login">ลืมรหัสผ่านใช่ไหม !</p>
+                    <p><a href="/forgot-password">ลืมรหัสผ่าน</a></p>
+                </div>
                 <div class="reg">
                     <p class="pt-[10px] flex justify-between">ยังไม่มีบัญชีใช่ไหม กดสมัครเลย: <span><a href="/singup"
                                 class="text-1xl">สมัครสมาชิค</a></span></p>
@@ -69,19 +72,43 @@
             </div>
         </div>
     </section>
-    <%- include('../../footer') %>
-    <script src="../js/search.js"></script>
-    <script>
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
 
-    </script>
+
+    <!-- ===========================================================================================
+              POPUP
+            ======================================================================================== -->
+
+    <div class="popup-container" style="display: none;">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>แจ้วเตือน</h2>
+                <div class="btn_close">
+                    <i class="material-symbols-outlined">
+                        close
+                    </i>
+                </div>
+                <div class="main-content">
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('../../footer') %>
+        <script src="../js/search.js"></script>
+        <script>
+            window.addEventListener('scroll', function () {
+                var navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('navbar-white-bg');
+                } else {
+                    navbar.classList.remove('navbar-white-bg');
+                }
+            });
+
+        </script>
 </body>
 
 </html>

@@ -3,6 +3,7 @@ const router = express.Router()
 const Acticle = require('../../../../models/acticle')
 const User = require('../../../../models/user')
 const Video = require('../../../../models/video')
+const authenticatetoken = require('../../../../middleware/authtoken')
 
 function setLanguage(req, res, next) {
     const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
@@ -13,7 +14,7 @@ function setLanguage(req, res, next) {
 router.use(setLanguage);
 
 
-router.get('/:url/dashboard/video', async (req, res) => {
+router.get('/:url/dashboard/video', authenticatetoken, async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const url = req.params.url;
