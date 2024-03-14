@@ -76,7 +76,7 @@ exports.getLogin = async (req, res) => {
             createdAt: userlogin.createdAt,
             followed: userlogin.followed,
             url: userlogin.url,
-            followers: userlogin.followers,
+            followers: userlogin.followers, 
             youtube: userlogin.youtube,
             tiktok: userlogin.tiktok,
             facebook: userlogin.facebook, 

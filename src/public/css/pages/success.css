@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", sans-serif;
+    background-image: url('/images/bg-re.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.App-content {
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.App-content .App-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 9.5rem;
+    padding: 10px;
+    background-image: url('/images/app-.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.App-content .App-header .App-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.App-content .App-header .App-menusright ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.App-content .App-header .App-menusright ul li {
+    margin: 10px;
+    & a {
+        text-decoration: none;
+        color: #fff;
+    }
+}
+
+
+.App-content .App-rewards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #eee;
+    position: relative;
+}
+
+.App-content .App-rewards  .btn-Open {
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+}
+
+.App-content .App-rewards  .btn-Open button {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #00c3ea;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 22px;
+    border: none;
+}
+
+.popup-content {
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    height: 500px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 16px;
+}
+
+.popup-row{
+    padding: 10px;
+    margin: 10px;
+}
+
+.popup-content .popup-header {
+    background-color: #f6f6f6;
+    height: 50px;
+    align-items: center;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding: 16px;
+}
+
+.popup-content .popup-header .btn_close i {
+    cursor: pointer;
+    font-size: 29px;
+    color: #000;
+}
+
+.popup-content .btn-next {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.btn-next button {
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    background-color: #fff200;
+    border-radius: 1px;
+    & a {
+        text-decoration: none;
+        color: #000;
+        font-size: 19px;
+    }
+}
