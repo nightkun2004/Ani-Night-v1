@@ -29,8 +29,8 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    
+    <!-- <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
     <script>
         window.googletag = window.googletag || { cmd: [] };
         googletag.cmd.push(function () {
@@ -40,7 +40,7 @@
             googletag.companionAds().setRefreshUnfilledSlots(true);
             googletag.enableServices();
         });
-    </script>
+    </script> -->
 </head>
 
 <body>
@@ -70,115 +70,116 @@
                                 <option value="./audip_en.wav">เสียงพากย์ภาษาอังกฤษ</option>
                                 <option value="./audip_jp.wav">เสียงพากย์ภาษาญี่ปุ่น</option>
                             </select> -->
-                        </video>pt>
-                    </div>
-                </div>
-
-        </div>
-        <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-            <h2 style="font-size: 20px; font-weight: bold;">ความคิดเห็น</h2>
-        </div>
-    </section>
-    <div class="info">
-        <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-            <div class="tages">
-                <% if (video && video.tags && video.tags.length> 0) { %>
-                    <h2> <%- video.tags.map(tag=> `<a href="/tag/${tag}">${tag}</a>`).join(', ') %></h2>
-                    <% } else { %>
-                        <h2>Tags: ไม่มีแท็ก</h2>
-                        <% } %>
-            </div>
-            <h2 class="text-1xl mt-2 text-center tracking-wider text-gray-700 mt-4">
-                <%= video.name %>
-            </h2>
-            <div class="description bg-gray-50" style="border-radius: 10px; padding: 20px;">
-                <p>
-                    <% if(video.description.length <=50) { %>
-                        <%= video.description %>
-                            <% } else { %>
-                                <span class="short-text">
-                                    <%= video.description.substring(0, 50) %>
-                                </span>
-                                <span class="full-text" style="display: none;">
-                                    <%= video.description %>
-                                </span>
-                                <span class="more-btn">ดูเพิ่มเติม</span>
-                                <span class="less-btn" style="display: none;">ย่อ</span>
-                                <% } %>
-                </p>
-            </div>
-            <div class="flex items-center justify-center mt-4">
-                <% if (video && video.createdAt) { %>
-                    <p> สร้างเมื่อ : <%= new Date(video.createdAt).toLocaleDateString('en-EN') %>
-                    </p>
-                    <% } %>
-                        <h2 class="pl-[20px]">
-                            <p class="views-pc">การดู <%= video.views %> ครั้ง</p>
-                        </h2>
-            </div>
-            <% if (video.author && video.author.id) { %>
-                <!-- ส่วนโปรไฟล์ -->
-                <a href="/editor/<%= video.author.id.username %>">
-                    <div class="flex items-center">
-                        <div class="mt-1">
-                            <img class="w-[50px] h-[50px] p-1 rounded-full"
-                                src="/profiles/<%= video.author.id.profile %>" alt="">
+                        </video>
                         </div>
-                        <h2 class="pl-[10px]">
-                            <%= video.author.id.username %>
-                        </h2>
                     </div>
-                </a>
-                <% } else { %>
-                    <p>Author: Unknown</p>
 
-                    <% } %>
-        </div>
+                </div>
+                <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                    <h2 style="font-size: 20px; font-weight: bold;">ความคิดเห็น</h2>
+                </div>
+            </section>
+            <div class="info">
+                <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                    <div class="tages">
+                        <% if (video && video.tags && video.tags.length> 0) { %>
+                            <h2> <%- video.tags.map(tag=> `<a href="/tag/${tag}">${tag}</a>`).join(', ') %></h2>
+                            <% } else { %>
+                                <h2>Tags: ไม่มีแท็ก</h2>
+                                <% } %>
+                    </div>
+                    <h2 class="text-1xl mt-2 text-center tracking-wider text-gray-700 mt-4">
+                        <%= video.name %>
+                    </h2>
+                    <div class="description bg-gray-50" style="border-radius: 10px; padding: 20px;">
+                        <p>
+                            <% if(video.description.length <=50) { %>
+                                <%= video.description %>
+                                    <% } else { %>
+                                        <span class="short-text">
+                                            <%= video.description.substring(0, 50) %>
+                                        </span>
+                                        <span class="full-text" style="display: none;">
+                                            <%= video.description %>
+                                        </span>
+                                        <span class="more-btn">ดูเพิ่มเติม</span>
+                                        <span class="less-btn" style="display: none;">ย่อ</span>
+                                        <% } %>
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-center mt-4">
+                        <% if (video && video.createdAt) { %>
+                            <p> สร้างเมื่อ : <%= new Date(video.createdAt).toLocaleDateString('en-EN') %>
+                            </p>
+                            <% } %>
+                                <h2 class="pl-[20px]">
+                                    <p class="views-pc">การดู <%= video.views %> ครั้ง</p>
+                                </h2>
+                    </div>
+                    <% if (video.author && video.author.id) { %>
+                        <!-- ส่วนโปรไฟล์ -->
+                        <a href="/editor/<%= video.author.id.username %>">
+                            <div class="flex items-center">
+                                <div class="mt-1">
+                                    <img class="w-[50px] h-[50px] p-1 rounded-full"
+                                        src="/profiles/<%= video.author.id.profile %>" alt="">
+                                </div>
+                                <h2 class="pl-[10px]">
+                                    <%= video.author.id.username %>
+                                </h2>
+                            </div>
+                        </a>
+                        <% } else { %>
+                            <p>Author: Unknown</p>
 
-        <!-- ส่วนคำอธิบาย -->
-        <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-            <h2 class="text-2xl font-bold font-weight-500 mb-[20px]">นักพากย์ไทยและญี่ปุ่น</h2>
-            <ul
-                class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                <li class="me-2">
-                    <a href="#" aria-current="page"
-                        class="inline-block p-4 text-white bg-amber-400 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">นักพากย์ไทย</a>
-                </li>
-                <li class="me-2">
-                    <a href="#"
-                        class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">นักพากย์ญี่ปุ่น</a>
-                </li>
-            </ul>
+                            <% } %>
+                </div>
 
-            <div class="ct-1">
-                <div data-v-0a465567 class="row-card view-character-staff">
-                    <div data-v-0a465567 class="character">
-                        <a data-v-0a465567 href="" class="cover" style="
+                <!-- ส่วนคำอธิบาย -->
+                <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                    <h2 class="text-2xl font-bold font-weight-500 mb-[20px]">นักพากย์ไทยและญี่ปุ่น</h2>
+                    <ul
+                        class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                        <li class="me-2">
+                            <a href="#" aria-current="page"
+                                class="inline-block p-4 text-white bg-amber-400 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">นักพากย์ไทย</a>
+                        </li>
+                        <li class="me-2">
+                            <a href="#"
+                                class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">นักพากย์ญี่ปุ่น</a>
+                        </li>
+                    </ul>
+
+                    <div class="ct-1">
+                        <div data-v-0a465567 class="row-card view-character-staff">
+                            <div data-v-0a465567 class="character">
+                                <a data-v-0a465567 href="" class="cover" style="
                                 background-image: url(https://m1r.ai/9/l6s1g.png);"></a>
-                        <a data-v-0a465567 href="" class="content">
-                            <div data-v-0a465567 class="name">
-                                ชื่อ
+                                <a data-v-0a465567 href="" class="content">
+                                    <div data-v-0a465567 class="name">
+                                        ชื่อ
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <div data-v-0a465567 class="voice">
-                        <a data-v-0a465567 href="" class="cover"
-                            style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx151970-qFKtRhOaSqa0.jpg);"></a>
-                        <a data-v-0a465567 href="">
-                            <div data-v-0a465567 class="name">
-                                Name Voice
+                            <div data-v-0a465567 class="voice">
+                                <a data-v-0a465567 href="" class="cover"
+                                    style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx151970-qFKtRhOaSqa0.jpg);"></a>
+                                <a data-v-0a465567 href="">
+                                    <div data-v-0a465567 class="name">
+                                        Name Voice
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
 
     </section>
     <%- include('../footer') %>
 
+    <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
         <script src="../js/video_player.js"></script>
         <!-- <script src="./js/pages/videoai.js"></script> -->
         <script>
@@ -192,37 +193,100 @@
             });
 
         </script>
-        <script>
-            var videoPlayer = document.getElementById('video');
-            var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+        <!-- <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                console.log("DOM Content Loaded");
 
-            // Create ad display container
-            var adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById('adContainer'), videoPlayer);
+                var player = document.getElementById("video");
+                console.log("Video.js player initialized");
 
-            // Create ads request
-            var adsRequest = new google.ima.AdsRequest();
-            adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/22745653040/AniNight-004&description_url=[placeholder]&tfcd=0&npa=0&sz=400x300%7C640x480&ciu_szs=300x250%2C336x280%2C728x90&gdfp_req=1&output=vast&env=vp&unviewed_position_start=1&impl=s&correlator=';
+                var vastTagPreroll = "https://pubads.g.doubleclick.net/gampad/live/ads?sz=88x31|1x1|400x300&iu=/22745653040/AniNightads&ciu_szs=120x20&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]";
+                var vastTagMidroll = "https://pubads.g.doubleclick.net/gampad/live/ads?sz=88x31|1x1|400x300&iu=/22745653040/AniNightads&ciu_szs=120x20&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]";
+                var vastTagPostroll = "https://pubads.g.doubleclick.net/gampad/preview_cookie?gct=BEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&op=set&redirect=https://ani-night.online/play/40312?google_preview%3DBEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&redirect_hash=AJlzBa3gUzNSOuVFiD8WjsRZwdQGX1BUow&lineItemId=6645025135&creativeId=138468573645";
+                var prerollTriggered = false;
+                var postrollTriggered = false;
+                var midrollRequested = false;
+                var midrollInterval = 5 * 60; // 5 minutes
+                var lastMidrollTime = 0; // The time when the last mid-roll ad was played
 
-            adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, onAdsManagerLoaded, false);
-            adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
+                if (!prerollTriggered) {
+                    player.ima({
+                        adTagUrl: vastTagPreroll,
+                        showControlsForAds: true,
+                        debug: false,
+                    });
+                } else {
+                    player.ima({
+                        adTagUrl: '',
+                        showControlsForAds: true,
+                        debug: false,
+                    });
+                }
+                console.log("IMA settings configured");
 
-            function onAdsManagerLoaded(adsManagerLoadedEvent) {
-                var adsRenderingSettings = new google.ima.AdsRenderingSettings();
-                adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
-                adsManager = adsManagerLoadedEvent.getAdsManager(videoPlayer, adsRenderingSettings);
-                adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
-                adsManager.start();
-            }
+                player.ima.initializeAdDisplayContainer();
+                console.log("IMA ad display container initialized");
 
-            function onAdError(adErrorEvent) {
-                console.error('Ad error: ' + adErrorEvent.getError());
-                videoPlayer.play(); // Continue video playback if ad fails
-            }
+                function requestMidrollAd() {
+                    midrollRequested = true;
+                    player.ima.changeAdTag(vastTagMidroll);
+                    player.ima.requestAds();
+                }
 
-            adsLoader.requestAds(adsRequest);
-        </script>
+                player.on("timeupdate", function () {
+                    var currentTime = player.currentTime();
+                    console.log("Current time:", currentTime);
+                    var timeSinceLastMidroll = currentTime - lastMidrollTime;
 
-        <div id="adContainer"></div>
+                    if (timeSinceLastMidroll >= midrollInterval && !midrollRequested) {
+                        lastMidrollTime = currentTime; // Update the last mid-roll ad time
+                        console.log("Midroll triggered");
+                        requestMidrollAd();
+                    }
+                });
+
+                player.on("ended", function () {
+                    console.log("Video ended");
+                    if (!postrollTriggered) {
+                        postrollTriggered = true;
+                        console.log("Postroll triggered");
+
+                        player.ima.requestAds({
+                            adTagUrl: vastTagPostroll,
+                        });
+
+                        console.log("Postroll ads requested");
+                    }
+                });
+
+                player.on("adsready", function () {
+                    if (midrollRequested) {
+                        console.log("Ads ready - midroll");
+                    } else {
+                        console.log("Ads ready - preroll");
+                        player.src(
+                            "path/to/your/video.mp4"
+                        );
+                    }
+                });
+
+                player.on("aderror", function () {
+                    console.log("Ads aderror");
+                    player.play();
+                });
+
+                player.on("adend", function () {
+                    if (lastMidrollTime > 0) {
+                        console.log("A midroll ad has finished playing.");
+                        midrollRequested = false;
+                    } else {
+                        console.log("The preroll ad has finished playing.");
+                        prerollTriggered = true;
+                    }
+                    player.play();
+                });
+            });
+        </script> -->
 </body>
 
 </html>
