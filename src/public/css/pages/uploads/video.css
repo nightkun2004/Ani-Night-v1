@@ -97,8 +97,45 @@
     background-color: var(--color-base-red);
     border-radius: 7px;
     padding: 10px;
+
     & a {
         text-decoration: none;
         color: var(--color-white);
+    }
+}
+
+.mobile {
+    display: none;
+}
+
+.pc {
+    display: block;
+}
+
+@media screen and (max-width: 780pc) {
+    .pc {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+    .foryous {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+    }
+
+    .firyou {
+        background-color: #fff;
+        box-shadow: 0 0 0 #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        overflow: hidden;
+        flex: 1 1 300px;
+        margin: 0 15px;
+        display: flex;
+        flex-direction: column;
     }
 }

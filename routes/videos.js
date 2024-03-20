@@ -37,7 +37,7 @@ router.get('/foryou', async (req, res) => {
         const paginatedVideos = videos.slice(skip, skip + perPage);
 
         res.render('./component/videos/index', {
-            active: 'videos',
+            active: 'videos', 
             usersesstion,
             videos,
             totalPages,

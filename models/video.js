@@ -85,7 +85,6 @@ const videoSchema = new mongoose.Schema({
     },
     subthai: {
         type: String,
-        default: "../subtitles/mosawoth.vtt" 
     }
 });
 

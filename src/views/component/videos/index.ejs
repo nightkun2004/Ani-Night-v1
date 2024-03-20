@@ -36,7 +36,7 @@
     <section class="playsec mx-auto px-4 xl:max-w-7xl pt-[110px]">
         <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
             <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">วีดีโอเนื้อหา</h2>
-            <div class="container">
+            <div class="container pc">
                 <div class="videos">
                     <% if (paginatedVideos.length > 0) { %>
                         <% for (const video of paginatedVideos) { %>
@@ -66,6 +66,26 @@
                         </div>
                     </div> -->
                 </div>
+            </div>
+
+            <div class="foryous mobile">
+                <% if (paginatedVideos.length > 0) { %>
+                    <% for (const video of paginatedVideos) { %>
+                <div class="firyou">
+                    <a href="/play/<%= video.videoid %>" target="_blank">
+                        <div class="pic-image-video">
+                            <video id="video_<%= video.videoid %>" class="video" src="/videos/<%= video.filePath %>.mp4" volume="0.2" loop></video>
+                            <div class="video-overlay"></div>
+                            <p class="time"><i class="bi bi-eye-fill"></i> การดู : <%= video.views %></p>
+                        </div>
+                        <h2 class="title-video"><%= video.name %></h2>
+                    </a>
+                </div>
+                <% } %>
+                <% } else { %>
+                    <p>ไม่มีวีดีโอในขณะนี้.</p>
+                <% } %>
+               
             </div>
         </div>
     </section>

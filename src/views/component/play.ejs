@@ -56,9 +56,9 @@
                             <source src="/videos/<%= video.filePath %>.mp4" size="720" type="video/mp4">
 
                             <% if (video.subthai) { %>
-                                <track default label="ซับไทย" kind="subtitles" src="<%= video.subthai %>" srclang="th">
+                                <track label="ซับไทย" kind="subtitles" src="<%= video.subthai %>" srclang="th">
                                 <% } else { %>
-                                    <track label="ซับไทย" kind="subtitles" src="../subtitles/mosawoth.vtt"
+                                    <track default label="ซับไทย" kind="subtitles" src="../subtitles/mosawoth.vtt"
                                         srclang="th">
                                     <% } %>
 
