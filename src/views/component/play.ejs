@@ -75,10 +75,6 @@
                     </div>
 
                 </div>
-                <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-                    <h2 style="font-size: 20px; font-weight: bold;">ความคิดเห็น</h2>
-                </div>
-            </section>
             <div class="info">
                 <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
                     <div class="tages">
@@ -118,8 +114,8 @@
                     </div>
                     <% if (video.author && video.author.id) { %>
                         <!-- ส่วนโปรไฟล์ -->
-                        <a href="/editor/<%= video.author.id.username %>">
-                            <div class="flex items-center">
+                        <a href="/editor/<%= video.author.id.username %>" >
+                            <div class="flex items-center" style="background-color: #eee; border-radius: 20px; padding: 12px;">
                                 <div class="mt-1">
                                     <img class="w-[50px] h-[50px] p-1 rounded-full"
                                         src="/profiles/<%= video.author.id.profile %>" alt="">
@@ -174,6 +170,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+            <h2 style="font-size: 20px; font-weight: bold;">ความคิดเห็น</h2>
         </div>
 
     </section>

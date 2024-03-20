@@ -197,33 +197,7 @@ video_players.forEach(video_player => {
     }
 
     const audio = audios.querySelectorAll("ul li");
-
-        var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
-
-        // Create ad display container
-        var adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById('adContainer'), mainVideo);
-
-        // Create ads request
-        var adsRequest = new google.ima.AdsRequest();
-        adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?iu=/22745653040/AniNight-004&description_url=[placeholder]&tfcd=0&npa=0&sz=400x300%7C640x480&ciu_szs=300x250%2C336x280%2C728x90&gdfp_req=1&output=vast&env=vp&unviewed_position_start=1&impl=s&correlator=';
-
-        adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, onAdsManagerLoaded, false);
-        adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
-
-        function onAdsManagerLoaded(adsManagerLoadedEvent) {
-            var adsRenderingSettings = new google.ima.AdsRenderingSettings();
-            adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
-            adsManager = adsManagerLoadedEvent.getAdsManager(mainVideo, adsRenderingSettings);
-            adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
-            adsManager.start();
-        }
-
-        function onAdError(adErrorEvent) {
-            console.error('Ad error: ' + adErrorEvent.getError());
-            mainVideo.play(); // Continue video playback if ad fails
-        }
-
-        adsLoader.requestAds(adsRequest);
+    
 
     // Play video function
     function playVideo() {
