@@ -7,6 +7,8 @@
     <title>เล่น</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/acticle.css">
@@ -27,6 +29,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 </head>
 
 <body>
@@ -51,6 +54,7 @@
                                 <option value="./audip_jp.wav">เสียงพากย์ภาษาญี่ปุ่น</option>
                             </select> -->
                         </video>
+                        <div id="adContainer"></div>
                     </div>
                 </div>
                 <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
@@ -170,6 +174,50 @@
             });
 
         </script>
+        <script>
+            let adDisplayContainer;
+            let adsLoader;
+            let adsManager;
+            let videoContent;
+          
+            function initializeAd() {
+              videoContent = document.getElementById('video');
+          
+              adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById('adContainer'), videoContent);
+              adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+          
+              adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, onAdsManagerLoaded, false);
+              adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
+          
+              const adsRequest = new google.ima.AdsRequest();
+              adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/preview_cookie?gct=BEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&op=set&redirect=https://ani-night.online/play/40312?google_preview%3DBEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&redirect_hash=AJlzBa3gUzNSOuVFiD8WjsRZwdQGX1BUow&lineItemId=6645025135&creativeId=138468573645';
+          
+              adsLoader.requestAds(adsRequest);
+            }
+          
+            function onAdsManagerLoaded(adsManagerLoadedEvent) {
+              const adsRenderingSettings = new google.ima.AdsRenderingSettings();
+              adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+              adsManager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
+          
+              adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
+          
+              try {
+                adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
+                adsManager.start();
+              } catch (adError) {
+                onAdError(adError);
+              }
+            }
+          
+            function onAdError(adErrorEvent) {
+              console.error('Ad error: ', adErrorEvent.getError());
+              videoContent.play();
+            }
+          
+            google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
+            initializeAd();
+          </script>
 </body>
 
 </html>
