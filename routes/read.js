@@ -13,7 +13,7 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-router.get('/read/:url', async (req, res) => {
+router.get('/read/:url', async (req, res) => { 
     try {
         const usersesstion = req.session.userlogin;
         const url = req.params.url;
@@ -27,7 +27,7 @@ router.get('/read/:url', async (req, res) => {
             { $inc: { views: 1 } },
             { new: true, upsert: false }
         ).populate('author.id author comments').exec();
-        const articleforyou = await Acticle.find().sort({ views: -1 }).limit(6); 
+        const articleforyou = await Acticle.find().sort({ views: -1 }).limit(6).populate('author.id author'); 
 
 
         if (!acticle || !acticle.author || !acticle.author.id) {

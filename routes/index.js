@@ -7,20 +7,20 @@ function setLanguage(req, res, next) {
     const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
     req.language = lang && lang.includes('th') ? 'th' : 'en'; // ตั้งค่าภาษาตามที่ผู้ใช้เลือก
     next();
-} 
+}  
 
-router.use(setLanguage);
+router.use(setLanguage); 
 
-const ITEMS_PER_PAGE = 12; 
+const ITEMS_PER_PAGE = 12;
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res) => { 
     const usersesstion = req.session.userlogin;
     const alertMessage = req.query.alertMessage || null;
     try {
         const acticles = await Acticle.find().exec();
         const topViewedArticles = await Acticle.find().populate('author.id').sort({ createdAt: -1, views: -1 }).limit(5);
         const acticlefotYou = await Acticle.find().populate('author.id').sort({ views: -1 }).limit(10);
-        const page = +req.query.page || 1; // หากไม่มีค่า page ให้เริ่มที่หน้าแรก
+        const page = +req.query.page || 1; // หากไม่มีค่า page ให้เริ่มที่หน้าแรก 
         const totalActicles = await Acticle.countDocuments();
         const acticles_Bors = await Acticle.find().
             populate('author.id')

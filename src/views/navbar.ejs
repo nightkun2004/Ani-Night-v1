@@ -11,14 +11,13 @@
                     </svg>
                 </button>
                 <div class="logo">
-                    <a href="/">
-                        <img class="w-10" src="/images/logo/logo.png" alt="logo">
-                        ANI NIGHT
+                    <a href="/" class="flex items-center">
+                        <img src="/images/logo.png" alt="logo">
                     </a>
                 </div>
                 <div id="dropdownNavbar"
-                    class="menus-card z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                    <ul>
+                    class="menus-card z-10 hidden font-normal m-2 bg-white divide-y">
+                    <ul >
                         <% if (!usersesstion) { %>
                             <li class="<%= active === 'home' ? 'active' : '' %>">
                                 <a href="/">
@@ -90,8 +89,7 @@
         <div class="navbar-pc">
             <div class="logo">
                 <a href="/">
-                    <img src="/images/logo/logo.png" alt="logo">
-                    <p>Ani Night</p>
+                    <img src="/images/logo.png" alt="logo">
                 </a>
             </div>
         </div>
