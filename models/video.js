@@ -83,6 +83,10 @@ const videoSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    subthai: {
+        type: String,
+        default: "../subtitles/mosawoth.vtt" 
+    }
 });
 
 const Video = mongoose.model('Video', videoSchema);

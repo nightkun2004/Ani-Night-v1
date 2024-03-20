@@ -10,6 +10,7 @@ video_players.forEach(video_player => {
   <div class="controls active">
     <div class="progress-area">
       <canvas class="bufferedBar"></canvas>
+      <div class="thunnaillBar"></div>
       <div class="progress-bar">
         <span></span>
       </div>
@@ -40,9 +41,6 @@ video_players.forEach(video_player => {
       </div>
 
       <div class="controls-right">
-      <span class="icon">
-        <i class="material-icons audioBtn">headphones</i>
-      </span>
       
         <span class="icon">
           <i class="material-icons captionsBtn">closed_caption</i>
@@ -143,6 +141,7 @@ video_players.forEach(video_player => {
         progressAreaTime = video_player.querySelector(".progressAreaTime"),
         controls = video_player.querySelector(".controls"),
         progressArea = video_player.querySelector(".progress-area"),
+        thunnaillBar = video_player.querySelector(".thunnaillBar"),
         bufferedBar = video_player.querySelector(".bufferedBar"),
         progress_Bar = video_player.querySelector(".progress-bar"),
         fast_rewind = video_player.querySelector(".fast-rewind"),
@@ -153,7 +152,7 @@ video_players.forEach(video_player => {
         // auto_play = video_player.querySelector(".auto-play"),
         settingsBtn = video_player.querySelector(".settingsBtn"),
         captionsBtn = video_player.querySelector(".captionsBtn"),
-        audioBtn = video_player.querySelector(".audioBtn"),
+        // audioBtn = video_player.querySelector(".audioBtn"),
         // picture_in_picutre = video_player.querySelector(".picture_in_picutre"),
         fullscreen = video_player.querySelector(".fullscreen"),
         settings = video_player.querySelector(".settings"),
@@ -419,58 +418,80 @@ video_players.forEach(video_player => {
         let currentSec = Math.floor(progressTime % 60);
         progressAreaTime.style.setProperty("--x", `${x}px`);
         progressAreaTime.style.display = "block";
-        thumbnail.style.setProperty("--x", `${x}px`);
 
-        for (var item of thumbnails) {
-            var data = item.sec.find(xl => xl.index === Math.floor(progressTime));
-            if (data) {
-                if (data.item != undefined) {
-                    thumbnail.style.backgroundImage = `url(${item.data})`;
-                    thumbnail.style.backgroundPositionX = `${data.backgroundPositionX}px`;
-                    thumbnail.style.backgroundPositionY = `${data.backgroundPositionY}`;
-                    thumbnail.style.display = 'block'; // แสดง thumbnail เมื่อมีภาพ
-                    return;
-                }
-                generateThumbnail(progressTime);
-            }
-        }
 
         currentSec < 10 ? (currentSec = "0" + currentSec) : currentSec;
         progressAreaTime.innerHTML = `${currentMin} : ${currentSec}`;
     });
 
+    thunnaillBar.addEventListener("mousemove", (e) => {
+        // Calculate video progress based on mouse position
+        let x = e.offsetX;
+        let progressWidthval = thunnaillBar.clientWidth + 2;
+        let videoDuration = mainVideo.duration;
+        let progressTime = (x / progressWidthval) * videoDuration;
+      
+        // Update thumbnail visuals (ensure video is paused)
+        if (mainVideo.paused) {
+            updateThumbnail(progressTime);
+        }
+      
+        // Update thumbnail position
+        thumbnail.style.left = `${x}px`;
+    });
+    
+    thunnaillBar.addEventListener("mouseout", () => {
+        thumbnail.style.display = 'none'; // ซ่อน thumbnail เมื่อนำเมาส์ออกจาก thunnaillBar
+    });
+    
     progressArea.addEventListener("mouseleave", () => {
         progressAreaTime.style.display = "none";
         thumbnail.style.display = "none";
     });
-
+    
+    function updateThumbnail(progressTime) {
+        // Loop through thumbnails (consider efficiency improvements if needed)
+        for (var item of thumbnails) {
+            var data = item.sec.find(xl => xl.index === Math.floor(progressTime));
+            if (data && data.item != undefined) {
+                thumbnail.style.backgroundImage = `url(${item.data})`;
+                thumbnail.style.backgroundPositionX = `${data.backgroundPositionX}px`;
+                thumbnail.style.backgroundPositionY = `${data.backgroundPositionY}px`;
+                thumbnail.style.display = 'block';
+                return; // Exit loop after finding matching thumbnail data
+            }
+        }
+      
+        // Generate thumbnail if no match is found
+        generateThumbnail(progressTime);
+    }
+    
     function generateThumbnail(time) {
         // ตรวจสอบว่าวิดีโอถูกเลือกไว้หรือไม่
         if (!mainVideo.paused) {
             return;
         }
-
+    
         let canvas = document.createElement('canvas');
         let context = canvas.getContext('2d');
         let thumbnailWidth = 165;
         let thumbnailHeight = 90;
         canvas.width = thumbnailWidth;
         canvas.height = thumbnailHeight;
-
+    
         mainVideo.currentTime = time;
-
+    
         mainVideo.addEventListener('seeked', function () {
             context.drawImage(mainVideo, 0, 0, thumbnailWidth, thumbnailHeight);
             let thumbnailURL = canvas.toDataURL('image/jpeg');
             displayThumbnail(thumbnailURL);
         }, { once: true });
     }
-
+    
     function displayThumbnail(url) {
         thumbnail.style.backgroundImage = `url(${url})`;
         thumbnail.style.display = 'block';
     }
-
 
     // Auto play
     //   auto_play.addEventListener("click", () => {
@@ -550,23 +571,23 @@ video_players.forEach(video_player => {
     });
 
     // Open audios
-    audioBtn.addEventListener("click", () => {
-        audios.classList.toggle("active");
-        audioBtn.classList.toggle("active");
-        if (
-            settingsBtn.classList.contains("active") ||
-            settings.classList.contains("active")
-        ) {
-            settings.classList.remove("active");
-            settingsBtn.classList.remove("active");
-        } else if (
-            captionsBtn.classList.contains("active") ||
-            captions.classList.contains("active")
-        ) {
-            captions.classList.remove("active");
-            captionsBtn.classList.remove("active");
-        }
-    });
+    // audioBtn.addEventListener("click", () => {
+    //     audios.classList.toggle("active");
+    //     audioBtn.classList.toggle("active");
+    //     if (
+    //         settingsBtn.classList.contains("active") ||
+    //         settings.classList.contains("active")
+    //     ) {
+    //         settings.classList.remove("active");
+    //         settingsBtn.classList.remove("active");
+    //     } else if (
+    //         captionsBtn.classList.contains("active") ||
+    //         captions.classList.contains("active")
+    //     ) {
+    //         captions.classList.remove("active");
+    //         captionsBtn.classList.remove("active");
+    //     }
+    // });
 
 
     // Playback Rate

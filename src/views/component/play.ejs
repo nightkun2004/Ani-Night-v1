@@ -30,6 +30,18 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+        window.googletag = window.googletag || { cmd: [] };
+        googletag.cmd.push(function () {
+            googletag.defineSlot('/22745653040/AniNightads', [120, 20], 'div-gpt-ad-1710925870938-0').addService(googletag.companionAds()).addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().enableVideoAds();
+            googletag.companionAds().setRefreshUnfilledSlots(true);
+            googletag.enableServices();
+        });
+    </script>
 </head>
 
 <body>
@@ -41,12 +53,18 @@
             <section class="section-player">
                 <div class="container">
                     <div class="video_player">
-                        <video preload="metadata" class="main-video" id="video">
+                        <video webkit-playsinline playsinline preload="metadata" class="main-video" id="video">
                             <source src="/videos/<%= video.filePath %>.mp4" size="720" type="video/mp4">
-                            <track default label="ซับไทย" kind="subtitles" src="../subtitles/mosawoth.vtt" srclang="th">
+
+                            <% if (video.subthai) { %>
+                                <track default label="ซับไทย" kind="subtitles" src="<%= video.subthai %>" srclang="th">
+                                <% } else { %>
+                                    <track default label="ซับไทย" kind="subtitles" src="../subtitles/mosawoth.vtt"
+                                        srclang="th">
+                                    <% } %>
 
 
-                            <!-- <audio id="audio" src="./audip_th.wav"></audio>
+                                        <!-- <audio id="audio" src="./audip_th.wav"></audio>
 
                             <select id="audioSelect">
                                 <option value="./audip_th.wav" selected>เสียงพากย์ภาษาไทย</option>
@@ -55,6 +73,12 @@
                             </select> -->
                         </video>
                         <div id="adContainer"></div>
+                    </div>
+                    <!-- /22745653040/AniNightads -->
+                    <div id='div-gpt-ad-1710925870938-0' style='min-width: 120px; min-height: 20px;'>
+                        <script>
+                            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1710925870938-0'); });
+                        </script>
                     </div>
                 </div>
                 <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
@@ -179,45 +203,45 @@
             let adsLoader;
             let adsManager;
             let videoContent;
-          
+
             function initializeAd() {
-              videoContent = document.getElementById('video');
-          
-              adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById('adContainer'), videoContent);
-              adsLoader = new google.ima.AdsLoader(adDisplayContainer);
-          
-              adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, onAdsManagerLoaded, false);
-              adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
-          
-              const adsRequest = new google.ima.AdsRequest();
-              adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/preview_cookie?gct=BEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&op=set&redirect=https://ani-night.online/play/40312?google_preview%3DBEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&redirect_hash=AJlzBa3gUzNSOuVFiD8WjsRZwdQGX1BUow&lineItemId=6645025135&creativeId=138468573645';
-          
-              adsLoader.requestAds(adsRequest);
+                videoContent = document.getElementById('video');
+
+                adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById('adContainer'), videoContent);
+                adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+
+                adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, onAdsManagerLoaded, false);
+                adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
+
+                const adsRequest = new google.ima.AdsRequest();
+                adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/preview_cookie?gct=BEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&op=set&redirect=https://ani-night.online/play/40312?google_preview%3DBEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&redirect_hash=AJlzBa3gUzNSOuVFiD8WjsRZwdQGX1BUow&lineItemId=6645025135&creativeId=138468573645';
+
+                adsLoader.requestAds(adsRequest);
             }
-          
+
             function onAdsManagerLoaded(adsManagerLoadedEvent) {
-              const adsRenderingSettings = new google.ima.AdsRenderingSettings();
-              adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
-              adsManager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
-          
-              adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
-          
-              try {
-                adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
-                adsManager.start();
-              } catch (adError) {
-                onAdError(adError);
-              }
+                const adsRenderingSettings = new google.ima.AdsRenderingSettings();
+                adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+                adsManager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
+
+                adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
+
+                try {
+                    adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
+                    adsManager.start();
+                } catch (adError) {
+                    onAdError(adError);
+                }
             }
-          
+
             function onAdError(adErrorEvent) {
-              console.error('Ad error: ', adErrorEvent.getError());
-              videoContent.play();
+                console.error('Ad error: ', adErrorEvent.getError());
+                videoContent.play();
             }
-          
+
             google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
             initializeAd();
-          </script>
+        </script>
 </body>
 
 </html>

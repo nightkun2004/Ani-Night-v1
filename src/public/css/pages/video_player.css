@@ -13,8 +13,8 @@ video::-webkit-media-text-track-display {
 }
 
 video::cue {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.344);
+    border-radius: 8px;
     padding: 5px;
 }
 
@@ -125,7 +125,7 @@ video::cue {
     outline: none;
 }
 
-.video_player .progressAreaTime {
+.video_player .progressAreaTime  {
     position: absolute;
     left: calc(var(--x) + 11px);
     transform: translateX(-50%);
@@ -159,13 +159,23 @@ video::cue {
     transform: translateY(0);
 }
 
-.video_player .controls .progress-area {
+.video_player .controls .progress-area{
     width: 100%;
     height: 5px;
     margin: auto;
     background: #f0f0f063;
     cursor: pointer;
     position: relative;
+}
+
+ .video_player .controls .thunnaillBar {
+    width: 100%;
+    height: 5px;
+    margin: auto;
+    background: #f0f0f063;
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
 }
 
 .video_player .controls .progress-thumbnail {
