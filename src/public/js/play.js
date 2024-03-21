@@ -17,7 +17,8 @@ less_Btn.addEventListener('click', () => {
     short_text.style.display = 'block';
     more_Btn.style.display = 'block';
     less_Btn.style.display = 'none';
-});
+}); 
+
 
 // ========================================================================================= //
 const ratingInputs = document.querySelectorAll('.rating input');

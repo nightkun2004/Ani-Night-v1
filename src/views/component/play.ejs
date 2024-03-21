@@ -317,7 +317,7 @@
                 </div>
                 <button type="submit">บันทึกคะแนน</button>
             </form>
-            
+
         </div>
 
         <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
@@ -341,6 +341,61 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="comment__container">
+                            <div class="comment__user">
+                                <a class="comment__name" href="#"
+                                    target="_blank">
+                                    <h5 >[BlackCoffee]</h5>
+                                </a>
+                                <span class="comment__time">03/08/2022</span>
+                            </div>
+                            <div class="comment__content">
+                                <span class="comment-content__text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                                    elit. Dolore, atque?</span>
+                            </div>
+                            <div class="comment__operate">
+                                <div class="comment__operate__item">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <span class="text-1xl">0</span>
+                                </div>
+                                <div class="comment__operate__item report">
+                                    <i class="fa-regular fa-flag"></i>
+                                        <span data-v-a42dab90="">รายงาน</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="comment-list__wrap__item">
+                        <div data-v-a42dab90 class="comment comment--root comment--pc">
+                            <div class="iconprofile-comment">
+                                <a href="#">
+                                    <img src="/icons/bilibili-icon.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="comment__container">
+                            <div class="comment__user">
+                                <a class="comment__name" href="#"
+                                    target="_blank">
+                                    <h5 >[BlackCoffee]</h5>
+                                </a>
+                                <span class="comment__time">03/08/2022</span>
+                            </div>
+                            <div class="comment__content">
+                                <span class="comment-content__text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                                    elit. Dolore, atque?</span>
+                            </div>
+                            <div class="comment__operate">
+                                <div class="comment__operate__item">
+                                    <i class="fa-regular fa-thumbs-up"></i>
+                                    <span class="text-1xl">0</span>
+                                </div>
+                                <div class="comment__operate__item report">
+                                    <i class="fa-regular fa-flag"></i>
+                                        <span data-v-a42dab90="">รายงาน</span>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -349,7 +404,7 @@
     </section>
     <%- include('../footer') %>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
         <script src="../js/video_player.js"></script>
         <script src="../js/play.js"></script>
@@ -363,23 +418,29 @@
                     navbar.classList.remove('navbar-white-bg');
                 }
             });
-
-
-
         </script>
-      <% if (typeof rating !== 'undefined' && rating ) { %>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                Swal.fire({
-                    icon: 'success',
-                    title: '<%= rating %>',
-                });
+            document.addEventListener('DOMContentLoaded', function() {
+                var descriptionSpan = document.querySelector('.full-text');
+                var description = descriptionSpan.textContent.trim();
+        
+                var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" style="color: blue;">$1</a>');
+                descriptionSpan.innerHTML = descriptionWithLinks;
             });
         </script>
-    <% } %>
-    
+        <% if (typeof rating !=='undefined' && rating ) { %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '<%= rating %>',
+                    });
+                });
+            </script>
+            <% } %>
 
-                            <!-- <script>
+
+                <!-- <script>
             document.addEventListener("DOMContentLoaded", function () {
                 console.log("DOM Content Loaded");
 
