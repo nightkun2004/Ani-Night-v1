@@ -83,6 +83,17 @@ const videoSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    ratings: {
+        type: Number,
+        default: 0
+    },
+    ratedBy: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            unique: true 
+        }
+    ],
     subthai: {
         type: String,
     }
