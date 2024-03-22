@@ -7,6 +7,14 @@
     <title>
         <%= video.name %>
     </title>
+    <meta name="description" content="<%= video.description %>  | Ani Night">
+    <meta name="keywords" content="anime, Anime, อนิเมะ, <%= video.name %>, <%= video.categories %>">
+    <meta name="author" content="aninight by Night">
+    <meta property="og:title" content="<%= video.name %> | AniNight">
+    <meta property="og:description" content="<%= video.description %>">
+    <meta property="og:image" content="https://ani-night.online/videos/<%= video.filePath %>.mp4">
+    <meta property="og:url" content="https://ani-night.online">
+    <meta property="og:type" content="website">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
@@ -73,6 +81,23 @@
                                 <option value="./audip_jp.wav">เสียงพากย์ภาษาญี่ปุ่น</option>
                             </select> -->
                         </video>
+
+                        <div class="ads_container" style="display: none;">
+                            <span class="icon-close">
+                                <i class="fa-solid fa-x"></i>
+                            </span>
+                            <div class="adsgoogle">
+                                <script async
+                                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                                    crossorigin="anonymous"></script>
+                                <!-- Video_aninight -->
+                                <ins class="adsbygoogle" style="display:inline-block;width:300px;height:300px"
+                                    data-ad-client="ca-pub-6579807593228261" data-ad-slot="5715570884"></ins>
+                                <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -343,9 +368,8 @@
                         </div>
                         <div class="comment__container">
                             <div class="comment__user">
-                                <a class="comment__name" href="#"
-                                    target="_blank">
-                                    <h5 >[BlackCoffee]</h5>
+                                <a class="comment__name" href="#" target="_blank">
+                                    <h5>[BlackCoffee]</h5>
                                 </a>
                                 <span class="comment__time">03/08/2022</span>
                             </div>
@@ -360,7 +384,7 @@
                                 </div>
                                 <div class="comment__operate__item report">
                                     <i class="fa-regular fa-flag"></i>
-                                        <span data-v-a42dab90="">รายงาน</span>
+                                    <span data-v-a42dab90="">รายงาน</span>
                                 </div>
                             </div>
                         </div>
@@ -375,9 +399,8 @@
                         </div>
                         <div class="comment__container">
                             <div class="comment__user">
-                                <a class="comment__name" href="#"
-                                    target="_blank">
-                                    <h5 >[BlackCoffee]</h5>
+                                <a class="comment__name" href="#" target="_blank">
+                                    <h5>[BlackCoffee]</h5>
                                 </a>
                                 <span class="comment__time">03/08/2022</span>
                             </div>
@@ -392,7 +415,7 @@
                                 </div>
                                 <div class="comment__operate__item report">
                                     <i class="fa-regular fa-flag"></i>
-                                        <span data-v-a42dab90="">รายงาน</span>
+                                    <span data-v-a42dab90="">รายงาน</span>
                                 </div>
                             </div>
                         </div>
@@ -420,10 +443,10 @@
             });
         </script>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 var descriptionSpan = document.querySelector('.full-text');
                 var description = descriptionSpan.textContent.trim();
-        
+
                 var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" style="color: blue;">$1</a>');
                 descriptionSpan.innerHTML = descriptionWithLinks;
             });

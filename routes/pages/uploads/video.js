@@ -97,7 +97,7 @@ router.post('/video-upload', upload.single('file_video'), async (req, res) => {
 
         const videoToken = jwt.sign({ videoId: newVideo._id }, '12345678900987654321', { expiresIn: '1h' });
 
-        const oldFilePath = `src/public/videos/${req.file.filename}`;
+        const oldFilePath = `src/public/videos/${req.file.filename}`; 
         const newFilePath = `src/public/videos/${newFileName}.mp4`;
         fs.rename(oldFilePath, newFilePath, (err) => {
             if (err) {

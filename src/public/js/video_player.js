@@ -1,7 +1,7 @@
 // let's select all required tags or elements
 const video_players = document.querySelectorAll(".video_player");
 video_players.forEach(video_player => {
-    const video_player_html = `<div class="loader"></div>
+    const video_player_html = `<div class="loader"></div> 
   ${video_player.innerHTML}
   <p class="caption_text"></p>
  <div class="thumbnail"></div>
@@ -165,6 +165,8 @@ video_players.forEach(video_player => {
         tracks = video_player.querySelectorAll("track"),
         tracksad = video_player.querySelectorAll("trackad"),
         loader = video_player.querySelector(".loader"),
+        ads_container = video_player.querySelector(".ads_container"),
+        icon_Close = video_player.querySelector(".icon-close"),
         volumeCard = video_player.querySelector('.maincolunCard');
 
     const volumeControl = document.getElementById("volumeControl");
@@ -204,6 +206,7 @@ video_players.forEach(video_player => {
         play_pause.innerHTML = "pause";
         play_pause.title = "pause";
         video_player.classList.add("paused");
+        ads_container.style.display = 'none';
         mainVideo.play();
     }
 
@@ -212,8 +215,13 @@ video_players.forEach(video_player => {
         play_pause.innerHTML = "play_arrow";
         play_pause.title = "play";
         video_player.classList.remove("paused");
+        ads_container.style.display = 'block';
         mainVideo.pause();
     }
+
+    icon_Close.addEventListener('click', ()=> {
+        ads_container.style.display = 'none'
+    })
 
     let isDragging = false;
 
