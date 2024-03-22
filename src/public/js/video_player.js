@@ -734,22 +734,22 @@ video_players.forEach(video_player => {
     }
 
     //  blob url track
-    let mainSubtitleSources = mainVideo.querySelectorAll("track");
-    for (let i = 0; i < mainSubtitleSources.length; i++) {
-        let videoUrl = mainSubtitleSources[i].src;
-        blobUrl(mainSubtitleSources[i], videoUrl);
-    }
-    function blobUrl(video, videoUrl) {
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", videoUrl);
-        xhr.responseType = "arraybuffer";
-        xhr.onload = (e) => {
-            let blob = new Blob([xhr.response]);
-            let url = URL.createObjectURL(blob);
-            video.src = url;
-        };
-        xhr.send();
-    }
+    // let mainSubtitleSources = mainVideo.querySelectorAll("track");
+    // for (let i = 0; i < mainSubtitleSources.length; i++) {
+    //     let videoUrl = mainSubtitleSources[i].src;
+    //     blobUrl(mainSubtitleSources[i], videoUrl);
+    // }
+    // function blobUrl(video, videoUrl) {
+    //     let xhr = new XMLHttpRequest();
+    //     xhr.open("GET", videoUrl);
+    //     xhr.responseType = "arraybuffer";
+    //     xhr.onload = (e) => {
+    //         let blob = new Blob([xhr.response]);
+    //         let url = URL.createObjectURL(blob);
+    //         video.src = url;
+    //     };
+    //     xhr.send();
+    // }
 
     mainVideo.addEventListener("contextmenu", (e) => {
         e.preventDefault();

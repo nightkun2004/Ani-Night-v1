@@ -26,9 +26,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            เพิ่มซับไทย
-                        </a>
+                        <form action="/add_subthai" method="POST">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">เพิ่มซับไทย</button>
+                        </form>
                     </li>
                     <li>
                         <a href="#">

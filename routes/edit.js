@@ -10,7 +10,7 @@ router.get('/deleted', (req, res) => {
 router.get('/edit_video/editsubthai', (req,res) => {
    const usersesstion = req.session.userlogin;
    res.render('./component/pages/edits/videos/subthai', {usersesstion, active: 'dashboard'})
-})
+}) 
 
 router.get('/delete/:id', editActicle.Delete)
 router.get('/delete/video/:id', editActicle.DeleteVideo)
