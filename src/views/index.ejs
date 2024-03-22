@@ -186,6 +186,16 @@
         });
 
     </script>
+     <% if (typeof alertMessageVideo !=='undefined' && alertMessageVideo ) { %>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: '<%= alertMessageVideo %>',
+                });
+            });
+        </script>
+        <% } %>
 </body>
 
 </html>

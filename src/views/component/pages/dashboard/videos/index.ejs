@@ -52,7 +52,7 @@
                     </li>
                 </ul>
             </nav>
-            <!-- <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+            <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
                 <div class="videos_edits">
                     <ul class="videoEdits grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         <% if (userData && userData.videos && userData.videos.length> 0) { %>
@@ -67,7 +67,7 @@
                                             <%= video.name %>
                                         </h>
                                         <div class="btn_edit">
-                                            <form action="/edit_acticle" method="POST">
+                                            <form action="/edit_video" method="POST">
                                                 <input type="hidden" name="edit_id" value="<%= video._id %>">
                                                 <button type="submit"
                                                     class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
@@ -86,7 +86,7 @@
 
                     </ul>
                 </div>
-            </div> -->
+            </div>
 
         </section>
 

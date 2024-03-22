@@ -1,4 +1,5 @@
 const Acticle = require('../models/acticle')
+const Video = require('../models/video')
 const fs = require('fs');
 
 exports.editActicle = async (req, res) => {
@@ -11,6 +12,22 @@ exports.editActicle = async (req, res) => {
         }
 
         res.render('./component/pages/edits/edit_acticle', { active: 'profile', article, usersesstion })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+exports.editVideo = async (req, res) => {
+    const usersesstion = req.session.userlogin
+    const edit_id = req.body.edit_id
+    try {
+        const video = await Video.findOne({ _id: edit_id }).exec();
+        if (!video) {
+            return res.status(404).json({ error: "Vidoe not found" });
+        }
+
+        res.render('./component/pages/edits/edit_video', { active: 'dashboard', video, usersesstion })
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });
@@ -32,6 +49,27 @@ exports.editActicleuser = async (req, res) => {
         );
 
         res.redirect('/?alertMessage=แก้ไขเรียบร้อยแล้ว');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+
+exports.editVideouser = async (req, res) => {
+    const update_id = req.body.update_id;
+    try {
+        await Video.findOneAndUpdate(
+            { _id: update_id },
+            {
+                $push: { acticles: update_id },
+                name: req.body.namevideo,
+                description: req.body.dec_video,
+                categories: req.body.categories,
+            }
+        );
+
+        res.redirect('/?alertMessageVideo=แก้ไขเรียบร้อยแล้ว');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

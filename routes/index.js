@@ -47,7 +47,8 @@ router.get('/', async (req, res) => {
             hasPrevPage: page > 1, // ตรวจสอบว่ามีหน้าก่อนหน้าหรือไม่
             nextPage: page + 1, // หน้าถัดไป
             prevPage: page - 1, // หน้าก่อนหน้า
-            lastPage: Math.ceil(totalActicles / ITEMS_PER_PAGE) 
+            lastPage: Math.ceil(totalActicles / ITEMS_PER_PAGE),
+            alertMessageVideo: req.query.alertMessageVideo
         });
     } catch (error) {
         console.error(error);

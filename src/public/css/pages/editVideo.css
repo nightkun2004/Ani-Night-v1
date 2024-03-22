@@ -1,0 +1,42 @@
+
+.container_EditVideo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar_left {
+    background-color: #fff;
+    width: 250px;
+    height: 100%;
+    transition: .3s;
+    padding: 10px;
+}
+
+.sidebar_left ul {padding: 0; margin: 0;}
+
+.sidebar_left ul li {
+    padding: 10px 7px;
+    cursor: pointer;
+}
+
+.sidebar_left ul li:hover {
+    background-color: #eeee;
+    border-radius: 10px;
+}
+
+.content_edit {
+    padding: 10px;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 480px) {
+    .container_EditVideo {
+        flex-direction: column;
+    }
+    .sidebar_left {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

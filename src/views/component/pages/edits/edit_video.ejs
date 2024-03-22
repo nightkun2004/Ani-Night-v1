@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขรายละเอียนวีดีโอ</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/acticle.css">
+    <link rel="stylesheet" href="../css/pages/editVideo.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</head>
+
+<body>
+    <%- include('../../../navbar') %>
+
+        <div class="container_EditVideo mx-auto px-4 xl:max-w-7xl pt-[110px">
+            <div class="sidebar_left">
+                <ul>
+                    <li>
+                        <a href="#">
+                            แก้ไขวีดีโอพื้นฐาน
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            เพิ่มซับไทย
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            เพิ่มลิ้งแพลตฟอร์ม
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            เพิ่มลิ้งนักพากย์
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content_edit">
+                <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขวีดีโอพื้นฐาน</h2>
+                <div class="con_form">
+                    <form action="/edit/video/user" method="post">
+                        <input type="hidden" name="update_id" value="<%= video._id %>">
+                        <div class="mb-5">
+                            <label for="name-video">ชื่อวีดีโอ</label>
+                            <input style="outline: none;" type="text" name="namevideo" id="" value="<%= video.name %>"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-500 dark:shadow-sm-light">
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="name_act"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แก้ไขคำอธิบายวีดีโอ</label>
+                            <textarea style="outline: none;" placeholder="แก้ไขคำอธิบายวีดีโอ" name="dec_video"
+                                id="dec_video" cols="30" rows="10"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                <%= video.description %></textarea>
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="tag">แก้ไขแท็ก</label>
+                            <input style="outline: none;" type="text" name="categories" value="<%= video.categories %>"
+                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light">
+                        </div>
+
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            แก้ไขวีดีโอ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../../../footer') %>
+</body>
+
+</html>
