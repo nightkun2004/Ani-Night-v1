@@ -13,6 +13,7 @@ router.get('/edit_video/editsubthai', (req,res) => {
 })
 
 router.get('/delete/:id', editActicle.Delete)
+router.get('/delete/video/:id', editActicle.DeleteVideo)
 
 router.post('/edit_acticle', editActicle.editActicle)
 router.post('/edit_video', editActicle.editVideo)

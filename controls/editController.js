@@ -97,3 +97,25 @@ exports.Delete = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
+
+exports.DeleteVideo = async (req, res) => {
+    try {
+        const usersesstion = req.session.userlogin;
+        const imageToDelete = await Acticle.findById(req.params.id);
+
+        if (!imageToDelete) {
+            return res.status(404).send('Video not found');
+        }
+
+        const filePath = `/videos/${imageToDelete.filePath}`;
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
+        await Acticle.findByIdAndDelete(req.params.id, { useFindAndModify: false });
+        res.redirect(`/dashboard/${usersesstion.url}`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+}
