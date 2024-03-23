@@ -24,6 +24,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
@@ -124,6 +125,29 @@
         </section>
 
         <%- include('../../../footer') %>
+        <script>
+            function confirmDelete(event) {
+                event.preventDefault(); // หยุดการกระทำเริ่มต้นของลิงก์
+        
+                const deleteUrl = event.target.getAttribute('href'); // รับ URL ที่จะลบ
+        
+                Swal.fire({
+                    title: 'คุณแน่ใจหรือไม่?',
+                    text: "คุณต้องการที่จะลบไฟล์นี้หรือไม่?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'ใช่, ลบ!',
+                    cancelButtonText: 'ยกเลิก'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // ถ้าผู้ใช้ยืนยันการลบ
+                        window.location.href = deleteUrl; // ลิงก์ไปยัง URL ที่ต้องการลบ
+                    }
+                });
+            }
+        </script>
 </body>
 
 </html>

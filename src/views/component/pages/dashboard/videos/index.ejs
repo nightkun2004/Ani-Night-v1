@@ -24,6 +24,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
@@ -35,13 +36,13 @@
                     <li>
                         <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
-                         ย้อนกลับ
+                            ย้อนกลับ
                         </a>
                     </li>
                     <li>
                         <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
-                         จัดการวีดีโอ
+                            จัดการวีดีโอ
                         </a>
                     </li>
                     <li>
@@ -72,9 +73,8 @@
                                                 <button type="submit"
                                                     class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
                                             </form>
-                                            <button class="btnde bg-red-500 p-2 rounded-lg w-full"><a
-                                                    class="delete-button" href="/delete/video/<%= video._id %>"
-                                                    onclick="confirmDelete(event)">ลบ</a></button>
+                                            <a class="btnde bg-red-500 p-2 rounded-lg w-full"
+                                            onclick="confirmDelete(event)" href="/delete/video/<%= video._id %>">ลบ</a>
                                         </div>
                                     </div>
                                 </li>
@@ -120,6 +120,30 @@
                 });
 
             </script>
+            <script>
+                function confirmDelete(event) {
+                    event.preventDefault(); // หยุดการกระทำเริ่มต้นของลิงก์
+            
+                    const deleteUrl = event.target.getAttribute('href'); // รับ URL ที่จะลบ
+            
+                    Swal.fire({
+                        title: 'คุณแน่ใจหรือไม่?',
+                        text: "คุณต้องการที่จะลบไฟล์นี้หรือไม่?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'ใช่, ลบ!',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // ถ้าผู้ใช้ยืนยันการลบ
+                            window.location.href = deleteUrl; // ลิงก์ไปยัง URL ที่ต้องการลบ
+                        }
+                    });
+                }
+            </script>
+            
 </body>
 
 </html>

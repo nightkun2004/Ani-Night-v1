@@ -77,8 +77,42 @@ nav .navbar-right .menus ul li a {
     /* อื่น ๆ ที่คุณต้องการให้เปลี่ยนแปลง เช่น สีตัวอักษร */
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    min-width: 160px;
+    z-index: 1;
+    top: 30px;
+}
 
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 12px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* เมื่อโฮเวอร์ที่ .dropdown แสดง dropdown */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* เมื่อโฮเวอร์ที่ dropdown content ก็ยังแสดง dropdown */
+.dropdown-content:hover {
+    display: block;
+}
 @media screen and (max-width: 780px) {
     nav .narbar-left .narbar-mobilib {
         display: block;

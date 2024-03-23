@@ -105,9 +105,17 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/search">
-                            ค้นหา
-                        </a>
+                        <div class="dropdown">
+                            <button class="dropbtn">ค้นหา</button>
+                            <ul class="dropdown-content" style="display: none;">
+                                <li>
+                                    <a href="/search">อนิเมะ</a>
+                                </li>
+                                <li>
+                                    <a href="/search">ค้นหาบนเว็บไซต์</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="<%= active === 'actcile' ? 'active' : '' %>">
                         <a href="/acticle">

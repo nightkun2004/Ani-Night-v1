@@ -10,7 +10,8 @@ router.get('/editor/:url/video', async (req, res) => {
         const userId = req.params.id;
         const username = req.params.url;
         const userData = await User.findOne({ username: username })
-            .populate('acticles');
+            .populate('videos');
+
         res.render('./component/pages/channel/video', {
             active: 'home',
             usersesstion,
@@ -20,6 +21,6 @@ router.get('/editor/:url/video', async (req, res) => {
         console.error(err);
         res.status(500).send('Internal Server Error', err);
     }
-})
+}) 
 
 module.exports = router

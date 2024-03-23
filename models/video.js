@@ -58,7 +58,7 @@ const videoSchema = new mongoose.Schema({
     },
     coverImage: {
         type: String,
-        default: "viedo-tum.png" 
+        default: "image_not_available.png" 
     },
     username: String,
     profile: {

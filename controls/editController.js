@@ -91,7 +91,7 @@ exports.Delete = async (req, res) => {
         }
 
         await Acticle.findByIdAndDelete(req.params.id, { useFindAndModify: false });
-        res.redirect(`/dashboard/${usersesstion.url}`);
+        res.redirect(`/${usersesstion.url}/dashboard?tokenlogin=${usersesstion.accessToken}`);
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -101,19 +101,19 @@ exports.Delete = async (req, res) => {
 exports.DeleteVideo = async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const imageToDelete = await Acticle.findById(req.params.id);
+        const VidoeToDelete = await Video.findById(req.params.id);
 
-        if (!imageToDelete) {
+        if (!VidoeToDelete) {
             return res.status(404).send('Video not found');
         }
 
-        const filePath = `/videos/${imageToDelete.filePath}`;
+        const filePath = `/videos/${VidoeToDelete.filePath}`;
         if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath);
         }
 
-        await Acticle.findByIdAndDelete(req.params.id, { useFindAndModify: false });
-        res.redirect(`/dashboard/${usersesstion.url}`);
+        await Video.findByIdAndDelete(req.params.id, { useFindAndModify: false });
+        res.redirect(`/${usersesstion.url}/dashboard/video?tokenlogin=${usersesstion.accessToken}`);
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
