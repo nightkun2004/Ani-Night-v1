@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <meta name="keywords" content="ข้าสู่ระบบ">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
@@ -97,7 +97,7 @@
 
 
     <%- include('../../footer') %>
-        <script src="../js/search.js"></script>
+        <!-- <script src="../js/search.js"></script> -->
         <script>
             window.addEventListener('scroll', function () {
                 var navbar = document.getElementById('navbar');
@@ -106,9 +106,19 @@
                 } else {
                     navbar.classList.remove('navbar-white-bg');
                 }
-            });
+            }); 
 
         </script>
+         <% if (typeof alertMessage !=='undefined' && alertMessage ) { %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '<%= alertMessage %>',
+                    });
+                });
+            </script>
+            <% } %>
 </body>
 
 </html>

@@ -80,9 +80,10 @@ exports.getLogin = async (req, res) => {
             youtube: userlogin.youtube,
             tiktok: userlogin.tiktok,
             facebook: userlogin.facebook, 
-            accessToken: accessToken
+            accessToken: accessToken,
+            alertMessage: req.query.alertMessage
         };
-        res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}`);
+        res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}&alertMessage=เข้าสู่ระบบสำเร็จ`);
     } catch(error) {
         console.log(error)
         return res.redirect('/login?alertMessage=เกิดข้อผิดพลาด');

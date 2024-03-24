@@ -77,9 +77,10 @@ router.get('/auth/google/callback',
                 youtube: userlogin.youtube,
                 tiktok: userlogin.tiktok,
                 facebook: userlogin.facebook, 
-                accessToken: accessToken
+                accessToken: accessToken,
+                alertMessage: req.query.alertMessage
             };
-            res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}`);
+            res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}&alertMessage=เข้าสุ่ระบบสำเร็จ`);
         } else {
             // กรณีไม่สามารถยืนยันตัวตนผ่าน Google OAuth ได้
             res.redirect('/login'); // ลิงก์ไปยังหน้าเข้าสู่ระบบอีกครั้งหรือหน้าที่เหมาะสม
@@ -91,7 +92,7 @@ router.get('/login', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const template = req.language === 'th' ? './component/pages/login' : './en/login';
-        res.render(template, { active: 'login', usersesstion });
+        res.render(template, { active: 'login', usersesstion, alertMessage: req.query.alertMessage });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error', err);
