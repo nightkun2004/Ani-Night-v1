@@ -2,16 +2,20 @@ const express = require("express")
 const router = express.Router()
 const mongoose = require("../../../config")
 const Reward = require("../../../models/code")
+const User = require("../../../models/user")
 const videos = require('../videos/router')
 const authenticatetoken = require("../../../middleware/authtoken")
-
+ 
 router.get('/:url/video', authenticatetoken, async (req, res) => {
     try {
+        const url = req.params.url;
         const usersesstion = req.session.userlogin;
+        const userData = await User.findOne({ _id: usersesstion._id, url: url })
+            .populate('videos');
         if (!usersesstion) {
-            return res.redirect('/')
+            return res.redirect('/') 
         }
-        res.render('./component/pages/profile/video', { active: 'profile', usersesstion });
+        res.render('./component/pages/profile/video', { active: 'profile', usersesstion, userData });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error', err);

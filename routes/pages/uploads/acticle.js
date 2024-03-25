@@ -41,7 +41,7 @@ router.post('/upload_acticle', upload.single('upload_picActicle'), async (req, r
         const { name, tages, content, username, categories } = req.body;
 
         function generateRandomPostId() {
-            let numbers = Array.from({ length: 20 }, (_, i) => i);
+            let numbers = Array.from({ length: 5 }, (_, i) => i);
             shuffleArray(numbers);
             return numbers.join('');
         }
@@ -69,6 +69,7 @@ router.post('/upload_acticle', upload.single('upload_picActicle'), async (req, r
             tags: tagsArray,
             photo: req.file.filename,
             link: req.body.link,
+            link_info: req.body.link_info,
             url: postId,
             iduser: req.body.iduser,
             profile: usersesstion.profile,

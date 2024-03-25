@@ -27,7 +27,7 @@ exports.getProfile = async (req, res) => {
 
         const template = req.language === 'th' ? './component/pages/profile' : './en/profiles/profile';
 
-        res.render(template, { active: 'profile', usersesstion, userData });
+        res.render(template, { active: 'profile', usersesstion, userData, alertMessage: req.query.alertMessage });
 
     } catch (error) {
         console.error(error);

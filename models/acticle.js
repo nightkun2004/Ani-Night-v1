@@ -3,14 +3,17 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 
 const ArticleSchema = new mongoose.Schema({
-    tags: [String], 
+    tags: [String],
+    link_info: {
+        type: String
+    },
     title: {
         type: String,
-        required: true 
+        required: true
     },
     content: {
         type: String,
-        required: true 
+        required: true
     },
     username: {
         type: String
@@ -20,46 +23,46 @@ const ArticleSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: "" 
-    }, 
+        default: ""
+    },
     createdAt: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     },
     views: {
         type: Number,
-        default: 0 
-    }, 
-    published: Boolean, 
+        default: 0
+    },
+    published: Boolean,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User" 
+            ref: "User"
         },
-        username: String, 
+        username: String,
         profile: {
-            type: String 
+            type: String
         },
     },
-    date: {type: Date, default: Date.now}, 
+    date: { type: Date, default: Date.now },
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'comment', 
+            ref: 'comment',
         }
     ],
     url: {
-        type: String 
+        type: String
     },
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'likes' 
+        ref: 'likes'
     }],
     iduser: {
-        type: String 
+        type: String
     },
     profile: {
-        type: String 
+        type: String
     }
 });
 

@@ -117,11 +117,11 @@
                             <%= video.description %>
                                 <% } else { %>
                                     <span class="short-text">
-                                        <%= video.description.substring(0, 50) + '  ....' %>
+                                        <%- video.description.substring(0, 50) + '  ....' %>
                                     </span>
 
                                     <span class="full-text" style="display: none;">
-                                        <%= video.description %>
+                                        <%- video.description %>
                                     </span>
                                     <span class="more-btn">ดูเพิ่มเติม</span>
                                     <span class="less-btn" style="display: none;">ย่อ</span>

@@ -122,9 +122,12 @@
                 <% } else { %>
                     <h2>Tags: ไม่มีแท็ก</h2>
                 <% } %>
-                <div class="rounded-full items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
-                    <button class="text-black"><a href="http://" target="_blank" rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
+                
+                <% if (acticle.link_info) { %>
+                    <div class="rounded-full items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
+                    <button class="text-black"><a href="<%= acticle.link_info %>" target="_blank" rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
                 </div>
+                <% } %>
             </div>
             
             <div class="absolute md:right-12 md:bottom-4 right-4 bottom-4 px-2 py-2 rounded-full">
@@ -147,7 +150,7 @@
         </div>
 
           <!-- content ALL -->
-          <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg">
+          <div class="content-full bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg">
             <%- acticle.content %>
         </div>
 
@@ -239,6 +242,15 @@
             }
         });
 
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var descriptionSpan = document.querySelector('.content-full');
+            var description = descriptionSpan.textContent.trim();
+
+            var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" style="color: blue;">$1</a>');
+            descriptionSpan.innerHTML = descriptionWithLinks;
+        });
     </script>
 </body>
 

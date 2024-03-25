@@ -307,6 +307,16 @@
         });
 
     </script>
+      <% if (typeof alertMessage !=='undefined' && alertMessage ) { %>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: '<%= alertMessage %>',
+                });
+            });
+        </script>
+        <% } %>
 </body>
 
 </html>

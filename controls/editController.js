@@ -43,6 +43,7 @@ exports.editActicleuser = async (req, res) => {
                 $push: { acticles: update_id },
                 title: req.body.title,
                 content: req.body.content,
+                link_info: req.body.link_info,
                 categories: req.body.categories,
                 url: req.body.url
             }
