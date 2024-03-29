@@ -18,6 +18,6 @@ router.get('/delete/video/:id', editActicle.DeleteVideo)
 router.post('/edit_acticle', editActicle.editActicle)
 router.post('/edit_video', editActicle.editVideo)
 router.post('/edit/article/user', editActicle.editActicleuser)
-router.post('/edit/video/user', editActicle.editVideouser)
+router.post('/edit/video/user', editActicle.editVideouser) 
 
 module.exports = router

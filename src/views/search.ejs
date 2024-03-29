@@ -47,7 +47,8 @@
                         </svg>
                     </div>
                     <input type="search" name="query" id="search" placeholder="ค้นหา..."
-                        class="block w-full p-4 ps-10 text-lg text-black-900 border border-gray-50 rounded-full h-10 bg-gray-50">
+                        class="block w-full p-4 ps-10 text-lg text-black-900 border border-gray-50 rounded-full h-10 bg-gray-50"
+                        oninput="searchArticles(this.value)">
                 </div>
                 <div class="flex items-center justify-center mt-[40px]">
                     <button type="submit" class="bg-sky-100 p-[10px] rounded-lg">
@@ -56,8 +57,42 @@
                 </div>
             </form> 
         </div>
+
+        <div class="results_popup" style="display: none;">
+            <ul>
+                <li></li>
+            </ul>
+        </div>
         <h2 class="text-1xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">ผลลัพธ์การค้นหาสำหรับ "<%= searchQuery %>
                 "</h2>
+                <div id="queryq" class="mb-[50px] mt-[20px]">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <% articles.forEach((article, index)=> { %>
+                            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                                <a href="/read/<%= article.url %>?lang=<%= language %>">
+                                    <img class="w-full h-48 object-cover object-center"
+                                        src="/acticles_images/<%= article.photo %>" alt="">
+                                    <% if (article.author && article.author.id) { %>
+                                        <div class="p-4">
+                                            <img style="width: 50px; height: 50px; border-radius: 50%;"
+                                                class=" object-cover object-center"
+                                                src="/profiles/<%= article.author.id.profile %>" alt="">
+                                            <div class="text-info">
+                                                <h3 class="text-gray-800 font-semibold text-lg mb-2">
+                                                    <%= article.title %>
+                                                </h3>
+                                                <p class="text-gray-600">เขียนโดย: <a href="/editor/<%= article.author.id.username %>"> <%= article.author.id.username %></a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% } else { %>
+                                            <p>Author: Unknown</p>
+                                            <% } %>
+                                </a>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
 
         <!-- Ads  -->
         <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
@@ -72,38 +107,12 @@
             </script>
         </div>
 
-        <div id="queryq" class="mb-[50px] mt-[20px]">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <% articles.forEach((article, index)=> { %>
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                        <a href="/read/<%= article.url %>?lang=<%= language %>">
-                            <img class="w-full h-48 object-cover object-center"
-                                src="/acticles_images/<%= article.photo %>" alt="">
-                            <% if (article.author && article.author.id) { %>
-                                <div class="p-4">
-                                    <img style="width: 50px; height: 50px; border-radius: 50%;"
-                                        class=" object-cover object-center"
-                                        src="/profiles/<%= article.author.id.profile %>" alt="">
-                                    <div class="text-info">
-                                        <h3 class="text-gray-800 font-semibold text-lg mb-2">
-                                            <%= article.title %>
-                                        </h3>
-                                        <p class="text-gray-600">เขียนโดย: <a href="/editor/<%= article.author.id.username %>"> <%= article.author.id.username %></a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <% } else { %>
-                                    <p>Author: Unknown</p>
-                                    <% } %>
-                        </a>
-                    </div>
-                    <% }) %>
-            </div>
-        </div>
+        
     </section>
 
     <%- include('./footer') %>
 
+    <script src="/js/search.js"></script>
     <script>
         window.addEventListener('scroll', function () {
             var navbar = document.getElementById('navbar');

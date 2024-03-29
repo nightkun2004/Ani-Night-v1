@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
-const Acticle = require('../../../models/acticle')
-const User = require('../../../models/user')
+const Acticle = require('../../../../models/acticle')
+const User = require('../../../../models/user')
 
 function setLanguage(req, res, next) {
     const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
@@ -41,7 +41,7 @@ router.get('/:url/dashboard/video/editvideo', async (req, res) => {
         }
 
 
-
+ 
         // ดึงข้อมูลการชำระเงินของผู้ใช้
         const payment = await User.findOne({ _id: usersesstion._id })
             .populate('payment')

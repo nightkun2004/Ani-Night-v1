@@ -1,0 +1,143 @@
+
+
+.title_anime {
+    border-left: 5px solid #00ffe1;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.anime_content .anime_brta {
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.anime_lists {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+    margin-top: 12px;
+    background-color: #fff;
+}
+
+.anime_list {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 0;
+}
+
+.anime_list .anime_item_pic img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.anime_list .anime_info_text {
+    padding: 10px;
+}
+
+.anime_list .anime_info_text h2 {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.anime_list .anime_info_text p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.anime_list .anime_info_text span {
+    font-weight: 400;
+}
+
+.anime_list button {
+    background-color: #00bbff;
+    padding: 5px;
+    width: 100%;
+    border-radius: 20px;
+    color: #fff;
+}
+
+@media screen and (max-width:1030px) {
+    .anime_list .anime_info_text h2 {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .anime_list .anime_info_text p {
+        font-size: 12px;
+        font-weight: bold;
+    }
+}
+
+@media screen and (max-width:790px) {
+    .anime_lists {
+        grid-template-columns: repeat(1,1fr);
+    }
+    .anime_list {border-bottom: 1px solid #eee;}
+    .anime_list .anime_info_text h2 {
+        font-size: 21px;
+        font-weight: bold;
+    }
+    .anime_list .anime_info_text p {
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .anime_list {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width:533px) {
+    .anime_list .anime_info_text h2 {
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .anime_list .anime_info_text p {
+        font-size: 13px;
+        font-weight: bold;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .anime_list .anime_info_text h2 {
+        font-size: 14px;
+        font-weight: bold;
+        overflow: hidden;
+    }
+    .anime_list .anime_info_text p {
+        font-size: 12px;
+        font-weight: bold;
+        overflow: hidden;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .anime_lists {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #3d84ff; /* สีของ Spinner */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* การหมุนของ Spinner */
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }

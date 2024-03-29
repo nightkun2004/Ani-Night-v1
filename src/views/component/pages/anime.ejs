@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime 2024 อนิเมะ 2024  </title>
+    <meta name="description" content="รายการอนิเมะ 2024 อนิเมะ 2024 รวมมาไว้ที่นี่แล้ว ตรวจสอบอนิเมะที่คุณชอบ">
+    <meta name="keywords" content="Anime2024, Anime, 2024, อนิเมะ, มีนาคม, เมษายน,">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="og:url" content="https://www.ani-night.online/animeboard">
+    <meta property="og:image" content="https://www.ani-night.online/animeboard">
+    <meta name="theme-color" content="#00bbff">
+    <link rel="stylesheet" href="./css/acticle.css">
+    <link rel="stylesheet" href="./css/pages/anime.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/font/font1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="fixed inset-x-0 z-20 md:none" id="navbar">
+        <%- include('../../navbar') %>
+    </div>
+
+    <div class="container mx-auto px-4 xl:max-w-7xl pt-[110px]">
+        <h2 class="title_anime"> รายการอนิเมะ 2024</h2>
+        <div class="anime_content">
+            <h2 class="anime_brta">เมษายน 2024</h2>
+            <div class="anime_lists sub">
+                <% if (AnimeBordData && AnimeBordData.length > 0) { %>
+                    <% AnimeBordData.forEach(item => { %>
+                        <% if (item.animeApril && item.animeApril.length > 0) { %>
+                            <% item.animeApril.forEach(anime => { %>
+                                <div class="anime_list">
+                                    <div class="anime_item_pic">
+                                        <img src="<%= anime.linkImage %>" alt="Anime">
+                                    </div>
+                                    <div class="anime_info_text">
+                                        <h2><%= anime.nameAnime %></h2>
+                                        <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
+                                        <% if (anime.manuscript) { %>
+                                            <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
+                                        <% } %>
+                                        <p>จำนวนตอน: <span><%= anime.episodes %></span> ตอน</p>
+                                        <p>เริ่มฉาย(ญี่ปุ่น): <span><%= anime.start %></span></p>
+                                        <% if (anime.info) { %>
+                                            <button>
+                                                <a href="#">ข้อมูลเพิ่มเติม</a>
+                                            </button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                        <% } %>
+                    <% }); %>
+                <% } else { %>
+                    <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                <% } %>
+                
+                <div class="loading-indicator" id="loadingIndicator">
+                    <div class="spinner"></div>
+                  </div>
+                
+                <!-- <div class="anime_list">
+                    <div class="anime_item_pic">
+                        <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
+                    </div>
+                    <div class="anime_info_text">
+                        <h2>Kami wa Game ni Ueteiru</h2>
+                        <p>ผลิตโดย: <span>Liden Films</span></p>
+                        <p>ต้นฉบับ: <span>Light Novel</span></p>
+                        <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
+                        <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
+                        <button>
+                            <a href="#">ข้อมูลเพิ่มเติม</a>
+                        </button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <%- include('../../footer') %>
+    <script>
+        window.addEventListener('scroll', function () {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-white-bg');
+            } else {
+                navbar.classList.remove('navbar-white-bg');
+            }
+        });
+
+    </script>
+    <script>
+        function showLoadingIndicator() {
+                document.getElementById('loadingIndicator').style.display = 'block';
+            }
+
+            function hideLoadingIndicator() {
+                document.getElementById('loadingIndicator').style.display = 'none';
+            }
+
+            showLoadingIndicator();
+
+            window.addEventListener('load', function () {
+                hideLoadingIndicator();
+            });
+        </script>
+</body>
+</html>

@@ -26,6 +26,7 @@ const uploadRoute = require('./routes/pages/uploads/uplaods')
 const updateReward = require('./routes/admin/updateReward')
 const admin = require('./routes/admin')
 const routersRoute = require('./routes/pages/router')
+// const routerAnimebord = require('./routes/pages/dashboard/edits/animeboard')
 
 app.use(session({
     secret: '12345678900987654321',
@@ -62,7 +63,8 @@ app.use(loginRoute)
 app.use(singupRoute)
 app.use(profileRoute)
 app.use(videosprofileRoute) 
-app.use(vidoechannelRoute) 
+app.use(vidoechannelRoute)
+// app.use(routerAnimebord)
 
 app.use((req, res, next) => {
   res.status(404).render('404');

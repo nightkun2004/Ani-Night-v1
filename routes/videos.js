@@ -4,12 +4,12 @@ const mongoose = require("../config")
 const Acticle = require("../models/acticle")
 const Video = require('../models/video')
 
-const perPage = 20;
+const perPage = 20; 
 
 router.get('/foryou', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const videos = await Video.find();
+        const videos = await Video.find(); 
 
         if (!Array.prototype.shuffle) {
             Array.prototype.shuffle = function () {
