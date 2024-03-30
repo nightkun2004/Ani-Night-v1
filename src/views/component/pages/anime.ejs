@@ -27,58 +27,78 @@
         <h2 class="title_anime"> รายการอนิเมะ 2024</h2>
         <div class="anime_content">
             <h2 class="anime_brta">เมษายน 2024</h2>
-            <div class="anime_lists sub">
-                <% if (AnimeBordData && AnimeBordData.length > 0) { %>
-                    <% AnimeBordData.forEach(item => { %>
-                        <% if (item.animeApril && item.animeApril.length > 0) { %>
-                            <% item.animeApril.forEach(anime => { %>
-                                <div class="anime_list">
-                                    <div class="anime_item_pic">
-                                        <img src="<%= anime.linkImage %>" alt="Anime">
+            <div class="loading" style="display: none;">
+                <div class="anime_lists sub" >
+                    <% if (AnimeBordData && AnimeBordData.length > 0) { %>
+                        <% AnimeBordData.forEach(item => { %>
+                            <% if (item.animeApril && item.animeApril.length > 0) { %>
+                                <% item.animeApril.forEach(anime => { %>
+                                    <div class="anime_list">
+                                        <div class="anime_item_pic">
+                                            <img src="<%= anime.linkImage %>" alt="Anime">
+                                        </div>
+                                        <div class="anime_info_text">
+                                            <h2><%= anime.nameAnime %></h2>
+                                            <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
+                                            <% if (anime.manuscript) { %>
+                                                <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
+                                            <% } %>
+                                            <p>จำนวนตอน: <span><%= anime.episodes %></span> ตอน</p>
+                                            <p>เริ่มฉาย(ญี่ปุ่น): <span><%= anime.start %></span></p>
+                                            <% if (anime.info) { %>
+                                                <button class="btn_info">
+                                                    
+                                                    <a href="<%= anime.info %>">ข้อมูลเพิ่มเติม</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.web) { %>
+                                                <button class="btn_web">
+                                                    <div class="image">
+                                                        <img src="/images/world-wide-web.png" alt="">
+                                                    </div>
+                                                    <a href="<%= anime.web %>">เว็บทางการ</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.bilibili) { %>
+                                                <button class="btn_bilibili">
+                                                    <div class="image">
+                                                        <img src="/images/bilibili.png" alt="">
+                                                    </div>
+                                                    <a href="<%= anime.bilibili %>">ดูบน Bilibili</a>
+                                                </button>
+                                            <% } %>
+                                        </div>
                                     </div>
-                                    <div class="anime_info_text">
-                                        <h2><%= anime.nameAnime %></h2>
-                                        <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
-                                        <% if (anime.manuscript) { %>
-                                            <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
-                                        <% } %>
-                                        <p>จำนวนตอน: <span><%= anime.episodes %></span> ตอน</p>
-                                        <p>เริ่มฉาย(ญี่ปุ่น): <span><%= anime.start %></span></p>
-                                        <% if (anime.info) { %>
-                                            <button>
-                                                <a href="#">ข้อมูลเพิ่มเติม</a>
-                                            </button>
-                                        <% } %>
-                                    </div>
-                                </div>
-                            <% }); %>
-                        <% } else { %>
-                            <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
-                        <% } %>
-                    <% }); %>
-                <% } else { %>
-                    <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
-                <% } %>
-                
-                <div class="loading-indicator" id="loadingIndicator">
-                    <div class="spinner"></div>
-                  </div>
-                
-                <!-- <div class="anime_list">
-                    <div class="anime_item_pic">
-                        <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
-                    </div>
-                    <div class="anime_info_text">
-                        <h2>Kami wa Game ni Ueteiru</h2>
-                        <p>ผลิตโดย: <span>Liden Films</span></p>
-                        <p>ต้นฉบับ: <span>Light Novel</span></p>
-                        <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
-                        <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
-                        <button>
-                            <a href="#">ข้อมูลเพิ่มเติม</a>
-                        </button>
-                    </div>
-                </div> -->
+                                <% }); %>
+                            <% } else { %>
+                                <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                            <% } %>
+                        <% }); %>
+                    <% } else { %>
+                        <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                    <% } %>
+                    
+                    
+                    <!-- <div class="anime_list">
+                        <div class="anime_item_pic">
+                            <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
+                        </div>
+                        <div class="anime_info_text">
+                            <h2>Kami wa Game ni Ueteiru</h2>
+                            <p>ผลิตโดย: <span>Liden Films</span></p>
+                            <p>ต้นฉบับ: <span>Light Novel</span></p>
+                            <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
+                            <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
+                            <button>
+                                <a href="#">ข้อมูลเพิ่มเติม</a>
+                            </button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="spinner"></div>
             </div>
         </div>
     </div>
@@ -97,18 +117,24 @@
     </script>
     <script>
         function showLoadingIndicator() {
-                document.getElementById('loadingIndicator').style.display = 'block';
-            }
-
-            function hideLoadingIndicator() {
-                document.getElementById('loadingIndicator').style.display = 'none';
-            }
-
-            showLoadingIndicator();
-
-            window.addEventListener('load', function () {
-                hideLoadingIndicator();
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.querySelectorAll('.loading').forEach(item => {
+                item.style.display = 'none';
             });
+        }
+
+        function hideLoadingIndicator() {
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.querySelectorAll('.loading').forEach(item => {
+                item.style.display = 'block';
+            });     
+        }
+
+        showLoadingIndicator();
+
+        window.addEventListener('load', function () {
+        hideLoadingIndicator();
+    });
         </script>
 </body>
 </html>

@@ -48,3 +48,8 @@ form input[type=submit] {
     border-radius: 8px;
     cursor: pointer;
 }
+
+.edit_overee {
+    height: 500px;
+    overflow: scroll;
+}

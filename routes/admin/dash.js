@@ -60,6 +60,77 @@ router.post('/createAnime', verifyToken, async (req, res) => {
     }
 })
 
+async function loadAnimeData(req, res, next) {
+    try {
+        const AnimeBordData = await AnimeBord.find().populate('animeApril'); 
+        req.AnimeBordData = AnimeBordData;
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
+
+router.get('/edit/anime/boards', loadAnimeData, async (req,res) => {
+    const usersesstion = req.session.userlogin;
+
+    try {
+        const AnimeBordData = await AnimeBord.find().populate('animeApril'); 
+        if (!AnimeBordData) {
+            return res.status(404).json({ error: "AnimeBordData not found" });
+        }
+
+        res.render('./admin/edits/adminboards', {usersesstion, AnimeBordData})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+})
+
+router.post('/edit_animeboard', async (req,res) => {
+    const usersesstion = req.session.userlogin;
+    const edit_id = req.body.edit_id;
+    try {
+        const animeApril = await AnimeApril.findOne({ _id: edit_id }).exec();
+
+        if (!animeApril) {
+            return res.status(404).json({ error: "AnimeApril not found" });
+        }
+
+        res.render('./admin/edits/animebord', { active: 'dashboard', animeApril, usersesstion });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+router.post('/edit_animeboard/one', async (req, res) => {
+    const update_id = req.body.update_id;
+    try {
+        const animeBord = await AnimeApril.findOne({ _id: update_id });
+        if (!animeBord) {
+            return res.status(404).json({ error: "AnimeBord not found" });
+        }
+
+        animeBord.nameAnime = req.body.nameAnime;
+        animeBord.Produced = req.body.Produced;
+        animeBord.manuscript = req.body.manuscript;
+        animeBord.episodes = req.body.episodes;
+        animeBord.start = req.body.start;
+        animeBord.linkImage = req.body.linkImage;
+        animeBord.info = req.body.info;
+        animeBord.web = req.body.web;
+        animeBord.bilibili = req.body.bilibili;
+
+        await animeBord.save();
+
+        res.redirect('/admin/dash?alertMessageVideo=แก้ไขเรียบร้อยแล้ว');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 router.get('/admin/update_link', verifyToken, (req, res) => {
     res.render('./admin/updatelink');
 });

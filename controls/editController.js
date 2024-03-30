@@ -18,7 +18,7 @@ exports.editActicle = async (req, res) => {
     }
 }
 
-exports.editVideo = async (req, res) => {
+exports.editVideo = async (req, res) => { 
     const usersesstion = req.session.userlogin
     const edit_id = req.body.edit_id
     try {
@@ -35,7 +35,7 @@ exports.editVideo = async (req, res) => {
 }
 
 exports.editActicleuser = async (req, res) => {
-    const update_id = req.body.update_id;
+    const update_id = req.body.update_id; 
     try {
         await Acticle.findOneAndUpdate(
             { _id: update_id },

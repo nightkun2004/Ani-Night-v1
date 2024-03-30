@@ -11,7 +11,17 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-router.get('/animeboard', async (req, res) => {
+async function loadAnimeData(req, res, next) {
+    try {
+        const AnimeBordData = await AnimeBord.find().populate('animeApril'); 
+        req.AnimeBordData = AnimeBordData;
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
+
+router.get('/animeboard', loadAnimeData, async (req, res) => {
     const usersesstion = req.session.userlogin;
     const AnimeBordData = await AnimeBord.find().populate('animeApril'); 
     const template = req.language === 'th' ? './component/pages/anime' : './en/anime';

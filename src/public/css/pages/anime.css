@@ -35,11 +35,14 @@
 
 .anime_list .anime_info_text {
     padding: 10px;
+    word-wrap: break-word; 
 }
 
 .anime_list .anime_info_text h2 {
     font-size: 23px;
     font-weight: bold;
+    display: flex;
+    word-wrap: break-word; 
 }
 
 .anime_list .anime_info_text p {
@@ -51,12 +54,46 @@
     font-weight: 400;
 }
 
-.anime_list button {
-    background-color: #00bbff;
+.anime_list .anime_info_text .btn_info {
+    background-color: #70b4ce;
     padding: 5px;
     width: 100%;
     border-radius: 20px;
     color: #fff;
+    margin-bottom: 20px;
+}
+
+.anime_list .anime_info_text .btn_bilibili {
+    display: flex;
+    align-items: center;
+    background-color: #00bbff;
+    width: 100%;
+    padding: 5px;
+    border-radius: 20px;
+    color: #fff;
+    margin-bottom: 20px;
+    & .image img {
+        width: 30px;
+        border-radius: 50px;
+    }
+}
+
+.image {
+    padding-left: 10px;
+}
+.anime_list .anime_info_text .btn_web {
+    display: flex;
+    align-items: center;
+    background-color: #00ff66;
+    width: 100%;
+    padding: 5px;
+    border-radius: 20px;
+    color: #fff;
+    margin-bottom: 20px;
+    & .image img {
+        width: 30px;
+        border-radius: 50px;
+    }
 }
 
 @media screen and (max-width:1030px) {
