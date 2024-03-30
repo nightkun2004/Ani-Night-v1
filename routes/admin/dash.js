@@ -104,7 +104,7 @@ router.post('/edit_animeboard', async (req,res) => {
 });
 
 
-router.post('/edit_animeboard/one', async (req, res) => {
+router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
     const update_id = req.body.update_id;
     try {
         const animeBord = await AnimeApril.findOne({ _id: update_id });
