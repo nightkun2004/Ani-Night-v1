@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="./css/acticle.css">
     <link rel="stylesheet" href="./css/pages/anime.css">
     <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
     <link rel="stylesheet" href="./css/font/font1.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="google-site-verification" content="eyTwMkNmyYZFyV7ag9MuAEh5uOPdc4uZ6ONSM3w5HRI">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
         crossorigin="anonymous"></script>
@@ -24,15 +26,16 @@
 <body>
     <div class="fixed inset-x-0 z-20 md:none" id="navbar">
         <%- include('../../navbar') %>
+        <%- include('../../sidebar') %>
     </div>
 
-    <div class="container mx-auto px-4 xl:max-w-7xl pt-[110px]">
+    <div class="container mx-auto px-4 xl:max-full pt-[110px]">
         <h2 class="title_anime"> รายการอนิเมะ 2024</h2>
         <div class="anime_content">
             <h2 class="anime_brta">เมษายน 2024</h2>
             <div class="loading" style="display: none;">
                 <div class="anime_lists sub" >
-                    <% if (AnimeBordData && AnimeBordData.length > 0) { %>
+                    <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
                         <% AnimeBordData.forEach(item => { %>
                             <% if (item.animeApril && item.animeApril.length > 0) { %>
                                 <% item.animeApril.forEach(anime => { %>
@@ -46,8 +49,12 @@
                                             <% if (anime.manuscript) { %>
                                                 <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
                                             <% } %>
-                                            <p>จำนวนตอน: <span><%= anime.episodes %></span> ตอน</p>
-                                            <p>เริ่มฉาย(ญี่ปุ่น): <span><%= anime.start %></span></p>
+                                            <p>จำนวนตอน: <span><%= anime.episodes %></span></p>
+                                            <p>เริ่มฉาย: <span><%= anime.start %></span></p>
+                                            
+                                            <% if (anime.nameep) { %>
+                                                <p>ชื่อตอน: <span><%= anime.nameep %></span></p>
+                                            <% } %>
                                             <% if (anime.info) { %>
                                                 <button class="btn_info">
                                                     
@@ -107,6 +114,7 @@
     </div>
 
     <%- include('../../footer') %>
+    <script src="../js/sidebar.js"></script>
     <script>
         window.addEventListener('scroll', function () {
             var navbar = document.getElementById('navbar');

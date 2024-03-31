@@ -125,6 +125,10 @@ nav .navbar-right .menus ul li a {
         & button {
             background: none;
             border: none;
+            position: fixed;
+            top: 29px;
+            left: 20px;
+            z-index: 11;
         }
     }
 

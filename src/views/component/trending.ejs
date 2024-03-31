@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/pages/th/trending.css">
     <link rel="stylesheet" href="./css/acticle.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/font/font1.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
@@ -30,6 +31,7 @@
 <body>
     <div class="fixed inset-x-0 z-20" id="navbar">
         <%- include('../navbar') %>
+        <%- include('../sidebar') %>
     </div>
 
     <section class="trending-container mx-auto px-4 xl:max-w-7xl pt-[120px]" id="trending">
@@ -72,6 +74,7 @@
     <%- include('../footer') %>
 
         <script src="/js/search.js"></script>
+        <script src="/js/sidebar.js"></script>
         <script>
 
             window.addEventListener('scroll', function () {

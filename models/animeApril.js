@@ -28,6 +28,9 @@ const animeAprilSchema = new mongoose.Schema({
     bilibili: {
         type: String
     },
+    nameep: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: Date.now

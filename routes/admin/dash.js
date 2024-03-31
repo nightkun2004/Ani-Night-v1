@@ -121,6 +121,7 @@ router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
         animeBord.info = req.body.info;
         animeBord.web = req.body.web;
         animeBord.bilibili = req.body.bilibili;
+        animeBord.nameep = req.body.nameep;
 
         await animeBord.save();
 

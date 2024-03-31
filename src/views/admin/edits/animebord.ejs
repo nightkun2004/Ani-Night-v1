@@ -53,6 +53,14 @@
             <input type="text" name="linkImage" value="<%= animeApril.linkImage %>">
 
             <% if (animeApril.info) { %>
+                <label for="link">ชื่อตอน</label>
+                <input type="text" name="nameep" value="<%= animeApril.nameep %>">
+                <% } else { %>
+                    <label for="link">ชื่อตอน</label>
+                    <input type="text" name="nameep">
+                <% } %>
+
+            <% if (animeApril.info) { %>
             <label for="link">ข้อมูลเพิ่มเติม</label>
             <input type="text" name="info" value="<%= animeApril.info %>">
             <% } else { %>

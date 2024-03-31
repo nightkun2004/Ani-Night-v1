@@ -34,6 +34,7 @@
     <!-- <link rel="stylesheet" href="./css/indexv2.css"> -->
     <link rel="stylesheet" href="./css/acticle.css">
     <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
     <!-- <link rel="stylesheet" href="./css/pages/manga.css"> -->
     <link rel="stylesheet" href="./css/pages/home.css">
     <link rel="stylesheet" href="./css/font/font1.css">
@@ -59,6 +60,7 @@
 <body>
     <div class="fixed inset-x-0 z-20 md:none" id="navbar">
         <%- include('./navbar') %>
+        <%- include('./sidebar') %>
     </div>
 
     <section class="home editor mx-auto px-4 xl:max-w-7xl pt-[110px]">
@@ -184,6 +186,7 @@
 
     <%- include('footer') %>
 
+    <script src="./js/sidebar.js"></script>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script>
             var swiper = new Swiper('.home-slider', {

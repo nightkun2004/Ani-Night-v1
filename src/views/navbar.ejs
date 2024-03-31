@@ -2,7 +2,7 @@
     <div class="narbar-left">
         <div class="narbar-mobilib">
             <div class="monil">
-                <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar">
+                <button id="dropdownNavbarLink"  onclick="toggleSidebar()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none"
                         stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -11,8 +11,8 @@
                     </svg>
                 </button>
                 <div class="logo">
-                    <a href="/" class="flex items-center">
-                        <img src="/images/logom.png" alt="logo">
+                    <a href="/" class="flex items-center" style="padding-left: 30px;">
+                        <img src="/images/logomoblie.png" alt="logo" width="60px">
                     </a>
                 </div>
                 <div id="dropdownNavbar"
@@ -80,7 +80,7 @@
                                     <a href="/trending">
                                         ยอดนิยม
                                     </a>
-                                </li>
+                                </li>   
                                 <li>
                                     <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken%>">
                                         อัพโหลด
