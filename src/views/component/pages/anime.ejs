@@ -91,7 +91,7 @@
                                             <% if (anime.info) { %>
                                                 <button class="btn_info">
                                                     
-                                                    <a href="<%= anime.info %>">ข้อมูลเพิ่มเติม</a>
+                                                    <a target="_blank" href="<%= anime.info %>">ข้อมูลเพิ่มเติม</a>
                                                 </button>
                                             <% } %>
                                             <% if (anime.web) { %>
@@ -99,7 +99,7 @@
                                                     <div class="image">
                                                         <img src="/images/world-wide-web.png" alt="">
                                                     </div>
-                                                    <a href="<%= anime.web %>">เว็บทางการ</a>
+                                                    <a target="_blank" href="<%= anime.web %>">เว็บทางการ</a>
                                                 </button>
                                             <% } %>
                                             <% if (anime.bilibili) { %>
@@ -107,7 +107,7 @@
                                                     <div class="image">
                                                         <img src="/images/bilibili.png" alt="">
                                                     </div>
-                                                    <a href="<%= anime.bilibili %>">ดูบน Bilibili</a>
+                                                    <a target="_blank" href="<%= anime.bilibili %>">ดูบน Bilibili</a>
                                                 </button>
                                             <% } %>
                                             <% if (anime.Iqiyi) { %>
@@ -115,7 +115,7 @@
                                                     <div class="image">
                                                         <img src="/icons/iqiyi-icon.png" alt="">
                                                     </div>
-                                                    <a href="<%= anime.Iqiyi %>">ดูบน IQIYI</a>
+                                                    <a target="_blank" href="<%= anime.Iqiyi %>">ดูบน IQIYI</a>
                                                 </button>
                                             <% } %>
                                             <% if (anime.crunchyroll) { %>
@@ -123,7 +123,7 @@
                                                     <div class="image">
                                                         <img src="/icons/crunchyroll_icon.png" alt="">
                                                     </div>
-                                                    <a href="<%= anime.crunchyroll %>">ดูบน crunchyroll</a>
+                                                    <a target="_blank" href="<%= anime.crunchyroll %>">ดูบน crunchyroll</a>
                                                 </button>
                                             <% } %>
                                             <% if (anime.youtube) { %>
@@ -131,7 +131,7 @@
                                                     <div class="image">
                                                         <img src="/icons/youtube.svg" alt="">
                                                     </div>
-                                                    <a class="flex" href="<%= anime.youtube %>">ดูบน YouTube
+                                                    <a target="_blank" class="flex" href="<%= anime.youtube %>">ดูบน YouTube
                                                     <% if (anime.yt_text) { %>
                                                         <p class="pl-1"><%= anime.yt_text %></p>
                                                     <% } %>

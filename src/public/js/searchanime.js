@@ -109,7 +109,7 @@ function createAnimeItem(anime) {
     if (anime.info) {
         const infoButton = document.createElement("button");
         infoButton.classList.add("btn_info");
-        infoButton.innerHTML = `<a href="${anime.info}">ข้อมูลเพิ่มเติม</a>`;
+        infoButton.innerHTML = `<a target="_blank" href="${anime.info}">ข้อมูลเพิ่มเติม</a>`;
         animeInfoText.appendChild(infoButton);
     }
 
@@ -121,7 +121,7 @@ function createAnimeItem(anime) {
             <div class="image">
                 <img src="/images/world-wide-web.png" alt="">
             </div>
-            <a href="${anime.web}">เว็บทางการ</a>
+            <a target="_blank" href="${anime.web}">เว็บทางการ</a>
         `;
         animeInfoText.appendChild(webButton);
     }
@@ -134,7 +134,7 @@ function createAnimeItem(anime) {
             <div class="image">
                 <img src="/images/bilibili.png" alt="">
             </div>
-            <a href="${anime.bilibili}">ดูบน Bilibili</a>
+            <a target="_blank" href="${anime.bilibili}">ดูบน Bilibili</a>
         `;
         animeInfoText.appendChild(bilibiliButton);
     }
@@ -147,7 +147,7 @@ function createAnimeItem(anime) {
             <div class="image">
                 <img src="/icons/iqiyi-icon.png" alt="">
             </div>
-            <a href="${anime.Iqiyi}">ดูบน IQIYI</a>
+            <a target="_blank" href="${anime.Iqiyi}">ดูบน IQIYI</a>
         `;
         animeInfoText.appendChild(iqiyiButton);
     }
@@ -160,7 +160,7 @@ function createAnimeItem(anime) {
             <div class="image">
                 <img src="/icons/crunchyroll_icon.png" alt="">
             </div>
-            <a href="${anime.crunchyroll}">ดูบน Crunchyroll</a>
+            <a target="_blank" href="${anime.crunchyroll}">ดูบน Crunchyroll</a>
         `;
         animeInfoText.appendChild(crunchyrollButton);
     }
@@ -173,7 +173,7 @@ function createAnimeItem(anime) {
             <div class="image">
                 <img src="/icons/youtube.svg" alt="">
             </div>
-            <a class="flex" href="${anime.youtube}">ดูบน YouTube
+            <a target="_blank" class="flex" href="${anime.youtube}">ดูบน YouTube
                 ${anime.yt_text ? `<p class="pl-1">${anime.yt_text}</p>` : ""}
             </a>
         `;
