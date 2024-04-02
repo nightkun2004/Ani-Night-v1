@@ -79,6 +79,69 @@
         <div class="loading-indicator" id="loadingIndicator">
             <div class="spinner"></div>
         </div>
+
+        <div class="loading" style="display: none;">
+            <h2>พฤษภาคม 2024</h2>
+            <div class="anime_lists sub" >
+               
+                    <% if (AnimeBordData && AnimeBordData.length > 0) { %>
+                        <% AnimeBordData.forEach(item => { %>
+                            <% if (item.animeMay && item.animeMay.length > 0) { %>
+                                <% item.animeMay.forEach(anime => { %>
+                                    <div class="anime_list">
+                                        <div class="anime_item_pic">
+                                            <img src="<%= anime.linkImage %>" alt="Anime">
+                                        </div>
+                                        <div class="anime_info_text">
+                                            <h2><%= anime.nameAnime %></h2>
+                                            <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
+                                            <% if (anime.manuscript) { %>
+                                                <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
+                                            <% } %>
+                                            <p>จำนวนตอน: <span><%= anime.episodes %></span> ตอน</p>
+                                            <p>เริ่มฉาย(ญี่ปุ่น): <span><%= anime.start %></span></p>
+                                            <% if (anime.info) { %>
+                                                <button>
+                                                    <a href="#">ข้อมูลเพิ่มเติม</a>
+                                                </button>
+                                            <% } %>
+                                            <form action="/edit_animeboard/may" method="POST">
+                                            <input type="hidden" name="edit_id" value="<%= anime._id %>"> 
+                                            <button type="submit" name="edit_button" class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                <% }); %>
+                            <% } else { %>
+                                <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                            <% } %>
+                        <% }); %>
+                    <% } else { %>
+                        <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                    <% } %>
+                
+                
+                
+                <!-- <div class="anime_list">
+                    <div class="anime_item_pic">
+                        <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
+                    </div>
+                    <div class="anime_info_text">
+                        <h2>Kami wa Game ni Ueteiru</h2>
+                        <p>ผลิตโดย: <span>Liden Films</span></p>
+                        <p>ต้นฉบับ: <span>Light Novel</span></p>
+                        <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
+                        <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
+                        <button>
+                            <a href="#">ข้อมูลเพิ่มเติม</a>
+                        </button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="loading-indicator" id="loadingIndicator">
+            <div class="spinner"></div>
+        </div>
     </section>
     
 

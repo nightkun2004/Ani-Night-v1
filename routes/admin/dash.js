@@ -4,7 +4,8 @@ const verifyToken = require('../../middleware/auth')
 const User = require('../../models/user')
 const AnimeApril = require('../../models/animeApril')
 const AnimeBord = require('../../models/animebord')
-// const createAnime = require('../../controls/createAnimeRoute')
+const Animemay = require('../../models/animeMay')
+const createAnime = require('../../controls/createAnimeRoute')
 
 router.get('/admin/dash', verifyToken, async (req, res) => {
     try {
@@ -23,6 +24,10 @@ router.get('/admin/update_code', verifyToken, (req, res) => {
 router.get('/admin/createAnime', verifyToken, (req, res) => {
     const usersesstion = req.session.userlogin;
     res.render('./admin/createAnime', { usersesstion });
+});
+router.get('/admin/createAnime/may', verifyToken, (req, res) => {
+    const usersesstion = req.session.userlogin;
+    res.render('./admin/animeMay', { usersesstion });
 });
 router.post('/createAnime', verifyToken, async (req, res) => {
     const usersesstion = req.session.userlogin;
@@ -60,6 +65,8 @@ router.post('/createAnime', verifyToken, async (req, res) => {
     }
 })
 
+router.post('/createAnime/may', createAnime.Addanimemay);
+
 async function loadAnimeData(req, res, next) {
     try {
         const AnimeBordData = await AnimeBord.find().populate('animeApril'); 
@@ -74,7 +81,7 @@ router.get('/edit/anime/boards', loadAnimeData, async (req,res) => {
     const usersesstion = req.session.userlogin;
 
     try {
-        const AnimeBordData = await AnimeBord.find().populate('animeApril'); 
+        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay'); 
         if (!AnimeBordData) {
             return res.status(404).json({ error: "AnimeBordData not found" });
         }
@@ -102,6 +109,22 @@ router.post('/edit_animeboard', async (req,res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+router.post('/edit_animeboard/may', async (req,res) => {
+    const usersesstion = req.session.userlogin;
+    const edit_id = req.body.edit_id;
+    try {
+        const animeMay = await Animemay.findOne({ _id: edit_id }).exec();
+
+        if (!animeMay) {
+            return res.status(404).json({ error: "AnimeApril not found" });
+        }
+
+        res.render('./admin/edits/animeMay', { active: 'dashboard', animeMay, usersesstion });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 
 router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
@@ -122,6 +145,10 @@ router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
         animeBord.web = req.body.web;
         animeBord.bilibili = req.body.bilibili;
         animeBord.nameep = req.body.nameep;
+        animeBord.Iqiyi = req.body.Iqiyi;
+        animeBord.youtube = req.body.youtube;
+        animeBord.yt_text = req.body.yt_text;
+        animeBord.crunchyroll = req.body.crunchyroll;
 
         await animeBord.save();
 
@@ -131,6 +158,8 @@ router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+router.post('/edit_animeboard/May/002', verifyToken, createAnime.EditanimeMay);
 
 router.get('/admin/update_link', verifyToken, (req, res) => {
     res.render('./admin/updatelink');

@@ -29,84 +29,84 @@
           </div>
         <% } %>
     <div class="edit_overee">
-        <form action="/edit_animeboard/one" method="POST">
+        <form action="/edit_animeboard/May/002" method="POST">
             <h2>แก้ไขอนิเมะบอร์ด</h2>
 
-            <input type="text" name="update_id" value="<%= animeApril._id %>">
+            <input type="text" name="update_id" value="<%= animeMay._id %>">
 
             <label for="name">ชื่ออนิเมะ</label>
-            <input type="text" name="nameAnime" value="<%= animeApril.nameAnime %>">
+            <input type="text" name="nameAnime" value="<%= animeMay.nameAnime %>">
 
             <label for="ds">ผลิตโดย</label>
-            <input type="text" name="Produced" value="<%= animeApril.Produced %>">
+            <input type="text" name="Produced" value="<%= animeMay.Produced %>">
 
             <label for="on">ต้นฉบับ</label>
-            <input type="text" name="manuscript" value="<%= animeApril.manuscript %>">
+            <input type="text" name="manuscript" value="<%= animeMay.manuscript %>">
 
             <label for="ep">จำนวนตอน</label>
-            <input type="text" name="episodes" value="<%= animeApril.episodes %>">
+            <input type="text" name="episodes" value="<%= animeMay.episodes %>">
 
             <label for="name">เริ่มฉาย</label>
-            <input type="text" name="start" value="<%= animeApril.start %>">
+            <input type="text" name="start" value="<%= animeMay.start %>">
 
             <label for="link">ลิงภาพ</label>
-            <input type="text" name="linkImage" value="<%= animeApril.linkImage %>">
+            <input type="text" name="linkImage" value="<%= animeMay.linkImage %>">
 
-            <% if (animeApril.info) { %>
+            <% if (animeMay.info) { %>
                 <label for="link">ชื่อตอน</label>
-                <input type="text" name="nameep" value="<%= animeApril.nameep %>">
+                <input type="text" name="nameep" value="<%= animeMay.nameep %>">
                 <% } else { %>
                     <label for="link">ชื่อตอน</label>
                     <input type="text" name="nameep">
                 <% } %>
 
-            <% if (animeApril.info) { %>
+            <% if (animeMay.info) { %>
             <label for="link">ข้อมูลเพิ่มเติม</label>
-            <input type="text" name="info" value="<%= animeApril.info %>">
+            <input type="text" name="info" value="<%= animeMay.info %>">
             <% } else { %>
                 <label for="link">ข้อมูลเพิ่มเติม</label>
                 <input type="text" name="info">
             <% } %>
 
-            <% if (animeApril.web) { %>
+            <% if (animeMay.web) { %>
                 <label for="link">เว็บทางการ</label>
-                <input type="text" name="web" value="<%= animeApril.web %>">
+                <input type="text" name="web" value="<%= animeMay.web %>">
                 <% } else { %>
                     <label for="link">เว็บทางการ</label>
                     <input type="text" name="web">
                 <% } %>
 
-            <% if (animeApril.bilibili) { %>
+            <% if (animeMay.bilibili) { %>
                 <label for="link">แพลตฟอร์ม Bilibili</label>
-                <input type="text" name="bilibili" value="<%= animeApril.bilibili %>">
+                <input type="text" name="bilibili" value="<%= animeMay.bilibili %>">
                 <% } else { %>
                     <label for="link">แพลตฟอร์ม Bilibili</label>
                     <input type="text" name="bilibili">
                 <% } %>
-            <% if (animeApril.crunchyroll) { %>
+            <% if (animeMay.crunchyroll) { %>
                 <label for="link">แพลตฟอร์ม Crunchyroll</label>
-                <input type="text" name="crunchyroll" value="<%= animeApril.crunchyroll %>">
+                <input type="text" name="crunchyroll" value="<%= animeMay.crunchyroll %>">
                 <% } else { %>
                     <label for="link">แพลตฟอร์ม Crunchyroll</label>
                     <input type="text" name="crunchyroll">
                 <% } %>
-            <% if (animeApril.iqiyi) { %>
+            <% if (animeMay.iqiyi) { %>
                 <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
-                <input type="text" name="Iqiyi" value="<%= animeApril.iqiyi %>">
+                <input type="text" name="Iqiyi" value="<%= animeMay.iqiyi %>">
                 <% } else { %>
                     <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
                     <input type="text" name="Iqiyi">
                 <% } %>
-            <% if (animeApril.yt) { %>
+            <% if (animeMay.yt) { %>
                 <label for="youtube">แพลตฟอร์ม Youtube</label>
-                <input type="text" name="youtube" value="<%= animeApril.yt %>">
+                <input type="text" name="youtube" value="<%= animeMay.yt %>">
                 <% } else { %>
                     <label for="youtube">แพลตฟอร์ม Youtube</label>
                     <input type="text" name="youtube">
                 <% } %>
-            <% if (animeApril.yt_text) { %>
+            <% if (animeMay.yt_text) { %>
                 <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
-                <input type="text" name="yt_text" value="<%= animeApril.yt_text %>">
+                <input type="text" name="yt_text" value="<%= animeMay.yt_text %>">
                 <% } else { %>
                     <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
                     <input type="text" name="yt_text">

@@ -7,7 +7,7 @@ function setLanguage(req, res, next) {
     req.language = lang && lang.includes('th') ? 'th' : 'en'; // ตั้งค่าภาษาตามที่ผู้ใช้เลือก
     next();
 }
-
+ 
 router.use(setLanguage);
 
 router.get('/search', async (req, res) => {

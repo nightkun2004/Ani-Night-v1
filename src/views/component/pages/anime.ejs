@@ -30,7 +30,40 @@
     </div>
 
     <div class="container mx-auto px-4 xl:max-full pt-[110px]">
-        <h2 class="title_anime"> รายการอนิเมะ 2024</h2>
+        <div class="search">
+            <div class="bg-white px-6 md:px-12 py-8 mb-[40px] md:py-12 mt-8 shadow-sm relative">
+                <form action="">
+                    <div class="relative mt-1 w-full">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                            </svg>
+                        </div>
+                        <input type="search" name="query" id="search" placeholder="ค้นหา..."
+                        class="block w-full p-4 ps-10 text-lg text-black-900 border border-gray-50 rounded-full h-10 bg-gray-50"
+                        oninput="searchAnime()">
+                                   
+                    </div>
+                    <div class="flex items-center justify-center mt-[40px]">
+                        <button type="submit" class="bg-sky-100 p-[10px] rounded-lg">
+                            ค้นหา
+                        </button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+        
+        <!-- <div class="anime_content" id="search_q">
+            <div class="anime_brta">ผลลัพท์ค้นหา</div>
+            <div class="anime_lists searchanime">
+                <div class="anime_list">
+
+                </div>
+            </div>
+        </div> -->
+
         <div class="anime_content">
             <h2 class="anime_brta">เมษายน 2024</h2>
             <div class="loading" style="display: none;">
@@ -62,7 +95,7 @@
                                                 </button>
                                             <% } %>
                                             <% if (anime.web) { %>
-                                                <button class="btn_web">
+                                                <button class="btn_web web">
                                                     <div class="image">
                                                         <img src="/images/world-wide-web.png" alt="">
                                                     </div>
@@ -70,13 +103,152 @@
                                                 </button>
                                             <% } %>
                                             <% if (anime.bilibili) { %>
-                                                <button class="btn_bilibili">
+                                                <button class="btn_bilibili bilibili">
                                                     <div class="image">
                                                         <img src="/images/bilibili.png" alt="">
                                                     </div>
                                                     <a href="<%= anime.bilibili %>">ดูบน Bilibili</a>
                                                 </button>
                                             <% } %>
+                                            <% if (anime.Iqiyi) { %>
+                                                <button class="btn_iq iq">
+                                                    <div class="image">
+                                                        <img src="/icons/iqiyi-icon.png" alt="">
+                                                    </div>
+                                                    <a href="<%= anime.Iqiyi %>">ดูบน IQIYI</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.crunchyroll) { %>
+                                                <button class="btn_crunchyroll crunchyroll">
+                                                    <div class="image">
+                                                        <img src="/icons/crunchyroll_icon.png" alt="">
+                                                    </div>
+                                                    <a href="<%= anime.crunchyroll %>">ดูบน crunchyroll</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.youtube) { %>
+                                                <button class="btn_yt yt">
+                                                    <div class="image">
+                                                        <img src="/icons/youtube.svg" alt="">
+                                                    </div>
+                                                    <a class="flex" href="<%= anime.youtube %>">ดูบน YouTube
+                                                    <% if (anime.yt_text) { %>
+                                                        <p class="pl-1"><%= anime.yt_text %></p>
+                                                    <% } %>
+                                                    </a>
+                                                </button>
+                                            <% } %>
+
+                                        </div>
+                                    </div>
+                                <% }); %>
+                            <% } else { %>
+                                <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                            <% } %>
+                        <% }); %>
+                    <% } else { %>
+                        <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                    <% } %>
+                    
+                    
+                    <!-- <div class="anime_list">
+                        <div class="anime_item_pic">
+                            <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
+                        </div>
+                        <div class="anime_info_text">
+                            <h2>Kami wa Game ni Ueteiru</h2>
+                            <p>ผลิตโดย: <span>Liden Films</span></p>
+                            <p>ต้นฉบับ: <span>Light Novel</span></p>
+                            <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
+                            <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
+                            <button>
+                                <a href="#">ข้อมูลเพิ่มเติม</a>
+                            </button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <div class="anime_content">
+            <h2 class="anime_brta">พฤษภาคม 2024</h2>
+            <div class="loading" style="display: none;">
+                <div class="anime_lists sub" >
+                    <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+                        <% AnimeBordData.forEach(item => { %>
+                            <% if (item.animeMay && item.animeMay.length > 0) { %>
+                                <% item.animeMay.forEach(anime => { %>
+                                    <div class="anime_list">
+                                        <div class="anime_item_pic">
+                                            <img src="<%= anime.linkImage %>" alt="Anime">
+                                        </div>
+                                        <div class="anime_info_text">
+                                            <h2><%= anime.nameAnime %></h2>
+                                            <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
+                                            <% if (anime.manuscript) { %>
+                                                <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
+                                            <% } %>
+                                            <p>จำนวนตอน: <span><%= anime.episodes %></span></p>
+                                            <p>เริ่มฉาย: <span><%= anime.start %></span></p>
+                                            
+                                            <% if (anime.nameep) { %>
+                                                <p>ชื่อตอน: <span><%= anime.nameep %></span></p>
+                                            <% } %>
+                                            <% if (anime.info) { %>
+                                                <button class="btn_info">
+                                                    
+                                                    <a href="<%= anime.info %>">ข้อมูลเพิ่มเติม</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.web) { %>
+                                                <button class="btn_web web">
+                                                    <div class="image">
+                                                        <img src="/images/world-wide-web.png" alt="">
+                                                    </div>
+                                                    <a href="<%= anime.web %>">เว็บทางการ</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.bilibili) { %>
+                                                <button class="btn_bilibili bilibili">
+                                                    <div class="image">
+                                                        <img src="/images/bilibili.png" alt="">
+                                                    </div>
+                                                    <a href="<%= anime.bilibili %>">ดูบน Bilibili</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.Iqiyi) { %>
+                                                <button class="btn_iq iq">
+                                                    <div class="image">
+                                                        <img src="/icons/iqiyi-icon.png" alt="">
+                                                    </div>
+                                                    <a href="<%= anime.Iqiyi %>">ดูบน IQIYI</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.crunchyroll) { %>
+                                                <button class="btn_crunchyroll crunchyroll">
+                                                    <div class="image">
+                                                        <img src="/icons/crunchyroll_icon.png" alt="">
+                                                    </div>
+                                                    <a href="<%= anime.crunchyroll %>">ดูบน crunchyroll</a>
+                                                </button>
+                                            <% } %>
+                                            <% if (anime.youtube) { %>
+                                                <button class="btn_yt yt">
+                                                    <div class="image">
+                                                        <img src="/icons/youtube.svg" alt="">
+                                                    </div>
+                                                    <a class="flex" href="<%= anime.youtube %>">ดูบน YouTube
+                                                    <% if (anime.yt_text) { %>
+                                                        <p class="pl-1"><%= anime.yt_text %></p>
+                                                    <% } %>
+                                                    </a>
+                                                </button>
+                                            <% } %>
+
                                         </div>
                                     </div>
                                 <% }); %>
@@ -115,6 +287,7 @@
 
     <%- include('../../footer') %>
     <script src="../js/sidebar.js"></script>
+    <script src="../js/searchanime.js"></script>
     <script>
         window.addEventListener('scroll', function () {
             var navbar = document.getElementById('navbar');
@@ -124,6 +297,10 @@
                 navbar.classList.remove('navbar-white-bg');
             }
         });
+
+        window.onload = function() {
+        searchAnime();
+    };
 
     </script>
     <script>
@@ -147,5 +324,6 @@
         hideLoadingIndicator();
     });
         </script>
+        
 </body>
 </html>

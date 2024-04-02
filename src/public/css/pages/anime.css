@@ -6,8 +6,22 @@
     padding: 20px;
 }
 
+.search {
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+.search input[type=search] {
+    width: 90%;
+    border: none;
+}
+
+.search button[type=search] {
+    width: 10%;
+}
+
 .anime_content .anime_brta {
-    font-size: 19px;
+    font-size: 29px;
     font-weight: bold;
     margin-top: 10px;
     border-bottom: 1px solid #ccc;
@@ -22,6 +36,7 @@
 
 .anime_list {
     display: flex;
+    width: 100%;
     padding: 10px;
     background-color: #fff;
     border-radius: 10px;
@@ -58,7 +73,7 @@
     background-color: #1f8cb6;
     padding: 5px;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 8px;
     color: #fff;
     margin-bottom: 20px;
 }
@@ -66,16 +81,69 @@
 .anime_list .anime_info_text .btn_bilibili {
     display: flex;
     align-items: center;
-    background-color: #00bbff;
     width: 100%;
     padding: 5px;
-    border-radius: 20px;
-    color: #fff;
+    border-radius: 8px;
+    color: #333;
     margin-bottom: 20px;
     & .image img {
         width: 30px;
         border-radius: 50px;
     }
+}
+.anime_list .anime_info_text .btn_iq {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    border-radius: 8px;
+    color: #333;
+    margin-bottom: 20px;
+    & .image img {
+        width: 30px;
+        border-radius: 50px;
+    }
+}
+.anime_list .anime_info_text .btn_yt {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    border-radius: 8px;
+    color: #333;
+    margin-bottom: 20px;
+    & .image img {
+        width: 30px;
+        border-radius: 50px;
+    }
+}
+.anime_list .anime_info_text .btn_crunchyroll {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    border-radius: 8px;
+    color: #333;
+    margin-bottom: 20px;
+    & .image img {
+        width: 30px;
+        border-radius: 50px;
+    }
+}
+
+.bilibili:hover {
+    background-color: #128dfe;
+}
+.iq:hover {
+    background-color: #00dc5a;
+}
+.yt:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
+.crunchyroll:hover {
+    background-color: #f37521;
+    color: #fff;
 }
 
 .image {
@@ -87,7 +155,7 @@
     background-color: #0094b2;
     width: 100%;
     padding: 5px;
-    border-radius: 20px;
+    border-radius: 8px;
     color: #fff;
     margin-bottom: 20px;
     & .image img {

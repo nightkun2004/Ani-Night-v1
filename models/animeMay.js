@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const animeAprilSchema = new mongoose.Schema({
+const animeMaySchema = new mongoose.Schema({
     nameAnime: {
         type: String
     },
@@ -49,6 +49,6 @@ const animeAprilSchema = new mongoose.Schema({
     },
 });
 
-const animeApril = mongoose.model('animeApril', animeAprilSchema);
+const animeMay = mongoose.model('animeMay', animeMaySchema);
 
-module.exports = animeApril; 
+module.exports = animeMay; 
