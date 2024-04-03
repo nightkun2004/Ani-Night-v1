@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const path = require('path')
 const Acticle = require('../models/acticle');
+const cookie = require('../middleware/cookie')
 
 function setLanguage(req, res, next) {
     const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
@@ -10,6 +11,7 @@ function setLanguage(req, res, next) {
 }  
 
 router.use(setLanguage); 
+router.use(cookie);
 
 const ITEMS_PER_PAGE = 12;
 

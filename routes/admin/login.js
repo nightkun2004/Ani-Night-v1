@@ -12,7 +12,7 @@ router.post('/admin/login', (req, res) => {
     const password = req.body.password; 
 
     if (username === 'admin' && password === 'nightkun_04') {
-        const token = jwt.sign({ username: username }, 'secret_key', { expiresIn: '10m' });
+        const token = jwt.sign({ username: username }, 'secret_key', { expiresIn: '20m' });
         res.cookie('a_e', token, { httpOnly: true, secure: true }); 
 
         res.send('ยินดีต้อนรับเข้าสู่ระบบแอดมิน');

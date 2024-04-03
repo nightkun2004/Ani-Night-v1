@@ -30,6 +30,15 @@
     width: 100px;
 }
 
+.full-text {
+    margin-bottom: 0;
+    line-height: 20px;
+    font-weight: 400;
+    word-break: break-word;
+    transition: all .3s ease-in-out;
+    white-space: pre-wrap;
+}
+
 .dubvoice-row,
 .links-pathfrom {
     display: grid;
@@ -272,7 +281,7 @@
 }
 
 .iconprofile-comment a img {
-    width: 50px;
+    width: 50px; 
     height: 50px;
     border-radius: 50px;
 }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ani Night</title>
+    <meta name="description" content="เว็บที่ให้คุณเขียนบทความข่าวสารด้านอนิเมะ และรับรายได้จากค่าโฆษณา">
     <meta name="google" content="notranslate">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -64,13 +65,33 @@
     </div>
 
     <section class="home editor mx-auto px-4 xl:max-w-7xl pt-[110px]">
+        <div class="slideshow-container">
+
+            <div class="mySlides fade">
+              <div class="numbertext">1 / 3</div>
+             <a href="/animeboard" title="เซ็คลิตล์อนิเมะ 2024" data-title="Animelists">
+                <img src="https://m1r.ai/nxszg.jpg" style="width:100%">
+             </a>
+            </div>
+          
+           
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+          </div>
+          <br>
+
+          <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+          </div>
         <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">มาใหม่</h2>
         <div class="articles">
             <% acticles_Bors.forEach((article)=> { %>
                 <div class="article">
                     <a href="/read/<%= article.url %>?lang=<%= language %>">
                         <div class="pic-article">
-                            <img src="/acticles_images/<%= article.photo %>" alt="article-pic">
+                            <img src="/acticles_images/<%= article.photo %>" alt="/acticles_images/<%= article.photo %>">
                         </div>
                         <div class="title-article">
                             <h2>
@@ -184,9 +205,12 @@
         
     </section> -->
 
+    <%- include('ads') %>
+    <%- include('cook') %>
     <%- include('footer') %>
 
     <script src="./js/sidebar.js"></script>
+    <script src="./js/imagesi.js"></script>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script>
             var swiper = new Swiper('.home-slider', {

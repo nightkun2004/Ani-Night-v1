@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คุกกี้</title>
+</head>
+<style>
+    .cookie-popup {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        width: 80%;
+        transform: translateX(-50%);
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 20;
+    }
+
+    .popup-content {
+        text-align: center;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        margin: 0 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .btn-accept {
+        background-color: #00bbff;
+        color: white;
+    }
+
+    .btn-reject {
+        background-color: #f44336;
+        color: white;
+    }
+</style>
+
+<body>
+    <div id="cookie-popup" class="cookie-popup">
+        <div class="popup-content">
+            <h2>คุกกี้ของเรา</h2>
+            <p>เราใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานของคุณในเว็บไซต์ของเรา</p>
+            <button id="accept-cookie" class="btn btn-accept">ยินยอม</button>
+            <button id="reject-cookie" class="btn btn-reject">ไม่ยินยอม</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const acceptBtn = document.getElementById('accept-cookie');
+            const rejectBtn = document.getElementById('reject-cookie');
+            const cookiePopup = document.getElementById('cookie-popup');
+
+            // ตรวจสอบค่า cookieConsent ในคุกกี้
+            const cookieConsent = getCookieValue('cookieConsent');
+
+            // ตรวจสอบค่า cookieConsent เพื่อแสดงหรือซ่อนป็อปอัพคุ้กกี้
+            if (!cookieConsent) {
+                cookiePopup.style.display = 'none';
+            } else {
+                cookiePopup.style.display = 'block';
+            }
+
+            // การเรียกใช้งานฟังก์ชันที่ใช้เพื่อดึงค่าของคุ้กกี้
+            function getCookieValue(name) {
+                const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+                return match ? match[2] : null;
+            }
+
+            // เมื่อกดปุ่มยินยอม
+            acceptBtn.addEventListener('click', () => {
+                // ซ่อนป็อปอัพคุ้กกี้
+                cookiePopup.style.display = 'none';
+                // สร้างคุกกี้ cookieConsent
+                document.cookie = "cookieConsent=true; path=/";
+                // เรียกใช้งานฟังก์ชันที่จะทำงานเมื่อผู้ใช้ยินยอม
+                handleAccept();
+            });
+
+            // เมื่อกดปุ่มไม่ยินยอม
+            rejectBtn.addEventListener('click', () => {
+                // ซ่อนป็อปอัพคุ้กกี้
+                cookiePopup.style.display = 'none';
+                // เรียกใช้งานฟังก์ชันที่จะทำงานเมื่อผู้ใช้ไม่ยินยอม
+                handleReject();
+            });
+        });
+
+        // ฟังก์ชันที่จะทำงานเมื่อผู้ใช้ยินยอม
+        function handleAccept() {
+            // ทำบางสิ่งที่คุณต้องการเมื่อผู้ใช้ยินยอม เช่น บันทึกข้อมูลในฐานข้อมูล
+            console.log("User accepted cookies");
+        }
+
+        // ฟังก์ชันที่จะทำงานเมื่อผู้ใช้ไม่ยินยอม
+        function handleReject() {
+            // ทำบางสิ่งที่คุณต้องการเมื่อผู้ใช้ไม่ยินยอม เช่น ลบคุ้กกี้หรือเซสชัน
+            console.log("User rejected cookies");
+        }
+
+    </script>
+</body>
+
+</html>

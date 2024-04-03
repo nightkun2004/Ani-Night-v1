@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้างอนิเมะบอร์ด</title>
+    <link rel="stylesheet" href="../css/admin/dash.css">
+    <link rel="stylesheet" href="../css/admin/createAnime.css">
+    <link rel="stylesheet" href="../css/admin/sidebar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/acticle.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="fixed inset-x-0 z-20 md:none" id="navbar">
+        <%- include('../../../admin/sidebars/navbar') %>
+    </div>
+    <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
+        <% if (usersesstion) { %>
+            <h5>ดำเนินด้วยบัญชี</h5>
+            <div class="profile-info">
+            <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Image">
+            <div>
+              <p><%= usersesstion.username %></p>
+              <p><%= usersesstion.email %></p>
+            </div>
+          </div>
+        <% } %>
+    <div class="edit_overee">
+        <form action="/edit_animeboard/EditanimeJuly" method="POST">
+            <h2>แก้ไขอนิเมะบอร์ด</h2>
+
+            <input type="text" name="update_id" value="<%= animeJuly._id %>">
+
+            <label for="name">ชื่ออนิเมะ</label>
+            <input type="text" name="nameAnime" value="<%= animeJuly.nameAnime %>">
+
+            <label for="ds">ผลิตโดย</label>
+            <input type="text" name="Produced" value="<%= animeJuly.Produced %>">
+
+            <label for="on">ต้นฉบับ</label>
+            <input type="text" name="manuscript" value="<%= animeJuly.manuscript %>">
+
+            <label for="ep">จำนวนตอน</label>
+            <input type="text" name="episodes" value="<%= animeJuly.episodes %>">
+
+            <label for="name">เริ่มฉาย</label>
+            <input type="text" name="start" value="<%= animeJuly.start %>">
+
+            <label for="link">ลิงภาพ</label>
+            <input type="text" name="linkImage" value="<%= animeJuly.linkImage %>">
+
+            <% if (animeJuly.info) { %>
+                <label for="link">ชื่อตอน</label>
+                <input type="text" name="nameep" value="<%= animeJuly.nameep %>">
+                <% } else { %>
+                    <label for="link">ชื่อตอน</label>
+                    <input type="text" name="nameep">
+                <% } %>
+
+            <% if (animeJuly.info) { %>
+            <label for="link">ข้อมูลเพิ่มเติม</label>
+            <input type="text" name="info" value="<%= animeJuly.info %>">
+            <% } else { %>
+                <label for="link">ข้อมูลเพิ่มเติม</label>
+                <input type="text" name="info">
+            <% } %>
+
+            <% if (animeJuly.web) { %>
+                <label for="link">เว็บทางการ</label>
+                <input type="text" name="web" value="<%= animeJuly.web %>">
+                <% } else { %>
+                    <label for="link">เว็บทางการ</label>
+                    <input type="text" name="web">
+                <% } %>
+
+            <% if (animeJuly.bilibili) { %>
+                <label for="link">แพลตฟอร์ม Bilibili</label>
+                <input type="text" name="bilibili" value="<%= animeJuly.bilibili %>">
+                <% } else { %>
+                    <label for="link">แพลตฟอร์ม Bilibili</label>
+                    <input type="text" name="bilibili">
+                <% } %>
+            <% if (animeJuly.crunchyroll) { %>
+                <label for="link">แพลตฟอร์ม Crunchyroll</label>
+                <input type="text" name="crunchyroll" value="<%= animeJuly.crunchyroll %>">
+                <% } else { %>
+                    <label for="link">แพลตฟอร์ม Crunchyroll</label>
+                    <input type="text" name="crunchyroll">
+                <% } %>
+            <% if (animeJuly.iqiyi) { %>
+                <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
+                <input type="text" name="Iqiyi" value="<%= animeJuly.iqiyi %>">
+                <% } else { %>
+                    <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
+                    <input type="text" name="Iqiyi">
+                <% } %>
+            <% if (animeJuly.yt) { %>
+                <label for="youtube">แพลตฟอร์ม Youtube</label>
+                <input type="text" name="youtube" value="<%= animeJuly.yt %>">
+                <% } else { %>
+                    <label for="youtube">แพลตฟอร์ม Youtube</label>
+                    <input type="text" name="youtube">
+                <% } %>
+            <% if (animeJuly.yt_text) { %>
+                <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
+                <input type="text" name="yt_text" value="<%= animeJuly.yt_text %>">
+                <% } else { %>
+                    <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
+                    <input type="text" name="yt_text">
+                <% } %>
+
+            <input type="submit" value="เผยแพร่">
+        </form>
+    </div>
+        
+    </div>
+
+
+    <%- include('../../../footer') %>
+</body>
+</html>
