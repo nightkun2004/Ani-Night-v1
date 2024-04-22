@@ -120,7 +120,7 @@
                     <% if (acticle && acticle.tags && acticle.tags.length > 0) { %>
                         <h2 class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
                             Tags: <% acticle.tags.forEach(tag => { %>
-                                <a class="text-sky-500" href="/tag/<%= tag %>"><%= tag %></a>
+                                <a class="text-sky-500" href="/<%= tag %>"><%= tag %></a>
                             <% }); %>
                         </h2>
                     <% } else { %>
@@ -152,8 +152,14 @@
     
                 </div>
             </div>
-    
-            <div class="content-full bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg">
+    <div class="content-full bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg" style="
+                    word-break: break-word;
+        line-height: 20px;
+        font-weight: 400;
+        margin-bottom: 0;
+        transition: all .3s ease-in-out;
+        white-space: pre-wrap;
+    ">
                 <%- acticle.content %>
             </div>
     
