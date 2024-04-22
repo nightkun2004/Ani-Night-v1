@@ -7,6 +7,7 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../css/admin/dash.css">
     <link rel="stylesheet" href="../css/admin/sidebar.css">
+    <link rel="stylesheet" href="../css/admin/Admin_section.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/acticle.css">
     <link rel="stylesheet" href="../css/font/font1.css">
@@ -20,48 +21,11 @@
 </head>
 
 <body>
-    <div class="fixed inset-x-0 z-20" id="navbar">
-        <%- include('../admin/sidebars/navbar') %> 
-    </div>
-    <section class="dash mx-auto px-4 xl:max-w-7xl pt-[110px]">
-        <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-            <div class="boxs">
-                <div class="box">
-                    <h2>จำนวนการสมัคร</h2>
-                    <p><%= userCount %> ผู้ใช้</p>
-                    <box-icon name='user'></box-icon>
-                </div>
-                <div class="box">
-                    <h2>ยอดเข้าชมหน้าเว็บ</h2>
-                    <p>0</p>
-                    <box-icon name='user'></box-icon>
-                </div>
-                <div class="box">
-                    <h2>ผู้ใช้ทั้งหมดที่ได้รับ</h2>
-                    <p>0</p>
-                    <box-icon name='user'></box-icon>
-                </div>
-                <div class="box">
-                    <h2>จำนวนบทความ</h2>
-                    <p>0</p>
-                    <box-icon name='user'></box-icon>
-                </div>
-            </div>
-        </div>
-    </section>
+    <%- include('./sidebars/navbar') %>
+    <%- include('./sections/Home_Sectiono') %>
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script>
-        window.addEventListener('scroll', function () {
-           var navbar = document.getElementById('navbar');
-           if (window.scrollY > 50) {
-               navbar.classList.add('navbar-white-bg');
-           } else {
-               navbar.classList.remove('navbar-white-bg');
-           }
-       });
-   </script>
+    <script src="/js/admins/script.js"></script>
 </body>
 
 </html>

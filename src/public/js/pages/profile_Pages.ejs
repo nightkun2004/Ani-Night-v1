@@ -1,0 +1,29 @@
+<%= 
+let home_Link = document.getElementById("home");
+let videos_Link = document.getElementById("videos");
+let reward_Link = document.getElementById("reward");
+
+home_Link.addEventListener("click", ()=> {
+    const usersesstion = {
+        url: '<%= userlogin.url %>',
+        accessToken: '<%= userlogin.accessToken %>'
+    };
+    window.location.href = `/${usersesstion.url}?tokenlogin=${usersesstion.accessToken}`;
+});
+
+videos_Link.addEventListener("click", ()=> {
+    const usersesstion = {
+        url: '<%= userlogin.url %>',
+        accessToken: '<%= userlogin.accessToken %>'
+    };
+    window.location.href = `/${usersesstion.url}/video?tokenlogin=${usersesstion.accessToken}`;
+});
+
+reward_Link.addEventListener("click", ()=> {
+    const usersesstion = {
+        url: '<%= userlogin.url %>',
+        accessToken: '<%= userlogin.accessToken %>'
+    };
+    window.location.href = `/${usersesstion.url}/reward?tokenlogin=${usersesstion.accessToken}`;
+});
+%>

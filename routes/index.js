@@ -64,9 +64,10 @@ router.get('/ads.txt', (req, res) => {
 router.get('/robots.txt', (req, res) => {
     res.sendFile(path.join(__dirname, '../google/robots.txt'));
  });
-// router.get('/ads.txt', (req, res) => {
-//     res.type('text/plain');
-//     res.send('google.com, pub-6579807593228261, DIRECT, f08c47fec0942fa0');
-// });
+
+ router.get('/privacy', (req,res)=> {
+    const usersesstion = req.session.userlogin;
+    res.render('privacy', {active: 'privacy',usersesstion})
+ })
 
 module.exports = router;

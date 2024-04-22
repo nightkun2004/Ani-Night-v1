@@ -5,30 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>จัดการรายการต่างๆ</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/acticle.css">
-    <link rel="stylesheet" href="../css/pages/uploads/video.css">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="/css/pages/home_Section.css">
     <link rel="stylesheet" href="../css/font/font1.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/pages/videos.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
-    <script type="text/javascript" src="/js/index.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
-        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
-        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
-    <%- include('../../../navbar') %>
+    <%- include('../../../navnar_Header') %>
+    <%- include('../../../sidebar_Section') %>
+    <section class="content">
+
+    </section>
         <section class="mx-auto px-4 xl:max-w-7xl pt-[110px]">
             <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">ภาพรวม</h2>
             <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
@@ -45,12 +36,12 @@
                          จัดการวีดีโอ
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="/<%= usersesstion.url %>/dashboard/animebord?tokenlogin=<%= usersesstion.accessToken%>"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
                             แก้ไขสื่อ
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
             <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
@@ -130,7 +121,7 @@
             </div>
         </section>
 
-        <%- include('../../../footer') %>
+        <script src="/js/pages/script_Section.js"></script>
         <script>
             function confirmDelete(event) {
                 event.preventDefault(); // หยุดการกระทำเริ่มต้นของลิงก์

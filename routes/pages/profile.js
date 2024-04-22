@@ -33,8 +33,6 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-
-
 const uploadprofile = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'src/public/profiles')

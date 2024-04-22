@@ -1,0 +1,44 @@
+ <!-- Navbar Top -->
+ <nav class="navbar">
+    <div class="logo_item">
+        <i class="bx bx-menu" id="sidebarOpen"></i>
+        <a href="/">
+            AniNight
+            <!-- <img src="http://localhost:3000/images/Aninight_logo.svg" alt=""></i> -->
+    </div>
+    </a>
+    <div class="search_bar">
+        <input type="search" placeholder="ค้นหา..." />
+        <div class="header-search-bar__btn" id="searchButton">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+    </div>
+    <div class="navbar_content">
+        <i class="bi bi-grid"></i>
+        <ul class="menus_icon">
+            <li>
+                <i class='bx bx-sun' id="darkLight"></i>
+            </li>
+            <li class="mass_sun">
+                <i class='bx bx-bell' id="btn_bell"></i>
+                <span class="mass_flong">0</span>
+            </li>
+        </ul>
+        <div class="mass">
+            <h2 class="title_mass">การแจ้งเตือนระบบ</h2>
+            <ul>
+                <li>
+                    <div class="image_mass">
+                        <img src="" alt="">
+                    </div>
+                    <p>ไม่มีแจ้งเตือน</p>
+                </li>
+            </ul>
+        </div>
+        <% if (!usersesstion) { %>
+        <img src="http://localhost:3000/profiles/1713078506481-419146687.jpg" alt="" class="profile" />
+        <% } else { %>
+            <img src="/profiles/<%= usersesstion.profile %>" alt="" class="profile" />
+            <% } %>
+    </div>
+</nav>

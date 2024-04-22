@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
+Allow: /animeboard
 Disallow: /admin/login
+Disallow: /add-admin
+Disallow: /admin/dash

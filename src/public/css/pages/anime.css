@@ -1,4 +1,7 @@
-
+button {
+    border: none;
+    background: none;
+}
 
 .title_anime {
     border-left: 5px solid #00ffe1;
@@ -20,6 +23,10 @@
     width: 10%;
 }
 
+.anime_content {
+    padding: 10px;
+}
+
 .anime_content .anime_brta {
     font-size: 29px;
     font-weight: bold;
@@ -32,14 +39,15 @@
     grid-template-columns: repeat(2,1fr);
     gap: 10px;
     margin-top: 12px;
+    padding: 10px;
 }
 
 .anime_list {
     display: flex;
-    width: 100%;
     padding: 10px;
     background-color: #fff;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .anime_list .anime_item_pic img {
@@ -76,6 +84,10 @@
     border-radius: 8px;
     color: #fff;
     margin-bottom: 20px;
+    & a {
+        text-decoration: none;
+        color: #000;
+    }
 }
 
 .anime_list .anime_info_text .btn_bilibili {
@@ -90,6 +102,10 @@
         width: 30px;
         border-radius: 50px;
     }
+    & a {
+        text-decoration: none;
+        color: #000;
+    }
 }
 .anime_list .anime_info_text .btn_iq {
     display: flex;
@@ -103,6 +119,10 @@
         width: 30px;
         border-radius: 50px;
     }
+    & a {
+        text-decoration: none;
+        color: #000;
+    }
 }
 .anime_list .anime_info_text .btn_yt {
     display: flex;
@@ -112,9 +132,18 @@
     border-radius: 8px;
     color: #333;
     margin-bottom: 20px;
+    white-space: nowrap;
     & .image img {
         width: 30px;
         border-radius: 50px;
+    }
+    & a {
+        text-decoration: none;
+        color: #000;
+    }
+    & p {
+        white-space: nowrap;
+        padding-left: 10px;
     }
 }
 .anime_list .anime_info_text .btn_crunchyroll {
@@ -128,6 +157,10 @@
     & .image img {
         width: 30px;
         border-radius: 50px;
+    }
+    & a {
+        text-decoration: none;
+        color: #000;
     }
 }
 
@@ -187,6 +220,22 @@
     .anime_list .anime_info_text p {
         font-size: 17px;
         font-weight: bold;
+    }
+    .anime_list .anime_info_text .btn_info,
+    .anime_list .anime_info_text .btn_web {
+        font-size: 10px;
+        width: 50%;
+    }
+    .anime_list .anime_info_text .btn_bilibili ,
+    .anime_list .anime_info_text .btn_iq ,
+    .anime_list .anime_info_text .btn_yt,
+    .anime_list .anime_info_text .btn_crunchyroll{
+        width: 80%;
+        & .image img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+        }
     }
 }
 

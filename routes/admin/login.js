@@ -2,9 +2,12 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
 
+
+const registerRouter = require('./register')
+
 router.get('/admin/login', (req, res) => {
     const usersesstion = req.session.userlogin;
-    res.render('./admin/login', { usersesstion });
+    res.render('./admin/login', { usersesstion,  active: 'login-admin' });
 });
 
 router.post('/admin/login', (req, res) => {
@@ -27,5 +30,6 @@ router.get('/admin/logout', (req, res) => {
     res.send('คุกกี้ token ถูกล้างแล้ว');
 });
 
+router.use(registerRouter)
 
 module.exports = router

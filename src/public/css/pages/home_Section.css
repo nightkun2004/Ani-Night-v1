@@ -1,0 +1,590 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --white-color: #fff;
+    --blue-color: #00b7ff;
+    --grey-color: #707070;
+    --grey-color-light: #aaa;
+    --red--color: #ff0000;
+}
+
+body {
+    transition: all 0.5s ease;
+}
+
+body.dark {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark {
+    --white-color: #333;
+    --blue-color: #fff;
+    --grey-color: #f2f2f2;
+    --grey-color-light: #aaa;
+    --back-color: #000;
+}
+
+/* Navbar Top */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    background-color: var(--white-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    z-index: 100;
+    box-shadow: 0 0 2px var(--grey-color-light);
+}
+
+.logo_item {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--blue-color);
+}
+
+.navbar .logo_item img {
+    width: 100px;
+    height: 35px;
+}
+
+.navbar .navbar_content img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+}
+
+.logo_item {
+    display: flex;
+    align-items: center;
+}
+
+
+.search_bar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    width: 45%;
+    height: 45px;
+    border-radius: 20px;
+    border: 1.9px solid rgba(231, 220, 220, 0.555);
+    overflow: hidden;
+}
+
+.search_bar input[type=search] {
+    padding: 0 19px;
+    line-height: 20px;
+    width: 100%;
+    border: none;
+    font-size: 14px;
+    outline: none;
+    color: #333;
+    /* border-right: 1px solid rgba(153, 153, 153, .3); */
+}
+
+.search_bar input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+.search_bar input[type=search]::-ms-clear {
+    display: none;
+}
+
+.header-search-bar__btn>button {
+    display: block;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+    border-left: 1px solid #eee;
+}
+
+.navbar_content {
+    display: flex;
+    align-items: center;
+    column-gap: 25px;
+}
+
+.navbar_content i {
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--grey-color);
+}
+.navbar_content .bx-bell {
+    position: relative;
+}
+
+.navbar_content .mass {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    width: 300px;
+    height: 350px;
+    overflow: scroll;
+    display: none;
+}
+.navbar_content .mass::-webkit-scrollbar{
+    display: none;
+}
+.navbar_content .menus_icon {
+    list-style: none;
+    display: flex;
+    align-items: baseline;
+}
+.navbar_content .menus_icon li{
+    padding-left: 10px;
+    font-size: 25px;
+}
+.mass_sun {
+    position: relative;
+}
+.mass_flong {
+    position: absolute;
+    background-color: red;
+    top:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    right: -13px;
+    border-radius: 500px;
+    z-index: -10;
+    font-size: 13px;
+    color: #fff;
+}
+.mass .title_mass {
+    font-size: 15px;
+    padding: 10px 12px;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    color: #000;
+}
+.mass ul {
+    list-style: none;
+    padding: 10px 7px;
+}
+.image_mass img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+}
+.mass ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #000;
+}
+.mass p {
+    padding-left: 25px;
+}
+/* sidebar  Left*/
+.sidebar {
+    background-color: var(--white-color);
+    width: 260px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 80px 20px;
+    z-index: 20;
+    overflow-y: scroll;
+    box-shadow: 0 0 1px var(--grey-color-light);
+    transition: all 0.5s ease;
+}
+
+.sidebar.close {
+    padding: 60px 0;
+    width: 80px;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.menu_content {
+    position: relative;
+}
+
+.menu_title {
+    margin: 15px 0;
+    padding: 0 20px;
+    font-size: 18px;
+}
+
+.sidebar.close .menu_title {
+    padding: 6px 30px;
+}
+
+.menu_title::before {
+    color: var(--grey-color);
+    white-space: nowrap;
+}
+
+.menu_dahsboard::before {
+    content: "หน้าหลัก";
+}
+
+.menu_editor::before {
+    content: "แก้ไข";
+}
+
+.menu_setting::before {
+    content: "การตั้งค่า";
+}
+
+.sidebar.close .menu_title::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 18px;
+    border-radius: 12px;
+    background: var(--grey-color-light);
+}
+
+.menu_items {
+    padding: 0;
+    list-style: none;
+}
+
+.navlink_icon {
+    position: relative;
+    font-size: 22px;
+    min-width: 50px;
+    line-height: 40px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.navlink_icon::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: calc(100% + 100px);
+    left: -20px;
+}
+
+.navlink_icon:hover {
+    background: var(--blue-color);
+}
+
+.active {
+    background-color: var(--blue-color);
+    border-radius: 7px;
+}
+
+.sidebar .nav_link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 4px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--grey-color);
+    white-space: nowrap;
+}
+
+.sidebar.close .navlink {
+    display: none;
+}
+
+.nav_link:hover {
+    color: var(--white-color);
+    background: var(--blue-color);
+}
+
+.sidebar.close .nav_link:hover {
+    background: var(--white-color);
+}
+
+.submenu_item {
+    cursor: pointer;
+}
+
+.submenu_item .arrow-left {
+    position: absolute;
+    right: 10px;
+    display: inline-block;
+    margin-right: auto;
+}
+
+.bottom_content {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 260px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.bottom {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 0;
+    justify-content: space-around;
+    padding: 18px 0;
+    text-align: center;
+    width: 100%;
+    color: var(--grey-color);
+    background-color: var(--white-color);
+}
+
+.bottom i {
+    font-size: 20px;
+}
+
+.bottom span {
+    font-size: 18px;
+}
+
+.sidebar.close .bottom_content {
+    width: 50px;
+    left: 15px;
+}
+
+.sidebar.close .bottom span {
+    display: none;
+}
+
+.sidebar.hoverable .collapse_sidebar {
+    display: none;
+}
+
+#sidebarOpen {
+    display: none;
+}
+
+.footer {
+    font-size: 12px;
+    transition: .3s;
+}
+
+/* The Content */
+.content {
+    margin: 0 auto;
+    padding: 12px 16px;
+    margin-left: 250px;
+    margin-top: 90px;
+    padding: 1px 16px;
+    transition: .3s;
+}
+
+@media screen and (max-width: 768px) {
+    #sidebarOpen {
+        font-size: 25px;
+        display: block;
+        margin-right: 10px;
+        cursor: pointer;
+        color: var(--grey-color);
+    }
+
+    .sidebar.close {
+        left: -100%;
+    }
+
+    .search_bar {
+        display: none;
+    }
+
+    .sidebar.close .bottom_content {
+        left: -100%;
+    }
+
+    .footer {
+        font-size: 10px;
+    }
+}
+
+/* The Modal (background) */
+.modals {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+.model-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 5px auto;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.close-popup {
+    font-size: 19px;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    color: #000000;
+    cursor: pointer;
+    right: 0;
+}
+
+/* Modal Content/Box */
+.fome-content_login {
+    background-color: #fefefe;
+    margin: 5px auto;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.container-login {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+    padding: 10px 12px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    margin-bottom: 60px;
+}
+
+.sigup {
+    & a {
+        text-decoration: underline;
+        color: var(--back-color);
+        font-size: 19px;
+        transition: .3s;
+    }
+}
+
+.sigup a:hover {
+    color: var(--blue-color);
+}
+
+.title-login{
+    text-align: center;
+    font-size: 19px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+form label {
+    margin-bottom: 8px;
+    color: #000;
+}
+
+form p {
+    text-align: center;
+}
+
+form p a {
+    text-decoration: none;
+    color: #000;
+    font-size: 13px;
+    font-weight: 400;
+    border-bottom: 1px solid #057eff;
+}
+
+form input[type=text], input[type=email], input[type=password] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+form .btn-login {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+form .btn-login:hover {
+    background-color: #0056b3;
+}
+
+.info-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} 
+ .btn-singup {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-singup:hover {
+    background-color: #0056b3;
+}
+.google-login, .login_button{
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.google-login a {
+    text-decoration: none;
+    color: #000;
+    width: 100%;
+}
+.login_button {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.login_button img {
+    height: 30px;
+    pointer-events: none;
+    padding-right: 35px;
+}
+
+.login_text {
+    font-size: 19px;
+    font-weight: 500;
+    color: #000;
+}

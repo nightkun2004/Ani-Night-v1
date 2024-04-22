@@ -13,6 +13,10 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
+router.get('/read', (req,res)=> {
+    res.render('404')
+})
+
 router.get('/read/:url', async (req, res) => { 
     try {
         const usersesstion = req.session.userlogin;

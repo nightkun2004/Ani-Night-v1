@@ -1,0 +1,24 @@
+<section class="video_Section">
+    <h2>เนื้อหา</h2>
+    <div class="videos">
+        <% if (userData.videos.length> 0) { %>
+            <% userData.videos.forEach(video=> { %>
+        <div class="video">
+            <div class="home_pic">
+                <img src="/acticles_images/<%= video.photo %>" alt="home_pic">
+            </div>
+           <div class="info_home">
+            <div class="home_title">
+                <h2><a href="/play/<%= video.videoid %>"><%= video.name %></a></h2>
+            </div>
+            <div class="views">
+                <%= video.views %> วิว
+            </div>
+           </div>
+        </div>
+        <% }); %>
+        <% } else { %>
+            <p style="text-align: center;">ครีเอเตอร์นี้ยังไม่มีวีดีโอ..</p>
+            <% } %>
+    </div>
+</section>

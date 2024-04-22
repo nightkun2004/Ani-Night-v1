@@ -1,0 +1,186 @@
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <span class="dashboard">Dashboard</span>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+            <i class='bx bx-search'></i>
+        </div>
+        <div class="profile-details">
+            <% if (usersesstion.approval_admin) { %>
+                <img src="/profiles/<%= usersesstion.profile %>" alt="">
+            <% } %> 
+            <% if (usersesstion.approval_admin) { %>
+                <span class="admin_name"><%= usersesstion.username %></span>
+            <% } %>
+        </div>
+    </nav>
+    <div class="home-content">
+        <div class="overview-boxes">
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">ผู้ใช้ทั้งหมด</div>
+                    <div class="number">
+                        <%= userCount %>
+                    </div>
+                    <div class="indicator">
+                        <% if (userCount.up > 0) { %>
+                            <i class='bx bx-up-arrow-alt'></i>
+                            <span class="text">เพิ่มขึ้นจากเมื่อวานนี้ +<%= userCountup %></span>
+                        <% } else if (userCount.up < 0) { %>
+                            <i class='bx bx-down-arrow-alt'></i>
+                            <span class="text">ลดลงจากเมื่อวานนี้ <%= Math.abs(userCountup) %></span>
+                        <% } else { %>
+                            <span class="text">ไม่มีการเปลี่ยนแปลงจากเมื่อวานนี้</span>
+                        <% } %>
+                    </div>
+                </div>
+                
+                <i class='bx bx-user' ></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">บทความทั้งหมด</div>
+                    <div class="number"><%= articleCount %></div>
+                </div>
+                <i class='bx bxs-file-doc'></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">จำนวนโพสต์</div>
+                    <div class="number">0</div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">จำนวนวีดีโอ</div>
+                    <div class="number"><%= VideosCount %></div>
+                </div>
+            </div>
+        </div>
+        <div class="sales-boxes">
+            <div class="recent-sales box">
+                <div class="title">ข้อมูลสมาชิก</div>
+                <div class="sales-details">
+                    <div class="short-data" style="width: 100%;">
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th>ลำดับ</th>
+                                    <th>ไอดีผู้ใช้</th>
+                                    <th>เวลาลงทะเบียน</th>
+                                    <th>ชื่อผู้ใช้</th>
+                                    <th>อีเมลผู้ใช้</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <% users.slice(0, 5).forEach((user, index) => { %>
+                                    <tr>
+                                        <td><%= index + 1 %></td>
+                                        <td><a href="#"><%= user.userid %></a></td>
+                                        <% // ฟังก์ชันสำหรับการแปลงวันที่ให้เป็นรูปแบบที่ต้องการ
+                                        function formatDate(dateString) {
+                                          const thaiMonths = [
+                                            "มกราคม", "กุมภาพันธ์", "มีนาคม",
+                                            "เมษายน", "พฤษภาคม", "มิถุนายน",
+                                            "กรกฎาคม", "สิงหาคม", "กันยายน",
+                                            "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+                                          ];
+                                        
+                                          const date = new Date(dateString);
+                                          const day = date.getDate();
+                                          const month = thaiMonths[date.getMonth()];
+                                          const year = date.getFullYear();
+                                          const hour = date.getHours();
+                                          const minute = date.getMinutes();
+                                          return `${day} ${month} ${year} ${hour}:${minute}`;
+                                        }
+                                        
+                                            %>
+                                            <td>
+                                                <%= formatDate(user.createdAt) %>
+                                            </td>
+                                            <td><a href="#"> <%= user.username %></a></td>
+                                            <td><a href="#">
+                                                    <%= user.email %>
+                                                </a></td>
+                                    </tr>
+                                    <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                   
+                    <div class="full-data"  style="display: none; width: 100%;">
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th>ลำดับ</th>
+                                    <th>ไอดีผู้ใช้</th>
+                                    <th>เวลาลงทะเบียน</th>
+                                    <th>ชื่อผู้ใช้</th>
+                                    <th>อีเมลผู้ใช้</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <% users.forEach((user, index) => { %>
+                                    <tr>
+                                        <td><%= index + 1 %></td>
+                                        <td><a href="#"><%= user.userid %></a></td>
+                                        <% // ฟังก์ชันสำหรับการแปลงวันที่ให้เป็นรูปแบบที่ต้องการ
+                                        function formatDate(dateString) {
+                                          const thaiMonths = [
+                                            "มกราคม", "กุมภาพันธ์", "มีนาคม",
+                                            "เมษายน", "พฤษภาคม", "มิถุนายน",
+                                            "กรกฎาคม", "สิงหาคม", "กันยายน",
+                                            "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+                                          ];
+                                        
+                                          const date = new Date(dateString);
+                                          const day = date.getDate();
+                                          const month = thaiMonths[date.getMonth()];
+                                          const year = date.getFullYear();
+                                          const hour = date.getHours();
+                                          const minute = date.getMinutes();
+                                          return `${day} ${month} ${year} ${hour}:${minute}`;
+                                        }
+                                        
+                                            %>
+                                            <td>
+                                                <%= formatDate(user.createdAt) %>
+                                            </td>
+                                            <td><a href="#"> <%= user.username %></a></td>
+                                            <td><a href="#">
+                                                    <%= user.email %>
+                                                </a></td>
+                                    </tr>
+                                    <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="mortbtn button">
+                        <a href="#">ดูต่อ</a>
+                </div>
+                
+                            
+                
+                <div class="top-sales box">
+                    <div class="title">ผู้ใช้ี่มีความแนะนำ</div>
+                    <ul class="top-sales-details">
+                        <% users.forEach((user, index) => { %>
+                            <li>
+                                <a href="#">
+                                    <img src="/profiles/<%= user.profile %>" alt="Image">
+                                    <span class="product"><%= user.username %></span>
+                                </a>
+                                <span class="price"><%= user.userid %></span>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</section>

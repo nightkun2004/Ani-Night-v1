@@ -1,0 +1,63 @@
+.input-search-id {
+    position: relative;
+    height: 50px;
+    max-width: 550px;
+    width: 100%;
+    margin: 0 20px;
+}
+
+.input-search-id input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    background: #F5F6FA;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 0 15px;
+}
+.input-search-id button {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background: #2697FF;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    transition: all 0.4 ease;
+}
+/* CSS สำหรับตาราง */
+.recent-sales table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.recent-sales th,
+.recent-sales td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.recent-sales th {
+    background-color: #f3f3f3;
+    font-weight: bold;
+    text-align: left;
+}
+
+.recent-sales tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.recent-sales tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.recent-sales a {
+    color: #0078d7;
+    text-decoration: none;
+}

@@ -208,7 +208,7 @@ video::cue {
     width: 100%;
     height: 5px;
     margin: auto;
-    background: #5d5d5d;
+    background: #5d5d5d; 
     cursor: pointer;
     position: relative;
 }

@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ani Night</title>
+    <meta name="description" content="เว็บที่ให้คุณเขียนบทความข่าวสารด้านอนิเมะ และรับรายได้จากค่าโฆษณา">
     <meta name="google" content="notranslate">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta name="theme-color" content="#00bbff">
     <meta property="og:site_name" content="Ani-night.online">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="twitter:description" content="เว็บที่ให้คุณเขียนบทความข่าวสารด้านอนิเมะ และรับรายได้จากค่าโฆษณา">
     <meta name="google-site-verification" content="eyTwMkNmyYZFyV7ag9MuAEh5uOPdc4uZ6ONSM3w5HRI">
@@ -25,102 +27,195 @@
 
         gtag('config', 'G-LTJP520FN4');
     </script>
-    <!-- <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"> -->
-    <!-- <link rel="stylesheet" href="./css/index.css"> -->
-    <!-- <link rel="stylesheet" href="./css/indexv2.css"> -->
-    <link rel="stylesheet" href="./css/acticle.css">
-    <link rel="stylesheet" href="./css/footer.css">
-    <link rel="stylesheet" href="./css/pages/home.css">
-    <!-- <link rel="stylesheet" href="./css/pages/manga.css"> -->
-    <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- <link rel="stylesheet" href="./css/acticle.css"> -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
-    <script type="text/javascript" src="/js/index.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
-        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
-        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="/css/pages/home_Section.css">
+    <link rel="stylesheet" href="/css/pages/slideshow_Section.css">
+    <link rel="stylesheet" href="/css/pages/article_Section.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
 
-<body style="background-color: #f6f6f6;">
-    <div class="fixed inset-x-0 z-20" id="navbar">
-        <%- include('../en//navbar') %>
-    </div>
-    <section class="home mx-auto px-4 xl:max-w-7xl pt-[110px]" id="home">
-        <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">มาใหม่</h2>
-        <div class="articles">
-            <% acticles_Bors.forEach((article) => { %>
-                <div class="article">
-                    <a href="/read/<%= article.url %>?lang=<%= language %>">
-                        <div class="pic-article">
-                            <img src="/acticles_images/<%= article.photo %>" alt="article-pic">
+<body>
+    <%- include('../en/navbar/navnar_Header') %>
+        <%- include('../en/navbar/sidebar_Section') %>
+
+            <!-- Section Content -->
+            <section class="content">
+                <div class="banner">
+                    <div class="slideshow-container">
+                        <div class="mySlides fade">
+                            <a href="/animeboard" title="เซ็คลิตล์อนิเมะ 2024" data-title="Animelists">
+                                <img src="https://m1r.ai/8gsg5.jpg" alt="Slide 1">
+                            </a>
                         </div>
-                        <div class="title-article">
-                            <h2><%= article.title %></h2>
+                        <div class="mySlides fade">
+                            <a href="#" title="ads" data-title="Animelists">
+                                <img src="https://m1r.ai/ofmm4.jpg" alt="Slide 2">
+                            </a>
                         </div>
-                        <% if (article.author && article.author.id) { %>
-                            <div class="ch">
-                                <div class="profile-logo">
-                                    <a href="/editor/<%= article.author.id.username %>">
-                                        <img src="/profiles/<%= article.author.id.profile %>" alt="">
-                                    </a>
-                                </div>
-                               <div class="ch-text">
-                                <a href="/editor/<%= article.author.id.username %>">
-                                    <h2><%= article.author.id.username %></h2>
-                                </a>
-                               </div>
-                            </div>
-                            <% } else { %>
-                                <p>Author: ไม่พบผู้เขียน</p> 
-                            <% } %>  
-                        <div class="views">
-                            <%= article.views %> views
-                        </div>
-                    </a>
+
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    </div>
                 </div>
-            <% }) %>
-        </div>
-    </section>
 
-    <%- include('../footer') %>
+                <div class="section-artcile">
+                    <h2>New Update Article</h2>
+                    <div style="display: block; justify-content: center; align-items: center;" class="loading-indicator loadingIndicator" id="loadingIndicator">
+                        <div class="spinner"></div>
+                    </div>
+                    <div class="loading" style="display: none;">
+                    <ul class="articles">
+                        <% acticles_Bors.forEach((article)=> { %>
+                            <li class="article">
+                                <a href="/read/<%= article.url %>?lang=<%= language %>">
+                                    <div class="pic_article">
+                                        <img src="/acticles_images/<%= article.photo %>"
+                                            alt="/acticles_images/<%= article.photo %>">
+                                    </div>
+                                    <div class="title">
+                                        <h2>
+                                            <%= article.title %>
+                                        </h2>
+                                    </div>
+                                    <% if (article.author && article.author.id) { %>
+                                        <div class="ch">
+                                            <div class="profile-logo">
+                                                <a href="/editor/<%= article.author.id.username %>">
+                                                    <img src="/profiles/<%= article.author.id.profile %>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="ch-text">
+                                                <a href="/editor/<%= article.author.id.username %>">
+                                                    <h2>
+                                                        <%= article.author.id.username %>
+                                                    </h2>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <% } else { %>
+                                            <p>Author: ไม่พบผู้เขียน</p>
+                                            <% } %>
+                                                <div class="views">
+                                                    <%= article.views %> Views
+                                                </div>
+                                </a>
+                            </li>
+                            <% }) %>
+                </ul>
+            </div>
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper('.home-slider', {
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
+                <nav aria-label="Page navigation example"
+                    style="display: flex; margin-top: 20px; justify-content: center;">
+                    <ul class="flex items-center -space-x-px h-10 text-base">
+                        <% if (prevPage) { %>
+                            <li>
+                                <a href="/?page=<%= prevPage %>"
+                                    class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Previous</span>
+                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M5 1 1 5l4 4" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <% } %>
 
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
+                                <% for (let i=1; i <=lastPage; i++) { %>
+                                    <li>
+                                        <a href="/?page=<%= i %>"
+                                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                            <%= i %>
+                                        </a>
+                                    </li>
+                                    <% } %>
 
-    </script>
+                                        <% if (nextPage) { %>
+                                            <li>
+                                                <a href="/?page=<%= nextPage %>"
+                                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                    <span class="sr-only">Next</span>
+                                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 6 10">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <% } %>
+                    </ul>
+                </nav>
+                </div>
+
+            </section>
+
+                <script src="./js/sidebar.js"></script>
+                <script src="./js/imagesi.js"></script>
+                <script src="./js/pages/script_Section.js"></script>
+                <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script>
+            var swiper = new Swiper('.home-slider', {
+                loop: true,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+            });
+
+            window.addEventListener('scroll', function () {
+                var navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('navbar-white-bg');
+                } else {
+                    navbar.classList.remove('navbar-white-bg');
+                }
+            });
+
+        </script> -->
+                <% if (typeof alertMessageVideo !=='undefined' && alertMessageVideo ) { %>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '<%= alertMessageVideo %>',
+                            });
+                        });
+                    </script>
+                    <% } %>
+
+                        <script>
+                function showLoadingIndicator() {
+                    document.querySelectorAll('.loadingIndicator').forEach(item => {
+                        item.style.display = 'block';
+                    });
+                    document.querySelectorAll('.loading').forEach(item => {
+                        item.style.display = 'none';
+                    });
+                }
+        
+                function hideLoadingIndicator() {
+                    document.querySelectorAll('.loadingIndicator').forEach(item => {
+                        item.style.display = 'none';
+                    });
+                    document.querySelectorAll('.loading').forEach(item => {
+                        item.style.display = 'block';
+                    });
+                }
+        
+                showLoadingIndicator();
+        
+                window.addEventListener('load', function () {
+                    hideLoadingIndicator();
+                });
+            
+                </script>
+
 </body>
 
 </html>

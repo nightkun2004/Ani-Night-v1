@@ -1,0 +1,19 @@
+<nav class="navbar_profile">
+    <ul>
+        <li id="home">
+            <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken%>">
+                หน้าหลัก
+            </a>
+        </li>
+        <li id="videos">
+            <a href="/<%= usersesstion.url %>/video?tokenlogin=<%= usersesstion.accessToken%>">
+                วีดีโอ
+            </a>
+        </li>
+        <li id="reward">
+            <a href="/<%= usersesstion.url %>/reward?tokenlogin=<%= usersesstion.accessToken%>">
+            รางวัล
+        </a>
+    </li>
+    </ul>
+</nav>

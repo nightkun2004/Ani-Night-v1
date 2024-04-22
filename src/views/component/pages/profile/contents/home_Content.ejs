@@ -1,0 +1,25 @@
+<section class="home_Section">
+    <h2>เนื้อหา</h2>
+    <div class="homes">
+        <% if (userData && userData.acticles && userData.acticles.length> 0) { %>
+            <% userData.acticles.forEach(acticle=> { %>
+        <div class="home">
+            <div class="home_pic">
+                <img src="/acticles_images/<%= acticle.photo %>" alt="home_pic">
+            </div>
+           <div class="info_home">
+            <div class="home_title">
+                <h2><a href="/read/<%= acticle.url %>?lang=th"><%= acticle.title %></a></h2>
+            </div>
+            <div class="views">
+                <%= acticle.views %> วิว
+            </div>
+           </div>
+        </div>
+        <% }); %>
+        <% } else { %>
+            <p style="text-align: center; color: #000;">ยังไม่มีเนื้อหาบทความที่สร้างครับ.
+            </p>
+            <% } %>
+    </div>
+</section>

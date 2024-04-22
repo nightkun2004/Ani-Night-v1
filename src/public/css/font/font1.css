@@ -7,3 +7,15 @@ body {
     font-family: "Kanit", sans-serif;
     background-color: #f6f6f6;
 }
+
+.conteiner_form {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+    & h2 {
+        font-size: 19px;
+        font-weight: bold;
+        text-align: center;
+    }
+}

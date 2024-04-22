@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.0.3",
@@ -10,6 +10,7 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.18.0",
+    "form-data": "^4.0.0",
     "googleapis": "^133.0.0",
     "init": "^0.1.2",
     "jsonwebtoken": "^9.0.2",
@@ -28,8 +29,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "keywords": ["Anime", "อนิเมะ", "เว็บไซต์รวมรวบข่าวสารด้านอนิเมะ", "2024"],
+  "keywords": [
+    "Anime",
+    "อนิเมะ",
+    "เว็บไซต์รวมรวบข่าวสารด้านอนิเมะ",
+    "2024"
+  ],
   "author": "Nightkun",
   "license": "ISC",
-  "description": "เว็บไซต์รวมรวบข่าวสารด้านอนิเมะ"
+  "description": "เว็บไซต์รวมรวบข่าวสารด้านอนิเมะ",
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.0"
+  }
 }

@@ -1,91 +1,72 @@
-<nav class="flex relative justify-between items-center max-w-7xl md:px-2 px-4 h-20 mx-auto">
-    <div class="narbar-left">
-        <div class="narbar-mobilib">
-            <div class="monil">
-                <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none"
-                        stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                </button>
-                <div class="logo">
-                    <a href="/admin/dash">
-                        <span>Admin</span>
-                    </a>
-                </div>
-                <div id="dropdownNavbar"
-                    class="menus-card z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                    <ul>
-                        <li>
-                            <a href="/admin/dash">
-                                ภาพรวม
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/admin/update_code">
-                                อัพเดตซอง
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                อัตเดตลิ้ง
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                ติดต่อ
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/admin/createAnime">
-                                สร้างภาพยนต์
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="navbar-pc">
-            <div class="logo">
-                <a href="/admin/dash">
-                    <span>Admin</span>
-                    <p>Ani Night</p>
+<!-- Ipdate -->
+<div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bxl-c-plus-plus'></i>
+      <span class="logo_name">Admin</span>
+    </div>
+      <ul class="nav-links">
+        <li>
+          <a href="/admin/dash" class="<%= active === 'home-admin' ? 'active' : '' %>">
+            <i class='bx bx-grid-alt' ></i>
+            <span class="links_name">ภาพรวม</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/update_code" class="<%= active === 'update-admin' ? 'active' : '' %>">
+            <i class='bx bx-box' ></i>
+            <span class="links_name">อัพเดตซอง</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/createAnime" class="<%= active === 'createAnime-admin' ? 'active' : '' %>">
+            <i class='bx bx-list-ul' ></i>
+            <span class="links_name">สร้างรายการอนิเมะ</span>
+          </a>
+        </li>
+        <!-- <li>
+          <a href="#">
+            <i class='bx bx-pie-chart-alt-2' ></i>
+            <span class="links_name">Analytics</span>
+          </a>
+        </li> -->
+        <li>
+          <a href="/add-admin" class="<%= active === 'add-admin' ? 'active' : '' %>">
+            <i class='bx bx-coin-stack' ></i>
+            <span class="links_name">เพิ่มผู้ดูแล</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class='bx bx-user' ></i>
+            <span class="links_name">ทีมทั้งหมด</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class='bx bx-message' ></i>
+            <span class="links_name">ข้อมความติดต่อ</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class='bx bx-coin' ></i>
+            <span class="links_name">สร้างรายได้</span>
+          </a>
+        </li>
+        <% if (usersesstion.approval_admin) { %>
+            <li class="log_out">
+                <a href="/admin/logout">
+                  <i class='bx bx-log-out'></i>
+                  <span class="links_name">ออกจากระบบ</span>
                 </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="navbar-right">
-        <div class="menus">
-            <ul>
-                <li>
-                    <a href="/admin/dash">
-                        ภาพรวม
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/update_code">
-                        อัพเดตซอง
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        อัตเดตลิ้ง
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        ติดต่อ
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/createAnime">
-                        สร้างภาพยนต์
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+              </li>
+              <% } else { %>
+        <li class="log_in">
+            <a href="#" class="<%= active === 'login-admin' ? 'active' : '' %>">
+              <i class='bx bx-log-in'></i>
+              <span class="links_name">เข้าสู่ระบบ</span>
+            </a>
+          </li>
+          <% } %>
+      </ul>
+  </div>

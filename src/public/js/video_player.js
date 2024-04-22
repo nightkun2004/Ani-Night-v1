@@ -8,7 +8,7 @@ video_players.forEach(video_player => {
   <div class="progressAreaTime" >0:00</div>
   
   <div class="controls active">
-    <div class="progress-area">
+    <div class="progress-area"> 
       <canvas class="bufferedBar"></canvas>
       <div class="thunnaillBar"></div>
       <div class="progress-bar">

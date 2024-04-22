@@ -12,7 +12,7 @@ router.use(setLanguage);
 
 const ITEMS_PER_PAGE = 12;
 
-router.get('/acticle', async (req, res) => {
+router.get('/articles', async (req, res) => { 
     try { 
         const usersesstion = req.session.userlogin;
         const page = +req.query.page || 1; // หากไม่มีค่า page ให้เริ่มที่หน้าแรก
@@ -28,7 +28,7 @@ router.get('/acticle', async (req, res) => {
       const template = req.language === 'th' ? './component/acticle.ejs' : './en/article';
 
         res.render(template, {
-            active: 'actcile',
+            active: 'article',
             usersesstion,
             acticles,
             topViewedArticles,

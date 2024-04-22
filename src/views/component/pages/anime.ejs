@@ -9,57 +9,34 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="og:url" content="https://www.ani-night.online/animeboard">
     <meta property="og:image" content="https://www.ani-night.online/animeboard">
+    <meta name="google-site-verification" content="eyTwMkNmyYZFyV7ag9MuAEh5uOPdc4uZ6ONSM3w5HRI">
     <meta name="theme-color" content="#00bbff">
-    <link rel="stylesheet" href="./css/acticle.css">
-    <link rel="stylesheet" href="./css/pages/anime.css">
-    <link rel="stylesheet" href="./css/footer.css">
-    <link rel="stylesheet" href="./css/sidebar.css">
-    <link rel="stylesheet" href="./css/font/font1.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./css/pages/anime.css">
+    <link rel="stylesheet" href="/css/pages/home_Section.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <meta name="google-site-verification" content="eyTwMkNmyYZFyV7ag9MuAEh5uOPdc4uZ6ONSM3w5HRI">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTJP520FN4"></script>
+      <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+  
+          gtag('config', 'G-LTJP520FN4');
+      </script>
 </head>
 <body>
-    <div class="fixed inset-x-0 z-20 md:none" id="navbar">
-        <%- include('../../navbar') %>
-        <%- include('../../sidebar') %>
-    </div>
+    <%- include('../../navnar_Header') %>
+    <%- include('../../sidebar_Section') %>
 
-    <div class="container mx-auto px-4 xl:max-full pt-[110px]">
-        <div class="search">
-            <div class="bg-white px-6 md:px-12 py-8 mb-[40px] md:py-12 mt-8 shadow-sm relative">
-                <form action="" class="w-full">
-                    <div class="relative mt-1 w-full">
-                        <div class="absolute w-full inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
-                            </svg>
-                        </div>
-                        <input type="search" name="query" id="search" placeholder="ค้นหาแบบเรียวไทมเลยย..."
-                        class="block w-full p-4 ps-10 text-lg text-black-900 border border-gray-50 rounded-full h-10 bg-gray-50"
-                        oninput="searchAnime()">
-                                   
-                    </div>
-                </form> 
-            </div>
-        </div>
-        
-        <!-- <div class="anime_content" id="search_q">
-            <div class="anime_brta">ผลลัพท์ค้นหา</div>
-            <div class="anime_lists searchanime">
-                <div class="anime_list">
-
-                </div>
-            </div>
-        </div> -->
-
-        <div class="anime_content">
+    <section class="content">
+          <!-- Content Animes -->
+          <div class="anime_content">
             <h2 class="anime_brta">เมษายน 2024</h2>
             <div class="loading" style="display: none;">
                 <div class="anime_lists sub" >
@@ -388,13 +365,39 @@
                 <div class="spinner"></div>
             </div>
         </div>
+    </section>
+
+    <div class="container">
+        <div class="content_main">
+            <!-- <div class="search">
+                <div class="bg-white px-6 md:px-12 py-8 mb-[40px] md:py-12 mt-8 shadow-sm relative">
+                    <form action="" class="w-full">
+                        <div class="relative mt-1 w-full">
+                            <div class="absolute w-full inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                                </svg>
+                            </div>
+                            <input type="search" name="query" id="search" placeholder="ค้นหาแบบเรียวไทมเลยย..."
+                            class="block w-full p-4 ps-10 text-lg text-black-900 border border-gray-50 rounded-full h-10 bg-gray-50"
+                            oninput="searchAnime()">
+                                       
+                        </div>
+                    </form> 
+                </div>
+            </div> -->
+
+          
+
+        </div>
     </div>
 
-    <%- include('../../ads') %>
-    <%- include('../../footer') %>
     <script src="../js/sidebar.js"></script>
     <script src="../js/searchanime.js"></script>
-    <script>
+    <script src="./js/pages/script_Section.js"></script>
+    <!-- <script>
         window.addEventListener('scroll', function () {
             var navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -408,7 +411,7 @@
         searchAnime();
     };
 
-    </script>
+    </script> -->
     <script>
         function showLoadingIndicator() {
             document.querySelectorAll('.loadingIndicator').forEach(item => {

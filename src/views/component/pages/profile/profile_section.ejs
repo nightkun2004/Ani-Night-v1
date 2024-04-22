@@ -1,0 +1,88 @@
+<div class="profile_banner" style="background-image: url(https://t4.ftcdn.net/jpg/04/04/73/39/360_F_404733910_2mIXr6RbC5G3WZJFjopVsBaR3EOM6Bqy.jpg);"></div>
+<div class="profile_section">
+    <div class="profile_left">
+        <div class="profile_image">
+            <a target="_blank" href="/profiles/<%= usersesstion.profile %>">
+                <img src="/profiles/<%= usersesstion.profile %>" alt="" width="100px" height="100px">
+            </a>
+        </div>
+    </div>
+    <div class="profile_right">
+        <div class="profile_info">
+            <h2>ชื่อผู้ใช้ : <%= usersesstion.username %></h2>
+            <p class="email">อีเมล : <%= usersesstion.email %></p>
+            <p>ประวัติ : <%= usersesstion.bio %></p>
+            <div class="id_F">
+                <p>ไอดีผู้ใช้ : <%= usersesstion.userid %></p>
+                <p>ผู้ติดตาม : <%= usersesstion.followers %></p>
+            </div>
+            
+        </div>
+        <div class="profile_btn">
+            <button id="openEdit">แก้ไขโปรไฟล์</button>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+     <div class="header_edit">
+        <h2>แก้ไขโปรไฟล์ของคุณ</h2>
+     </div>
+     <form action="/edit_profile" method="POST" enctype="multipart/form-data">
+        <div class="form_groud">
+            <label for="name">ชื่อช่อง</label>
+           <div class="input_box_form_edit">
+            <input type="text" name="name" id="name" value="<%= usersesstion.name %>">
+           </div>
+        </div>
+        <div class="form_groud">
+            <label for="name">ชื่อผู้ใช้</label>
+           <div class="input_box_form_edit">
+            <input type="text" name="username" id="username" value="<%= usersesstion.username %>">
+           </div>
+        </div>
+        <div class="form_groud">
+            <label for="name">เพิ่มประวัติ</label>
+           <div class="input_box_form_edit">
+            <textarea name="bio" id="bio" cols="30" maxlength="400" rows="10">
+               <%= usersesstion.bio %>
+            </textarea>
+           </div>
+           <p>ใส่สุ่งสุด 400 คำ</p>
+        </div>
+        <div class="form_groud">
+            <label for="name">url โปรไฟล์</label>
+           <div class="input_box_form_edit">
+            <input type="text" name="url" id="url" value="<%= usersesstion.url %>">
+           </div>
+           <p style="margin-top: 10px;">โปรดใส่เป็นภาษาอังกฤษ</p>
+        </div>
+        <div class="form_groud">
+            <h3 class="header_edit_file"></h3>
+            <div class="card">
+                <div class="drop_box">
+                  <header>
+                    <h4>เลือกไฟล์ที่นี่ แก้ไขโปรไฟล์</h4>
+                  </header>
+                  <p>รองรับไฟล์ .jpg .png </p>
+                  <input id="dropzone-file" type="file" name="profileprofile" accept="image/*"
+                  onchange="previewImage(this)" class="hidden" />
+                </div>  
+              </div>
+        </div>
+        <div class="form_groud">
+            <img id="preview" style="width: 100px; height: 100px; border-radius: 50px; border: 1px solid #eee;"
+            src="" alt="">
+        </div>
+        <div class="form_groud">
+            <button type="submit">บันทึก</button>
+        </div>
+     </form>
+    </div>
+  
+  </div>

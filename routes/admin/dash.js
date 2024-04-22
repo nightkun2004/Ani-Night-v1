@@ -1,33 +1,78 @@
 const express = require('express')
 const router = express.Router()
 const verifyToken = require('../../middleware/auth')
+const isAdmin = require('../../middleware/in_Admin')
 const User = require('../../models/user')
+const Article = require('../../models/acticle')
+const Videos = require('../../models/video')
 const AnimeApril = require('../../models/animeApril')
 const AnimeJuly = require('../../models/animeJuly')
 const AnimeBord = require('../../models/animebord')
 const Animemay = require('../../models/animeMay')
 const createAnime = require('../../controls/createAnimeRoute')
 const create_2024 = require('../../routes/admin/2024/create')
+const Admin_Router = require('./admin_router/admin')
+
+const PAGE_SIZE = 5;
 
 router.get('/admin/dash', verifyToken, async (req, res) => {
     try {
+        const usersesstion = req.session.userlogin;
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        const todayCount = await User.countDocuments({
+            createdAt: {
+                $gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+                $lt: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
+            }
+        });
+
+        const yesterdayCount = await User.countDocuments({
+            createdAt: {
+                $gte: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()),
+                $lt: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate() + 1)
+            }
+        });
+
+        const userCountup = {
+            total: todayCount,
+            up: todayCount - yesterdayCount
+        };
+
         const userCount = await User.countDocuments();
-        res.render('./admin/dash', { userCount }); // ส่งข้อมูลผู้ใช้ไปยังหน้าจอ dash โดยใช้ EJS
+        const VideosCount = await Videos.countDocuments();
+        const articleCount = await Article.countDocuments();
+        const users = await User.find();
+        res.render('./admin/dash', {
+            userCount,
+            users,
+            userCountup,
+            usersesstion,
+            articleCount,
+            VideosCount,
+            active: 'home-admin',
+        });
     } catch (err) {
         console.error(err);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้');
     }
 });
 
-router.get('/admin/update_code', verifyToken, (req, res) => {
-    res.render('./admin/updateReward');
+router.get('/admin/update_code', verifyToken, isAdmin, (req, res) => {
+    const usersesstion = req.session.userlogin;
+    res.render('./admin/updateReward', {
+        active: 'update-admin',
+        usersesstion
+    });
 });
 
-router.get('/admin/createAnime', verifyToken, (req, res) => {
+router.get('/admin/createAnime', verifyToken, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
-    res.render('./admin/createAnime', { usersesstion });
+    res.render('./admin/createAnime', { usersesstion, active: 'createAnime-admin', });
 });
-router.get('/admin/createAnime/may', verifyToken, (req, res) => {
+router.get('/admin/createAnime/may', verifyToken, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
     res.render('./admin/animeMay', { usersesstion });
 });
@@ -71,7 +116,7 @@ router.post('/createAnime/may', createAnime.Addanimemay);
 
 async function loadAnimeData(req, res, next) {
     try {
-        const AnimeBordData = await AnimeBord.find().populate('animeApril'); 
+        const AnimeBordData = await AnimeBord.find().populate('animeApril');
         req.AnimeBordData = AnimeBordData;
         next();
     } catch (error) {
@@ -79,23 +124,23 @@ async function loadAnimeData(req, res, next) {
     }
 }
 
-router.get('/edit/anime/boards', loadAnimeData, async (req,res) => {
+router.get('/edit/anime/boards', loadAnimeData, async (req, res) => {
     const usersesstion = req.session.userlogin;
 
     try {
-        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly'); 
+        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly');
         if (!AnimeBordData) {
             return res.status(404).json({ error: "AnimeBordData not found" });
         }
 
-        res.render('./admin/edits/adminboards', {usersesstion, AnimeBordData})
+        res.render('./admin/edits/adminboards', { usersesstion, AnimeBordData })
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 })
 
-router.post('/edit_animeboard', async (req,res) => {
+router.post('/edit_animeboard', async (req, res) => {
     const usersesstion = req.session.userlogin;
     const edit_id = req.body.edit_id;
     try {
@@ -111,7 +156,7 @@ router.post('/edit_animeboard', async (req,res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-router.post('/edit_animeboard/may', async (req,res) => {
+router.post('/edit_animeboard/may', async (req, res) => {
     const usersesstion = req.session.userlogin;
     const edit_id = req.body.edit_id;
     try {
@@ -127,7 +172,7 @@ router.post('/edit_animeboard/may', async (req,res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-router.post('/edit_animeboard/July', async (req,res) => {
+router.post('/edit_animeboard/July', async (req, res) => {
     const usersesstion = req.session.userlogin;
     const edit_id = req.body.edit_id;
     try {
@@ -188,6 +233,7 @@ router.get('/success', (req, res) => {
     res.render('success')
 })
 
-router.use(create_2024)
+router.use(create_2024);
+router.use(Admin_Router);
 
 module.exports = router

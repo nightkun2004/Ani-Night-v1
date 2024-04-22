@@ -14,7 +14,7 @@ router.use(setLanguage);
 
 const ITEMS_PER_PAGE = 12;
 
-router.get('/:url/dashboard', authenticatetoken, async (req, res) => { 
+router.get('/:url/dashboard', async (req, res) => { 
     try {
         const usersesstion = req.session.userlogin;
         const url = req.params.url;
@@ -49,7 +49,7 @@ router.get('/:url/dashboard', authenticatetoken, async (req, res) => {
             ;
 
         res.render('./component/pages/dashboard/index', {
-            active: 'dashboard',
+            active: 'edit_article',
             usersesstion,
             userData,
             payment,

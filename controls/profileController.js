@@ -25,9 +25,7 @@ exports.getProfile = async (req, res) => {
         //     .sort({ createdAt: -1 })
         //     .populate('article');
 
-        const template = req.language === 'th' ? './component/pages/profile' : './en/profiles/profile';
-
-        res.render(template, { active: 'profile', usersesstion, userData, alertMessage: req.query.alertMessage });
+        res.render('./component/pages/profile', { active: 'profile', usersesstion, userData, alertMessage: req.query.alertMessage });
 
     } catch (error) {
         console.error(error);

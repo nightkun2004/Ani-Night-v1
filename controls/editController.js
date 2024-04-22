@@ -11,7 +11,7 @@ exports.editActicle = async (req, res) => {
             return res.status(404).json({ error: "Article not found" });
         }
 
-        res.render('./component/pages/edits/edit_acticle', { active: 'profile', article, usersesstion })
+        res.render('./component/pages/edits/edit_acticle', { active: 'edit_article', article, usersesstion })
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });

@@ -28,7 +28,7 @@ router.get('/:url/dashboard/video', authenticatetoken, async (req, res) => {
             .populate('videos');
 
         res.render('./component/pages/dashboard/videos/index', {
-            active: 'dashboard',
+            active: 'edit_video',
             usersesstion,
             userData,
             language: req.language,

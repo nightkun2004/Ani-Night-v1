@@ -10,7 +10,7 @@ router.get('/:url/video', authenticatetoken, async (req, res) => {
     try {
         const url = req.params.url;
         const usersesstion = req.session.userlogin;
-        const userData = await User.findOne({ _id: usersesstion._id, url: url })
+        const userData = await User.findOne({ url: url })
             .populate('videos');
         if (!usersesstion) {
             return res.redirect('/') 

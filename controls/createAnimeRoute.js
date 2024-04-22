@@ -7,7 +7,7 @@ exports.Addanimemay = async (req, res) => {
     try {
         const newAnime = new AnimeMay({
             nameAnime: req.body.nameAnime,
-            Produced: req.body.Produced,
+            Produced: req.body.Produced, 
             manuscript: req.body.manuscript,
             episodes: req.body.episodes,
             start: req.body.start,

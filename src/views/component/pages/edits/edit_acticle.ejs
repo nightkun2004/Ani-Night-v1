@@ -1,82 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>แก้ไขบทความ</title>
-        <link rel="stylesheet" href="./css/pages/editActicle.css"> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="../../css/acticle.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขบทความ</title>
+    <link rel="stylesheet" href="/css/pages/home_Section.css">
+    <link rel="stylesheet" href="./css/pages/editActicle.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../css/acticle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
+
 <body>
-        <%- include('../../../navbar') %>
-        <div class="container_EditVideo mx-auto px-4 xl:max-w-7xl pt-[110px">
-                <div class="sidebar_left">
-                    <ul>
-                        <li class="border-l-4 border-sky-600 border-right" >
-                            <a href="#">
-                                แก้ไขบทความพื้นฐาน
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <%- include('../../../navnar_Header') %>
+        <%- include('../../../sidebar_Section') %>
+            <section class="content mx-auto px-4 xl:max-w-7xl pt-[110px">
+                <div class="container_EditVideo">
+                    <div class="sidebar_left">
+                        <ul>
+                            <li class="border-l-4 border-sky-600 border-right" >
+                                <a href="#">
+                                    แก้ไขบทความพื้นฐาน
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+        
+                    <div class="content_edit">
+                        <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขบทความพื้นฐาน</h2>
+                        <div class="con_form">
+                            <form action="/edit/video/user" method="post">
+                                <input type="hidden" name="edit_id" value="<%= article._id %>">
+                                <input type="hidden" name="update_id" value="<%= article._id %>">
+                                <input class="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            type="hidden" id="username" name="username"
+                                            value="<%= usersesstion.username %>" readonly>
+                                <div class="mb-5">
+                                    <label for="name-video">หัวข้อบทความ</label>
+                                    <input style="outline: none;" type="text" name="namevideo" id="" value="<%= article.title %>"
+                                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-500 dark:shadow-sm-light">
+                                </div>
+        
+                                <div class="mb-5">
+                                    <label for="name_act"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แก้ไขเนื้อหาวีดีโอ</label>
+                                    <textarea style="outline: none;" placeholder="แก้ไขคำอธิบายวีดีโอ" name="dec_video"
+                                        id="dec_video" cols="30" rows="10"
+                                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                                        <%= article.content %></textarea>
+                                </div>
     
-                <div class="content_edit">
-                    <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขบทความพื้นฐาน</h2>
-                    <div class="con_form">
-                        <form action="/edit/video/user" method="post">
-                            <input type="hidden" name="edit_id" value="<%= article._id %>">
-                            <input type="hidden" name="update_id" value="<%= article._id %>">
-                            <input class="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        type="hidden" id="username" name="username"
-                                        value="<%= usersesstion.username %>" readonly>
-                            <div class="mb-5">
-                                <label for="name-video">หัวข้อบทความ</label>
-                                <input style="outline: none;" type="text" name="namevideo" id="" value="<%= article.title %>"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-500 dark:shadow-sm-light">
-                            </div>
+                                <div class="mb-5">
+                                    <label for="name_act"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">เพิ่มลิ้งตัวอย่าง</label>
+                                    <input type="text"  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light"
+                                     name="link_info" value="<%= article.link_info %>">
+                                </div>
+        
+                                <div class="mb-5">
+                                    <label for="tag">แก้ไขแท็ก</label>
+                                    <input style="outline: none;" type="text" name="categories" value="<%= article.categories %>"
+                                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light">
+                                </div>
     
-                            <div class="mb-5">
-                                <label for="name_act"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แก้ไขเนื้อหาวีดีโอ</label>
-                                <textarea style="outline: none;" placeholder="แก้ไขคำอธิบายวีดีโอ" name="dec_video"
-                                    id="dec_video" cols="30" rows="10"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                                    <%= article.content %></textarea>
-                            </div>
-
-                            <div class="mb-5">
-                                <label for="name_act"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">เพิ่มลิ้งตัวอย่าง</label>
-                                <input type="text"  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light"
-                                 name="link_info" value="<%= article.link_info %>">
-                            </div>
-    
-                            <div class="mb-5">
-                                <label for="tag">แก้ไขแท็ก</label>
-                                <input style="outline: none;" type="text" name="categories" value="<%= article.categories %>"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light">
-                            </div>
-
-                            <div class="mb-5">
-                                <label for="url_edit">แก้ไข URl</label>
-                                <input  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light"
-                                 type="text" name="url" value="<%= article.url %>">
-                                 <p> การแก้ไข url จะช่วยให้บทความขึ้นคำค้นหาของ Google ได้</p>
-                            </div>
-    
-                            <button type="submit"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                แก้ไขบทความ</button>
-                        </form>
+                                <div class="mb-5">
+                                    <label for="url_edit">แก้ไข URl</label>
+                                    <input  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light"
+                                     type="text" name="url" value="<%= article.url %>">
+                                     <p> การแก้ไข url จะช่วยให้บทความขึ้นคำค้นหาของ Google ได้</p>
+                                </div>
+        
+                                <button type="submit"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    แก้ไขบทความ</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
+
+            <script src="../../js/pages/script_Section.js"></script>
 </body>
+
 </html>

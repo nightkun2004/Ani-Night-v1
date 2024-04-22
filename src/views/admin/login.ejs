@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <link rel="stylesheet" href="../../css/acticle.css">
+    <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../css/font/font1.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="./css/font/font1.css">
+    <link rel="stylesheet" href="../css/admin/sidebar.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
@@ -18,9 +21,6 @@
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="fixed inset-x-0 z-20" id="navbar">
-        <%- include('../admin/sidebars/navbar') %>
-    </div>
     <section class="login mx-auto px-4 xl:max-w-7xl pt-[130px]" id="login">
         <div class="container-login bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm rela">
             <form action="/admin/login" method="POST">
@@ -32,20 +32,12 @@
                 <input class="mb-2" type="password" id="password" name="password" required>
 
                 <button class="btn-login" type="submit">เข้าสู่ระบบ</button>
+                <a href="/admin/register">เพิ่มผู้ดูแล</a>
             </form>
         </div>
     </section>
 
-    <script>
-         window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
-    </script>
+    <script src="/js/admins/script.js"></script>
 </body>
 
 </html>

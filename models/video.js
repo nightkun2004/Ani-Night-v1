@@ -90,7 +90,7 @@ const videoSchema = new mongoose.Schema({
     ratedBy: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'User', 
             unique: true 
         }
     ],

@@ -1,0 +1,191 @@
+  <!-- Sidebar Left -->
+  <nav class="sidebar">
+    <div class="menu_content">
+        <ul class="menu_items">
+            <div class="menu_title menu_dahsboard"></div>
+            <!-- start -->
+            <li class="item">
+                <a href="/" class="nav_link submenu_item">
+                    <span class="navlink_icon">
+                        <i class="fa-solid fa-house"></i>
+                    </span>
+                    <span class="navlink">หน้าหลัก</span>
+                </a>
+            </li>
+            <!-- end -->
+            <!-- start -->
+            <li class="item <%= active === 'anime' ? 'active' : '' %>">
+                <a href="/animeboard" class="nav_link submenu_item">
+                    <span class="navlink_icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </span>
+                    <span class="navlink">บอร์ดรายการอนิเมะ</span>
+                </a>
+            </li>
+            <li class="item <%= active === 'foryou' ? 'active' : '' %>">
+                <a href="/foryou" class="nav_link submenu_item">
+                    <span class="navlink_icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <span class="navlink">สำหรับคุณ</span>
+                </a>
+            </li>
+            <li class="item <%= active === 'article' ? 'active' : '' %>">
+                <a href="/articles" class="nav_link submenu_item">
+                    <span class="navlink_icon">
+                        <i class='bx bx-news'></i>
+                    </span>
+                    <span class="navlink">บทความ</span>
+                </a>
+            </li>
+            <!-- end -->
+        </ul>
+        <% if (usersesstion) { %>
+        <ul class="menu_items">
+            <div class="menu_title menu_editor"></div>
+            <!-- Start -->
+            <li class="item  <%= active === 'edit_article' ? 'active' : '' %>">
+                <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>" class="nav_link">
+                    <span class="navlink_icon">
+                        <i class="fa-solid far fa-edit"></i>
+                    </span>
+                    <span class="navlink">แก้ไขบทความ</span>
+                </a>
+            </li>
+            <!-- End -->
+            <li class="item  <%= active === 'edit_video' ? 'active' : '' %>">
+                <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>" class="nav_link">
+                    <span class="navlink_icon">
+                        <i class="fa-solid fa-video"></i>
+                    </span>
+                    <span class="navlink">แก้ไขวีดีโอ</span>
+                </a>
+            </li>
+            <li class="item <%= active === 'upload_article' ? 'active' : '' %>">
+                <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="nav_link">
+                    <span class="navlink_icon">
+                        <i class="bx bx-cloud-upload"></i>
+                    </span>
+                    <span class="navlink">สร้างบทความ</span>
+                </a>
+            </li>
+            <li class="item <%= active === 'profile' ? 'active' : '' %>">
+                <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="nav_link">
+                    <span class="navlink_icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <span class="navlink">โปรไฟล์</span>
+                </a>
+            </li>
+        </ul>
+        <% } %>
+        <ul class="menu_items">
+            <div class="menu_title menu_setting"></div>
+            <li class="item">
+                <a href="/privacy" class="nav_link">
+                    <span class="navlink_icon">
+                        <i class="bx bx-flag"></i>
+                    </span>
+                    <span class="navlink">ความเป็นส่วนตัว</span>
+                </a>
+            </li>
+            <li class="item">
+                <a href="#" class="nav_link">
+                    <span class="navlink_icon">
+                        <i class="fa-solid fas fa-dollar-sign"></i>
+                    </span>
+                    <span class="navlink">การสร้างรายได้</span>
+                </a>
+            </li>
+            <li class="item">
+                <a href="#" class="nav_link">
+                    <span class="navlink_icon">
+                        <i class="bx bx-cog"></i>
+                    </span>
+                    <span class="navlink">การตั้งค่า</span>
+                </a>
+            </li>
+        </ul>
+        <br>
+        <p class="footer">
+            © 2024 AniNight <br>
+        </p>
+        <!-- Sidebar Open / Close -->
+        <div class="bottom_content">
+            <% if (!usersesstion) { %>
+            <div class="bottom expand_sidebar" onclick="document.getElementById('btn_open-login_popup').style.display='block'">
+                <span> เข้าสุ่ระบบ</span>
+                <i class='bx bx-log-in'></i>
+            </div>
+            <% } else { %>
+            <a href="/logout/<%= usersesstion._id %>" class="bottom collapse_sidebar">
+                <span> ออกจากระบบ</span>
+                <i class='bx bx-log-out'></i>
+            </a>
+            <% } %>
+        </div>
+    </div>
+</nav>
+
+
+ <!-- The Model login -->
+ <div id="btn_open-login_popup" class="modals">
+        
+    <!-- Midel content -->
+    <div class="model-content">
+        <div class="close-popup" onclick="document.getElementById('btn_open-login_popup').style.display='none'">
+            <span> <i class="fa-solid fa-close"></i></span>
+        </div>
+        <div class="fome-content_login">
+            <div class="container-login">
+                <form action="/login" method="POST">
+                    <h2 class="title-login">เข้าสู่ระบบ</h2>
+                    <label for="username">อีเมล:</label>
+                    <input type="email" name="email" required>
+
+                    <label for="password">รหัสผ่าน:</label>
+                    <input class="mb-2" type="password" id="password" name="password" required>
+
+                    <button class="btn-login" type="submit">เข้าสู่ระบบ</button>
+                </form>
+                <div class="sigup">
+                    <a href="#" id="sigup_btn">สมัครสมาชิก</a>
+                </div>
+                <div class="google-login">
+                    <a href="/auth/google">
+                        <button class="login_button">
+                            <img src="/images/logo/google_logo.png" alt="">
+                            <div class="login_text">
+                                ดำเนินต่อด้วย Google
+                            </div>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Sign Up -->
+        <div class="form-content_signup" style="display: none;">
+            <div class="container-login">
+                <form action="/login" method="POST">
+                    <h2 class="title-login">สมัครสมาชิก</h2>
+                    <label for="username">ตั้งชื่อช่องของคุณ:</label>
+                    <input type="text" id="username" name="username"
+                        placeholder="ตั้งแล้วจะไม่สามารถแก้ไขได้หรือเปลี่ยนแปลงได้" required>
+
+                    <label for="email">อีเมล:</label>
+                    <input type="email" id="email" name="email" placeholder="กรุณาใส่อีเมล" required>
+
+                    <label for="password">รหัสผ่าน:</label>
+                    <input type="password" id="password" name="password"
+                        placeholder="กรุณาตั้งรหัสผ่านอย่างน้อย 8 - 32 ตัว" required>
+
+                    <button class="btn-singup" type="submit">สมัคร</button>
+                </form>
+                <div class="sigup">
+                    <a href="#" id="login_btn">เข้าสุ่ระบบ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

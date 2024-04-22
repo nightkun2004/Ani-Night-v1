@@ -8,8 +8,348 @@
     <meta name="keywords" content="Anime2024, Anime, 2024, Anime, March, April,">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="og:url" content="https://www.ani-night.online">
+    <link rel="stylesheet" href="/css/pages/home_Section.css">
+    <link rel="stylesheet" href="/css/pages/anime.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 <body>
-    
+    <%- include('../en/navbar/navnar_Header') %>
+    <%- include('../en/navbar/sidebar_Section') %>
+    <section class="content">
+        <!-- Content Animes -->
+        <div class="anime_content">
+          <h2 class="anime_brta">April 2024</h2>
+          <div class="loading" style="display: none;">
+              <div class="anime_lists sub" >
+                  <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+                      <% AnimeBordData.forEach(item => { %>
+                          <% if (item.animeApril && item.animeApril.length > 0) { %>
+                              <% item.animeApril.forEach(anime => { %>
+                                  <div class="anime_list">
+                                      <div class="anime_item_pic">
+                                          <img src="<%= anime.linkImage %>" alt="Anime">
+                                      </div>
+                                      <div class="anime_info_text">
+                                          <h2><%= anime.nameAnime %></h2>
+                                          <p>Produced by: <span><%= anime.Produced %></span></p>
+                                          <% if (anime.manuscript) { %>
+                                              <p>manuscript: <span><%= anime.manuscript %></span></p>
+                                          <% } %>
+                                          <p>episodes: <span><%= anime.episodes %></span></p>
+                                          <p>Start: <span><%= anime.start %></span></p>
+                                          
+                                          <% if (anime.nameep) { %>
+                                              <p>Episode name: <span><%= anime.nameep %></span></p>
+                                          <% } %>
+                                          <% if (anime.info) { %>
+                                              <button class="btn_info">
+                                                  
+                                                  <a target="_blank" href="<%= anime.info %>">Info</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.web) { %>
+                                              <button class="btn_web web">
+                                                  <div class="image">
+                                                      <img src="/images/world-wide-web.png" alt="">
+                                                  </div>
+                                                  <a target="_blank" href="<%= anime.web %>">Official website</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.bilibili) { %>
+                                              <button class="btn_bilibili bilibili">
+                                                  <div class="image">
+                                                      <img src="/images/bilibili.png" alt="">
+                                                  </div>
+                                                  <a target="_blank" href="<%= anime.bilibili %>"> Bilibili</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.Iqiyi) { %>
+                                              <button class="btn_iq iq">
+                                                  <div class="image">
+                                                      <img src="/icons/iqiyi-icon.png" alt="">
+                                                  </div>
+                                                  <a target="_blank" href="<%= anime.Iqiyi %>"> IQIYI</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.crunchyroll) { %>
+                                              <button class="btn_crunchyroll crunchyroll">
+                                                  <div class="image">
+                                                      <img src="/icons/crunchyroll_icon.png" alt="">
+                                                  </div>
+                                                  <a target="_blank" href="<%= anime.crunchyroll %>"> crunchyroll</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.youtube) { %>
+                                              <button class="btn_yt yt">
+                                                  <div class="image">
+                                                      <img src="/icons/youtube.svg" alt="">
+                                                  </div>
+                                                  <a target="_blank" class="flex" href="<%= anime.youtube %>"> YouTube
+                                                  <% if (anime.yt_text) { %>
+                                                      <p class="pl-1"><%= anime.yt_text %></p>
+                                                  <% } %>
+                                                  </a>
+                                              </button>
+                                          <% } %>
+
+                                      </div>
+                                  </div>
+                              <% }); %>
+                          <% } else { %>
+                              <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                          <% } %>
+                      <% }); %>
+                  <% } else { %>
+                      <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                  <% } %>
+                  
+                  
+                  <!-- <div class="anime_list">
+                      <div class="anime_item_pic">
+                          <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
+                      </div>
+                      <div class="anime_info_text">
+                          <h2>Kami wa Game ni Ueteiru</h2>
+                          <p>ผลิตโดย: <span>Liden Films</span></p>
+                          <p>ต้นฉบับ: <span>Light Novel</span></p>
+                          <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
+                          <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
+                          <button>
+                              <a href="#">ข้อมูลเพิ่มเติม</a>
+                          </button>
+                      </div>
+                  </div> -->
+              </div>
+          </div>
+          
+          <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+              <div class="spinner"></div>
+          </div>
+      </div>
+
+      <div class="anime_content">
+          <h2 class="anime_brta">May 2024</h2>
+          <div class="loading" style="display: none;">
+              <div class="anime_lists sub" >
+                  <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+                      <% AnimeBordData.forEach(item => { %>
+                          <% if (item.animeMay && item.animeMay.length > 0) { %>
+                              <% item.animeMay.forEach(anime => { %>
+                                  <div class="anime_list">
+                                      <div class="anime_item_pic">
+                                          <img src="<%= anime.linkImage %>" alt="Anime">
+                                      </div>
+                                      <div class="anime_info_text">
+                                          <h2><%= anime.nameAnime %></h2>
+                                          <p>Produced by: <span><%= anime.Produced %></span></p>
+                                          <% if (anime.manuscript) { %>
+                                              <p>manuscript: <span><%= anime.manuscript %></span></p>
+                                          <% } %>
+                                          <p>Episodes: <span><%= anime.episodes %></span></p>
+                                          <p>Start: <span><%= anime.start %></span></p>
+                                          
+                                          <% if (anime.nameep) { %>
+                                              <p>Episode name: <span><%= anime.nameep %></span></p>
+                                          <% } %>
+                                          <% if (anime.info) { %>
+                                              <button class="btn_info">
+                                                  
+                                                  <a href="<%= anime.info %>">Info</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.web) { %>
+                                              <button class="btn_web web">
+                                                  <div class="image">
+                                                      <img src="/images/world-wide-web.png" alt="">
+                                                  </div>
+                                                  <a href="<%= anime.web %>">Official website</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.bilibili) { %>
+                                              <button class="btn_bilibili bilibili">
+                                                  <div class="image">
+                                                      <img src="/images/bilibili.png" alt="">
+                                                  </div>
+                                                  <a href="<%= anime.bilibili %>"> Bilibili</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.Iqiyi) { %>
+                                              <button class="btn_iq iq">
+                                                  <div class="image">
+                                                      <img src="/icons/iqiyi-icon.png" alt="">
+                                                  </div>
+                                                  <a href="<%= anime.Iqiyi %>"> IQIYI</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.crunchyroll) { %>
+                                              <button class="btn_crunchyroll crunchyroll">
+                                                  <div class="image">
+                                                      <img src="/icons/crunchyroll_icon.png" alt="">
+                                                  </div>
+                                                  <a href="<%= anime.crunchyroll %>"> crunchyroll</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.youtube) { %>
+                                              <button class="btn_yt yt">
+                                                  <div class="image">
+                                                      <img src="/icons/youtube.svg" alt="">
+                                                  </div>
+                                                  <a class="flex" href="<%= anime.youtube %>"> YouTube
+                                                  <% if (anime.yt_text) { %>
+                                                      <p class="pl-1"><%= anime.yt_text %></p>
+                                                  <% } %>
+                                                  </a>
+                                              </button>
+                                          <% } %>
+
+                                      </div>
+                                  </div>
+                              <% }); %>
+                          <% } else { %>
+                              <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                          <% } %>
+                      <% }); %>
+                  <% } else { %>
+                      <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                  <% } %>
+                  
+                  
+                  <!-- <div class="anime_list">
+                      <div class="anime_item_pic">
+                          <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
+                      </div>
+                      <div class="anime_info_text">
+                          <h2>Kami wa Game ni Ueteiru</h2>
+                          <p>ผลิตโดย: <span>Liden Films</span></p>
+                          <p>ต้นฉบับ: <span>Light Novel</span></p>
+                          <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
+                          <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
+                          <button>
+                              <a href="#">ข้อมูลเพิ่มเติม</a>
+                          </button>
+                      </div>
+                  </div> -->
+              </div>
+          </div>
+          
+          <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+              <div class="spinner"></div>
+          </div>
+      </div>
+
+      <div class="anime_content">
+          <h2 class="anime_brta">July 2024</h2>
+          <div class="loading" style="display: none;">
+              <div class="anime_lists sub" >
+                  <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+                      <% AnimeBordData.forEach(item => { %>
+                          <% if (item.animeJuly && item.animeJuly.length > 0) { %>
+                              <% item.animeJuly.forEach(anime => { %>
+                                  <div class="anime_list">
+                                      <div class="anime_item_pic">
+                                          <img src="<%= anime.linkImage %>" alt="Anime">
+                                      </div>
+                                      <div class="anime_info_text">
+                                          <h2><%= anime.nameAnime %></h2>
+                                          <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
+                                          <% if (anime.manuscript) { %>
+                                              <p>manuscript: <span><%= anime.manuscript %></span></p>
+                                          <% } %>
+                                          <p>episodes: <span><%= anime.episodes %></span></p>
+                                          <p>Start: <span><%= anime.start %></span></p>
+                                          
+                                          <% if (anime.nameep) { %>
+                                              <p>Episode name: <span><%= anime.nameep %></span></p>
+                                          <% } %>
+                                          <% if (anime.info) { %>
+                                              <button class="btn_info">
+                                                  
+                                                  <a href="<%= anime.info %>">Info</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.web) { %>
+                                              <button class="btn_web web">
+                                                  <div class="image">
+                                                      <img src="/images/world-wide-web.png" alt="">
+                                                  </div>
+                                                  <a href="<%= anime.web %>">Official website</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.bilibili) { %>
+                                              <button class="btn_bilibili bilibili">
+                                                  <div class="image">
+                                                      <img src="/images/bilibili.png" alt="">
+                                                  </div>
+                                                  <a href="<%= anime.bilibili %>"> Bilibili</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.Iqiyi) { %>
+                                              <button class="btn_iq iq">
+                                                  <div class="image">
+                                                      <img src="/icons/iqiyi-icon.png" alt="">
+                                                  </div>
+                                                  <a href="<%= anime.Iqiyi %>"> IQIYI</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.crunchyroll) { %>
+                                              <button class="btn_crunchyroll crunchyroll">
+                                                  <div class="image">
+                                                      <img src="/icons/crunchyroll_icon.png" alt="">
+                                                  </div>
+                                                  <a href="<%= anime.crunchyroll %>"> crunchyroll</a>
+                                              </button>
+                                          <% } %>
+                                          <% if (anime.youtube) { %>
+                                              <button class="btn_yt yt">
+                                                  <div class="image">
+                                                      <img src="/icons/youtube.svg" alt="">
+                                                  </div>
+                                                  <a class="flex" href="<%= anime.youtube %>"> YouTube
+                                                  <% if (anime.yt_text) { %>
+                                                      <p class="pl-1"><%= anime.yt_text %></p>
+                                                  <% } %>
+                                                  </a>
+                                              </button>
+                                          <% } %>
+
+                                      </div>
+                                  </div>
+                              <% }); %>
+                          <% } else { %>
+                              <p style="text-align: center;">ไม่มีข้อมูล animeJuly หรือเดือน กรกฎาคม สำหรับ AnimeBord นี้</p>
+                          <% } %>
+                      <% }); %>
+                  <% } else { %>
+                      <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                  <% } %>
+                  
+                  
+                  <!-- <div class="anime_list">
+                      <div class="anime_item_pic">
+                          <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
+                      </div>
+                      <div class="anime_info_text">
+                          <h2>Kami wa Game ni Ueteiru</h2>
+                          <p>ผลิตโดย: <span>Liden Films</span></p>
+                          <p>ต้นฉบับ: <span>Light Novel</span></p>
+                          <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
+                          <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
+                          <button>
+                              <a href="#">ข้อมูลเพิ่มเติม</a>
+                          </button>
+                      </div>
+                  </div> -->
+              </div>
+          </div>
+          
+          <div class="loading-indicator loadingIndicator">
+              <div class="spinner"></div>
+          </div>
+      </div>
+  </section>
+
+  <script src="./js/pages/script_Section.js"></script>
+  <script src="/js/pages/loading_datas.js"></script>
 </body>
 </html>

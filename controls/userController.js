@@ -15,7 +15,7 @@ exports.getAllUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(Userdata.password, saltRounds);
 
         function generateRandomPostId() {
-            let numbers = Array.from({ length: 10 }, (_, i) => i);
+            let numbers = Array.from({ length: 8 }, (_, i) => i); 
             shuffleArray(numbers);
             return numbers.join('');
         }
@@ -27,16 +27,16 @@ exports.getAllUser = async (req, res) => {
             }
         }
 
-        let usercreId = generateRandomPostId();
+        let userid = generateRandomPostId();
 
         const Usersave = new User({
             username: Userdata.username,
             email: Userdata.email,
             password: hashedPassword,
-            userid: usercreId
+            userid: userid
         });
         await Usersave.save();
-        return res.redirect('/singup?alertMessage=สมัครสมาชิกเรียบร้อย กดปุ่มเข้าสู่ระบบได้เลย');
+        return res.redirect('/login');
     } catch (err) {
         console.error(err);
         return res.redirect('/singup?alertMessageerror=อาจจะเป็นเพราะอีเมลซํ้าก็ได้ .!');
@@ -74,14 +74,16 @@ exports.getLogin = async (req, res) => {
             acticles: userlogin.acticles,
             posts: userlogin.posts,
             createdAt: userlogin.createdAt,
-            followed: userlogin.followed,
+            followed: userlogin.followed, // ผูัติดตามทั้งหมด
             url: userlogin.url,
-            followers: userlogin.followers, 
+            followers: userlogin.followers, // ผู้ติดตาม
             youtube: userlogin.youtube,
             tiktok: userlogin.tiktok,
             facebook: userlogin.facebook, 
             accessToken: accessToken,
-            alertMessage: req.query.alertMessage
+            alertMessage: req.query.alertMessage,
+            userid: userlogin.userid,
+            approval_admin: true
         };
         res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}&alertMessage=เข้าสุ่ระบบสำเร็จ`);
     } catch(error) {

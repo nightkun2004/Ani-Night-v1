@@ -1,7 +1,11 @@
 const mongoose = require("../config")
 
 const userSchema= new mongoose.Schema({
-    userid: String,
+    userid: {
+        type: String,
+        unique: true,
+        required: true
+    }, 
     name: {
         type: String
     },
@@ -71,6 +75,10 @@ const userSchema= new mongoose.Schema({
     payment: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Payment'
+    },
+    approval_admin: {
+        type: Boolean,
+        default: false 
     },
 })
 
