@@ -18,7 +18,7 @@ router.get('/:url/dashboard', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const url = req.params.url;
-        const page = +req.query.page || 1; 
+        const page = +req.query.page || 1; // หากไม่มีค่า page ให้เริ่มที่หน้าแรก
 
         if (!usersesstion) {
             return res.redirect('/');
@@ -34,12 +34,11 @@ router.get('/:url/dashboard', async (req, res) => {
                 }
             });
 
+
         // ดึงข้อมูลการชำระเงินของผู้ใช้
         const payment = await User.findOne({ _id: usersesstion._id })
             .populate('payment')
             ;
-              // นับจำนวนบทความทั้งหมดของผู้ใช้ที่เข้าสู่ระบบ
-        const totalCount = await Acticle.countDocuments({ acticles: usersesstion._id });
 
         res.render('./component/pages/dashboard/index', {
             active: 'edit_article',
@@ -48,11 +47,11 @@ router.get('/:url/dashboard', async (req, res) => {
             payment,
             language: req.language,
             currentPage: page,
-            hasNextPage: ITEMS_PER_PAGE * page < totalCount,
+            hasNextPage: ITEMS_PER_PAGE * page,
             hasPrevPage: page > 1,
             nextPage: page + 1,
             prevPage: page - 1, 
-            lastPage: Math.ceil(totalCount / ITEMS_PER_PAGE)
+            lastPage: Math.ceil(ITEMS_PER_PAGE)
         });
     } catch (error) {
         console.error(error);
