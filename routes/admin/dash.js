@@ -74,7 +74,7 @@ router.get('/admin/createAnime', verifyToken, isAdmin, (req, res) => {
 });
 router.get('/admin/createAnime/may', verifyToken, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
-    res.render('./admin/animeMay', { usersesstion });
+    res.render('./admin/animeMay', { usersesstion, active: 'createAnime-admin' });
 });
 router.post('/createAnime', verifyToken, async (req, res) => {
     const usersesstion = req.session.userlogin;
@@ -133,7 +133,7 @@ router.get('/edit/anime/boards', loadAnimeData, async (req, res) => {
             return res.status(404).json({ error: "AnimeBordData not found" });
         }
 
-        res.render('./admin/edits/adminboards', { usersesstion, AnimeBordData })
+        res.render('./admin/edits/adminboards', { usersesstion, AnimeBordData,active: 'createAnime-admin' })
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });

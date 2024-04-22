@@ -7,7 +7,7 @@ const createAnime = require('../../../controls/createAnimeRoute')
 
 router.get('/admin/createAnime/July', verifyToken, (req, res) => {
     const usersesstion = req.session.userlogin;
-    res.render('./admin/2024/createJuly', { usersesstion });
+    res.render('./admin/2024/createJuly', { usersesstion, active: 'createAnime-admin' });
 });
 
 router.post('/createAnime/July', createAnime.AddanimeJuly)

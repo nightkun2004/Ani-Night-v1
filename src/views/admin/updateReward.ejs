@@ -5,11 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Reward Code</title>
-    <link rel="stylesheet" href="../css/admin/dash.css">
+    <link rel="stylesheet" href="../css/admin/Admin_section.css">
     <link rel="stylesheet" href="../css/admin/code.css">
     <link rel="stylesheet" href="../css/admin/sidebar.css">
-    <link rel="stylesheet" href="../css/acticle.css">
-    <link rel="stylesheet" href="../css/font/font1.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,8 +16,9 @@
 
 <body>
     <%- include('./sidebars/navbar') %>
-    <section class="rewardadmib mx-auto px-4 xl:max-w-7xl pt-[110px]">
-        <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+    <section class="home-section">
+       <%- include('./sections/navbar') %>
+        <div class="container_form">
             <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">อัพเดตโค้ดอั่งเปา</h2>
             <div class="content">
                 <form action="/reward/update" method="post">
@@ -29,8 +28,9 @@
                 </form>
             </div>
         </div>
-    </section>
+    </section> 
 
+    <script src="/js/admins/script.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>
 

@@ -13,38 +13,64 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
+<style>
+    .loading-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
 
+    .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #3d84ff;
+        /* สีของ Spinner */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        /* การหมุนของ Spinner */
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
 <body>
     <%- include('../../../navnar_Header') %>
     <%- include('../../../sidebar_Section') %>
     <section class="content">
-
-    </section>
-        <section class="mx-auto px-4 xl:max-w-7xl pt-[110px]">
-            <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">ภาพรวม</h2>
-            <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
-                <ul class="flex items-center -space-x-px h-10 text-base">
-                    <li>
-                        <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>"
-                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
-                         จัดการบทความ
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>"
-                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
-                         จัดการวีดีโอ
-                        </a>
-                    </li>
-                    <!-- <li>
-                        <a href="/<%= usersesstion.url %>/dashboard/animebord?tokenlogin=<%= usersesstion.accessToken%>"
-                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
-                            แก้ไขสื่อ
-                        </a>
-                    </li> -->
-                </ul>
-            </nav>
-            <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+        <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">ภาพรวม</h2>
+        <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+            <ul class="flex items-center -space-x-px h-10 text-base">
+                <li>
+                    <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>"
+                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
+                     จัดการบทความ
+                    </a>
+                </li>
+                <li>
+                    <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>"
+                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
+                     จัดการวีดีโอ
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="/<%= usersesstion.url %>/dashboard/animebord?tokenlogin=<%= usersesstion.accessToken%>"
+                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-whitee">
+                        แก้ไขสื่อ
+                    </a>
+                </li> -->
+            </ul>
+        </nav>
+        <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+            <div style="display: block; justify-content: center; align-items: center;" class="loading-indicator loadingIndicator" id="loadingIndicator">
+                <div class="spinner"></div>
+            </div>
+            <div class="loading" style="display: none;">
                 <div class="videos_edits">
                     <ul class="videoEdits grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         <% if (userData && userData.acticles && userData.acticles.length> 0) { %>
@@ -77,11 +103,11 @@
 
                     </ul>
                 </div>
-                <!-- <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+                <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
                     <ul class="flex items-center -space-x-px h-10 text-base">
                         <% if (prevPage) { %>
                             <li>
-                                <a href="/<%= usersesstion.url %>/dashboard?page=<%= prevPage %>"
+                                <a href="/<%= usersesstion.url %>/dashboard?page=<%= prevPage %>?tokenlogin=<%= usersesstion.accessToken %>"
                                     class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                     <span class="sr-only">Previous</span>
                                     <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
@@ -95,7 +121,7 @@
 
                                 <% for (let i=1; i <=lastPage; i++) { %>
                                     <li>
-                                        <a href="/<%= usersesstion.url %>/dashboard?page=<%= i %>"
+                                        <a href="/<%= usersesstion.url %>/dashboard?page=<%= i %>?tokenlogin=<%= usersesstion.accessToken %>"
                                             class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                             <%= i %>
                                         </a>
@@ -104,7 +130,7 @@
 
                                         <% if (nextPage) { %>
                                             <li>
-                                                <a href="/<%= usersesstion.url %>/dashboard?page=<%= nextPage %>"
+                                                <a href="/<%= usersesstion.url %>/dashboard?page=<%= nextPage %>?tokenlogin=<%= usersesstion.accessToken %>"
                                                     class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                                     <span class="sr-only">Next</span>
                                                     <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
@@ -117,11 +143,14 @@
                                             </li>
                                             <% } %>
                     </ul>
-                </nav> -->
+                </nav> 
+                  
             </div>
-        </section>
+        </div>
+    </section>
 
         <script src="/js/pages/script_Section.js"></script>
+        <script src="/js/pages/loading_datas.js"></script>
         <script>
             function confirmDelete(event) {
                 event.preventDefault(); // หยุดการกระทำเริ่มต้นของลิงก์

@@ -6,6 +6,7 @@
     <title>สร้างอนิเมะบอร์ด</title>
     <link rel="stylesheet" href="../../css/admin/dash.css">
     <link rel="stylesheet" href="../../css/admin/createAnime.css">
+    <link rel="stylesheet" href="../../css/admin/Admin_section.css">
     <link rel="stylesheet" href="../../css/admin/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../../css/acticle.css">
@@ -13,50 +14,53 @@
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="fixed inset-x-0 z-20" id="navbar">
-        <%- include('../../admin/sidebars/navbar') %> 
-    </div>
-    <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
-        <% if (usersesstion) { %>
-            <h5>ดำเนินด้วยบัญชี</h5>
-            <div class="profile-info">
-            <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Image">
-            <div>
-              <p><%= usersesstion.username %></p>
-              <p><%= usersesstion.email %></p>
+    <%- include('../../admin/sidebars/navbar') %> 
+    <section class="home-section">
+        <%- include('../sections/navbar') %>
+        <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
+            <% if (usersesstion) { %>
+                <h5>ดำเนินด้วยบัญชี</h5>
+                <div class="profile-info">
+                <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Image">
+                <div>
+                  <p><%= usersesstion.username %></p>
+                  <p><%= usersesstion.email %></p>
+                </div>
+              </div>
+            <% } %>
+    
+            <div class="edit" style="align-items: center; justify-content: center; display: flex; flex-wrap: wrap;">
+                <a style="margin: 10px;" href="/edit/anime/boards">แก้ไขสื่ออนิเมะ</a>
+                <a style="margin: 10px;" href="/admin/createAnime/may">เพิ่มเดือนพฤษภาคม</a>
+                <a style="margin: 10px;" href="/admin/createAnime/July">เพิ่มเดือนกรกฎาคม</a>
             </div>
-          </div>
-        <% } %>
-
-        <div class="edit" style="align-items: center; justify-content: center; display: flex; flex-wrap: wrap;">
-            <a style="margin: 10px;" href="/edit/anime/boards">แก้ไขสื่ออนิเมะ</a>
-            <a style="margin: 10px;" href="/admin/createAnime/may">เพิ่มเดือนพฤษภาคม</a>
-            <a style="margin: 10px;" href="/admin/createAnime/July">เพิ่มเดือนกรกฎาคม</a>
+            
+            <form action="/createAnime/July" method="post">
+                <h2>สร้างอนิเมะบอร์ด กรกฎาคม</h2>
+    
+                <label for="name">ชื่ออนิเมะ</label>
+                <input type="text" name="nameAnime" placeholder="ชื่ออนิเมะ">
+    
+                <label for="ds">ผลิตโดย</label>
+                <input type="text" name="Produced" placeholder="ผลิตโดย">
+    
+                <label for="on">ต้นฉบับ</label>
+                <input type="text" name="manuscript" placeholder="ต้นฉบับ">
+    
+                <label for="ep">จำนวนตอน</label>
+                <input type="text" name="episodes" placeholder="จำนวนตอน">
+    
+                <label for="name">เริ่มฉาย</label>
+                <input type="text" name="start" placeholder="เริ่มฉาย">
+    
+                <label for="link">ลิงภาพ</label>
+                <input type="text" name="linkImage" placeholder="ลิ้งภาพ">
+    
+                <input type="submit" value="เผยแพร่">
+            </form>
         </div>
-        
-        <form action="/createAnime/July" method="post">
-            <h2>สร้างอนิเมะบอร์ด กรกฎาคม</h2>
-
-            <label for="name">ชื่ออนิเมะ</label>
-            <input type="text" name="nameAnime" placeholder="ชื่ออนิเมะ">
-
-            <label for="ds">ผลิตโดย</label>
-            <input type="text" name="Produced" placeholder="ผลิตโดย">
-
-            <label for="on">ต้นฉบับ</label>
-            <input type="text" name="manuscript" placeholder="ต้นฉบับ">
-
-            <label for="ep">จำนวนตอน</label>
-            <input type="text" name="episodes" placeholder="จำนวนตอน">
-
-            <label for="name">เริ่มฉาย</label>
-            <input type="text" name="start" placeholder="เริ่มฉาย">
-
-            <label for="link">ลิงภาพ</label>
-            <input type="text" name="linkImage" placeholder="ลิ้งภาพ">
-
-            <input type="submit" value="เผยแพร่">
-        </form>
-    </div>
+    </section>
+   
+    <script src="/js/admins/script.js"></script>
 </body>
 </html>

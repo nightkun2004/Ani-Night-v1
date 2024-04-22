@@ -1,22 +1,4 @@
-<section class="home-section">
-    <nav>
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <span class="dashboard">Dashboard</span>
-        </div>
-        <div class="search-box">
-            <input type="text" placeholder="Search...">
-            <i class='bx bx-search'></i>
-        </div>
-        <div class="profile-details">
-            <% if (usersesstion) { %>
-                <img src="/profiles/<%= usersesstion.profile %>" alt="">
-            <% } %>
-            <% if (usersesstion) { %>
-                <span class="admin_name"><%= usersesstion.username %></span>
-            <% } %>
-        </div>
-    </nav>
+
     <div class="home-content">
         <div class="sales-boxes">
             <div class="recent-sales box">
@@ -87,4 +69,3 @@
             </div>            
             </div>
         </div>
-</section>

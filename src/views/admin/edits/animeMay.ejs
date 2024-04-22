@@ -6,6 +6,7 @@
     <title>สร้างอนิเมะบอร์ด</title>
     <link rel="stylesheet" href="../css/admin/dash.css">
     <link rel="stylesheet" href="../css/admin/createAnime.css">
+    <link rel="stylesheet" href="../css/admin/Admin_section.css">
     <link rel="stylesheet" href="../css/admin/sidebar.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -14,108 +15,112 @@
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="fixed inset-x-0 z-20 md:none" id="navbar">
-        <%- include('../../admin/sidebars/navbar') %>
-    </div>
-    <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
-        <% if (usersesstion) { %>
-            <h5>ดำเนินด้วยบัญชี</h5>
-            <div class="profile-info">
-            <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Image">
-            <div>
-              <p><%= usersesstion.username %></p>
-              <p><%= usersesstion.email %></p>
-            </div>
-          </div>
-        <% } %>
-    <div class="edit_overee">
-        <form action="/edit_animeboard/May/002" method="POST">
-            <h2>แก้ไขอนิเมะบอร์ด</h2>
-
-            <input type="text" name="update_id" value="<%= animeMay._id %>">
-
-            <label for="name">ชื่ออนิเมะ</label>
-            <input type="text" name="nameAnime" value="<%= animeMay.nameAnime %>">
-
-            <label for="ds">ผลิตโดย</label>
-            <input type="text" name="Produced" value="<%= animeMay.Produced %>">
-
-            <label for="on">ต้นฉบับ</label>
-            <input type="text" name="manuscript" value="<%= animeMay.manuscript %>">
-
-            <label for="ep">จำนวนตอน</label>
-            <input type="text" name="episodes" value="<%= animeMay.episodes %>">
-
-            <label for="name">เริ่มฉาย</label>
-            <input type="text" name="start" value="<%= animeMay.start %>">
-
-            <label for="link">ลิงภาพ</label>
-            <input type="text" name="linkImage" value="<%= animeMay.linkImage %>">
-
-            <% if (animeMay.info) { %>
-                <label for="link">ชื่อตอน</label>
-                <input type="text" name="nameep" value="<%= animeMay.nameep %>">
-                <% } else { %>
-                    <label for="link">ชื่อตอน</label>
-                    <input type="text" name="nameep">
-                <% } %>
-
-            <% if (animeMay.info) { %>
-            <label for="link">ข้อมูลเพิ่มเติม</label>
-            <input type="text" name="info" value="<%= animeMay.info %>">
-            <% } else { %>
-                <label for="link">ข้อมูลเพิ่มเติม</label>
-                <input type="text" name="info">
+    <%- include('../../admin/sidebars/navbar') %>
+    <section class="home-section">
+        <%- include('../sections/navbar') %>
+        <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
+            <% if (usersesstion) { %>
+                <h5>ดำเนินด้วยบัญชี</h5>
+                <div class="profile-info">
+                <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Image">
+                <div>
+                  <p><%= usersesstion.username %></p>
+                  <p><%= usersesstion.email %></p>
+                </div>
+              </div>
             <% } %>
-
-            <% if (animeMay.web) { %>
-                <label for="link">เว็บทางการ</label>
-                <input type="text" name="web" value="<%= animeMay.web %>">
+        <div class="edit_overee">
+            <form action="/edit_animeboard/May/002" method="POST">
+                <h2>แก้ไขอนิเมะบอร์ด</h2>
+    
+                <input type="text" name="update_id" value="<%= animeMay._id %>">
+    
+                <label for="name">ชื่ออนิเมะ</label>
+                <input type="text" name="nameAnime" value="<%= animeMay.nameAnime %>">
+    
+                <label for="ds">ผลิตโดย</label>
+                <input type="text" name="Produced" value="<%= animeMay.Produced %>">
+    
+                <label for="on">ต้นฉบับ</label>
+                <input type="text" name="manuscript" value="<%= animeMay.manuscript %>">
+    
+                <label for="ep">จำนวนตอน</label>
+                <input type="text" name="episodes" value="<%= animeMay.episodes %>">
+    
+                <label for="name">เริ่มฉาย</label>
+                <input type="text" name="start" value="<%= animeMay.start %>">
+    
+                <label for="link">ลิงภาพ</label>
+                <input type="text" name="linkImage" value="<%= animeMay.linkImage %>">
+    
+                <% if (animeMay.info) { %>
+                    <label for="link">ชื่อตอน</label>
+                    <input type="text" name="nameep" value="<%= animeMay.nameep %>">
+                    <% } else { %>
+                        <label for="link">ชื่อตอน</label>
+                        <input type="text" name="nameep">
+                    <% } %>
+    
+                <% if (animeMay.info) { %>
+                <label for="link">ข้อมูลเพิ่มเติม</label>
+                <input type="text" name="info" value="<%= animeMay.info %>">
                 <% } else { %>
+                    <label for="link">ข้อมูลเพิ่มเติม</label>
+                    <input type="text" name="info">
+                <% } %>
+    
+                <% if (animeMay.web) { %>
                     <label for="link">เว็บทางการ</label>
-                    <input type="text" name="web">
-                <% } %>
-
-            <% if (animeMay.bilibili) { %>
-                <label for="link">แพลตฟอร์ม Bilibili</label>
-                <input type="text" name="bilibili" value="<%= animeMay.bilibili %>">
-                <% } else { %>
+                    <input type="text" name="web" value="<%= animeMay.web %>">
+                    <% } else { %>
+                        <label for="link">เว็บทางการ</label>
+                        <input type="text" name="web">
+                    <% } %>
+    
+                <% if (animeMay.bilibili) { %>
                     <label for="link">แพลตฟอร์ม Bilibili</label>
-                    <input type="text" name="bilibili">
-                <% } %>
-            <% if (animeMay.crunchyroll) { %>
-                <label for="link">แพลตฟอร์ม Crunchyroll</label>
-                <input type="text" name="crunchyroll" value="<%= animeMay.crunchyroll %>">
-                <% } else { %>
+                    <input type="text" name="bilibili" value="<%= animeMay.bilibili %>">
+                    <% } else { %>
+                        <label for="link">แพลตฟอร์ม Bilibili</label>
+                        <input type="text" name="bilibili">
+                    <% } %>
+                <% if (animeMay.crunchyroll) { %>
                     <label for="link">แพลตฟอร์ม Crunchyroll</label>
-                    <input type="text" name="crunchyroll">
-                <% } %>
-            <% if (animeMay.iqiyi) { %>
-                <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
-                <input type="text" name="Iqiyi" value="<%= animeMay.iqiyi %>">
-                <% } else { %>
+                    <input type="text" name="crunchyroll" value="<%= animeMay.crunchyroll %>">
+                    <% } else { %>
+                        <label for="link">แพลตฟอร์ม Crunchyroll</label>
+                        <input type="text" name="crunchyroll">
+                    <% } %>
+                <% if (animeMay.iqiyi) { %>
                     <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
-                    <input type="text" name="Iqiyi">
-                <% } %>
-            <% if (animeMay.yt) { %>
-                <label for="youtube">แพลตฟอร์ม Youtube</label>
-                <input type="text" name="youtube" value="<%= animeMay.yt %>">
-                <% } else { %>
+                    <input type="text" name="Iqiyi" value="<%= animeMay.iqiyi %>">
+                    <% } else { %>
+                        <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
+                        <input type="text" name="Iqiyi">
+                    <% } %>
+                <% if (animeMay.yt) { %>
                     <label for="youtube">แพลตฟอร์ม Youtube</label>
-                    <input type="text" name="youtube">
-                <% } %>
-            <% if (animeMay.yt_text) { %>
-                <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
-                <input type="text" name="yt_text" value="<%= animeMay.yt_text %>">
-                <% } else { %>
+                    <input type="text" name="youtube" value="<%= animeMay.yt %>">
+                    <% } else { %>
+                        <label for="youtube">แพลตฟอร์ม Youtube</label>
+                        <input type="text" name="youtube">
+                    <% } %>
+                <% if (animeMay.yt_text) { %>
                     <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
-                    <input type="text" name="yt_text">
-                <% } %>
+                    <input type="text" name="yt_text" value="<%= animeMay.yt_text %>">
+                    <% } else { %>
+                        <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
+                        <input type="text" name="yt_text">
+                    <% } %>
+    
+                <input type="submit" value="เผยแพร่">
+            </form>
+        </div>
+            
+        </div>
+    </section>
+    
 
-            <input type="submit" value="เผยแพร่">
-        </form>
-    </div>
-        
-    </div>
+    <script src="/js/admins/script.js"></script>
 </body>
 </html>

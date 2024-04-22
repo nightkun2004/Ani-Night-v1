@@ -18,7 +18,7 @@ router.get('/:url/dashboard', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const url = req.params.url;
-        const page = +req.query.page || 1; // หากไม่มีค่า page ให้เริ่มที่หน้าแรก
+        const page = +req.query.page || 1; 
 
         if (!usersesstion) {
             return res.redirect('/');
@@ -34,19 +34,12 @@ router.get('/:url/dashboard', async (req, res) => {
                 }
             });
 
-        // ตรวจสอบว่ามีบทความครบ 12 อันแล้วหรือไม่
-        if (userData.acticles.length >= 12) {
-            // หากมี 12 อันขึ้นไปให้สร้างรายการใหม่
-            const newPage = Math.ceil(userData.acticles.length / ITEMS_PER_PAGE);
-            return res.redirect(`/dashboard/${url}?page=${newPage}`);
-        }
-
-
-
         // ดึงข้อมูลการชำระเงินของผู้ใช้
         const payment = await User.findOne({ _id: usersesstion._id })
             .populate('payment')
             ;
+              // นับจำนวนบทความทั้งหมดของผู้ใช้ที่เข้าสู่ระบบ
+        const totalCount = await Acticle.countDocuments({ acticles: usersesstion._id });
 
         res.render('./component/pages/dashboard/index', {
             active: 'edit_article',
@@ -55,15 +48,14 @@ router.get('/:url/dashboard', async (req, res) => {
             payment,
             language: req.language,
             currentPage: page,
-            hasNextPage: ITEMS_PER_PAGE * page, // ตรวจสอบว่ามีหน้าถัดไปหรือไม่
-            hasPrevPage: page > 1, // ตรวจสอบว่ามีหน้าก่อนหน้าหรือไม่
-            nextPage: page + 1, // หน้าถัดไป
-            prevPage: page - 1, // หน้าก่อนหน้า
-            lastPage: Math.ceil(ITEMS_PER_PAGE)
+            hasNextPage: ITEMS_PER_PAGE * page < totalCount,
+            hasPrevPage: page > 1,
+            nextPage: page + 1,
+            prevPage: page - 1, 
+            lastPage: Math.ceil(totalCount / ITEMS_PER_PAGE)
         });
     } catch (error) {
         console.error(error);
-        // สามารถเพิ่มการจัดการข้อผิดพลาดเพิ่มเติมได้ตามความเหมาะสม
         res.status(500).send('Internal Server Error');
     }
 });
