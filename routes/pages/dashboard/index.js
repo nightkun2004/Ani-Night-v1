@@ -27,11 +27,7 @@ router.get('/:url/dashboard', async (req, res) => {
         // ดึงข้อมูลผู้ใช้และบทความทั้งหมดของผู้ใช้
         const userData = await User.findOne({ _id: usersesstion._id, url: url })
             .populate({
-                path: "acticles",
-                options: {
-                    skip: (page - 1) * ITEMS_PER_PAGE,
-                    limit: ITEMS_PER_PAGE
-                }
+                path: "acticles"
             });
 
 
