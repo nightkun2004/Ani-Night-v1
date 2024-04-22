@@ -10,9 +10,8 @@
     .cookie-popup {
         position: fixed;
         bottom: 20px;
-        left: 50%;
-        width: 80%;
-        transform: translateX(-50%);
+        left: 50px;
+        width: 500px;
         background-color: #f4f4f4;
         padding: 20px;
         border-radius: 10px;
@@ -55,58 +54,39 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const acceptBtn = document.getElementById('accept-cookie');
-            const rejectBtn = document.getElementById('reject-cookie');
-            const cookiePopup = document.getElementById('cookie-popup');
-
-            // ตรวจสอบค่า cookieConsent ในคุกกี้
-            const cookieConsent = getCookieValue('cookieConsent');
-
-            // ตรวจสอบค่า cookieConsent เพื่อแสดงหรือซ่อนป็อปอัพคุ้กกี้
-            if (!cookieConsent) {
-                cookiePopup.style.display = 'none';
-            } else {
-                cookiePopup.style.display = 'block';
-            }
-
-            // การเรียกใช้งานฟังก์ชันที่ใช้เพื่อดึงค่าของคุ้กกี้
-            function getCookieValue(name) {
-                const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-                return match ? match[2] : null;
-            }
-
-            // เมื่อกดปุ่มยินยอม
-            acceptBtn.addEventListener('click', () => {
-                // ซ่อนป็อปอัพคุ้กกี้
-                cookiePopup.style.display = 'none';
-                // สร้างคุกกี้ cookieConsent
-                document.cookie = "cookieConsent=true; path=/";
-                // เรียกใช้งานฟังก์ชันที่จะทำงานเมื่อผู้ใช้ยินยอม
-                handleAccept();
+            document.getElementById("accept-cookie").addEventListener("click", function () {
+                handleCookieResponse(true);
             });
-
-            // เมื่อกดปุ่มไม่ยินยอม
-            rejectBtn.addEventListener('click', () => {
-                // ซ่อนป็อปอัพคุ้กกี้
-                cookiePopup.style.display = 'none';
-                // เรียกใช้งานฟังก์ชันที่จะทำงานเมื่อผู้ใช้ไม่ยินยอม
-                handleReject();
+    
+            document.getElementById("reject-cookie").addEventListener("click", function () {
+                handleCookieResponse(false);
             });
+    
+            function handleCookieResponse(accept) {
+                fetch("/cookie-response", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ accept: accept })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById("cookie-popup").style.display = "none";
+                        // ทำตามสิ่งที่ต้องการหลังจากบันทึกข้อมูลสำเร็จ
+                        console.log("Cookie response recorded successfully.");
+                    } else {
+                        // กรณีที่บันทึกข้อมูลไม่สำเร็จ
+                        console.error("Failed to record cookie response.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error occurred while recording cookie response:", error);
+                });
+            }
         });
-
-        // ฟังก์ชันที่จะทำงานเมื่อผู้ใช้ยินยอม
-        function handleAccept() {
-            // ทำบางสิ่งที่คุณต้องการเมื่อผู้ใช้ยินยอม เช่น บันทึกข้อมูลในฐานข้อมูล
-            console.log("User accepted cookies");
-        }
-
-        // ฟังก์ชันที่จะทำงานเมื่อผู้ใช้ไม่ยินยอม
-        function handleReject() {
-            // ทำบางสิ่งที่คุณต้องการเมื่อผู้ใช้ไม่ยินยอม เช่น ลบคุ้กกี้หรือเซสชัน
-            console.log("User rejected cookies");
-        }
-
     </script>
+    
 </body>
 
 </html>

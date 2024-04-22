@@ -1,18 +1,38 @@
 const express = require('express');
 const router = express.Router();
 
-// สร้าง middleware สำหรับการตรวจสอบคุ้กกี้และสร้างคุ้กกี้ใหม่หากไม่มี
+// Middleware สำหรับการตรวจสอบคุ้กกี้และสร้างคุ้กกี้ใหม่หากไม่มี
 router.use((req, res, next) => {
-    if (!req.cookies.cookieConsent) {
-        // หากยังไม่มีคุ้กกี้ยินยอม สร้างป็อปอัพคุ้กกี้
-        res.cookie('cookieConsent', 'true', { maxAge: 900000, httpOnly: true });
-        // แสดงป็อปอัพคุ้กกี้ทุกครั้งที่เรียกหน้าใหม่
+    if (!req.cookies.cookie) {
+        res.cookie('cookie', 'false', { expiresIn: '5m', httpOnly: true });
         res.locals.showPopup = true;
     } else {
-        // ถ้ามีคุ้กกี้ยินยอมแล้ว ไม่ต้องแสดงป็อปอัพคุ้กกี้
-        res.locals.showPopup = false;
+        // ถ้ามีคุกกี้แล้ว และคุกกี้เป็น true (ยินยอม) หรือ false (ไม่ยินยอม) ไม่ต้องแสดง Popup อีก
+        if (req.cookies.cookie === 'true' || req.cookies.cookie === 'false') {
+            res.locals.showPopup = false;
+        } else {
+            // ถ้ามีคุกกี้แล้ว แต่ค่าคุกกี้ไม่ได้อยู่ในรูปแบบที่ถูกต้อง ให้แสดง Popup
+            res.locals.showPopup = true;
+        }
     }
     next();
 });
+
+
+router.post('/cookie-response', (req, res) => {
+    const accept = req.body.accept;
+    console.log("Cookie response:", accept ? "Accepted" : "Rejected");
+    
+    // ส่งตอบกลับแสดงว่าบันทึกข้อมูลสำเร็จ
+    res.sendStatus(200); // ทำการส่งตอบกลับที่นี่
+    
+    // หากตอบกลับว่ายินยอม ให้ซ่อน Popup คุกกี้
+    if (accept) {
+        res.cookie('cookie', 'true', { expiresIn: '5m', httpOnly: true });
+        return; // หยุดการทำงานของ middleware หรือ route ที่นี่
+    }
+});
+
+
 
 module.exports = router;

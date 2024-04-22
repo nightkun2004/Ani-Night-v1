@@ -12,7 +12,7 @@ router.get('/editor/:url/video', async (req, res) => {
         const userData = await User.findOne({ username: username })
             .populate('videos');
 
-        res.render('./component/pages/channel/video', {
+        res.render('./component/pages/channel/video', { 
             active: 'home',
             usersesstion,
             userData
