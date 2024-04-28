@@ -64,11 +64,13 @@ exports.getLogin = async (req, res) => {
 
         req.session.userlogin = {
             _id: userlogin._id,
+            uid: userlogin.uid,
             name: userlogin.name,
             username: userlogin.username,
             email: userlogin.email,
             password: userlogin.password,
             profile: userlogin.profile,
+            googleprofile: userlogin.googleprofile,
             bio: userlogin.bio,
             videos: userlogin.videos,
             acticles: userlogin.acticles,

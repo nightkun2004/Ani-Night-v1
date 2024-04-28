@@ -91,12 +91,19 @@
                         <label for="link">แพลตฟอร์ม Crunchyroll</label>
                         <input type="text" name="crunchyroll">
                     <% } %>
-                <% if (animeApril.iqiyi) { %>
+                <% if (animeApril.Iqiyi) { %>
                     <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
-                    <input type="text" name="Iqiyi" value="<%= animeApril.iqiyi %>">
+                    <input type="text" name="Iqiyi" value="<%= animeApril.Iqiyi %>">
                     <% } else { %>
                         <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
                         <input type="text" name="Iqiyi">
+                    <% } %>
+                <% if (animeApril.netflix) { %>
+                    <label for="netflix">แพลตฟอร์ม netflix</label>
+                    <input type="text" name="netflix" value="<%= animeApril.netflix %>">
+                    <% } else { %>
+                        <label for="netflix">แพลตฟอร์ม netflix</label>
+                        <input type="text" name="netflix">
                     <% } %>
                 <% if (animeApril.yt) { %>
                     <label for="youtube">แพลตฟอร์ม Youtube</label>

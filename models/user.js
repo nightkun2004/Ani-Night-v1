@@ -4,8 +4,12 @@ const userSchema= new mongoose.Schema({
     userid: {
         type: String,
         unique: true,
+    },
+    Googleuid: {
+        type: String,
+        unique: true,
         required: true
-    }, 
+    },
     name: {
         type: String
     },
@@ -47,9 +51,23 @@ const userSchema= new mongoose.Schema({
         type: String,
         default: ""
     },
+    googleprofile: {
+        type: String,
+        default: ""
+    },
     acticles: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Acticle'
+    }],
+    bookmarks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'forum'
+        }
+    ],
+    forums: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'forum'
     }],
     createdAt: {
         type: Date,

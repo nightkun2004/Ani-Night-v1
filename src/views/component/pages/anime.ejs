@@ -29,12 +29,25 @@
   
           gtag('config', 'G-LTJP520FN4');
       </script>
+          <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <%- include('../../navnar_Header') %>
     <%- include('../../sidebar_Section') %>
 
     <section class="content">
+        <div class="search_bomibe px-5 md:hidden">
+            <input type="text" name="text_mass" oninput="searchAnime(this.value)"
+                class="searchinput border-2 border-slate-200 outline-none text-left p-2 w-full h-[45px] rounded"
+                placeholder="ค้นหา">
+        </div>
+        <div class="search_result_container" id="searchResult" style="display: none;">
+            <h2 class="text-1xl mt-5">ผลลัพธ์การค้นหา <span id="result"></span></h2>
+            <div class="anime_lists search_result">
+        
+            </div>
+        </div>
+        
           <!-- Content Animes -->
           <div class="anime_content">
             <h2 class="anime_brta">เมษายน 2024</h2>
@@ -45,73 +58,95 @@
                             <% if (item.animeApril && item.animeApril.length > 0) { %>
                                 <% item.animeApril.forEach(anime => { %>
                                     <div class="anime_list">
-                                        <div class="anime_item_pic">
-                                            <img src="<%= anime.linkImage %>" alt="Anime">
-                                        </div>
-                                        <div class="anime_info_text">
-                                            <h2><%= anime.nameAnime %></h2>
-                                            <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
-                                            <% if (anime.manuscript) { %>
-                                                <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
-                                            <% } %>
-                                            <p>จำนวนตอน: <span><%= anime.episodes %></span></p>
-                                            <p>เริ่มฉาย: <span><%= anime.start %></span></p>
-                                            
-                                            <% if (anime.nameep) { %>
-                                                <p>ชื่อตอน: <span><%= anime.nameep %></span></p>
-                                            <% } %>
-                                            <% if (anime.info) { %>
-                                                <button class="btn_info">
-                                                    
-                                                    <a target="_blank" href="<%= anime.info %>">ข้อมูลเพิ่มเติม</a>
-                                                </button>
-                                            <% } %>
-                                            <% if (anime.web) { %>
-                                                <button class="btn_web web">
-                                                    <div class="image">
-                                                        <img src="/images/world-wide-web.png" alt="">
-                                                    </div>
-                                                    <a target="_blank" href="<%= anime.web %>">เว็บทางการ</a>
-                                                </button>
-                                            <% } %>
-                                            <% if (anime.bilibili) { %>
-                                                <button class="btn_bilibili bilibili">
-                                                    <div class="image">
-                                                        <img src="/images/bilibili.png" alt="">
-                                                    </div>
-                                                    <a target="_blank" href="<%= anime.bilibili %>">ดูบน Bilibili</a>
-                                                </button>
-                                            <% } %>
-                                            <% if (anime.Iqiyi) { %>
-                                                <button class="btn_iq iq">
-                                                    <div class="image">
-                                                        <img src="/icons/iqiyi-icon.png" alt="">
-                                                    </div>
-                                                    <a target="_blank" href="<%= anime.Iqiyi %>">ดูบน IQIYI</a>
-                                                </button>
-                                            <% } %>
-                                            <% if (anime.crunchyroll) { %>
-                                                <button class="btn_crunchyroll crunchyroll">
-                                                    <div class="image">
-                                                        <img src="/icons/crunchyroll_icon.png" alt="">
-                                                    </div>
-                                                    <a target="_blank" href="<%= anime.crunchyroll %>">ดูบน crunchyroll</a>
-                                                </button>
-                                            <% } %>
-                                            <% if (anime.youtube) { %>
-                                                <button class="btn_yt yt">
-                                                    <div class="image">
-                                                        <img src="/icons/youtube.svg" alt="">
-                                                    </div>
-                                                    <a target="_blank" class="flex" href="<%= anime.youtube %>">ดูบน YouTube
-                                                    <% if (anime.yt_text) { %>
-                                                        <p class="pl-1"><%= anime.yt_text %></p>
-                                                    <% } %>
+                                            <div class="anime_item_pic">
+                                                <img src="<%= anime.linkImage %>" alt="Anime">
+                                            </div>
+                                            <div class="anime_info_text">
+                                                <h2><%= anime.nameAnime %></h2>
+                                                <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
+                                                <% if (anime.manuscript) { %>
+                                                    <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
+                                                <% } %>
+                                                <p>จำนวนตอน: <span><%= anime.episodes %></span></p>
+                                                <p>เริ่มฉาย: <span><%= anime.start %></span></p>
+                                                
+                                                <% if (anime.nameep) { %>
+                                                    <p>ชื่อตอน: <span><%= anime.nameep %></span></p>
+                                                <% } %>
+                                                <% if (anime.info) { %>
+                                                    <button class="btn_info">
+                                                        
+                                                        <a target="_blank" href="<%= anime.info %>">ข้อมูลเพิ่มเติม</a>
+                                                    </button>
+                                                <% } %>
+                                                <% if (anime.web) { %>
+                                                    <a href="<%= anime.web %>" target="_blank">
+                                                        <button class="btn_web web">
+                                                            <div class="image">
+                                                                <img src="/images/world-wide-web.png" alt="web">
+                                                            </div>
+                                                            เว็บทางการ
+                                                        </button>
                                                     </a>
-                                                </button>
-                                            <% } %>
-
-                                        </div>
+                                                    
+                                                <% } %>
+                                                <% if (anime.bilibili) { %>
+                                                    <a href="<%= anime.bilibili %>" target="_blank">
+                                                        <button class="btn_bilibili bilibili">
+                                                            <div class="image">
+                                                                <img src="/images/bilibili.png" alt="Bilibili">
+                                                            </div>
+                                                            Bilibili
+                                                        </button>
+                                                    </a>
+                                                <% } %>
+                                                <% if (anime.Iqiyi) { %>
+                                                    <a href="<%= anime.Iqiyi %>" target="_blank">
+                                                        <button class="btn_iq iq">
+                                                            <div class="image">
+                                                                <img src="/icons/iqiyi-icon.png" alt="IQIYI">
+                                                            </div>
+                                                            IQIYI
+                                                        </button>
+                                                    </a>
+                                                   
+                                                <% } %>
+                                                <% if (anime.crunchyroll) { %>
+                                                    <a href="<%= anime.crunchyroll %>" target="_blank">
+                                                        <button class="btn_crunchyroll crunchyroll">
+                                                            <div class="image">
+                                                                <img src="/icons/crunchyroll_icon.png" alt="crunchyroll">
+                                                            </div>
+                                                            crunchyroll
+                                                        </button>
+                                                    </a>
+                                                   
+                                                <% } %>
+                                                <% if (anime.youtube) { %>
+                                                    <a href="<%= anime.youtube %>" target="_blank">
+                                                        <button class="btn_yt yt">
+                                                            <div class="image">
+                                                                <img src="/icons/youtube.svg" alt="youtube">
+                                                            </div>
+                                                            YouTube
+                                                            <p class="pl-1">
+                                                                <%= anime.yt_text %>
+                                                            </p>
+                                                        </button>
+                                                    </a>
+                                                <% } %>
+                                                <% if (anime.netflix) { %>
+                                                    <a href="<%= anime.netflix %>" target="_blank">
+                                                        <button class="btn_nf netflix">
+                                                            <div class="image">
+                                                                <img src="/icons/netflix.png" alt="netflix">
+                                                            </div>
+                                                            <a  class="flex" href="">ดูบน Netflix </a>
+                                                        </button>
+                                                    </a>
+                                          
+                                                <% } %>
+                                            </div>
                                     </div>
                                 <% }); %>
                             <% } else { %>
@@ -147,7 +182,7 @@
         </div>
 
         <div class="anime_content">
-            <h2 class="anime_brta">พฤษภาคม 2024</h2>
+            <h2 class="anime_brta">พฤษภาคม 2024 + พากย์ไทย</h2>
             <div class="loading" style="display: none;">
                 <div class="anime_lists sub" >
                     <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
@@ -177,48 +212,71 @@
                                                 </button>
                                             <% } %>
                                             <% if (anime.web) { %>
-                                                <button class="btn_web web">
-                                                    <div class="image">
-                                                        <img src="/images/world-wide-web.png" alt="">
-                                                    </div>
-                                                    <a href="<%= anime.web %>">เว็บทางการ</a>
-                                                </button>
+                                                <a href="<%= anime.web %>" target="_blank">
+                                                    <button class="btn_web web">
+                                                        <div class="image">
+                                                            <img src="/images/world-wide-web.png" alt="web">
+                                                        </div>
+                                                        เว็บทางการ
+                                                    </button>
+                                                </a>
+                                                
                                             <% } %>
                                             <% if (anime.bilibili) { %>
-                                                <button class="btn_bilibili bilibili">
-                                                    <div class="image">
-                                                        <img src="/images/bilibili.png" alt="">
-                                                    </div>
-                                                    <a href="<%= anime.bilibili %>">ดูบน Bilibili</a>
-                                                </button>
+                                                <a href="<%= anime.bilibili %>" target="_blank">
+                                                    <button class="btn_bilibili bilibili">
+                                                        <div class="image">
+                                                            <img src="/images/bilibili.png" alt="Bilibili">
+                                                        </div>
+                                                        Bilibili
+                                                    </button>
+                                                </a>
                                             <% } %>
                                             <% if (anime.Iqiyi) { %>
-                                                <button class="btn_iq iq">
-                                                    <div class="image">
-                                                        <img src="/icons/iqiyi-icon.png" alt="">
-                                                    </div>
-                                                    <a href="<%= anime.Iqiyi %>">ดูบน IQIYI</a>
-                                                </button>
+                                                <a href="<%= anime.Iqiyi %>" target="_blank">
+                                                    <button class="btn_iq iq">
+                                                        <div class="image">
+                                                            <img src="/icons/iqiyi-icon.png" alt="IQIYI">
+                                                        </div>
+                                                        IQIYI
+                                                    </button>
+                                                </a>
+                                               
                                             <% } %>
                                             <% if (anime.crunchyroll) { %>
-                                                <button class="btn_crunchyroll crunchyroll">
-                                                    <div class="image">
-                                                        <img src="/icons/crunchyroll_icon.png" alt="">
-                                                    </div>
-                                                    <a href="<%= anime.crunchyroll %>">ดูบน crunchyroll</a>
-                                                </button>
+                                                <a href="<%= anime.crunchyroll %>" target="_blank">
+                                                    <button class="btn_crunchyroll crunchyroll">
+                                                        <div class="image">
+                                                            <img src="/icons/crunchyroll_icon.png" alt="crunchyroll">
+                                                        </div>
+                                                        crunchyroll
+                                                    </button>
+                                                </a>
+                                               
                                             <% } %>
                                             <% if (anime.youtube) { %>
-                                                <button class="btn_yt yt">
-                                                    <div class="image">
-                                                        <img src="/icons/youtube.svg" alt="">
-                                                    </div>
-                                                    <a class="flex" href="<%= anime.youtube %>">ดูบน YouTube
-                                                    <% if (anime.yt_text) { %>
-                                                        <p class="pl-1"><%= anime.yt_text %></p>
-                                                    <% } %>
-                                                    </a>
-                                                </button>
+                                                <a href="<%= anime.youtube %>" target="_blank">
+                                                    <button class="btn_yt yt">
+                                                        <div class="image">
+                                                            <img src="/icons/youtube.svg" alt="youtube">
+                                                        </div>
+                                                        YouTube
+                                                        <p class="pl-1">
+                                                            <%= anime.yt_text %>
+                                                        </p>
+                                                    </button>
+                                                </a>
+                                            <% } %>
+                                            <% if (anime.netflix) { %>
+                                                <a href="<%= anime.netflix %>" target="_blank">
+                                                    <button class="btn_nf netflix">
+                                                        <div class="image">
+                                                            <img src="/icons/netflix.png" alt="netflix">
+                                                        </div>
+                                                        <a  class="flex" href="">ดูบน Netflix </a>
+                                                    </button>
+                                                </a>
+                                      
                                             <% } %>
 
                                         </div>
@@ -287,48 +345,71 @@
                                                 </button>
                                             <% } %>
                                             <% if (anime.web) { %>
-                                                <button class="btn_web web">
-                                                    <div class="image">
-                                                        <img src="/images/world-wide-web.png" alt="">
-                                                    </div>
-                                                    <a href="<%= anime.web %>">เว็บทางการ</a>
-                                                </button>
+                                                <a href="<%= anime.web %>" target="_blank">
+                                                    <button class="btn_web web">
+                                                        <div class="image">
+                                                            <img src="/images/world-wide-web.png" alt="web">
+                                                        </div>
+                                                        เว็บทางการ
+                                                    </button>
+                                                </a>
+                                                
                                             <% } %>
                                             <% if (anime.bilibili) { %>
-                                                <button class="btn_bilibili bilibili">
-                                                    <div class="image">
-                                                        <img src="/images/bilibili.png" alt="">
-                                                    </div>
-                                                    <a href="<%= anime.bilibili %>">ดูบน Bilibili</a>
-                                                </button>
+                                                <a href="<%= anime.bilibili %>" target="_blank">
+                                                    <button class="btn_bilibili bilibili">
+                                                        <div class="image">
+                                                            <img src="/images/bilibili.png" alt="Bilibili">
+                                                        </div>
+                                                        Bilibili
+                                                    </button>
+                                                </a>
                                             <% } %>
                                             <% if (anime.Iqiyi) { %>
-                                                <button class="btn_iq iq">
-                                                    <div class="image">
-                                                        <img src="/icons/iqiyi-icon.png" alt="">
-                                                    </div>
-                                                    <a href="<%= anime.Iqiyi %>">ดูบน IQIYI</a>
-                                                </button>
+                                                <a href="<%= anime.Iqiyi %>" target="_blank">
+                                                    <button class="btn_iq iq">
+                                                        <div class="image">
+                                                            <img src="/icons/iqiyi-icon.png" alt="IQIYI">
+                                                        </div>
+                                                        IQIYI
+                                                    </button>
+                                                </a>
+                                               
                                             <% } %>
                                             <% if (anime.crunchyroll) { %>
-                                                <button class="btn_crunchyroll crunchyroll">
-                                                    <div class="image">
-                                                        <img src="/icons/crunchyroll_icon.png" alt="">
-                                                    </div>
-                                                    <a href="<%= anime.crunchyroll %>">ดูบน crunchyroll</a>
-                                                </button>
+                                                <a href="<%= anime.crunchyroll %>" target="_blank">
+                                                    <button class="btn_crunchyroll crunchyroll">
+                                                        <div class="image">
+                                                            <img src="/icons/crunchyroll_icon.png" alt="crunchyroll">
+                                                        </div>
+                                                        crunchyroll
+                                                    </button>
+                                                </a>
+                                               
                                             <% } %>
                                             <% if (anime.youtube) { %>
-                                                <button class="btn_yt yt">
-                                                    <div class="image">
-                                                        <img src="/icons/youtube.svg" alt="">
-                                                    </div>
-                                                    <a class="flex" href="<%= anime.youtube %>">ดูบน YouTube
-                                                    <% if (anime.yt_text) { %>
-                                                        <p class="pl-1"><%= anime.yt_text %></p>
-                                                    <% } %>
-                                                    </a>
-                                                </button>
+                                                <a href="<%= anime.youtube %>" target="_blank">
+                                                    <button class="btn_yt yt">
+                                                        <div class="image">
+                                                            <img src="/icons/youtube.svg" alt="youtube">
+                                                        </div>
+                                                        YouTube
+                                                        <p class="pl-1">
+                                                            <%= anime.yt_text %>
+                                                        </p>
+                                                    </button>
+                                                </a>
+                                            <% } %>
+                                            <% if (anime.netflix) { %>
+                                                <a href="<%= anime.netflix %>" target="_blank">
+                                                    <button class="btn_nf netflix">
+                                                        <div class="image">
+                                                            <img src="/icons/netflix.png" alt="netflix">
+                                                        </div>
+                                                        <a  class="flex" href="">ดูบน Netflix </a>
+                                                    </button>
+                                                </a>
+                                      
                                             <% } %>
 
                                         </div>
@@ -397,6 +478,7 @@
     <script src="../js/sidebar.js"></script>
     <script src="../js/searchanime.js"></script>
     <script src="./js/pages/script_Section.js"></script>
+    <script src="/js/searchanime.js"></script>
     <!-- <script>
         window.addEventListener('scroll', function () {
             var navbar = document.getElementById('navbar');

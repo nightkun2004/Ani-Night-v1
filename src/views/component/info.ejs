@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>| AniNight</title>
 </head>
 <body>
-    <% if (animeData) { %>
-        <h2><%= animeData.name %></h2>
-        <img src="<%= animeData.poster %>" alt="<%= animeData.name %> Poster">
-        <p><%= animeData.dec %></p>
-        <!-- เพิ่มรายละเอียดเพิ่มเติมตามที่ต้องการ -->
+   <h1>Anime Info</h1>
+   <% if (animebordData) { %> 
+        <% if (animebordData.animeApril && animebordData.animeApril.length > 0) { %>
+            <% animebordData.animeApril.forEach(anime => { %>
+                <div>
+                    <h2><%= anime.nameAnime %></h2>
+                    <p><%= anime.start %></p>
+                    <!-- แสดงข้อมูลอื่น ๆ ตามที่ต้องการ -->
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+        <% } %>
     <% } else { %>
-        <p>No data available</p>
+        <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
     <% } %>
 </body>
 </html>

@@ -1,17 +1,19 @@
- <!-- Navbar Top -->
- <nav class="navbar">
+<!-- Navbar Top -->
+<nav class="navbar">
     <div class="logo_item">
         <i class="bx bx-menu" id="sidebarOpen"></i>
         <a href="/">
+            <img src="/images/logo/Aninight.png" alt="Logo Ani Night">
             AniNight
             <!-- <img src="http://localhost:3000/images/Aninight_logo.svg" alt=""></i> -->
     </div>
     </a>
     <div class="search_bar">
-        <input type="search" placeholder="ค้นหา..." />
+        <input type="search" class="searchinput" placeholder="ค้นหา..." oninput="searchAnime(this.value)" />
         <div class="header-search-bar__btn" id="searchButton">
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button type="submit" onclick="searchAnime()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
+    </div>
     </div>
     <div class="navbar_content">
         <i class="bi bi-grid"></i>
@@ -36,9 +38,9 @@
             </ul>
         </div>
         <% if (!usersesstion) { %>
-        <img src="http://localhost:3000/profiles/1713078506481-419146687.jpg" alt="" class="profile" />
-        <% } else { %>
-            <img src="/profiles/<%= usersesstion.profile %>" alt="" class="profile" />
-            <% } %>
+            <img src="http://localhost:3000/profiles/1713078506481-419146687.jpg" alt="" class="profile" />
+            <% } else { %>
+                <img src="/profiles/<%= usersesstion.profile %>" alt="" class="profile" />
+                <% } %>
     </div>
 </nav>

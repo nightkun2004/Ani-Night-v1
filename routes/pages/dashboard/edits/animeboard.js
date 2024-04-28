@@ -30,7 +30,7 @@ router.get('/:url/dashboard/animebord', authenticatetoken, async (req, res) => {
         if (userData.animeApril.length >= 12) {
             // หากมี 12 อันขึ้นไปให้สร้างรายการใหม่
             const newPage = Math.ceil(userData.animeApril.length / ITEMS_PER_PAGE);
-            return res.redirect(`/dashboard/${url}?page=${newPage}`);
+            return res.redirect(`/${url}/dashboard/animebord?page=${newPage}`);
         }
 
         res.render('./component/pages/dashboard/videos/animeboard', {

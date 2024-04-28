@@ -6,10 +6,13 @@ const Animeroute = require('../../routes/pages/anime')
 const videoDashboard = require('../../routes/pages/dashboard/edits/videos/index')
 const editaimeboard = require('../../routes/pages/dashboard/edits/animeboard')
 
+const forumRoute = require('../../routes/pages/forum')
+
 router.use(source)
 router.use(dashboard)
 router.use(videoDashboard)
 router.use(Animeroute)
 router.use(editaimeboard)
+router.use(forumRoute)
 
 module.exports = router

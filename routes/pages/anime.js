@@ -22,16 +22,18 @@ async function loadAnimeData(req, res, next) {
 }
 
 router.get('/animeboard', loadAnimeData, async (req, res) => {
+    const query = req.query.search; 
     const usersesstion = req.session.userlogin;
-    const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly'); 
+    const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly').sort({ createdAt: -1 }); 
     const template = req.language === 'th' ? './component/pages/anime' : './en/anime';
     // console.log(AnimeBordData);
 
    
-    res.render(template, { active: 'anime', usersesstion, AnimeBordData });
+    res.render(template, { active: 'anime', usersesstion, AnimeBordData, seq: { query: query }});
 })
 
 router.get('/animeboard/search', async (req, res) => {
+    const query = req.query.search; 
     try {
         // ค้นหาและดึงข้อมูลทั้งหมดของอนิเมะจากฐานข้อมูล
         const allAnimeData = await AnimeBord.find().populate('animeApril animeMay animeJuly');

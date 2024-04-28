@@ -1,3 +1,4 @@
+const AnimeApril = require('../models/animeApril');
 const AnimeMay = require('../models/animeMay');
 const AnimeBord = require('../models/animebord');
 const AnimeJuly = require('../models/animeJuly');
@@ -27,7 +28,7 @@ exports.Addanimemay = async (req, res) => {
     } catch (error) {
         res.status(400).send(error.message);
     }
-}
+} 
 
 exports.AddanimeJuly = async (req, res) => {
     const usersesstion = req.session.userlogin;
@@ -76,6 +77,7 @@ exports.EditanimeMay = async (req, res) => {
         animeBord.nameep = req.body.nameep;
         animeBord.Iqiyi = req.body.Iqiyi;
         animeBord.youtube = req.body.youtube;
+        animeBord.netflix = req.body.netflix;
         animeBord.yt_text = req.body.yt_text;
         animeBord.crunchyroll = req.body.crunchyroll;
 
@@ -107,6 +109,7 @@ exports.EditanimeJuly = async (req, res) => {
         animeBord.nameep = req.body.nameep;
         animeBord.Iqiyi = req.body.Iqiyi;
         animeBord.youtube = req.body.youtube;
+        animeBord.netflix = req.body.netflix;
         animeBord.yt_text = req.body.yt_text;
         animeBord.crunchyroll = req.body.crunchyroll;
 
@@ -117,4 +120,58 @@ exports.EditanimeJuly = async (req, res) => {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-} 
+}
+
+// ลบเดือนเมซายน
+exports.DeleteAnime = async (req, res) => {
+    try {
+        const usersesstion = req.session.userlogin;
+        const AnimeMayToDelete = await AnimeApril.findById(req.params.id);
+
+        if (!AnimeMayToDelete) {
+            return res.status(404).send('AnimeMay not found');
+        }
+
+        await AnimeApril.findByIdAndDelete(req.params.id, { useFindAndModify: false });
+        res.redirect(`/edit/anime/boards`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+// พฤษภาลบ
+exports.DeleteAnimeMay = async (req, res) => {
+    try {
+        const usersesstion = req.session.userlogin;
+        const AnimeMayToDelete = await AnimeMay.findById(req.params.id);
+
+        if (!AnimeMayToDelete) {
+            return res.status(404).send('AnimeMay not found');
+        }
+
+        await AnimeMay.findByIdAndDelete(req.params.id, { useFindAndModify: false });
+        res.redirect(`/edit/anime/boards`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+// AnimeJuly Delete
+exports.DeleteAnimeJuly = async (req, res) => {
+    try {
+        const usersesstion = req.session.userlogin;
+        const AnimeMayToDelete = await AnimeJuly.findById(req.params.id);
+
+        if (!AnimeMayToDelete) {
+            return res.status(404).send('AnimeJuly not found');
+        }
+
+        await AnimeJuly.findByIdAndDelete(req.params.id, { useFindAndModify: false });
+        res.redirect(`/edit/anime/boards`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+}

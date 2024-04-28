@@ -1,8 +1,21 @@
-function searchAnime() {
-    const query = document.getElementById("search").value.trim();
-    const animeList = document.querySelector(".anime_lists");
+function searchAnime(query) {
+    if (query === undefined) {
+        return; // ไม่ทำอะไรเมื่อไม่มีค่า query
+    }
+    const trimmedQuery = query.trim();
+    const animeList = document.querySelector(".anime_lists"); 
+    const searchResultContainer = document.getElementById("searchResult");
+
     animeList.innerHTML = "";
-    fetch(`/animeboard/search?search=${query}`)
+    document.getElementById('result').textContent = query;
+
+    if (trimmedQuery === '') {
+        // ไม่มีคำค้นหา
+        searchResultContainer.style.display = "none";
+        return;
+    }
+
+    fetch(`/animeboard/search?search=${trimmedQuery}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -12,28 +25,43 @@ function searchAnime() {
         .then(data => {
             if (data.length === 0) {
                 animeList.innerHTML = "<p>ไม่พบผลการค้นหา</p>";
+                searchResultContainer.style.display = "none";
                 return;
             }
+
+            // สร้างรายการ Anime จากผลลัพธ์การค้นหา
             data.forEach(animeData => {
                 animeData.animeApril.forEach(anime => {
-                    if (anime.nameAnime.toLowerCase().includes(query.toLowerCase())) {
+                    if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
                         const animeItem = createAnimeItem(anime);
                         animeList.appendChild(animeItem);
                     }
                 });
                 animeData.animeMay.forEach(anime => {
-                    if (anime.nameAnime.toLowerCase().includes(query.toLowerCase())) {
+                    if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
+                        const animeItem = createAnimeItem(anime);
+                        animeList.appendChild(animeItem);
+                    }
+                });
+                animeData.animeJuly.forEach(anime => {
+                    if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
                         const animeItem = createAnimeItem(anime);
                         animeList.appendChild(animeItem);
                     }
                 });
             });
+
+            // แสดงผลลัพธ์การค้นหา
+            searchResultContainer.style.display = "block";
         })
         .catch(error => {
             console.error("Error fetching anime data:", error);
             animeList.innerHTML = "<p>เกิดข้อผิดพลาดขณะค้นหา</p>";
+            searchResultContainer.style.display = "none";
         });
 }
+
+
 function createAnimeItem(anime) {
     const animeItem = document.createElement("div");
     animeItem.classList.add("anime_list");

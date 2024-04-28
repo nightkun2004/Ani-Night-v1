@@ -1,5 +1,5 @@
-  <!-- Sidebar Left -->
-  <nav class="sidebar">
+<!-- Sidebar Left -->
+<nav class="sidebar">
     <div class="menu_content">
         <ul class="menu_items">
             <div class="menu_title menu_dahsboard"></div>
@@ -38,99 +38,118 @@
                     <span class="navlink">บทความ</span>
                 </a>
             </li>
+            <li class="item <%= active === 'forum' ? 'active' : '' %>">
+                <a href="/forums" class="nav_link submenu_item">
+                    <span class="navlink_icon">
+                        <img src="/icons/iconforum.svg" alt="icon forum">
+                    </span>
+                    <span class="navlink forum">ฟอรัม</span>
+                </a>
+            </li>
             <!-- end -->
         </ul>
         <% if (usersesstion) { %>
-        <ul class="menu_items">
-            <div class="menu_title menu_editor"></div>
-            <!-- Start -->
-            <li class="item  <%= active === 'edit_article' ? 'active' : '' %>">
-                <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class="fa-solid far fa-edit"></i>
-                    </span>
-                    <span class="navlink">แก้ไขบทความ</span>
-                </a>
-            </li>
-            <!-- End -->
-            <li class="item  <%= active === 'edit_video' ? 'active' : '' %>">
-                <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class="fa-solid fa-video"></i>
-                    </span>
-                    <span class="navlink">แก้ไขวีดีโอ</span>
-                </a>
-            </li>
-            <li class="item <%= active === 'upload_article' ? 'active' : '' %>">
-                <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class="bx bx-cloud-upload"></i>
-                    </span>
-                    <span class="navlink">สร้างบทความ</span>
-                </a>
-            </li>
-            <li class="item <%= active === 'profile' ? 'active' : '' %>">
-                <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class="fa-solid fa-user"></i>
-                    </span>
-                    <span class="navlink">โปรไฟล์</span>
-                </a>
-            </li>
-        </ul>
-        <% } %>
-        <ul class="menu_items">
-            <div class="menu_title menu_setting"></div>
-            <li class="item">
-                <a href="/privacy" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class="bx bx-flag"></i>
-                    </span>
-                    <span class="navlink">ความเป็นส่วนตัว</span>
-                </a>
-            </li>
-            <li class="item">
-                <a href="#" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class="fa-solid fas fa-dollar-sign"></i>
-                    </span>
-                    <span class="navlink">การสร้างรายได้</span>
-                </a>
-            </li>
-            <li class="item">
-                <a href="#" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class="bx bx-cog"></i>
-                    </span>
-                    <span class="navlink">การตั้งค่า</span>
-                </a>
-            </li>
-        </ul>
-        <br>
-        <p class="footer">
-            © 2024 AniNight <br>
-        </p>
-        <!-- Sidebar Open / Close -->
-        <div class="bottom_content">
-            <% if (!usersesstion) { %>
-            <div class="bottom expand_sidebar" onclick="document.getElementById('btn_open-login_popup').style.display='block'">
-                <span> เข้าสุ่ระบบ</span>
-                <i class='bx bx-log-in'></i>
-            </div>
-            <% } else { %>
-            <a href="/logout/<%= usersesstion._id %>" class="bottom collapse_sidebar">
-                <span> ออกจากระบบ</span>
-                <i class='bx bx-log-out'></i>
-            </a>
+            <ul class="menu_items">
+                <div class="menu_title menu_editor"></div>
+                <!-- Start -->
+                <li class="item  <%= active === 'edit_article' ? 'active' : '' %>">
+                    <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>"
+                        class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="fa-solid far fa-edit"></i>
+                        </span>
+                        <span class="navlink">แก้ไขบทความ</span>
+                    </a>
+                </li>
+                <!-- End -->
+                <li class="item  <%= active === 'edit_video' ? 'active' : '' %>">
+                    <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>"
+                        class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="fa-solid fa-video"></i>
+                        </span>
+                        <span class="navlink">แก้ไขวีดีโอ</span>
+                    </a>
+                </li>
+                <li class="item <%= active === 'upload_article' ? 'active' : '' %>">
+                    <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="bx bx-cloud-upload"></i>
+                        </span>
+                        <span class="navlink">สร้างบทความ</span>
+                    </a>
+                </li>
+                <li class="item <%= active === 'profile' ? 'active' : '' %>">
+                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="nav_link">
+                        <span class="navlink_icon">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <span class="navlink">โปรไฟล์</span>
+                    </a>
+                </li>
+            </ul>
             <% } %>
-        </div>
+                <ul class="menu_items">
+                    <div class="menu_title menu_setting"></div>
+                    <li class="item <%= active === 'rules' ? 'active' : '' %>">
+                        <a href="/source" class="nav_link">
+                            <span class="navlink_icon">
+                                <i class="bx bx-flag"></i>
+                            </span>
+                            <span class="navlink">แหล่งที่มาข้อมูลบอร์ดอนิเมะ</span>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="/privacy" class="nav_link">
+                            <span class="navlink_icon">
+                                <i class="bx bx-flag"></i>
+                            </span>
+                            <span class="navlink">ความเป็นส่วนตัว</span>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="nav_link">
+                            <span class="navlink_icon">
+                                <i class="fa-solid fas fa-dollar-sign"></i>
+                            </span>
+                            <span class="navlink">การสร้างรายได้</span>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="nav_link">
+                            <span class="navlink_icon">
+                                <i class="bx bx-cog"></i>
+                            </span>
+                            <span class="navlink">การตั้งค่า</span>
+                        </a>
+                    </li>
+                </ul>
+                <br>
+                <p class="footer">
+                    © 2024 AniNight <br>
+                </p>
+                <!-- Sidebar Open / Close -->
+                <div class="bottom_content">
+                    <% if (!usersesstion) { %>
+                        <div class="bottom expand_sidebar"
+                            onclick="document.getElementById('btn_open-login_popup').style.display='block'">
+                            <span> เข้าสุ่ระบบ</span>
+                            <i class='bx bx-log-in'></i>
+                        </div>
+                        <% } else { %>
+                            <a href="/logout/<%= usersesstion._id %>" class="bottom collapse_sidebar">
+                                <span> ออกจากระบบ</span>
+                                <i class='bx bx-log-out'></i>
+                            </a>
+                            <% } %>
+                </div>
     </div>
 </nav>
 
 
- <!-- The Model login -->
- <div id="btn_open-login_popup" class="modals">
-        
+<!-- The Model login -->
+<div id="btn_open-login_popup" class="modals">
+
     <!-- Midel content -->
     <div class="model-content">
         <div class="close-popup" onclick="document.getElementById('btn_open-login_popup').style.display='none'">
@@ -150,9 +169,10 @@
                 </form>
                 <div class="sigup">
                     <a href="#" id="sigup_btn">สมัครสมาชิก</a>
+                    <a href="/forgot" target="_blank" rel="noopener noreferrer">ลืมรหัสผ่าน</a>
                 </div>
                 <div class="google-login">
-                    <a href="/auth/google">
+                    <a href="#googlelogin_btn">
                         <button class="login_button">
                             <img src="/images/logo/google_logo.png" alt="">
                             <div class="login_text">
@@ -161,6 +181,27 @@
                         </button>
                     </a>
                 </div>
+                <div class="google-login">
+                    <a href="#facebooklogin_btn">
+                        <button class="login_button">
+                            <img src="/images/logo/facebook_5968764.png" alt="">
+                            <div class="login_text">
+                                ดำเนินต่อด้วย Facebook
+                            </div>
+                        </button>
+                    </a>
+                </div>
+                <div class="google-login">
+                    <a href="#tiktoklogin_btn">
+                        <button class="login_button">
+                            <img src="/images/logo/tiktok_logo.webp" alt="">
+                            <div class="login_text">
+                                ดำเนินต่อด้วย TikTOk
+                            </div>
+                        </button>
+                    </a>
+                </div>
+
             </div>
         </div>
 

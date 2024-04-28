@@ -50,10 +50,16 @@ button {
     overflow: hidden;
 }
 
+.anime_list .anime_item_pic {
+    width: 250px;
+    border-radius: 10px;
+}
+
 .anime_list .anime_item_pic img {
-    width: 200px;
+    width: 250px;
     height: auto;
     object-fit: cover;
+    border-radius: 10px;
 }
 
 .anime_list .anime_info_text {
@@ -163,6 +169,23 @@ button {
         color: #000;
     }
 }
+.anime_list .anime_info_text .btn_nf {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    border-radius: 8px;
+    color: #333;
+    margin-bottom: 20px;
+    & .image img {
+        width: 30px;
+        border-radius: 50px;
+    }
+    & a {
+        text-decoration: none;
+        color: #000;
+    }
+}
 
 .bilibili:hover {
     background-color: #128dfe;
@@ -175,7 +198,11 @@ button {
     color: #fff;
 }
 .crunchyroll:hover {
-    background-color: #f37521;
+    background-color: #ff9900;
+    color: #fff;
+}
+.netflix:hover {
+    background-color: #870f0f;
     color: #fff;
 }
 
@@ -229,6 +256,7 @@ button {
     .anime_list .anime_info_text .btn_bilibili ,
     .anime_list .anime_info_text .btn_iq ,
     .anime_list .anime_info_text .btn_yt,
+    .anime_list .anime_info_text .btn_nf,
     .anime_list .anime_info_text .btn_crunchyroll{
         width: 80%;
         & .image img {

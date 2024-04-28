@@ -45,7 +45,7 @@ exports.editActicleuser = async (req, res) => {
                 content: req.body.content,
                 link_info: req.body.link_info,
                 categories: req.body.categories,
-                url: req.body.url
+                url: req.body.url 
             }
         );
 

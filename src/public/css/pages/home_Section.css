@@ -56,9 +56,11 @@ body.dark {
     color: var(--blue-color);
 }
 
-.navbar .logo_item img {
-    width: 100px;
+.navbar .logo_item a img {
+    width: 35px;
     height: 35px;
+    object-fit: cover;
+    position: top;
 }
 
 .navbar .navbar_content img {
@@ -72,6 +74,10 @@ body.dark {
     align-items: center;
 }
 
+.logo_item a {
+    display: flex;
+    align-items: center;
+}
 
 .search_bar {
     display: grid;
@@ -276,6 +282,15 @@ body.dark {
     display: inline-block;
     text-align: center;
     border-radius: 6px;
+}
+
+.navlink_icon img {
+    width: 50px;
+    height: 40px;
+    object-fit: cover;
+}
+.nav_link .forum {
+    padding-left: 20px;
 }
 
 .navlink_icon::before {

@@ -1,0 +1,219 @@
+<% forums.forEach(forum => { %>
+    <div
+        class="flex justify-center w-full flex-col bg-white drop-shadow-md p-4 mb-4 text-black md:rounded-lg">
+        <div class="flex content-center justify-between border-b-2 py-2">
+            <div class="flex content-center">
+                <% if (forum.username && forum.username.id) { %>
+                    <img src="/profiles/<%= forum.username.id.profile %>" alt="profile" class="w-10 h10" style="border-radius: 50px;">
+                    <h2 class="text-2xl pl-2"><a href="/editor/<%= forum.username.id.username %>" target="_blank"><%= forum.username.id.username %></a></h2>
+                    <% } else { %>
+                        <p>Author: ไม่พบผู้เขียน</p>
+                        <% } %>
+                        <% // ฟังก์ชันสำหรับการแปลงวันที่ให้เป็นรูปแบบที่ต้องการ
+                        function formatDate(dateString) {
+                            const thaiMonths = [
+                                        "มกราคม", "กุมภาพันธ์", "มีนาคม",
+                                        "เมษายน", "พฤษภาคม", "มิถุนายน",
+                                        "กรกฎาคม", "สิงหาคม", "กันยายน",
+                                        "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+                                    ];
+
+                                    const date = new Date(dateString);
+                                    const now = new Date();
+                                    const diffInMilliseconds = now - date;
+
+                                    // เวลาที่ผ่านมาในรูปแบบนาที
+                                    const minutesAgo = Math.floor(diffInMilliseconds / (1000 * 60));
+
+                                    // เวลาที่ผ่านมาในรูปแบบวัน
+                                    const daysAgo = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+                                    if (minutesAgo < 60) {
+                                        return `เขียนเมื่อ: ${minutesAgo} นาทีที่แล้ว`;
+                                    } else if (daysAgo === 1) {
+                                        return `เมื่อวานนี้`;
+                                    } else {
+                                        const day = date.getDate();
+                                        const month = thaiMonths[date.getMonth()];
+                                        const year = date.getFullYear();
+                                        const hour = date.getHours();
+                                        const minute = date.getMinutes();
+                                        return `${day} ${month} ${year} ${hour}:${minute}`;
+                                    }
+                                    }
+                            %>
+                <p class="text-sm pl-2"><%= formatDate(forum.createdAt)  %></p>
+            </div>
+        </div>
+        <div class="mt-2 border-b-2">
+            <p class="text-2xl font-normal break-normal" style="overflow: hidden;">
+               <%= forum.text_mass  %>
+            </p>
+        </div>
+        <!-- btn heart  -->
+        <div class="flex m-1 border-b-2 relative content-center">
+            <div class="flex content-center m-2">
+                <input id="forumId" type="hidden" value="<%= forum._id %>">
+                <% if (usersesstion) { %>
+                    <% if (!forum.likedBy.includes(usersesstion._id)) { %>
+                        <button class="btnlike text-3xl text-blue-400 flex content-center pl-2" data-forumid="<%= forum._id %>"><i class="fa-solid fa-heart"></i></button>
+                    <% } %>
+                <% } %>
+                
+               <% if(usersesstion) { %>
+                 <% if (forum.likedBy.includes(usersesstion._id)) { %>
+                    <button class="text-3xl text-red-500 flex content-center pl-2"><i class="fa-solid fa-heart"></i></button>
+                <% } %>      
+               <% } %>
+               
+               <% function formatNumber(number) { if (number>=
+                1000000)
+                {
+                return (number / 1000000).toFixed(1) + 'm';
+                } else if (number >= 1000) {
+                return (number / 1000).toFixed(1) + 'k';
+                } else {
+                return number;
+                }
+                }
+
+                var number1 = 100;
+                var number2 = 500;
+                var number3 = 1500;
+                var number4 = 1200000;
+                %>
+                <% if(!usersesstion) { %>
+                    <button class="text-3xl text-blue-400 flex content-center pl-2"><i class="fa-solid fa-heart"></i></button>
+               <% } %>
+                <p id="likes-count-<%= forum._id %>"><%= formatNumber(forum.likes) %> ครั้ง</p>
+            </div>
+            <div class="flex content-center m-2 absolute right-[60px]">
+                <% if (usersesstion) { %>
+                    <% if (!forum.bookmarkby.includes(usersesstion._id)) { %>
+                        <button class="btnbookmark text-3xl text-sky-500" id="btnBookmark" data-forumid="<%= forum._id %>"><i class='bx bxs-bookmark'></i></button>
+                    <% } %>
+                <% } %>
+                <% if(usersesstion) { %>
+                    <% if (forum.bookmarkby.includes(usersesstion._id)) { %>
+                        <button class="text-3xl text-orange-400"><i class='bx bxs-bookmark'></i></button>
+                   <% } %>      
+                  <% } %>
+                  <% if(!usersesstion) { %>
+                    <button class="text-3xl text-stone-800"><i class='bx bxs-bookmark'></i></button>
+               <% } %>
+                <p class="bookmarkCount pl-2" id="bookmarkCount"><%= forum.bookmarks %></p>
+            </div>
+            <div class="flex content-center m-2">
+                <% const totalReplies = forum.replies.length; %>
+                <button data-modal-toggle="reply-modal-<%= forum._id %>" class="text-sm md:text-1xl text-black bg-gray-200 rounded-lg md:p-2">ความคิดเห็นทั้งหมด: <%= totalReplies %></button>
+            </div>
+            <div class="flex content-center m-2 absolute right-0">
+                <button class="text-3xl text-sky-500"><i class='bx bx-repost'></i></button>
+                <p class="pl-2">0</p>
+            </div>
+        </div>
+
+        <div class="flex content-center m-2">
+            <% if (usersesstion) { %>
+                <div class="flex content-center text-1xl bg-sky-200 rounded-lg w-[200px] justify-center">
+                    <i class='bx bxs-message-rounded-dots'></i>
+                    <button onclick="document.querySelectorAll('.reply-box').forEach(box => box.style.display = 'block')" class="reply btn-reply-toggle">
+                        ตอบกลับ
+                    </button>
+                </div>
+           <% }  else { %>
+            <button class="flex content-center text-1xl bg-sky-200 rounded-lg justify-center">
+                <i class='bx bxs-message-rounded-dots'></i>
+                เข้าสู่ระบบเพื่อตอบกลับ
+            </button>
+           <% }%>     
+        </div>
+
+        <!-- Reply message -->
+        <div class="flex content-center flex-col">   
+            <div class="reply-box flex flex-col mt-2" style="display: none;">
+                <input type="text" name="replybox" class="border-2 border-slate-200 outline-none text-left p-2 w-full h-[35px] rounded" placeholder="ตอบกลับโพสต์นี้">
+                <button data-forumid="<%= forum._id %>" class="bg-sky-500 rounded-lg mt-2 p-1 text-white hover:bg-sky-800 btn-reply" type="button">ตอบ</button>
+            </div>                                 
+            <ul class="reply-container">
+                <div class="loading_container">
+                    <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p>กำลังประมวณผลข้อมูล</p>
+                    </div>
+                </div>
+                <div class="loading" style="display: none;">
+                    <% if (totalReplies > 0) { %>
+                        <% for (let i = 0; i < Math.min(totalReplies, 3); i++) { %>
+                            <% const reply = forum.replies[i]; %>
+                            <li class=" border-l p-2 flex content-center bg-gray-200 rounded-lg mt-2 mb-">
+                                <div class="flex">
+                                    <a href="/editor/<%= reply.username.username %>" target="_blank" rel="noopener noreferrer">
+                                        <img src="/profiles/<%= reply.username.profile %>" alt="profile" class="w-10 h10" style="border-radius: 50px;">
+                                    </a>
+                                    <div class="relative flex items-center justify-between">
+                                        <p class="pl-2"><%= reply.username.id.username %></p>
+                                        <% 
+                                       function formatTimeAgo(dateString) {
+                                        const thaiMonths = [
+                                            "มกราคม", "กุมภาพันธ์", "มีนาคม",
+                                            "เมษายน", "พฤษภาคม", "มิถุนายน",
+                                            "กรกฎาคม", "สิงหาคม", "กันยายน",
+                                            "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+                                        ];
+
+                                        const date = new Date(dateString);
+                                        const now = new Date();
+                                        const diffInMilliseconds = now - date;
+
+                                        // เวลาที่ผ่านมาในรูปแบบนาที
+                                        const minutesAgo = Math.floor(diffInMilliseconds / (1000 * 60));
+
+                                        // เวลาที่ผ่านมาในรูปแบบชั่วโมง
+                                        const hoursAgo = Math.floor(minutesAgo / 60);
+
+                                        // เวลาที่ผ่านมาในรูปแบบวัน
+                                        const daysAgo = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+                                        if (minutesAgo < 60) {
+                                            // ถ้าน้อยกว่า 60 นาทีให้แสดงเป็นนาทีที่ผ่านมา
+                                            return `ตอบกลับเมื่อ ${minutesAgo} นาทีที่แล้ว`;
+                                        } else if (hoursAgo === 1) {
+                                            // ถ้าเป็นหนึ่งชั่วโมงที่ผ่านมาให้แสดงเป็นหนึ่งชั่วโมงที่แล้ว
+                                            return `ตอบกลับเมื่อ ${hoursAgo} ชั่วโมงที่แล้ว`;
+                                        } else if (daysAgo === 1) {
+                                            // ถ้าเป็นเมื่อวานนี้ให้แสดงเป็นเมื่อวานนี้
+                                            return `ตอบกลับเมื่อเมื่อวานนี้`;
+                                        } else {
+                                            // นอกเหนือจากนี้ให้แสดงวันที่และเวลา
+                                            const day = date.getDate();
+                                            const month = thaiMonths[date.getMonth()];
+                                            const year = date.getFullYear();
+                                            const hour = date.getHours();
+                                            const minute = date.getMinutes();
+                                            return `${day} ${month} ${year} ${hour}:${minute}`;
+                                        }
+                                    }
+
+
+                                        %>                                                   
+                                    </div>                                                    
+                                </div>
+                                <div class="flex flex-col">
+                                    <h2 class="text-sm text-slate-950"><%= reply.username.username %></h2>
+                                    <%= reply.content %>
+                                <p class="text-sm text-gray-400"><%= formatTimeAgo(reply.createdAt) %></p>
+                                </div>
+                            </li>
+                        <% } %>
+                        <% if (totalReplies > 3) { %>
+                            <li>และอีก <%= totalReplies - 3 %> การตอบกลับ แตะที่ความคิดเห็นทั้งหมดเพื่ออ่านต่อ</li>
+                        <% } %>
+                    <% } else { %>
+                        <li>ไม่มีข้อความตอบกลับ</li>
+                    <% } %>
+                </div>                               
+            </ul>
+        </div>
+    </div>
+    <% }); %>

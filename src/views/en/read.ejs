@@ -39,7 +39,11 @@
         gtag('config', 'G-LTJP520FN4');
     </script>
 </head>
-
+<style>
+    .hover_link:hover {
+        color: rgb(0, 49, 92);
+    }
+</style>
 <body>
     <%- include('../en/navbar/navnar_Header') %>
         <%- include('../en/navbar/sidebar_Section') %>
@@ -154,7 +158,14 @@
                     </div>
                 </div>
         
-                <div class="content-full bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg">
+                <div class="content-full bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg" style="
+                word-break: break-word;
+    line-height: 20px;
+    font-weight: 400;
+    margin-bottom: 0;
+    transition: all .3s ease-in-out;
+    white-space: pre-wrap;
+">
                     <%- acticle.content %>
                 </div>
         
@@ -212,6 +223,15 @@
             }
         });
 
+    </script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var descriptionSpan = document.querySelector('.content-full');
+            var description = descriptionSpan.textContent.trim();
+
+            var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" class="hover_link" style="color: blue;">$1</a>');
+            descriptionSpan.innerHTML = descriptionWithLinks;
+        });
     </script>
 </body>
 

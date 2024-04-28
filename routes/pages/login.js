@@ -4,89 +4,65 @@ const userController = require('../../controls/userController')
 // const ensureAuthenticated = require('../../middleware/login')
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../../models/user');
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
+const { body, validationResult } = require('express-validator');
 
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/callback',
-    passReqToCallback: true
-},
-    async (req, accessToken, refreshToken, profile, done) => {
-        try {
-            if (!profile || !profile.id) {
-                return done(new Error('Invalid profile data'));
-            }
+router.post('/api/googlelogin/user', async (req, res) => {
+    const userData = req.body;
+    const existingUser = await User.findOne({ email: userData.email });
 
-            let user = await User.findOne({ email: profile.emails[0].value });
+    if (existingUser) {
+        // ถ้ามีผู้ใช้ที่มีอีเมลเดียวกันอยู่แล้วในฐานข้อมูล
+        // สร้าง access token
+        const accessToken = jwt.sign({ userId: existingUser._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
 
-            if (!user) {
-                const newUser = new ({
-                    googleId: profile.iUserd,
-                    username: profile.displayName,
-                    email: profile.emails && profile.emails.length > 0 ? profile.emails[0].value : '',
-                });
-                await newUser.save();
-                user = newUser;
-            } else {
-                // มีผู้ใช้ในระบบอยู่แล้ว ให้ทำการเข้าสู่ระบบโดยไม่ต้องสร้างบัญชีใหม่
-                req.session.userlogin = user;
-            }
-            return done(null, user);
-        } catch (error) {
-            return done(error);
-        }
+        // ส่ง access token กลับไปยังผู้ใช้
+        res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
+
+        // ส่งผลลัพธ์กลับไปยังผู้ใช้
+        res.status(200).json({ message: 'User saved successfully' });
+    } else {
+        const accessToken = jwt.sign({ userId: newUser._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+        res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
+
+        const newUser = new User({
+            Googleuid: userData.uid,
+            name: userData.displayName,
+            email: userData.email,
+            googleprofile: userData.photoURL
+        })
+
+        await newUser.save();
+
+        req.session.userlogin = {
+            _id: newUser._id,
+            Googleuid: newUser.Googleuid,
+            name: newUser.name,
+            username: newUser.username,
+            email: newUser.email,
+            password: newUser.password,
+            profile: newUser.profile,
+            googleprofile: newUser.googleprofile,
+            bio: newUser.bio,
+            videos: newUser.videos,
+            acticles: newUser.acticles,
+            posts: newUser.posts,
+            createdAt: newUser.createdAt,
+            followed: newUser.followed,
+            url: newUser.url,
+            followers: newUser.followers,
+            youtube: newUser.youtube,
+            tiktok: newUser.tiktok,
+            facebook: newUser.facebook,
+            accessToken: accessToken,
+            alertMessage: req.query.alertMessage || ''
+        };
+        console.log(req.session.userlogin)
+        res.status(200).json({ message: 'User saved successfully' });
     }
-));
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
 });
-
-passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-        done(err, user);
-    });
-});
-
-router.get('/auth/google', passport.authenticate('google', { scope: ['openid', 'profile', 'email'] }));
-router.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
-        // ตรวจสอบว่าการยืนยันตัวตนผ่าน Google OAuth สำเร็จแล้ว
-        if (req.user) {
-            const userlogin = req.user; // รับข้อมูลผู้ใช้จาก Passport.js
-            const accessToken = jwt.sign({ userlogin: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
-            res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
-            req.session.userlogin = {
-                _id: userlogin._id,
-                name: userlogin.name,
-                username: userlogin.username,
-                email: userlogin.email,
-                password: userlogin.password,
-                profile: userlogin.profile,
-                bio: userlogin.bio,
-                videos: userlogin.videos,
-                acticles: userlogin.acticles,
-                posts: userlogin.posts,
-                createdAt: userlogin.createdAt,
-                followed: userlogin.followed,
-                url: userlogin.url,
-                followers: userlogin.followers,
-                youtube: userlogin.youtube,
-                tiktok: userlogin.tiktok,
-                facebook: userlogin.facebook, 
-                accessToken: accessToken,
-                alertMessage: req.query.alertMessage
-            };
-            res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}&alertMessage=เข้าสุ่ระบบสำเร็จ`);
-        } else {
-            // กรณีไม่สามารถยืนยันตัวตนผ่าน Google OAuth ได้
-            res.redirect('/login'); // ลิงก์ไปยังหน้าเข้าสู่ระบบอีกครั้งหรือหน้าที่เหมาะสม
-        }
-    }
-);
 
 router.get('/login', async (req, res) => {
     try {
@@ -98,6 +74,61 @@ router.get('/login', async (req, res) => {
         res.status(500).send('Internal Server Error', err);
     }
 })
+
+router.get('/forgot', (req,res)=>{
+    const usersesstion = req.session.userlogin;
+    res.render('./component/pages/forgot', {usersesstion, active: 'home'})
+})
+
+router.post('/forgotemail', [
+    body('email').isEmail().normalizeEmail()
+], async (req, res) => {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Check if the email exists in the database
+    const usersesstion = req.session.userlogin;
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+        // If the email does not exist, return an error message
+        return res.status(404).json({ error: 'Email not found' });
+    }
+
+    // If email exists, show the reset password form
+    res.render('./component/pages/Resetpassword', { email, usersesstion , active: 'home'});
+
+    // Optionally, you can send an email with a link to reset the password here
+});
+router.post('/resetPassword', async (req, res) => {
+    const { email, password } = req.body;
+    const usersesstion = req.session.userlogin;
+    try {
+        // หาผู้ใช้จากอีเมล
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // เข้ารหัสรหัสผ่านใหม่
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // อัปเดตรหัสผ่านใหม่ในฐานข้อมูล
+        user.password = hashedPassword;
+        await user.save();
+
+        // ส่งคืนการตอบกลับว่าเปลี่ยนรหัสผ่านสำเร็จ
+        res.render('./component/pages/resetPasswordSuccess',{usersesstion, active: 'home'})
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 
 router.post('/login', userController.getLogin);
 module.exports = router

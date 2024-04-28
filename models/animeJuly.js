@@ -37,6 +37,9 @@ const animeJulySchema = new mongoose.Schema({
     youtube: {
         type:String
     },
+    netflix: {
+        type:String
+    },
     yt_text: {
         type:String
     },

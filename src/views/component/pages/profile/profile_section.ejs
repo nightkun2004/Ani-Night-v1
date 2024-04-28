@@ -2,14 +2,19 @@
 <div class="profile_section">
     <div class="profile_left">
         <div class="profile_image">
-            <a target="_blank" href="/profiles/<%= usersesstion.profile %>">
+            <% if (usersesstion.profile) { %>
+                <a target="_blank" href="/profiles/<%= usersesstion.profile %>">
                 <img src="/profiles/<%= usersesstion.profile %>" alt="" width="100px" height="100px">
             </a>
+           <% } %>
         </div>
     </div>
     <div class="profile_right">
         <div class="profile_info">
-            <h2>ชื่อผู้ใช้ : <%= usersesstion.username %></h2>
+            <% if (usersesstion.name) { %>
+                <h2>ชื่อผู้ใช้ : <%= usersesstion.name %></h2>
+            </a>
+           <% } %>
             <p class="email">อีเมล : <%= usersesstion.email %></p>
             <p>ประวัติ : <%= usersesstion.bio %></p>
             <div class="id_F">

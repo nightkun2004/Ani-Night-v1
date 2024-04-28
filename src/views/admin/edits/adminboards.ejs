@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../..//css/admin/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
     <%- include('../sidebars/navbar') %>
@@ -46,7 +47,8 @@
                                                 <form action="/edit_animeboard" method="POST">
                                                 <input type="hidden" name="edit_id" value="<%= anime._id %>"> 
                                                 <button type="submit" name="edit_button" class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
-                                            </form>
+                                                </form>
+                                                    <button class="btnde bg-red-500 p-2 rounded-lg w-full"><a onclick="confirmDelete(event)" href="/delete/anime/<%= anime._id %>">ลบอันนี้</a></button>
                                             </div>
                                         </div>
                                     <% }); %>
@@ -110,6 +112,7 @@
                                                 <input type="hidden" name="edit_id" value="<%= anime._id %>"> 
                                                 <button type="submit" name="edit_button" class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
                                             </form>
+                                            <button class="btnde bg-red-500 p-2 rounded-lg w-full"><a onclick="confirmDelete(event)" href="/delete/AnimeMay/<%= anime._id %>">ลบอันนี้</a></button>
                                             </div>
                                         </div>
                                     <% }); %>
@@ -173,6 +176,7 @@
                                                 <input type="hidden" name="edit_id" value="<%= anime._id %>"> 
                                                 <button type="submit" name="edit_button" class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
                                             </form>
+                                            <button class="btnde bg-red-500 p-2 rounded-lg w-full"><a onclick="confirmDelete(event)" href="/delete/AnimeJuly/<%= anime._id %>">ลบอันนี้</a></button>
                                             </div>
                                         </div>
                                     <% }); %>
@@ -236,6 +240,29 @@ window.addEventListener('load', function() {
     hideLoadingIndicator();
 });
 
+        </script>
+         <script>
+            function confirmDelete(event) {
+                event.preventDefault(); // หยุดการกระทำเริ่มต้นของลิงก์
+        
+                const deleteUrl = event.target.getAttribute('href'); // รับ URL ที่จะลบ
+        
+                Swal.fire({
+                    title: 'คุณแน่ใจหรือไม่?',
+                    text: "คุณต้องการที่จะลบไฟล์นี้หรือไม่?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'ใช่, ลบ!',
+                    cancelButtonText: 'ยกเลิก'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // ถ้าผู้ใช้ยืนยันการลบ
+                        window.location.href = deleteUrl; // ลิงก์ไปยัง URL ที่ต้องการลบ
+                    }
+                });
+            }
         </script>
 </body>
 </html>

@@ -15,6 +15,10 @@ const Admin_Router = require('./admin_router/admin')
 
 const PAGE_SIZE = 5;
 
+router.get('/delete/anime/:id', createAnime.DeleteAnime);
+router.get('/delete/AnimeMay/:id', createAnime.DeleteAnimeMay);
+router.get('/delete/AnimeJuly/:id', createAnime.DeleteAnimeJuly);
+
 router.get('/admin/dash', verifyToken, async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
@@ -208,6 +212,7 @@ router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
         animeBord.web = req.body.web;
         animeBord.bilibili = req.body.bilibili;
         animeBord.nameep = req.body.nameep;
+        animeBord.netflix = req.body.netflix;
         animeBord.Iqiyi = req.body.Iqiyi;
         animeBord.youtube = req.body.youtube;
         animeBord.yt_text = req.body.yt_text;
@@ -234,6 +239,6 @@ router.get('/success', (req, res) => {
 })
 
 router.use(create_2024);
-router.use(Admin_Router);
+router.use(Admin_Router); 
 
 module.exports = router
