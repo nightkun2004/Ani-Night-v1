@@ -180,7 +180,33 @@
                     <div class="mt-5">
 
                         <!-- เริ่มโพสต์ -->
+                        <div id="adsense-ad" class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 h-60 rounded-lg">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                            crossorigin="anonymous"></script>
+                       <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-format="fluid"
+                            data-ad-layout-key="-fb+5w+4e-db+86"
+                            data-ad-client="ca-pub-6579807593228261"
+                            data-ad-slot="8403303192"></ins>
+                       <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                       </script>
+                        </div>
                         <%- include('./pages/sections/forumtext_Section') %>
+                        <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 h-60 rounded-lg">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-6n+ep+14-70+a6"
+     data-ad-client="ca-pub-6579807593228261"
+     data-ad-slot="7379578718"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+                        </div>
                       
                         <!-- สิ้นสุดโพสต์ -->
                     </div>
@@ -220,6 +246,21 @@
             <script src="https://ani-night.online/js/pages/script_Section.js"></script>
             <script src="/js/pages/forum.js"></script>
             <script src="/js/pages/loading_datas.js"></script>
+            <script>
+                window.onload = function() {
+                    const totalforumss = document.querySelectorAll('.forums').length;
+            
+                    if (totalforumss % 4 === 0) {
+                        showGoogleAds();
+                    }
+                };
+            
+                function showGoogleAds() {
+                    document.getElementById('adsense-ad').style.display = 'block';
+                }
+        
+            </script>
+            
 </body>
 
 </html>
