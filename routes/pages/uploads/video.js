@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router();
+const verifyToken = require('../../../middleware/auth')
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
@@ -29,7 +30,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get('/upload_video', async (req, res) => {
+router.get('/upload_video', verifyToken, async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         if (!usersesstion) {
@@ -74,8 +75,6 @@ router.post('/video-upload', upload.single('file_video'), async (req, res) => {
             categories: categories,
             filePath: newFileName,
             videoid: postId,
-            username: usersesstion.username,
-            profile: usersesstion.profile,
             published: req.body.published ? req.body.published : true,
             author: {
                 id: usersesstion._id,

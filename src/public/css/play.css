@@ -19,6 +19,25 @@
     --color-blue: #0092d5;
 }
 
+.Mobile {
+    display: none;
+}
+
+.player_anime-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-player {
+    /* min-height: calc(100vh - 51px); */
+    width: 100%;
+}
+
+.info {
+    width: 50%;
+}
+
+
 .more-btn,
 .less-btn {
     background-color: #ccc;
@@ -32,7 +51,7 @@
 
 .full-text {
     margin-bottom: 0;
-    line-height: 20px;
+    line-height: 30px;
     font-weight: 400;
     word-break: break-word;
     transition: all .3s ease-in-out;
@@ -196,6 +215,23 @@
     pointer-events: none; */
 }
 
+.links-pathfrom .item .Netflix {
+    background-color: #be0802;
+    padding: 10px;
+    border-radius: 10px;
+    display: grid;
+    font-size: 1.3rem;
+    font-weight: 700;
+    gap: 12px;
+    grid-template-columns: 24px auto;
+    line-height: 1.3rem;
+    color: #fff;
+    margin-bottom: 10px;
+    /* ใช้สำหรับเมื่อยังไม่มีลิ้ง */
+    /* opacity: .8; 
+    pointer-events: none; */
+}
+
 .icon-bilibili img {
     width: 50px;
 }
@@ -337,6 +373,21 @@
     color: #333;
 }
 
+.pc {
+    display: block;
+}
+
+@media screen and (max-width: 780px) {
+    .player_anime-container {
+        flex-direction: column;
+    }
+    .Mobile {
+        display: block;
+    }
+    .pc {
+        display: none;
+    }
+}
 @media screen and (max-width: 280px) {
     .dubitem {
         flex-direction: column;

@@ -72,6 +72,16 @@ router.get('/admin/update_code', verifyToken, isAdmin, (req, res) => {
     });
 });
 
+router.get('/admin/editvideos', verifyToken, isAdmin, async (req, res) => {
+    const usersesstion = req.session.userlogin;
+    const userData = await Videos.find();
+    res.render('./admin/edits/editvideos', {
+        active: 'editvideos',
+        usersesstion,
+        userData
+    });
+});
+
 router.get('/admin/createAnime', verifyToken, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
     res.render('./admin/createAnime', { usersesstion, active: 'createAnime-admin', });
@@ -229,6 +239,7 @@ router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
 
 router.post('/edit_animeboard/May/002', verifyToken, createAnime.EditanimeMay);
 router.post('/edit_animeboard/EditanimeJuly', verifyToken, createAnime.EditanimeJuly);
+router.post('/editvideo/post/videoid', verifyToken, createAnime.Editvideos);
 
 router.get('/admin/update_link', verifyToken, (req, res) => {
     res.render('./admin/updatelink');

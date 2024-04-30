@@ -106,7 +106,7 @@ exports.getForumreply = async (req,res) => {
     const usersesstion = req.session.userlogin;
     try {
         const { forumId, replyText } = req.body;
-        // Find the forum post by ID
+        // Find the forum post by ID 
         const forum = await Forum.findById(forumId);
         if (!forum) {
             return res.status(404).json({ message: 'Forum post not found' });

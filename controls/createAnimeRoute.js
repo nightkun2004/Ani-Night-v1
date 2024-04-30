@@ -2,13 +2,14 @@ const AnimeApril = require('../models/animeApril');
 const AnimeMay = require('../models/animeMay');
 const AnimeBord = require('../models/animebord');
 const AnimeJuly = require('../models/animeJuly');
+const Video = require('../models/video');
 
 exports.Addanimemay = async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {
         const newAnime = new AnimeMay({
             nameAnime: req.body.nameAnime,
-            Produced: req.body.Produced, 
+            Produced: req.body.Produced,
             manuscript: req.body.manuscript,
             episodes: req.body.episodes,
             start: req.body.start,
@@ -28,7 +29,7 @@ exports.Addanimemay = async (req, res) => {
     } catch (error) {
         res.status(400).send(error.message);
     }
-} 
+}
 
 exports.AddanimeJuly = async (req, res) => {
     const usersesstion = req.session.userlogin;
@@ -88,7 +89,7 @@ exports.EditanimeMay = async (req, res) => {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-} 
+}
 exports.EditanimeJuly = async (req, res) => {
     const update_id = req.body.update_id;
     try {
@@ -170,6 +171,19 @@ exports.DeleteAnimeJuly = async (req, res) => {
 
         await AnimeJuly.findByIdAndDelete(req.params.id, { useFindAndModify: false });
         res.redirect(`/edit/anime/boards`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+exports.Editvideos = async (req, res) => {
+    const update_id = req.body.update_id;
+    try {
+        const usersesstion = req.session.userlogin;
+        const video = await Video.findOne({ _id: update_id });
+
+        res.render('/admin/edits/videoidedit')
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

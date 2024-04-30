@@ -4,12 +4,12 @@ const mongoose = require("../config")
 const Acticle = require("../models/acticle")
 const Video = require('../models/video')
 
-const perPage = 20; 
+const perPage = 20;
 
 router.get('/foryou', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const videos = await Video.find(); 
+        const videos = await Video.find();
 
         if (!Array.prototype.shuffle) {
             Array.prototype.shuffle = function () {
@@ -37,7 +37,7 @@ router.get('/foryou', async (req, res) => {
         const paginatedVideos = videos.slice(skip, skip + perPage);
 
         res.render('./component/videos/index', {
-            active: 'foryou', 
+            active: 'foryou',
             usersesstion,
             videos,
             totalPages,
@@ -49,5 +49,15 @@ router.get('/foryou', async (req, res) => {
         res.status(500).send('Internal Server Error', err);
     }
 })
+
+router.get("/api/videos", async (req, res) => {
+    try {
+        const videos_data = await Video.find().exec();
+        res.json(videos_data);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+})
+
 
 module.exports = router

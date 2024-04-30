@@ -41,6 +41,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
     <script>
         window.googletag = window.googletag || { cmd: [] };
@@ -55,21 +56,20 @@
 </head>
 
 <body>
-    <section class="playsec mx-auto xl:max-w-7xl pt-[110px]">
+    <%- include('../navbarPlays/navbarplay') %>
+    <section class="player_anime-container mx-auto xl:max-w-8xl">
+        <!-- Section Left -->
         <div class="container-play">
-            <section class="section-player">
+            <section class="section-player md:p-2">
                 <div class="container">
                     <div class="video_player">
-                        <video webkit-playsinline playsinline preload="metadata" class="main-video" id="video">
+                        <video webkit-playsinline playsinline preload="metadata" poster="/acticles_images/1707048259898-798275466.jpg" class="main-video" id="video">
                             <source src="/videos/<%= video.filePath %>.mp4" size="720" type="video/mp4">
 
                             <% if (video.subthai) { %>
-                                <track label="ซับไทย" kind="subtitles" src="../subtitles/<%= video.subthai %>" srclang="th">
-                                <% } else { %>
-                                    <track default label="ค่าเริ่มต้น" kind="subtitles" src="../subtitles/mosawoth.vtt"
-                                        srclang="th">
-                                    <% } %>
-
+                                <track default label="ซับไทย" kind="subtitles" src="../subtitles/<%= video.subthai %>"
+                                    srclang="th">
+                                <% } %>
 
                                         <!-- <audio id="audio" src="./audip_th.wav"></audio>
 
@@ -95,20 +95,46 @@
                     </div>
                 </div>
 
-        </div>
-        <div class="info">
-            <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-                <div class="tages">
-                    <% if (video && video.tags && video.tags.length> 0) { %>
-                        <h2> <%- video.tags.map(tag=> `<a href="/tag/${tag}">${tag}</a>`).join(', ') %></h2>
+                <!-- info Mobile -->
+                <div class="bg-white mt-5 px-6 md:px-12 py-4 shadow-md rounded-md relative Mobile">
+                    <div class="tages">
+                        <% if (video && video.tags && video.tags.length> 0) { %>
+                            <h2> <%- video.tags.map(tag=> `<a href="/tag/${tag}">${tag}</a>`).join(', ') %></h2>
+                            <% } else { %>
+                                <h2>Tags: ไม่มีแท็ก</h2>
+                                <% } %>
+                    </div>
+                    <h2 class="text-1xl mt-2 text-center tracking-wider text-gray-700 mt-4">
+                        <%= video.name %>
+                    </h2>
+                    <% if (video.author && video.author.id) { %>
+                        <!-- ส่วนโปรไฟล์ -->
+                        <a href="/editor/<%= video.author.id.username %>">
+                            <div class="flex items-center"
+                                style="background-color: #eee; border-radius: 20px; padding: 12px;">
+                                <div class="mt-1">
+                                    <img class="w-[50px] h-[50px] p-1 rounded-full"
+                                        src="/profiles/<%= video.author.id.profile %>" alt="">
+                                </div>
+                                <h2 class="pl-[10px]">
+                                    <%= video.author.id.username %>
+                                </h2>
+                            </div>
+                        </a>
                         <% } else { %>
-                            <h2>Tags: ไม่มีแท็ก</h2>
+                            <p>Author: Unknown</p>
+
                             <% } %>
                 </div>
-                <h2 class="text-1xl mt-2 text-center tracking-wider text-gray-700 mt-4">
-                    <%= video.name %>
-                </h2>
-                <div class="description bg-gray-50" style="border-radius: 10px; padding: 20px;">
+
+                <!-- ส่วนคำอธิบาย -->
+                <div class="description bg-white text-black mt-8 Mobile" style="border-radius: 10px; padding: 20px;">
+                    <div class="flex m-1 text-gray-400">
+                        <% if (video && video.createdAt) { %>
+                            <p>สร้างเมื่อ : <%= new Date(video.createdAt).toLocaleDateString('en-EN') %></p>
+                            <p class="views-pc pl-2">การดู <%= video.views %> ครั้ง</p>
+                            <% } %>
+                    </div>
                     <p>
                         <% if(video.description.length <=50) { %>
                             <%= video.description %>
@@ -116,7 +142,7 @@
                                     <span class="short-text">
                                         <%- video.description.substring(0, 50) + '  ....' %>
                                     </span>
-
+                
                                     <span class="full-text" style="display: none;">
                                         <%- video.description %>
                                     </span>
@@ -125,15 +151,196 @@
                                     <% } %>
                     </p>
                 </div>
-                <div class="flex items-center justify-center mt-4">
-                    <% if (video && video.createdAt) { %>
-                        <p> สร้างเมื่อ : <%= new Date(video.createdAt).toLocaleDateString('en-EN') %>
-                        </p>
-                        <% } %>
-                            <h2 class="pl-[20px]">
-                                <p class="views-pc">การดู <%= video.views %> ครั้ง</p>
-                            </h2>
+
+                <!-- แพลตฟอร์มถูกลิขสิทธิ์ -->
+                <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                    <h2 class="text-2xl font-bold font-weight-500 mb-[20px]">ดูได้ที่แพลตฟอร์มถูกลิขสิทธิ์เหล่านี้</h2>
+                    <div class="links-pathfrom">
+                        <div class="item">
+                            <a href="#" class="website" target="_blank">
+                                <div class="icon-path">
+                                    <svg data-v-c1b7ee7c="" aria-hidden="true" focusable="false" data-prefix="fas"
+                                        data-icon="link" role="img" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512" class="icon default svg-inline--fa fa-link fa-w-16">
+                                        <path data-v-c1b7ee7c="" fill="currentColor"
+                                            d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"
+                                            class=""></path>
+                                    </svg>
+                                </div>
+                                <span data-v-c1b7ee7c="" class="name">
+                                    เว็บไซต์ทางการ
+                                    <span data-v-c1b7ee7c="" class="language">
+                                        JP
+                                    </span>
+                                    <!---->
+                                </span>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#" class="bilibili" target="_blank">
+                                <div class="icon-bilibili">
+                                    <img src="/icons/bilibili-icon.png" alt="bilibili">
+                                </div>
+                                <span data-v-c1b7ee7c="" class="name">
+                                    Bilibili
+                                </span>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#" class="iq" target="_blank">
+                                <div class="icon-bilibili">
+                                    <img src="/icons/iqiyi-icon.png" alt="iqiyi">
+                                </div>
+                                <span data-v-c1b7ee7c="" class="name">
+                                    iqiyi
+                                </span>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#" class="yt" target="_blank">
+                                <div class="icon-bilibili">
+                                    <img src="/icons/youtube.svg" alt="iqiyi">
+                                </div>
+                                <span data-v-c1b7ee7c="" class="name">
+                                    Youtube
+                                </span>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#" class="Netflix" target="_blank">
+                                <div class="icon-bilibili">
+                                    <img src="/icons/netflix.png" alt="netflix">
+                                </div>
+                                <span data-v-c1b7ee7c="" class="name">
+                                    Netflix
+                                </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- content Dubing -->
+                <!-- <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                    <h2 class="text-2xl font-bold font-weight-500 mb-[20px]">นักพากย์ไทยและญี่ปุ่น</h2>
+                    <ul
+                        class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                        <li class="me-2">
+                            <a href="#" aria-current="page"
+                                class="inline-block p-4 text-white bg-amber-400 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">นักพากย์ไทย</a>
+                        </li>
+                        <li class="me-2">
+                            <a href="#"
+                                class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">นักพากย์ญี่ปุ่น</a>
+                        </li>
+                    </ul>
+
+                    <p>No Data..</p>
+
+                    <div class="dubvoice-row">
+                       <div class="dubitem">
+                            <div class="dubitem-left">
+                                <div class="dubvoice-pic">
+                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
+                                </div>
+                                <div class="dubvoice-info">
+                                    <h2>ชื่อนักพากย์</h2>
+                                </div>
+                            </div>
+
+                            <div class="dubitem-right">
+                                <div class="dubvoice-info">
+                                    <h2>ชื่อตัวละคร</h2>
+                                    <p>ตัลละครหลัก</p>
+                                </div>
+                                <div class="dubvoice-pic">
+                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
+                                </div>
+                            </div>
+                       </div>
+                       <div class="dubitem">
+                            <div class="dubitem-left">
+                                <div class="dubvoice-pic">
+                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
+                                </div>
+                                <div class="dubvoice-info">
+                                    <h2>ชื่อนักพากย์</h2>
+                                </div>
+                            </div>
+
+                            <div class="dubitem-right">
+                                <div class="dubvoice-info">
+                                    <h2>ชื่อตัวละคร</h2>
+                                    <p>ตัลละครหลัก</p>
+                                </div>
+                                <div class="dubvoice-pic">
+                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
+                                </div>
+                            </div>
+                       </div>
+                       <div class="dubitem">
+                            <div class="dubitem-left">
+                                <div class="dubvoice-pic">
+                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
+                                </div>
+                                <div class="dubvoice-info">
+                                    <h2>ชื่อนักพากย์</h2>
+                                </div>
+                            </div>
+
+                            <div class="dubitem-right">
+                                <div class="dubvoice-info">
+                                    <h2>ชื่อตัวละคร</h2>
+                                    <p>ตัลละครหลัก</p>
+                                </div>
+                                <div class="dubvoice-pic">
+                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
+                                </div>
+                            </div>
+                       </div>
+                       <div class="dubitem">
+                            <div class="dubitem-left">
+                                <div class="dubvoice-pic">
+                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
+                                </div>
+                                <div class="dubvoice-info">
+                                    <h2>ชื่อนักพากย์</h2>
+                                </div>
+                            </div>
+
+                            <div class="dubitem-right">
+                                <div class="dubvoice-info">
+                                    <h2>ชื่อตัวละคร</h2>
+                                    <p>ตัลละครหลัก</p>
+                                </div>
+                                <div class="dubvoice-pic">
+                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                </div> -->
+        </div>
+        <!-- Section Right -->
+        <div class="info md:p-2">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                crossorigin="anonymous"></script>
+            <!-- Ads12 -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6579807593228261" data-ad-slot="3343866175"
+                data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <div class="bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative pc">
+                <div class="tages">
+                    <% if (video && video.tags && video.tags.length> 0) { %>
+                        <h2> <%- video.tags.map(tag=> `<a href="/tag/${tag}">${tag}</a>`).join(', ') %></h2>
+                        <% } else { %>
+                            <h2>Tags: ไม่มีแท็ก</h2>
+                            <% } %>
+                </div>
+                <h2 class="text-3xl mt-2 tracking-wider text-black mt-4 mb-4" style=" line-height: 30px;">
+                    <%= video.name %>
+                </h2>
                 <% if (video.author && video.author.id) { %>
                     <!-- ส่วนโปรไฟล์ -->
                     <a href="/editor/<%= video.author.id.username %>">
@@ -154,297 +361,143 @@
                         <% } %>
             </div>
 
-            <!-- แพลตฟอร์มถูกลิขสิทธิ์ -->
-            <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-                <h2 class="text-2xl font-bold font-weight-500 mb-[20px]">ดูได้ที่แพลตฟอร์มถูกลิขสิทธิ์เหล่านี้</h2>
-                <div class="links-pathfrom">
-                    <div class="item">
-                        <a href="#" class="website">
-                            <div class="icon-path">
-                                <svg data-v-c1b7ee7c="" aria-hidden="true" focusable="false" data-prefix="fas"
-                                    data-icon="link" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                    class="icon default svg-inline--fa fa-link fa-w-16">
-                                    <path data-v-c1b7ee7c="" fill="currentColor"
-                                        d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"
-                                        class=""></path>
-                                </svg>
-                            </div>
-                            <span data-v-c1b7ee7c="" class="name">
-                                เว็บไซต์ทางการ
-                                <span data-v-c1b7ee7c="" class="language">
-                                    JP
+            <div class="description bg-white text-black mt-8 pc" style="border-radius: 10px; padding: 20px;">
+                <div class="flex m-1 text-gray-400">
+                    <% if (video && video.createdAt) { %>
+                        <p>สร้างเมื่อ : <%= new Date(video.createdAt).toLocaleDateString('en-EN') %></p>
+                        <p class="views-pc pl-2">การดู <%= video.views %> ครั้ง</p>
+                        <% } %>
+                </div>
+                <p>
+                    <% if(video.description.length <=50) { %>
+                        <%= video.description %>
+                            <% } else { %>
+                                <span class="short-text">
+                                    <%- video.description.substring(0, 50) + '  ....' %>
                                 </span>
-                                <!---->
-                            </span>
-                        </a>
+            
+                                <span class="full-text" style="display: none;">
+                                    <%- video.description %>
+                                </span>
+                                <span class="more-btn">ดูเพิ่มเติม</span>
+                                <span class="less-btn" style="display: none;">ย่อ</span>
+                                <% } %>
+                </p>
+            </div>
+
+            <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                <h2 style="font-size: 20px; font-weight: bold;">ให้เรทคะแนนเรื่องนี้</h2>
+                <form action="/play/<%= video.videoid %>/rate" method="post" id="ratingForm">
+                    <div class="rating-container">
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5"></label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4"></label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3"></label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2"></label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1"></label>
+                        </div>
+                        <div class="rating-number">
+                            <%= video.ratings %> ดาว
+                        </div>
                     </div>
-                    <div class="item">
-                        <a href="#" class="bilibili">
-                            <div class="icon-bilibili">
-                                <img src="/icons/bilibili-icon.png" alt="bilibili">
-                            </div>
-                            <span data-v-c1b7ee7c="" class="name">
-                                Bilibili
-                            </span>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="#" class="iq">
-                            <div class="icon-bilibili">
-                                <img src="/icons/iqiyi-icon.png" alt="iqiyi">
-                            </div>
-                            <span data-v-c1b7ee7c="" class="name">
-                                iqiyi
-                            </span>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="#" class="yt">
-                            <div class="icon-bilibili">
-                                <img src="/icons/youtube.svg" alt="iqiyi">
-                            </div>
-                            <span data-v-c1b7ee7c="" class="name">
-                                Youtube
-                            </span>
-                        </a>
-                    </div>
+                    <button type="submit">บันทึกคะแนน</button>
+                </form>
+
+            </div>
+
+            <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                <h2 style="font-size: 20px; font-weight: bold;">ความคิดเห็น</h2>
+                <div class="comment-box">
+                    <input type="text" name="inputcoment" id="comment" class="custom-input" style="outline: none;"
+                        placeholder="แสดงความคิดเห็น">
+                    <button type="submit">แสดงความคิดเห็น</button>
                 </div>
             </div>
 
-            <!-- ส่วนคำอธิบาย -->
-            <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-                <h2 class="text-2xl font-bold font-weight-500 mb-[20px]">นักพากย์ไทยและญี่ปุ่น</h2>
-                <ul
-                    class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                    <li class="me-2">
-                        <a href="#" aria-current="page"
-                            class="inline-block p-4 text-white bg-amber-400 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">นักพากย์ไทย</a>
-                    </li>
-                    <li class="me-2">
-                        <a href="#"
-                            class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">นักพากย์ญี่ปุ่น</a>
-                    </li>
-                </ul>
-
-                <p>No Data..</p>
-
-                <!-- <div class="dubvoice-row">
-                       <div class="dubitem">
-                            <div class="dubitem-left">
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
-                                </div>
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อนักพากย์</h2>
+            <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                <h2 style="font-size: 20px; font-weight: bold;">ความคิดเห็นทั้งหมด</h2>
+                <!-- <div class="comment-lists">
+                    <ul class="comment-list__wrap">
+                        <li class="comment-list__wrap__item">
+                            <div data-v-a42dab90 class="comment comment--root comment--pc">
+                                <div class="iconprofile-comment">
+                                    <a href="#">
+                                        <img src="/icons/bilibili-icon.png" alt="">
+                                    </a>
                                 </div>
                             </div>
-
-                            <div class="dubitem-right">
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อตัวละคร</h2>
-                                    <p>ตัลละครหลัก</p>
+                            <div class="comment__container">
+                                <div class="comment__user">
+                                    <a class="comment__name" href="#" target="_blank">
+                                        <h5>[BlackCoffee]</h5>
+                                    </a>
+                                    <span class="comment__time">03/08/2022</span>
                                 </div>
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
+                                <div class="comment__content">
+                                    <span class="comment-content__text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                                        elit. Dolore, atque?</span>
                                 </div>
-                            </div>
-                       </div>
-                       <div class="dubitem">
-                            <div class="dubitem-left">
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
-                                </div>
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อนักพากย์</h2>
-                                </div>
-                            </div>
-
-                            <div class="dubitem-right">
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อตัวละคร</h2>
-                                    <p>ตัลละครหลัก</p>
-                                </div>
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
+                                <div class="comment__operate">
+                                    <div class="comment__operate__item">
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                        <span class="text-1xl">0</span>
+                                    </div>
+                                    <div class="comment__operate__item report">
+                                        <i class="fa-regular fa-flag"></i>
+                                        <span data-v-a42dab90="">รายงาน</span>
+                                    </div>
                                 </div>
                             </div>
-                       </div>
-                       <div class="dubitem">
-                            <div class="dubitem-left">
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
-                                </div>
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อนักพากย์</h2>
-                                </div>
-                            </div>
-
-                            <div class="dubitem-right">
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อตัวละคร</h2>
-                                    <p>ตัลละครหลัก</p>
-                                </div>
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
+                        </li>
+                        <li class="comment-list__wrap__item">
+                            <div data-v-a42dab90 class="comment comment--root comment--pc">
+                                <div class="iconprofile-comment">
+                                    <a href="#">
+                                        <img src="/icons/bilibili-icon.png" alt="">
+                                    </a>
                                 </div>
                             </div>
-                       </div>
-                       <div class="dubitem">
-                            <div class="dubitem-left">
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
+                            <div class="comment__container">
+                                <div class="comment__user">
+                                    <a class="comment__name" href="#" target="_blank">
+                                        <h5>[BlackCoffee]</h5>
+                                    </a>
+                                    <span class="comment__time">03/08/2022</span>
                                 </div>
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อนักพากย์</h2>
+                                <div class="comment__content">
+                                    <span class="comment-content__text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                                        elit. Dolore, atque?</span>
+                                </div>
+                                <div class="comment__operate">
+                                    <div class="comment__operate__item">
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                        <span class="text-1xl">0</span>
+                                    </div>
+                                    <div class="comment__operate__item report">
+                                        <i class="fa-regular fa-flag"></i>
+                                        <span data-v-a42dab90="">รายงาน</span>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="dubitem-right">
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อตัวละคร</h2>
-                                    <p>ตัลละครหลัก</p>
-                                </div>
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
-                                </div>
-                            </div>
-                       </div>
-                    </div> -->
+                        </li>
+                    </ul>
+                </div> -->
             </div>
-        </div>
-        </div>
-
-        <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-            <h2 style="font-size: 20px; font-weight: bold;">ให้เรทคะแนนเรื่องนี้</h2>
-            <form action="/play/<%= video.videoid %>/rate" method="post" id="ratingForm">
-                <div class="rating-container">
-                    <div class="rating">
-                        <input type="radio" id="star5" name="rating" value="5">
-                        <label for="star5"></label>
-                        <input type="radio" id="star4" name="rating" value="4">
-                        <label for="star4"></label>
-                        <input type="radio" id="star3" name="rating" value="3">
-                        <label for="star3"></label>
-                        <input type="radio" id="star2" name="rating" value="2">
-                        <label for="star2"></label>
-                        <input type="radio" id="star1" name="rating" value="1">
-                        <label for="star1"></label>
-                    </div>
-                    <div class="rating-number">
-                        <%= video.ratings %> ดาว
-                    </div>
-                </div>
-                <button type="submit">บันทึกคะแนน</button>
-            </form>
-
-        </div>
-
-        <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-            <h2 style="font-size: 20px; font-weight: bold;">ความคิดเห็น</h2>
-            <div class="comment-box">
-                <input type="text" name="inputcoment" id="comment" class="custom-input" style="outline: none;"
-                    placeholder="แสดงความคิดเห็น">
-                <button type="submit">แสดงความคิดเห็น</button>
-            </div>
-        </div>
-
-        <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-            <h2 style="font-size: 20px; font-weight: bold;">ความคิดเห็นทั้งหมด</h2>
-            <!-- <div class="comment-lists">
-                <ul class="comment-list__wrap">
-                    <li class="comment-list__wrap__item">
-                        <div data-v-a42dab90 class="comment comment--root comment--pc">
-                            <div class="iconprofile-comment">
-                                <a href="#">
-                                    <img src="/icons/bilibili-icon.png" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="comment__container">
-                            <div class="comment__user">
-                                <a class="comment__name" href="#" target="_blank">
-                                    <h5>[BlackCoffee]</h5>
-                                </a>
-                                <span class="comment__time">03/08/2022</span>
-                            </div>
-                            <div class="comment__content">
-                                <span class="comment-content__text">Lorem ipsum dolor, sit amet consectetur adipisicing
-                                    elit. Dolore, atque?</span>
-                            </div>
-                            <div class="comment__operate">
-                                <div class="comment__operate__item">
-                                    <i class="fa-regular fa-thumbs-up"></i>
-                                    <span class="text-1xl">0</span>
-                                </div>
-                                <div class="comment__operate__item report">
-                                    <i class="fa-regular fa-flag"></i>
-                                    <span data-v-a42dab90="">รายงาน</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="comment-list__wrap__item">
-                        <div data-v-a42dab90 class="comment comment--root comment--pc">
-                            <div class="iconprofile-comment">
-                                <a href="#">
-                                    <img src="/icons/bilibili-icon.png" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="comment__container">
-                            <div class="comment__user">
-                                <a class="comment__name" href="#" target="_blank">
-                                    <h5>[BlackCoffee]</h5>
-                                </a>
-                                <span class="comment__time">03/08/2022</span>
-                            </div>
-                            <div class="comment__content">
-                                <span class="comment-content__text">Lorem ipsum dolor, sit amet consectetur adipisicing
-                                    elit. Dolore, atque?</span>
-                            </div>
-                            <div class="comment__operate">
-                                <div class="comment__operate__item">
-                                    <i class="fa-regular fa-thumbs-up"></i>
-                                    <span class="text-1xl">0</span>
-                                </div>
-                                <div class="comment__operate__item report">
-                                    <i class="fa-regular fa-flag"></i>
-                                    <span data-v-a42dab90="">รายงาน</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div> -->
         </div>
 
     </section>
-    <%- include('../footer') %>
+    <%- include('../navbarPlays/footerplay') %>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
         <script src="../js/video_player.js"></script>
         <script src="../js/play.js"></script>
         <!-- <script src="./js/pages/videoai.js"></script> -->
-        <script>
-            window.addEventListener('scroll', function () {
-                var navbar = document.getElementById('navbar');
-                if (window.scrollY > 50) {
-                    navbar.classList.add('navbar-white-bg');
-                } else {
-                    navbar.classList.remove('navbar-white-bg');
-                }
-            });
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var descriptionSpan = document.querySelector('.full-text');
-                var description = descriptionSpan.textContent.trim();
-
-                var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" style="color: blue;">$1</a>');
-                descriptionSpan.innerHTML = descriptionWithLinks;
-            });
-        </script>
         <% if (typeof rating !=='undefined' && rating ) { %>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
@@ -456,101 +509,6 @@
             </script>
             <% } %>
 
-
-                <!-- <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                console.log("DOM Content Loaded");
-
-                var player = document.getElementById("video");
-                console.log("Video.js player initialized");
-
-                var vastTagPreroll = "https://pubads.g.doubleclick.net/gampad/live/ads?sz=88x31|1x1|400x300&iu=/22745653040/AniNightads&ciu_szs=120x20&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]";
-                var vastTagMidroll = "https://pubads.g.doubleclick.net/gampad/live/ads?sz=88x31|1x1|400x300&iu=/22745653040/AniNightads&ciu_szs=120x20&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]";
-                var vastTagPostroll = "https://pubads.g.doubleclick.net/gampad/preview_cookie?gct=BEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&op=set&redirect=https://ani-night.online/play/40312?google_preview%3DBEdGq-9lI5kY3ZPqrwYw3a-ftwaIAYCAgOCd3unEVg&redirect_hash=AJlzBa3gUzNSOuVFiD8WjsRZwdQGX1BUow&lineItemId=6645025135&creativeId=138468573645";
-                var prerollTriggered = false;
-                var postrollTriggered = false;
-                var midrollRequested = false;
-                var midrollInterval = 5 * 60; // 5 minutes
-                var lastMidrollTime = 0; // The time when the last mid-roll ad was played
-
-                if (!prerollTriggered) {
-                    player.ima({
-                        adTagUrl: vastTagPreroll,
-                        showControlsForAds: true,
-                        debug: false,
-                    });
-                } else {
-                    player.ima({
-                        adTagUrl: '',
-                        showControlsForAds: true,
-                        debug: false,
-                    });
-                }
-                console.log("IMA settings configured");
-
-                player.ima.initializeAdDisplayContainer();
-                console.log("IMA ad display container initialized");
-
-                function requestMidrollAd() {
-                    midrollRequested = true;
-                    player.ima.changeAdTag(vastTagMidroll);
-                    player.ima.requestAds();
-                }
-
-                player.on("timeupdate", function () {
-                    var currentTime = player.currentTime();
-                    console.log("Current time:", currentTime);
-                    var timeSinceLastMidroll = currentTime - lastMidrollTime;
-
-                    if (timeSinceLastMidroll >= midrollInterval && !midrollRequested) {
-                        lastMidrollTime = currentTime; // Update the last mid-roll ad time
-                        console.log("Midroll triggered");
-                        requestMidrollAd();
-                    }
-                });
-
-                player.on("ended", function () {
-                    console.log("Video ended");
-                    if (!postrollTriggered) {
-                        postrollTriggered = true;
-                        console.log("Postroll triggered");
-
-                        player.ima.requestAds({
-                            adTagUrl: vastTagPostroll,
-                        });
-
-                        console.log("Postroll ads requested");
-                    }
-                });
-
-                player.on("adsready", function () {
-                    if (midrollRequested) {
-                        console.log("Ads ready - midroll");
-                    } else {
-                        console.log("Ads ready - preroll");
-                        player.src(
-                            "path/to/your/video.mp4"
-                        );
-                    }
-                });
-
-                player.on("aderror", function () {
-                    console.log("Ads aderror");
-                    player.play();
-                });
-
-                player.on("adend", function () {
-                    if (lastMidrollTime > 0) {
-                        console.log("A midroll ad has finished playing.");
-                        midrollRequested = false;
-                    } else {
-                        console.log("The preroll ad has finished playing.");
-                        prerollTriggered = true;
-                    }
-                    player.play();
-                });
-            });
-        </script> -->
 </body>
 
 </html>

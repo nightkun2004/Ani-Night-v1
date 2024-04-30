@@ -1,24 +1,63 @@
-const short_text = document.querySelector('.short-text');
-const full_Text = document.querySelector('.full-text');
+const short_text = document.querySelectorAll('.short-text');
+const full_Text = document.querySelectorAll('.full-text');
 
 // ปุ่มเพิ่มคำอธิบาย 
-const more_Btn = document.querySelector('.more-btn');
-const less_Btn = document.querySelector('.less-btn');
+const more_Btn = document.querySelectorAll('.more-btn');
+const less_Btn = document.querySelectorAll('.less-btn');
 
-more_Btn.addEventListener('click', () => {
-    full_Text.style.display = 'block';
-    short_text.style.display = 'none';
-    more_Btn.style.display = 'none';
-    less_Btn.style.display = 'block';
+// Loop ทุก more_Btn และ less_Btn และใส่ Event Listener เข้าไป
+more_Btn.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const parent = btn.parentElement;
+        const fullText = parent.querySelector('.full-text');
+        const shortText = parent.querySelector('.short-text');
+        const lessBtn = parent.querySelector('.less-btn');
+        
+        fullText.style.display = 'block';
+        shortText.style.display = 'none';
+        btn.style.display = 'none';
+        lessBtn.style.display = 'block';
+    });
 });
 
-less_Btn.addEventListener('click', () => {
-    full_Text.style.display = 'none';
-    short_text.style.display = 'block';
-    more_Btn.style.display = 'block';
-    less_Btn.style.display = 'none';
-}); 
+less_Btn.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const parent = btn.parentElement;
+        const fullText = parent.querySelector('.full-text');
+        const shortText = parent.querySelector('.short-text');
+        const moreBtn = parent.querySelector('.more-btn');
 
+        fullText.style.display = 'none';
+        shortText.style.display = 'block';
+        moreBtn.style.display = 'block';
+        btn.style.display = 'none';
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var descriptionSpans = document.querySelectorAll('.full-text');
+    
+    descriptionSpans.forEach(function(descriptionSpan) {
+        var description = descriptionSpan.textContent.trim();
+        var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" style="color: blue;">$1</a>');
+        descriptionSpan.innerHTML = descriptionWithLinks;
+    });
+});
+
+// Open Menus Play
+const sidebarOpen = document.getElementById("sidebarOpen");
+const menus_play = document.getElementById("menus_play");
+let Openmasspopup = false;
+
+sidebarOpen.addEventListener('click', ()=>{
+    if (!Openmasspopup) {
+        menus_play.style.display = 'block';
+        Openmasspopup = true;
+    } else {
+        menus_play.style.display = 'none';
+        Openmasspopup = false;
+    }
+})
 
 // ========================================================================================= //
 const ratingInputs = document.querySelectorAll('.rating input');

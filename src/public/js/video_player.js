@@ -199,7 +199,7 @@ video_players.forEach(video_player => {
     }
 
     const audio = audios.querySelectorAll("ul li");
-    
+
 
     // Play video function
     function playVideo() {
@@ -219,7 +219,20 @@ video_players.forEach(video_player => {
         mainVideo.pause();
     }
 
-    icon_Close.addEventListener('click', ()=> {
+    document.addEventListener("keydown", function(event) {
+        if (event.key === " ") {
+            event.preventDefault(); 
+            if (mainVideo.paused) {
+                playVideo();
+            } else { 
+                pauseVideo();
+            }
+        }
+    });
+    
+    
+
+    icon_Close.addEventListener('click', () => {
         ads_container.style.display = 'none'
     })
 
@@ -421,87 +434,107 @@ video_players.forEach(video_player => {
     progressArea.addEventListener("mousemove", (e) => {
         let progressWidthval = progressArea.clientWidth + 2;
         let x = e.offsetX;
-        let videoDuration = mainVideo.duration;
-        let progressTime = Math.floor((x / progressWidthval) * videoDuration);
+        let progressTime = Math.floor((x / progressWidthval) * mainVideo.duration);
         let currentMin = Math.floor(progressTime / 60);
         let currentSec = Math.floor(progressTime % 60);
         progressAreaTime.style.setProperty("--x", `${x}px`);
         progressAreaTime.style.display = "block";
+        if (x >= progressWidthval - 80) {
+            x = progressWidthval - 80;
+        } else if (x <= 75) {
+            x = 75;
+        } else {
+            x = e.offsetX;
+        }
+        thumbnail.style.setProperty("--x", `${x}px`);
+        thumbnail.style.display = "block";
+        let currentThumbnail;
+    
+        // mainVideo.addEventListener("timeupdate", () => {
+        //     if (currentThumbnail) {
+        //         thumbnail.style.backgroundImage = `url(${currentThumbnail.data})`;
+        //     }
+        // });
+        
+        mainVideo.addEventListener('seeked', function () {
+            generateThumbnail();
+        }, { once: true });
 
-
+        thumbnail.style.left = `${x}px`;
         currentSec < 10 ? (currentSec = "0" + currentSec) : currentSec;
         progressAreaTime.innerHTML = `${currentMin} : ${currentSec}`;
     });
+    
+    progressArea.addEventListener("mouseleave", () => {
+        thumbnail.style.display = "none";
+    });
+    
+    progressArea.addEventListener("mouseenter", () => {
+        thumbnail.style.display = "block";
+    });
 
-    thunnaillBar.addEventListener("mousemove", (e) => {
-        // Calculate video progress based on mouse position
-        let x = e.offsetX;
-        let progressWidthval = thunnaillBar.clientWidth + 2;
-        let videoDuration = mainVideo.duration;
-        let progressTime = (x / progressWidthval) * videoDuration;
-      
-        // Update thumbnail visuals (ensure video is paused)
-        if (mainVideo.paused) {
-            updateThumbnail(progressTime);
-        }
-      
-        // Update thumbnail position
-        thumbnail.style.left = `${x}px`;
-    });
     
-    thunnaillBar.addEventListener("mouseout", () => {
-        thumbnail.style.display = 'none'; // ซ่อน thumbnail เมื่อนำเมาส์ออกจาก thunnaillBar
-    });
-    
+
+    // thunnaillBar.addEventListener("mousemove", (e) => {
+    //     // Calculate video progress based on mouse position
+    //     let x = e.offsetX;
+    //     let progressWidthval = thunnaillBar.clientWidth + 2;
+    //     let videoDuration = mainVideo.duration;
+    //     let progressTime = (x / progressWidthval) * videoDuration;
+
+    //     // Update thumbnail visuals (ensure video is paused)
+    //     if (mainVideo.paused) {
+    //         updateThumbnail(progressTime);
+    //     }
+
+    //     // Update thumbnail position
+    //     thumbnail.style.left = `${x}px`;
+    // });
+
+    // thunnaillBar.addEventListener("mouseout", () => {
+    //     thumbnail.style.display = 'none'; // ซ่อน thumbnail เมื่อนำเมาส์ออกจาก thunnaillBar
+    // });
+
     progressArea.addEventListener("mouseleave", () => {
         progressAreaTime.style.display = "none";
         thumbnail.style.display = "none";
     });
-    
-    function updateThumbnail(progressTime) {
-        // Loop through thumbnails (consider efficiency improvements if needed)
-        for (var item of thumbnails) {
-            var data = item.sec.find(xl => xl.index === Math.floor(progressTime));
-            if (data && data.item != undefined) {
-                thumbnail.style.backgroundImage = `url(${item.data})`;
-                thumbnail.style.backgroundPositionX = `${data.backgroundPositionX}px`;
-                thumbnail.style.backgroundPositionY = `${data.backgroundPositionY}px`;
-                thumbnail.style.display = 'block';
-                return; // Exit loop after finding matching thumbnail data
-            }
-        }
-      
-        // Generate thumbnail if no match is found
-        generateThumbnail(progressTime);
-    }
-    
-    function generateThumbnail(time) {
-        // ตรวจสอบว่าวิดีโอถูกเลือกไว้หรือไม่
-        if (!mainVideo.paused) {
-            return;
-        }
-    
+
+    // function updateThumbnail(progressTime) {
+    //     // Loop through thumbnails (consider efficiency improvements if needed)
+    //     for (var item of thumbnails) {
+    //         var data = item.sec.find(xl => xl.index === Math.floor(progressTime));
+    //         if (data && data.item != undefined) {
+    //             thumbnail.style.backgroundImage = `url(${item.data})`;
+    //             thumbnail.style.backgroundPositionX = `${data.backgroundPositionX}px`;
+    //             thumbnail.style.backgroundPositionY = `${data.backgroundPositionY}px`;
+    //             thumbnail.style.display = 'block';
+    //             return; // Exit loop after finding matching thumbnail data
+    //         }
+    //     }
+
+    //     // Generate thumbnail if no match is found
+    //     generateThumbnail(progressTime);
+    // }
+
+    function generateThumbnail() {
         let canvas = document.createElement('canvas');
         let context = canvas.getContext('2d');
         let thumbnailWidth = 165;
         let thumbnailHeight = 90;
         canvas.width = thumbnailWidth;
         canvas.height = thumbnailHeight;
-    
-        mainVideo.currentTime = time;
-    
+
         mainVideo.addEventListener('seeked', function () {
             context.drawImage(mainVideo, 0, 0, thumbnailWidth, thumbnailHeight);
             let thumbnailURL = canvas.toDataURL('image/jpeg');
             displayThumbnail(thumbnailURL);
         }, { once: true });
     }
-    
+
     function displayThumbnail(url) {
         thumbnail.style.backgroundImage = `url(${url})`;
-        thumbnail.style.display = 'block';
     }
-
     // Auto play
     //   auto_play.addEventListener("click", () => {
     //     auto_play.classList.toggle("active");
@@ -540,6 +573,21 @@ video_players.forEach(video_player => {
             document.exitFullscreen();
         }
     });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "f") {
+            if (!video_player.classList.contains("openFullScreen")) {
+                video_player.classList.add("openFullScreen");
+                fullscreen.innerHTML = "fullscreen_exit";
+                video_player.requestFullscreen();
+            } else {
+                video_player.classList.remove("openFullScreen");
+                fullscreen.innerHTML = "fullscreen";
+                document.exitFullscreen();
+            }
+        }
+    });
+    
 
     // Open settings
     settingsBtn.addEventListener("click", () => {

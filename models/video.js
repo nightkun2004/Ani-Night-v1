@@ -57,8 +57,7 @@ const videoSchema = new mongoose.Schema({
         default: false,
     },
     coverImage: {
-        type: String,
-        default: "image_not_available.png" 
+        type: String
     },
     username: String,
     profile: {
@@ -96,7 +95,40 @@ const videoSchema = new mongoose.Schema({
     ],
     subthai: {
         type: String,
-    }
+    },
+    web: {
+        type: String
+    },
+    bilibili: {
+        type: String
+    },
+    Iqiyi: {
+        type:String
+    },
+    youtube: {
+        type:String
+    },
+    netflix: {
+        type:String
+    },
+    replies:
+    [
+
+        {
+            username: {
+                id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "User"
+                },
+                username: String,
+                profile: {
+                    type: String
+                },
+            },
+            content: String,
+            createdAt: { type: Date, default: Date.now }
+        }
+    ]
 });
 
 const Video = mongoose.model('Video', videoSchema);
