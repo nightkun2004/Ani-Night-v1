@@ -25,6 +25,9 @@ const animeMaySchema = new mongoose.Schema({
     web: {
         type: String
     },
+    bilibili: {
+        type: String
+    },
     netflix: {
         type: String
     },
