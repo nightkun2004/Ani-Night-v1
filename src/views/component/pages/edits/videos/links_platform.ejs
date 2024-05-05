@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แก้ไขรายละเอียนวีดีโอ</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/acticle.css">
+    <title>เพิ่มลิ้งแพลตฟอร์ม</title>
     <link rel="stylesheet" href="../css/pages/editVideo.css">
     <link rel="stylesheet" href="../css/pages/home_Section.css">
     <link rel="stylesheet" href="../css/font/font1.css">
@@ -15,16 +12,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
-
-
 <body>
-    <%- include('../../../navnar_Header') %>
-    <%- include('../../../sidebar_Section') %>
+    <%- include('../../../../navnar_Header') %>
+    <%- include('../../../../sidebar_Section') %>
     <section class="content">
         <div class="container_EditVideo mx-auto px-4 xl:max-w-7xl pt-[110px">
             <div class="sidebar_left">
                 <ul>
-                    <li class="border-b-4  border-blue-300">
+                    <li>
                         <form action="/edit_video" method="post">
                             <input type="hidden" name="edit_id" value="<%= video._id %>">
                             <button type="submit">แก้ไขวีดีโอพื้นฐาน</button>
@@ -36,7 +31,7 @@
                             <button type="submit">เพิ่มซับไทย</button>
                         </form>
                     </li>
-                    <li>
+                    <li class="border-b-4  border-blue-300">
                         <form action="/add_ottplatforms" method="post">
                             <input type="hidden" name="edit_id" value="<%= video._id %>">
                             <button type="submit">เพิ่มลิ้งแพลตฟอร์ม</button>
@@ -57,41 +52,40 @@
             </div>
 
             <div class="content_edit">
-                <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขวีดีโอพื้นฐาน</h2>
+                <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">เพิ่มแพลตฟอร์มต่างๆ</h2>
                 <div class="con_form">
-                    <form action="/edit/video/user" method="post">
-                        <input type="hidden" name="update_id" value="<%= video._id %>">
+                    <form action="/save_ott" method="POST">
+                        <input type="text" name="ott_id" value="<%= video._id %>" readonly>
+                       
                         <div class="mb-5">
-                            <label for="name-video">ชื่อวีดีโอ</label>
-                            <input style="outline: none;" type="text" name="namevideo" id="" value="<%= video.name %>"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-500 dark:shadow-sm-light">
+                            <label for="link">Web OF</label>
+                            <input type="text" name="web" class="w-full">
                         </div>
-
                         <div class="mb-5">
-                            <label for="name_act"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แก้ไขคำอธิบายวีดีโอ</label>
-                            <textarea style="outline: none;" placeholder="แก้ไขคำอธิบายวีดีโอ" name="dec_video"
-                                id="dec_video" cols="30" rows="10"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                                <%= video.description %></textarea>
+                            <label for="link">แพลตฟอร์ม Bilibili</label>
+                            <input type="text" name="bilibili" class="w-full">
                         </div>
-
                         <div class="mb-5">
-                            <label for="tag">แก้ไขแท็ก</label>
-                            <input style="outline: none;" type="text" name="categories" value="<%= video.categories %>"
-                                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light">
+                            <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
+                        <input type="text" name="Iqiyi" class="w-full">
+                        </div>
+                        <div class="mb-5">
+                            <label for="youtube">แพลตฟอร์ม netflix</label>
+                        <input type="text" name="netflix" class="w-full">
+                        </div>
+                        <div class="mb-5">
+                            <label for="youtube">แพลตฟอร์ม YouTube</label>
+                        <input type="text" name="youtube" class="w-full">
                         </div>
 
                         <button type="submit"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            แก้ไขวีดีโอ</button>
+                            แก้ไขลิ้ง</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-    
     <script src="/js/pages/script_Section.js"></script>
 </body>
-
 </html>

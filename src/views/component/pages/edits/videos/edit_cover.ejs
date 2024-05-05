@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขภาพปก</title>
+    <link rel="stylesheet" href="../css/pages/editVideo.css">
+    <link rel="stylesheet" href="../css/pages/home_Section.css">
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+<body>
+    <%- include('../../../../navnar_Header') %>
+    <%- include('../../../../sidebar_Section') %>
+    <section class="content">
+        <div class="container_EditVideo mx-auto px-4 xl:max-w-7xl pt-[110px">
+            <div class="sidebar_left">
+                <ul>
+                    <li>
+                        <form action="/edit_video" method="post">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">แก้ไขวีดีโอพื้นฐาน</button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="/add_subthai" method="POST">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">เพิ่มซับไทย</button>
+                        </form>
+                    </li>
+                    <li >
+                        <form action="/add_ottplatforms" method="post">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">เพิ่มลิ้งแพลตฟอร์ม</button>
+                        </form>
+                    </li>
+                    <li class="border-b-4  border-blue-300">
+                        <form action="/edit_video/cover" method="post">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">แก้ไขภาพปก</button>
+                        </form>
+                    </li>
+                    <li>
+                        <a href="#">
+                            เพิ่มลิ้งนักพากย์
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content_edit">
+                <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">เพิ่มแพลตฟอร์มต่างๆ</h2>
+                <div class="con_form">
+                    <form action="/cover/videothum" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="coverthum_id" value="<%= video._id %>" readonly>
+
+                        <div class="mb-2 mt-2 blob flex flex-col">
+                            <label for="file_pic">เลือกไฟล์ปก</label>
+                            <input type="file" name="firecovervideo" multiple accept=".jpg, .webp, .JPG" onchange="previewImage(this)">
+                        </div>
+
+                        <div class="w-full bg-gray-50 rounded border-2 h-[200px] flex justify-center items-center">
+                            <img src="" alt="demo file_pic" id="preview" class="object-cover h-[200px] flex justify-center items-center">
+                        </div>
+
+                        <button type="submit"
+                            class="text-white mt-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            บันทึงภาพ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/js/pages/script_Section.js"></script>
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('preview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+                preview.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

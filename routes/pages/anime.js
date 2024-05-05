@@ -32,6 +32,11 @@ router.get('/animeboard', loadAnimeData, async (req, res) => {
     res.render(template, { active: 'anime', usersesstion, AnimeBordData, seq: { query: query }});
 })
 
+// router.get('/animeboard:april', async (req,res)=>{
+//     const query_april = req.query.april; 
+//     const usersesstion = req.session.userlogin;
+// })
+
 router.get('/animeboard/search', async (req, res) => {
     const query = req.query.search; 
     try {

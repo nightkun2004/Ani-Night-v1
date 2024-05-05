@@ -248,7 +248,13 @@ button {
         font-size: 17px;
         font-weight: bold;
     }
-    .anime_list .anime_info_text .btn_info,
+    .anime_list {
+        width: 100%;
+        padding: 0;
+        flex-direction: column;
+        justify-content: center;
+    }
+    /* .anime_list .anime_info_text .btn_info,
     .anime_list .anime_info_text .btn_web {
         font-size: 10px;
         width: 50%;
@@ -264,7 +270,7 @@ button {
             height: 20px;
             border-radius: 50px;
         }
-    }
+    } */
 }
 
 @media screen and (max-width:533px) {

@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post('/add_subthai', Add.Addsubthai)
+router.post('/add_ottplatforms', Add.AddOTT)
+router.post('/save_ott', Add.addLinkPathform)
 router.post('/add/subthai',  upload.single('file_sub'), async (req,res) => {
     const sub_id = req.body.sub_id;
     try {
@@ -31,5 +33,6 @@ router.post('/add/subthai',  upload.single('file_sub'), async (req,res) => {
         res.status(500).send('Internal Server Error');
     }
 })
+
 
 module.exports = router

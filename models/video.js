@@ -126,6 +126,11 @@ const videoSchema = new mongoose.Schema({
                 },
             },
             content: String,
+            likes: {
+                type: Number,
+                default: 0 
+            },
+            report: String,
             createdAt: { type: Date, default: Date.now }
         }
     ]

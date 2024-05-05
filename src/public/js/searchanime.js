@@ -171,3 +171,22 @@ function createAnimeItem(anime) {
 
     return animeItem;
 }
+
+const Btn_april = document.getElementById("april_btn");
+const Section_april = document.getElementById("april_Section");
+
+let Openanime = true;
+
+Btn_april.addEventListener('click', (e) => {
+    e.preventDefault();
+    const queryParam = 'april_Section=id1';
+    const url = '/animeboard?' + queryParam;
+    window.history.pushState({}, '', url);
+    if (Openanime) {
+        Section_april.style.display = 'block';
+        Openanime = false;
+    } else {
+        Section_april.style.display = 'none';
+        Openanime = true;
+    }
+});

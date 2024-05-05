@@ -7,6 +7,7 @@
     <title>เนื้อหาวีดีโอ</title>
     <meta name="keyword" content="วีดีโอข่าวอนิเมะ และตัวอย่าง PV เกี่ยวกับอนิเมะ">
     <meta name="keyword" content="แพลตฟอร์มรวบรวมข่าวและอนิเมะในวงการ และรับค่าตอบแทนจากเนื้อหาของคุณ">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,6 +37,10 @@
         font-weight: 400;
         font-style: normal;
     }
+    .active {
+    background-color: #0066ff; 
+}
+
 </style>
 
 <body>
@@ -44,50 +49,80 @@
 
             <section class="content">
                 <div class="loading_container">
-            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                <div class="spinner"></div>
-            </div>
-            <p>กำลังประมวณผลข้อมูล</p>
-            <p>ยังไม่พร้อมให้บริการหน้านี้</p>
-        </div>
-                <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative" style="display: none;">
-                    <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">วีดีโอเนื้อหา</h2>
-                    <div class="videos">
-                        <div class="video">
-                            <a href="#">
-                                <div class="pic_photo">
-                                    <img src="/images/demo.jpg" alt="">
-                                    <video class="video" src="/videos/13024.mp4" style="display: none;"></video>
-                                    <span class="time duration">9:00</span>
-                                </div>
-                                <div class="text_video">
-                                    <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, impedit.
-                                    </h2>
-                                    <p class="views">0 วิว</p>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="video">
-                            <a href="#">
-                                <div class="pic_photo">
-                                    <img src="/images/demo.jpg" alt="">
-                                    <video class="video" src="/videos/13024.mp4" style="display: none;"></video>
-                                    <span class="time duration">9:00</span>
-                                </div>
-                                <div class="text_video">
-                                    <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, impedit.
-                                    </h2>
-                                    <p class="views">0 วิว</p>
-                                </div>
-                            </a>
-                        </div>
-
+                    <div class="flex flex-col items-center loading_container loading-indicator loadingIndicator" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p>กำลังประมวณผลข้อมูล</p>
                     </div>
+                </div>
+
+                <div class="mt-8 bg-gray-100 px-6 md:px-12 py-4 shadow-md relative">
+                    <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">ข่าวอนิเมะปี 2024</h2>
+                    <div class="loading" style="display: none;">
+                        <div class="videos">
+                            <% if (paginatedVideos.length > 0) { %>
+                                <% paginatedVideos.forEach(video=> { %>
+                                <div class="video">
+                                    <a href="/play/<%= video.videoid %>" target="_blank">
+                                        <div class="pic_photo">
+                                            <img src="/cover_videos/<%= video.coverImage %>"
+                                                alt="<%= video.coverImage %>">
+                                            <video class="video" src="/videos/<%= video.filePath %>.mp4"
+                                                style="display: none;"></video>
+                                            <span class="time duration">9:00</span>
+                                        </div>
+                                        <div class="text_video">
+                                            <% if (video && video.description) { %>
+                                                <h2><%- video.name.substring(0, 20) + '  ....' %></h2>
+                                            <% } %>                                            
+                                            <p class="views"> <%- video.views %> วิว</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <% }) %>
+                                <% } else { %>
+                                    <p>ไม่พบข่าวอนิเมะ</p>
+                                <% } %>
+
+
+                                    <!-- <div class="video">
+                            <a href="#">
+                                <div class="pic_photo">
+                                    <img src="/images/demo.jpg" alt="">
+                                    <video class="video" src="/videos/40321.mp4" style="display: none;"></video>
+                                    <span class="time duration">9:00</span>
+                                </div>
+                                <div class="text_video">
+                                    <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, impedit.
+                                    </h2>
+                                    <p class="views">0 วิว</p>
+                                </div>
+                            </a>
+                        </div> -->
+
+                        </div>
+                    </div>
+
+                    <nav class="menus-pages flex justify-center">
+                        <% if (currentPage > 1) { %>
+                            <a href="/foryou?page=<%= currentPage - 1 %>" class="m-2 bg-blue-600 p-2 text-white rounded-lg">
+                                << ย้อนกลับ
+                            </a>
+                        <% } %>                        
+                        <% for (let i = 1; i <= totalPages; i++) { %>
+                            <a href="/foryou?page=<%= i %>" class="m-2 bg-blue-600 p-2 text-white rounded-lg w-10 h-10 flex items-center justify-center <%= i === currentPage ? 'activemenu' : '' %>">
+                                <%= i %>
+                            </a>
+                        <% } %>
+                        
+                        <a href="/foryou?page=<%= currentPage + 1 %>" class="m-2 bg-blue-600 p-2 text-white rounded-lg <%= currentPage === totalPages ? 'disabled' : '' %>">
+                            หน้าถัดไป >>
+                        </a>
+                    </nav>
                 </div>
             </section>
 
             <script src="./js/pages/script_Section.js"></script>
+            <script src="/js/pages/loading_datas.js"></script>
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     const videos = document.querySelectorAll('.video video');

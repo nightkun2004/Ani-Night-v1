@@ -18,7 +18,7 @@ exports.editActicle = async (req, res) => {
     }
 }
 
-exports.editVideo = async (req, res) => { 
+exports.editVideo = async (req, res) => {
     const usersesstion = req.session.userlogin
     const edit_id = req.body.edit_id
     try {
@@ -34,8 +34,50 @@ exports.editVideo = async (req, res) => {
     }
 }
 
+exports.editVideo_cover = async (req, res) => {
+    const usersesstion = req.session.userlogin
+    const edit_id = req.body.edit_id
+    try {
+        const video = await Video.findOne({ _id: edit_id }).exec();
+        if (!video) {
+            return res.status(404).json({ error: "Vidoe not found" });
+        }
+
+        res.render('./component/pages/edits/videos/edit_cover', { active: 'dashboard', video, usersesstion })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+exports.video_saveCover = async (req, res) => {
+    const coverthum_id = req.body.coverthum_id;
+  
+    try {
+        const video = await Video.findOne({ _id: coverthum_id });
+        if (!video) {
+            return res.status(404).json({ error: "Video not found" });
+        }
+        
+        // ตรวจสอบว่ามีไฟล์อัพโหลดหรือไม่
+        if (!req.file) {
+            return res.status(400).json({ error: "No file uploaded" });
+        }
+
+        // อัปเดตข้อมูลในฐานข้อมูล
+        video.coverImage = req.file.filename;
+        await video.save();
+        
+        res.redirect('/?alertMessageVideo=เพิ่มซับไทยแล้ว');
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+
 exports.editActicleuser = async (req, res) => {
-    const update_id = req.body.update_id; 
+    const update_id = req.body.update_id;
     try {
         await Acticle.findOneAndUpdate(
             { _id: update_id },
@@ -45,7 +87,7 @@ exports.editActicleuser = async (req, res) => {
                 content: req.body.content,
                 link_info: req.body.link_info,
                 categories: req.body.categories,
-                url: req.body.url 
+                url: req.body.url
             }
         );
 

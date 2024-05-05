@@ -31,6 +31,7 @@
     height: 100%;
 }
 
+
 @media screen and (max-width: 480px) {
     .container_EditVideo {
         flex-direction: column;

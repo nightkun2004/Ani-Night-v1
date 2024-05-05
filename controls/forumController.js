@@ -113,7 +113,7 @@ exports.getForumreply = async (req,res) => {
         }
         // Add the reply to the forum's replies array
         forum.replies.push({
-            username: {
+            replies: {
                 id: usersesstion._id,
                 username: usersesstion.username,
                 profile: usersesstion.profile

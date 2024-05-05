@@ -125,6 +125,18 @@ video::cue {
     display: none;
 }
 
+.container .video_player .thumbnail::after {
+    content: '';
+    position: absolute;
+    top: calc(100%);
+    left: 60%; 
+    transform: translateX(-50%);
+    border-width: 7px; 
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+}
+
+
 .container .video_player .main-video {
     position: relative;
     width: 100%;

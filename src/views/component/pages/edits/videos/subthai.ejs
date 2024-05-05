@@ -8,32 +8,44 @@
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/acticle.css">
     <link rel="stylesheet" href="../css/pages/editVideo.css">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/pages/home_Section.css">
     <link rel="stylesheet" href="../css/font/font1.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <%- include('../../../../navbar') %>
-
+    <%- include('../../../../navnar_Header') %>
+    <%- include('../../../../sidebar_Section') %>
+    <section class="content">
         <div class="container_EditVideo mx-auto px-4 xl:max-w-7xl pt-[110px">
             <div class="sidebar_left">
                 <ul>
                     <li>
-                        <a href="#">
-                            แก้ไขวีดีโอพื้นฐาน
-                        </a>
+                        <form action="/edit_video" method="post">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">แก้ไขวีดีโอพื้นฐาน</button>
+                        </form>
                     </li>
-                    <li class="border-l-4 border-sky-600 border-right">
-                        <a href="#">
-                            เพิ่มซับไทย
-                        </a>
+                    <li class="border-b-4  border-blue-300">
+                        <form action="/add_subthai" method="POST">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">เพิ่มซับไทย</button>
+                        </form>
                     </li>
                     <li>
-                        <a href="#">
-                            เพิ่มลิ้งแพลตฟอร์ม
-                        </a>
+                        <form action="/add_ottplatforms" method="post">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">เพิ่มลิ้งแพลตฟอร์ม</button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="/edit_video/cover" method="post">
+                            <input type="hidden" name="edit_id" value="<%= video._id %>">
+                            <button type="submit">แก้ไขภาพปก</button>
+                        </form>
                     </li>
                     <li>
                         <a href="#">
@@ -72,8 +84,10 @@
                 </div>
             </div>
         </div>
+    </section>
 
-        <%- include('../../../../footer') %>
+
+    <script src="/js/pages/script_Section.js"></script>
 </body>
 
 </html>

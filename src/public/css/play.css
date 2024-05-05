@@ -37,6 +37,12 @@
     width: 50%;
 }
 
+#ad-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
 
 .more-btn,
 .less-btn {
@@ -116,8 +122,8 @@
     background-color: #eee;
     padding: 12px;
     border-radius: 8px;
-    width: 100%;
     outline: none;
+    width: 90%;
 }
 
 .custom-input:focus {
@@ -199,7 +205,7 @@
 }
 
 .links-pathfrom .item .yt {
-    background-color: #ff5a54;
+    background-color: #da0700;
     padding: 10px;
     border-radius: 10px;
     display: grid;
@@ -248,40 +254,66 @@
     font-size: 1rem;
     opacity: .7;
 }
+
 .rating-container {
     display: flex;
     align-items: center;
-  }
-  
+}
+
 
 .rating {
     display: inline-block;
-  }
-  
-  .rating input {
+}
+
+.rating input {
     display: none;
-  }
-  
-  .rating label {
+}
+
+.rating label {
     cursor: pointer;
     width: 30px;
     height: 30px;
     float: right;
-  }
-  
-  .rating label:before {
+}
+
+.rating label:before {
     content: '\2605';
     font-size: 24px;
     display: block;
     margin: 0 auto;
-  }
-  
-  .rating input:checked ~ label:before {
-    color: rgb(0, 139, 253);
-  }
+}
 
-  .rating-number {
+.rating input:checked~label:before {
+    color: rgb(0, 139, 253);
+}
+
+.rating-number {
     margin-left: 10px;
+}
+
+/* Loding comments */
+.loading_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 60px;
+    aspect-ratio: 2;
+    --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
+    background: 
+      var(--_g) 0%   50%,
+      var(--_g) 50%  50%,
+      var(--_g) 100% 50%;
+    background-size: calc(100%/3) 50%;
+    animation: l3 1s infinite linear;
+  }
+  @keyframes l3 {
+      20%{background-position:0%   0%, 50%  50%,100%  50%}
+      40%{background-position:0% 100%, 50%   0%,100%  50%}
+      60%{background-position:0%  50%, 50% 100%,100%   0%}
+      80%{background-position:0%  50%, 50%  50%,100% 100%}
   }
 
 .comment-lists {
@@ -317,12 +349,12 @@
 }
 
 .iconprofile-comment a img {
-    width: 50px; 
+    width: 50px;
     height: 50px;
     border-radius: 50px;
 }
 
-.comment__container{
+.comment__container {
     flex: 1;
     padding-left: 20px;
     overflow: hidden;
@@ -336,7 +368,7 @@
 .comment__user .comment__time {
     margin-left: 8px;
     font-size: 12px;
-    color: #eaeaea;
+    color: #b1abab;
     display: inline-block;
 }
 
@@ -364,7 +396,27 @@
     cursor: pointer;
 }
 
-.fa-thumbs-up , .fa-flag{
+.alert_container {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.415);
+    color: #fff;
+    padding: 10px;
+    transition: .4s;
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+}
+
+.alert_text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.fa-thumbs-up,
+.fa-flag {
     display: inline-block;
     margin-right: 8px;
     width: 18px;
@@ -381,13 +433,16 @@
     .player_anime-container {
         flex-direction: column;
     }
+
     .Mobile {
         display: block;
     }
+
     .pc {
         display: none;
     }
 }
+
 @media screen and (max-width: 280px) {
     .dubitem {
         flex-direction: column;
