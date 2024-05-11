@@ -38,7 +38,7 @@ router.get('/read/:url', async (req, res) => {
             console.log('Article or Article user is undefined');
         }
 
-        const template = req.language === 'th' ? './component/read' : 'en/read';
+        const template = req.language === 'th' ? './component/read' : './component/read';
 
         res.render(template, { 
             active: 'actcile',              

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>อนิเมะ 2024</title>
+    <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
     <meta name="description" content="รายการอนิเมะ 2024 อนิเมะ 2024 รวมมาไว้ที่นี่แล้ว ตรวจสอบอนิเมะที่คุณชอบ">
     <meta name="keywords" content="Anime2024, Anime, 2024, อนิเมะ, มีนาคม, เมษายน,">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -13,7 +14,6 @@
     <meta name="theme-color" content="#00bbff">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./css/pages/anime.css">
-    <link rel="stylesheet" href="/css/pages/home_Section.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <meta name="google-site-verification" content="eyTwMkNmyYZFyV7ag9MuAEh5uOPdc4uZ6ONSM3w5HRI">
@@ -31,16 +31,14 @@
       </script>
           <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50">
     <%- include('../../navnar_Header') %>
-    <%- include('../../sidebar_Section') %>
-
-    <section class="content bg-gray-50">
-        <div class="search_bomibe px-5 md:hidden">
+    <section class=" mx-auto px-4 xl:max-w-7xl">
+        <div class="search_bomibe px-5 mt-5">
             <input type="text" name="text_mass" oninput="searchAnime(this.value)"
                 class="searchinput border-2 border-slate-200 outline-none text-left p-2 w-full h-[45px] rounded"
-                placeholder="ค้นหา">
-        </div>
+                placeholder="ค้นหาอนิเมะ">
+        </div><br>
         <div class="search_result_container" id="searchResult" style="display: none;">
             <h2 class="text-1xl mt-5">ผลลัพธ์การค้นหา <span id="result"></span></h2>
             <div class="anime_lists search_result">
@@ -48,7 +46,7 @@
             </div>
         </div>
 
-        <div class="categorys bg-white rounded p-2 flex">
+        <div class="categorys bg-white rounded p-2 flex mt-5">
             <ul>
                 <li>
                     เดือน
@@ -170,23 +168,7 @@
                         <% } else { %>
                             <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
                         <% } %>
-                        
-                        
-                        <!-- <div class="anime_list">
-                            <div class="anime_item_pic">
-                                <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
-                            </div>
-                            <div class="anime_info_text">
-                                <h2>Kami wa Game ni Ueteiru</h2>
-                                <p>ผลิตโดย: <span>Liden Films</span></p>
-                                <p>ต้นฉบับ: <span>Light Novel</span></p>
-                                <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
-                                <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
-                                <button>
-                                    <a href="#">ข้อมูลเพิ่มเติม</a>
-                                </button>
-                            </div>
-                        </div> -->
+                    
                     </div>
                 </div>
                 
@@ -491,7 +473,6 @@
     </div>
 
     <script src="../js/sidebar.js"></script>
-    <script src="./js/pages/script_Section.js"></script>
     <script src="/js/searchanime.js"></script>
     <!-- <script>
         window.addEventListener('scroll', function () {

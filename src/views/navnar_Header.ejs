@@ -1,46 +1,36 @@
-<!-- Navbar Top -->
-<nav class="navbar">
-    <div class="logo_item">
-        <i class="bx bx-menu" id="sidebarOpen"></i>
-        <a href="/">
-            <img src="/images/logo/Aninight.png" alt="Logo Ani Night">
-            AniNight
-            <!-- <img src="http://localhost:3000/images/Aninight_logo.svg" alt=""></i> -->
+<header class="flex items-center justify-between shadow-md p-2 bg-white sticky top-0 z-20">
+    <div class="logo ">
+        <a href="/" class="flex items-center">
+            <img src="/images/logo/Aninight.png" alt="Logo Ani Night" class="w-10 ">
+            <h3 class="text-sm md:text-2xl logo-text font-bold font-Poppins">Aninight</h3>
+        </a>
     </div>
-    </a>
-    <div class="search_bar">
-        <input type="search" class="searchinput" placeholder="ค้นหา..." oninput="searchAnime(this.value)" />
-        <div class="header-search-bar__btn" id="searchButton">
-            <button type="submit" onclick="searchAnime()"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-    </div>
-    </div>
-    <div class="navbar_content">
-        <i class="bi bi-grid"></i>
-        <ul class="menus_icon">
-            <li>
-                <i class='bx bx-sun' id="darkLight"></i>
+    <div class="menus">
+        <ul class="flex">
+            <li class="m-2 text-xs md-text-2xl">
+                <a href="/">
+                    หน้าหลัก
+                </a>
             </li>
-            <li class="mass_sun">
-                <i class='bx bx-bell' id="btn_bell"></i>
-                <span class="mass_flong">0</span>
+            <li class="m-2 text-xs md-text-2xl">
+                <a href="/animeboard">
+                    บอร์ดอนิเมะ
+                </a>
             </li>
-        </ul>
-        <div class="mass">
-            <h2 class="title_mass">การแจ้งเตือนระบบ</h2>
-            <ul>
-                <li>
-                    <div class="image_mass">
-                        <img src="" alt="">
-                    </div>
-                    <p>ไม่มีแจ้งเตือน</p>
+            <% if (!usersesstion) { %>
+                <li class="m-2 text-xs md-text-2xl">
+                    <a href="/login">
+                        เข้าสู่ระบบ
+                    </a>
                 </li>
-            </ul>
-        </div>
-        <% if (!usersesstion) { %>
-            <img src="http://localhost:3000/profiles/1713078506481-419146687.jpg" alt="" class="profile" />
-            <% } else { %>
-                <img src="/profiles/<%= usersesstion.profile %>" alt="" class="profile" />
                 <% } %>
+            <% if (usersesstion) { %>
+                <li class="m-2 text-xs md-text-2xl">
+                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>">
+                        โปรไฟล์
+                    </a>
+                </li>
+                <% } %>
+        </ul>
     </div>
-</nav>
+</header>

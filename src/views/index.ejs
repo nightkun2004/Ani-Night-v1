@@ -14,6 +14,12 @@
     <meta name="title" content="Ani Night" />
     <meta name="description"
         content="เว็บที่ให้คุณเขียนบทความข่าวสารด้านอนิเมะ และรับรายได้จากค่าโฆษณา พร้อมกับข่าวข่ารอนิเมะที่อัตเดตใหม่ล่าสุด!! " />
+        <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
+
+    <!-- link CSS -->
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/pages/slideshow_Section.css">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -46,196 +52,202 @@
 
         gtag('config', 'G-LTJP520FN4');
     </script>
-    <link rel="stylesheet" href="/css/pages/home_Section.css">
-    <link rel="stylesheet" href="/css/pages/slideshow_Section.css">
-    <link rel="stylesheet" href="/css/pages/article_Section.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <%- include('./navnar_Header') %>
-        <%- include('./sidebar_Section') %>
+<body class="bg-gray-50">
+   <%- include('./navnar_Header') %>
 
-            <!-- Section Content -->
-            <section class="content">
-                <div class="banner">
-                    <div class="slideshow-container">
-                        <div class="mySlides fade">
-                            <a href="/animeboard" title="เซ็คลิตล์อนิเมะ 2024" data-title="Animelists">
-                                <img src="https://m1r.ai/8gsg5.jpg" alt="Slide 1">
-                            </a>
-                        </div>
-                        <div class="mySlides fade">
-                            <a href="#" title="ads" data-title="Animelists">
-                                <img src="https://m1r.ai/ofmm4.jpg" alt="Slide 2">
-                            </a>
-                        </div>
-
-                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                    </div>
+    <div class="aninime_banner z-10">
+        <div class="banner">
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <a href="/animeboard" title="เซ็คลิตล์อนิเมะ 2024" data-title="Animelists">
+                        <img src="https://m1r.ai/8gsg5.jpg" alt="Slide 1">
+                    </a>
+                </div>
+                <div class="mySlides fade">
+                    <a href="#" title="ads" data-title="Animelists">
+                        <img src="https://m1r.ai/ofmm4.jpg" alt="Slide 2">
+                    </a>
                 </div>
 
-                <div class="section-artcile">
-                    <h2>บทความมาใหม่</h2>
-                    <div style="display: block; justify-content: center; align-items: center;" class="loading-indicator loadingIndicator" id="loadingIndicator">
-                        <div class="spinner"></div>
-                    </div>
-                    <div class="loading" style="display: none;">
-                    <ul class="articles">
-                        <% acticles_Bors.forEach((article)=> { %>
-                            <li class="article">
-                                <a href="/read/<%= article.url %>?lang=<%= language %>">
-                                    <div class="pic_article">
-                                        <img src="/acticles_images/<%= article.photo %>"
-                                            alt="/acticles_images/<%= article.photo %>">
-                                    </div>
-                                    <div class="title">
-                                        <h2>
-                                            <%= article.title %>
-                                        </h2>
-                                    </div>
-                                    <% if (article.author && article.author.id) { %>
-                                        <div class="ch">
-                                            <div class="profile-logo">
-                                                <a href="/editor/<%= article.author.id.username %>">
-                                                    <img src="/profiles/<%= article.author.id.profile %>" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="ch-text">
-                                                <a href="/editor/<%= article.author.id.username %>">
-                                                    <h2>
-                                                        <%= article.author.id.username %>
-                                                    </h2>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <% } else { %>
-                                            <p>Author: ไม่พบผู้เขียน</p>
-                                            <% } %>
-                                                <div class="views">
-                                                    <%= article.views %> วิว
-                                                </div>
-                                </a>
-                            </li>
-                            <% }) %>
-                </ul>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
+        </div>
+    </div>
 
-                <nav aria-label="Page navigation example"
-                    style="display: flex; margin-top: 20px; justify-content: center;">
-                    <ul class="flex items-center -space-x-px h-10 text-base">
-                        <% if (prevPage) { %>
-                            <li>
-                                <a href="/?page=<%= prevPage %>"
-                                    class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <span class="sr-only">Previous</span>
-                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M5 1 1 5l4 4" />
-                                    </svg>
-                                </a>
-                            </li>
-                            <% } %>
+    <div class="sectionlist mx-auto px-4 xl:max-w-7xl">
+        <!-- Ads Home -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+     crossorigin="anonymous"></script>
+<!-- Ani Night -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6579807593228261"
+     data-ad-slot="9626337250"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="header_list">
+            <h2 class="text-2xl mb-2">อนิเมะเดือนนี้</h2>
 
-                                <% for (let i=1; i <=lastPage; i++) { %>
-                                    <li>
-                                        <a href="/?page=<%= i %>"
-                                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <%= i %>
-                                        </a>
-                                    </li>
-                                    <% } %>
-
-                                        <% if (nextPage) { %>
-                                            <li>
-                                                <a href="/?page=<%= nextPage %>"
-                                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                                    <span class="sr-only">Next</span>
-                                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 6 10">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                                                    </svg>
-                                                </a>
-                                            </li>
+            <a href="/animeboard"> เช็คตอนนี้</a>
+        </div>
+        <div class="text-center loadingIndicator">
+            <div role="status">
+                <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-cyan-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                </svg>
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="loading" style="display: none;">
+            <div class="animes flex flex-wrap  sm:grid md:grid lg:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+                    <% AnimeBordData.forEach(item => { %>
+                        <% if (item.animeMay && item.animeMay.length > 0) { %>
+                            <% item.animeMay.forEach(anime => { %>
+                                <div class="itemcard flex flex-col w-[200px] m-1">
+                                    <div class="pic_anime w-full">
+                                        <img src="<%= anime.linkImage %>" alt="animePIC" class="w-100 h-100 rounded">
+                                    </div>
+                                    <h3 class="title-anime"><%= anime.nameAnime %></h3>
+                                    <div class="hover_card">
+                                        <p>ผลิตโดย: <span>
+                                                <%= anime.Produced %>
+                                            </span></p>
+                                        <% if (anime.manuscript) { %>
+                                            <p>ต้นฉบับ: <span>
+                                                    <%= anime.manuscript %>
+                                                </span></p>
                                             <% } %>
-                    </ul>
-                </nav>
+                                                <p>จำนวนตอน: <span>
+                                                        <%= anime.episodes %>
+                                                    </span></p>
+                                                <p>เริ่มฉาย: <span>
+                                                        <%= anime.start %>
+                                                    </span></p>
+                                    
+                                                <% if (anime.nameep) { %>
+                                                    <p>ชื่อตอน: <span>
+                                                            <%= anime.nameep %>
+                                                        </span></p>
+                                                    <% } %>
+                                    </div>
+                                </div>                         
+                <% }); %>
+                <% } else { %>
+                    <p style="text-align: center;">ไม่มีข้อมูล เดือนพฤษภาคม สำหรับ AnimeBord นี้</p>
+                <% } %>
+            <% }); %>
+        <% } else { %>
+            <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+        <% } %>
+            </div>
+        </div>
+        
+        <div class="header_articles flex justify-between mt-2 mb-2">
+            <h2 class="text-2xl">บทความ</h2>
+            <button class="bg-gray-300 p-2 rounded-full"><a href="/articles">ดูทั้งหมด</a></button>
+        </div>
+        <div class="text-center loadingIndicator">
+            <div role="status">
+                <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-cyan-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                </svg>
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="loading" style="display: none;">
+            <div class="articles_lists">
+                <ul class="articles grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    <% acticles_Bors.forEach((article)=> { %>
+                        <li class="article bg-white rounded z-2">
+                            <a href="/read/<%= article.url %>?lang=<%= language %>">
+                                <div class="pic_article">
+                                    <img src="/acticles_images/<%= article.photo %>" class="w-full h-[230px] sm:h-[130px] object-cover"
+                                        alt="/acticles_images/<%= article.photo %>">
+                                </div>
+                                <div class="p-2">
+                                    <h2>
+                                        <%= article.title %>
+                                    </h2>
+                                </div>
+                                <% if (article.author && article.author.id) { %>
+                                    <div class="flex p-1 relative">
+                                        <div class="profile-logo z-1">
+                                            <a href="/editor/<%= article.author.id.username %>">
+                                                <img src="/profiles/<%= article.author.id.profile %>" alt="Edior" class="w-[50px] h-[50px] rounded-full">
+                                            </a>
+                                        </div>
+                                        <div class="ch-text pl-1">
+                                            <a href="/editor/<%= article.author.id.username %>">
+                                                <h2>
+                                                    <%= article.author.id.username %>
+                                                </h2>
+                                            </a>
+                                        </div>
+                                        <div class="views p-2 absolute right-1">
+                                            <%= article.views %> วิว
+                                        </div>
+                                    </div>
+                                    <% } else { %>
+                                        <p>Author: ไม่พบผู้เขียน</p>
+                                        <% } %>
+                            </a>
+                        </li>
+                        <% }) %>
+            </ul>
+            </div>
+        </div>
+       
+        <!-- Video News Updates -->
+        <div class="herder__news--update__videos flex justify-between mt-2 mb-2">
+            <h2 class="text-2xl font-bold">ข่าวอัตเดตอนิเมะ</h2>
+            <a class="bg-gray-100 p-2 rounded-full" href="/foryou" target="_blank" rel="noopener noreferrer">ทั้งหมด</a>
+        </div>
+        <div class="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <% if (videos.length > 0) { %>
+                <% videos.forEach(video=> { %>
+                <div class="bg-white rounded">
+                    <a href="/play/<%= video.videoid %>" target="_blank" >
+                        <div class="pic_photo">
+                            <img src="/cover_videos/<%= video.coverImage %>"
+                                alt="<%= video.coverImage %>" class="w-full h-[230px] sm:h-[130px] object-cover">
+                            <video class="video" src="/videos/<%= video.filePath %>.mp4"
+                                style="display: none;"></video>
+                        </div>
+                        <div class=" p-2">
+                            <% if (video && video.description) { %>
+                                <h2><%- video.name.substring(0, 20) + '  ....' %></h2>
+                            <% } %>                                            
+                        </div>
+                       <div class="relative">
+                        <p class=" absolute right-1"> <%- video.views %> วิว</p>
+                       </div>
+                    </a>
                 </div>
+                <% }) %>
+                <% } else { %>
+                    <p>ไม่พบข่าวอนิเมะ</p>
+                <% } %>
+    </div>
 
-            </section>
+    <%- include('./footer') %>
+    <script src="/js/imagesi.js"></script>
+    <script src="/js/pages/loading_datas.js"></script>
+    <script>
+        console.log("%cหยุดการใช้ Dev Tools หากไม่ได้รับอนุญาต", "font-size: 74px; color: red;");
 
-                <script src="./js/sidebar.js"></script>
-                <script src="./js/imagesi.js"></script>
-                <script defer type="module" src="/js/firebase.js"></script>
-                <script src="./js/pages/script_Section.js"></script>
-                <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-        <script>
-            var swiper = new Swiper('.home-slider', {
-                loop: true,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-            });
-
-            window.addEventListener('scroll', function () {
-                var navbar = document.getElementById('navbar');
-                if (window.scrollY > 50) {
-                    navbar.classList.add('navbar-white-bg');
-                } else {
-                    navbar.classList.remove('navbar-white-bg');
-                }
-            });
-
-        </script> -->
-                <% if (typeof alertMessageVideo !=='undefined' && alertMessageVideo ) { %>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '<%= alertMessageVideo %>',
-                            });
-                        });
-                    </script>
-                    <% } %>
-
-                        <script>
-                function showLoadingIndicator() {
-                    document.querySelectorAll('.loadingIndicator').forEach(item => {
-                        item.style.display = 'block';
-                    });
-                    document.querySelectorAll('.loading').forEach(item => {
-                        item.style.display = 'none';
-                    });
-                }
-        
-                function hideLoadingIndicator() {
-                    document.querySelectorAll('.loadingIndicator').forEach(item => {
-                        item.style.display = 'none';
-                    });
-                    document.querySelectorAll('.loading').forEach(item => {
-                        item.style.display = 'block';
-                    });
-                }
-        
-                showLoadingIndicator();
-        
-                window.addEventListener('load', function () {
-                    hideLoadingIndicator();
-                });
-            
-                </script>
-
+    </script>
+    
+    
 </body>
 
 </html>

@@ -25,9 +25,9 @@ router.get('/animeboard', loadAnimeData, async (req, res) => {
     const query = req.query.search; 
     const usersesstion = req.session.userlogin;
     const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly').sort({ createdAt: -1 }); 
-    const template = req.language === 'th' ? './component/pages/anime' : './en/anime';
+    const template = req.language === 'th' ? './component/pages/anime' : './component/pages/anime'; 
+    // ./en/anime
     // console.log(AnimeBordData);
-
    
     res.render(template, { active: 'anime', usersesstion, AnimeBordData, seq: { query: query }});
 })

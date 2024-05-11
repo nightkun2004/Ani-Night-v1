@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const path = require('path')
 const Acticle = require('../models/acticle');
+const AnimeBord = require('../models/animebord')
+const Video = require('../models/video')
 const cookie = require('../middleware/cookie')
 
 function setLanguage(req, res, next) {
@@ -19,7 +21,9 @@ router.get('/', async (req, res) => {
     const usersesstion = req.session.userlogin;
     const alertMessage = req.query.alertMessage || null;
     try {
+        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly').sort({ createdAt: -1 }); 
         const acticles = await Acticle.find().exec();
+        const videos = await Video.find().sort({createdAt: -1}).limit(6);
         const topViewedArticles = await Acticle.find().populate('author.id').sort({ createdAt: -1, views: -1 }).limit(5);
         const acticlefotYou = await Acticle.find().populate('author.id').sort({ views: -1 }).limit(10);
         const page = +req.query.page || 1; // หากไม่มีค่า page ให้เริ่มที่หน้าแรก 
@@ -30,9 +34,11 @@ router.get('/', async (req, res) => {
             .limit(ITEMS_PER_PAGE) // จำกัดจำนวนรายการที่ดึง
             .lean()
             .sort({createdAt: -1})
+            .limit(10)
             .exec();
 
-        const template = req.language === 'th' ? 'index' : 'en/index';
+
+        const template = req.language === 'th' ? 'index' : 'index';
 
 
         res.render(template, {
@@ -42,7 +48,9 @@ router.get('/', async (req, res) => {
             alertMessage,
             topViewedArticles,
             acticlefotYou,
+            videos,
             language: req.language,
+            AnimeBordData,
             acticles_Bors,
             currentPage: page,
             hasNextPage: ITEMS_PER_PAGE * page < totalActicles, // ตรวจสอบว่ามีหน้าถัดไปหรือไม่

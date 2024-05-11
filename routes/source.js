@@ -10,7 +10,7 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-router.get('/source', async (req, res) => {
+router.get('/sources', async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {
         const template = req.language === 'th' ? 'source' : './en/source'; 

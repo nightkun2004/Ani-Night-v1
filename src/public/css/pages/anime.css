@@ -8,7 +8,50 @@ button {
     background-color: #fff;
     padding: 20px;
 }
+.search_bar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    margin: auto;
+    width: 45%;
+    height: 45px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: 1.9px solid rgba(231, 220, 220, 0.555);
+    overflow: hidden;
+}
 
+.search_bar input[type=search] {
+    padding: 0 19px;
+    line-height: 20px;
+    width: 100%;
+    border: none;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+    color: #333;
+    /* border-right: 1px solid rgba(153, 153, 153, .3); */
+}
+
+.search_bar input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+.search_bar input[type=search]::-ms-clear {
+    display: none;
+}
+
+.header-search-bar__btn>button {
+    display: block;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+    border-left: 1px solid #eee;
+}
 .search {
     background-color: #eee;
     border-radius: 10px;

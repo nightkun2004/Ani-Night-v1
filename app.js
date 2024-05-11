@@ -74,6 +74,10 @@ app.use((req, res, next) => {
   res.status(404).render('404');
 });
 
+// app.get('/',(req,res)=>{
+//   res.send
+// })
+
 app.listen(3000, () => {
   console.log(`server is Runing to http://localhost:3000`)
 })

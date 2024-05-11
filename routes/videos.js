@@ -7,7 +7,7 @@ const Video = require('../models/video')
 const perPage = 20;
 
 router.get('/foryou', async (req, res) => {
-    try {
+    try { 
         const usersesstion = req.session.userlogin;
         const videos = await Video.find();
 
