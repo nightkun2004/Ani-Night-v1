@@ -7,6 +7,46 @@
     <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
     <meta name="description" content="รายการอนิเมะ 2024 อนิเมะ 2024 รวมมาไว้ที่นี่แล้ว ตรวจสอบอนิเมะที่คุณชอบ">
     <meta name="keywords" content="Anime2024, Anime, 2024, อนิเมะ, มีนาคม, เมษายน,">
+    <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+        <% AnimeBordData.forEach(item => { %>
+            <% if (item.animeApril && item.animeApril.length > 0) { %>
+                <% item.animeApril.forEach(anime => { %>
+                    <meta name="keyword" content="<%= anime.nameAnime %>">
+                    <% }); %>
+                    <% } else { %>
+                        <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                    <% } %>
+                <% }); %>
+            <% } else { %>
+                <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+            <% } %>
+    <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+        <% AnimeBordData.forEach(item => { %>
+            <% if (item.animeMay && item.animeMay.length > 0) { %>
+                <% item.animeMay.forEach(anime => { %>
+                    <meta name="keyword" content="<%= anime.nameAnime %>">
+                    <% }); %>
+                    <% } else { %>
+                        <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                    <% } %>
+                <% }); %>
+            <% } else { %>
+                <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+            <% } %>
+    <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+        <% AnimeBordData.forEach(item => { %>
+            <% if (item.animeJuly && item.animeJuly.length > 0) { %>
+                <% item.animeJuly.forEach(anime => { %>
+                    <meta name="keyword" content="<%= anime.nameAnime %>">
+                    <% }); %>
+                    <% } else { %>
+                        <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+                    <% } %>
+                <% }); %>
+            <% } else { %>
+                <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+            <% } %>
+
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="og:url" content="https://www.ani-night.online/animeboard">
     <meta property="og:image" content="https://www.ani-night.online/animeboard">

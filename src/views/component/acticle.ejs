@@ -24,8 +24,8 @@
 
         gtag('config', 'G-LTJP520FN4');
     </script>
-    <link rel="stylesheet" href="./css/acticle-p.css">
     <!-- <link rel="stylesheet" href="./css/acticle.css"> -->
+    <link rel="stylesheet" href="./css/acticle-p.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/pages/home_Section.css">
@@ -33,9 +33,36 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="bg-gray-50">
     <section class="home" id="home">
-        <div class="swiper home-slider">
+       
+        <div class="slider__warpper">
+            <% topViewedArticles.forEach((article, index)=> { %>
+            <div class="flex__container flex--pikachu flex--active" data-slide="1">
+              <div class="flex__item flex__item--left">
+                <div class="flex__content">
+                  <p class="text--sub"> <%= article.title %></p>
+                  <h1 class="text--big">Pikachu</h1>
+                  <p class="text--normal">Pikachu is an Electric-type Pokémon introduced in Generation I. Pikachu are small, chubby, and incredibly cute mouse-like Pokémon. They are almost completely covered by yellow fur.</p>
+                </div>
+                <p class="text__background">Pikachu</p>
+              </div>
+              <div class="flex__item flex__item--right"></div>
+              <img class="pokemon__img" src="/imgs/c1-ch.png" />
+            </div>
+            <% }) %>
+          </div>
+    
+    
+        <div class="slider__navi">
+            <a href="#" class="slide-nav active" data-slide="1">pikachu</a>
+            <a href="#" class="slide-nav" data-slide="2">piplup</a>
+            <a href="#" class="slide-nav" data-slide="3">blaziken</a>
+            <a href="#" class="slide-nav" data-slide="4">dialga</a>
+            <a href="#" class="slide-nav" data-slide="5">zekrom</a>
+          </div>
+      
+        <!-- <div class="swiper home-slider">
             <div class="swiper-wrapper">
                 <% topViewedArticles.forEach((article, index)=> { %>
                     <div class="swiper-slide" style="background-image: url('/acticles_images/<%= article.photo %>')">
@@ -60,27 +87,32 @@
                     <% }) %>
             </div>
 
-            <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
 
-            <!-- Add Arrows -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
-        </div>
+        </div> -->
     </section>
 
-    <div class="bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm relative" id="lastest">
+    <div class=" px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm relative" id="lastest">
         <p class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">บทความมาใหม่</p>
-        <div class="acticlees bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg">
+        <div class="grid grid-cols-2 lg:grid-cols-6 sm:grid-cols-3 md:grid-cols-4 gap-1 px-4 py-8 mt-[50px] mb-[50px] rounded-lg">
             <% acticles.forEach((article)=> { %>
-                <div class="acticlee">
+                <div class="w-[200px] bg-white rounded">
                     <a href="/read/<%= article.url %>?lang=<%= language %>">
-                        <img src="/acticles_images/<%= article.photo %>" alt="">
+                        <div class="" >
+                            <img src="/acticles_images/<%= article.photo %>" alt="artocle" class="w-full">
+                            <div>
+                                <h2 class="text-black text-2xl p-2">
+                                    <%= article.title %>
+                                </h2>
+                            </div>
+                        </div>
                         <% if (article.author && article.author.id) { %>
-                            <div class="ch">
+                            <div class="mt-5 p-2">
                                 <div class="profile-logo">
                                     <a href="/editor/<%= article.author.id.username %>">
-                                        <img src="/profiles/<%= article.author.id.profile %>" alt="">
+                                        <img src="/profiles/<%= article.author.id.profile %>" alt="profile" class="w-[50px] h-[50px] rounded-full">
                                     </a>
                                 </div>
                                 <a href="/editor/<%= article.author.id.username %>">
@@ -203,7 +235,17 @@
 
 
     </script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/search.js"></script>
+    <script src="/js/pages/article.js" defer></script>
+    <script>
+         var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 0
+    });
+    </script>
 </body>
 
 </html>
