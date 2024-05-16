@@ -5,77 +5,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: "Kanit", sans-serif;
-    background-image: url('/images/bg-re.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.App-content {
-    max-width: 700px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.App-content .App-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 9.5rem;
-    padding: 10px;
-    background-image: url('/images/app-.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.App-content .App-header .App-logo {
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-}
-
-.App-content .App-header .App-menusright ul {
-    padding: 0;
-    list-style: none;
-    margin: 0;
-}
-
-.App-content .App-header .App-menusright ul li {
-    margin: 10px;
-    & a {
-        text-decoration: none;
-        color: #fff;
-    }
-}
-
-
-.App-content .App-rewards {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #eee;
-    position: relative;
-}
-
-.App-content .App-rewards  .btn-Open {
-    width: 100%;
-    position: sticky;
-    bottom: 0;
-    left: 0;
-}
-
-.App-content .App-rewards  .btn-Open button {
-    width: 100%;
-    padding: 10px 12px;
-    background-color: #00c3ea;
-    border-radius: 7px;
-    color: #fff;
-    font-size: 22px;
-    border: none;
+    background-color: #fefefe;
 }
 
 .popup-content {

@@ -70,7 +70,15 @@ router.get('/admin/update_code', verifyToken, isAdmin, (req, res) => {
         active: 'update-admin',
         usersesstion
     });
-});
+}); 
+
+router.get('/admin/update_linkwallet', verifyToken, isAdmin, (req, res) => {
+    const usersesstion = req.session.userlogin;
+    res.render('./admin/updatelink', {
+        active: 'update-update_linkwallet',
+        usersesstion
+    });
+}); 
 
 router.get('/admin/editvideos', verifyToken, isAdmin, async (req, res) => {
     const usersesstion = req.session.userlogin;
@@ -241,9 +249,6 @@ router.post('/edit_animeboard/May/002', verifyToken, createAnime.EditanimeMay);
 router.post('/edit_animeboard/EditanimeJuly', verifyToken, createAnime.EditanimeJuly);
 router.post('/editvideo/post/videoid', verifyToken, createAnime.Editvideos);
 
-router.get('/admin/update_link', verifyToken, (req, res) => {
-    res.render('./admin/updatelink');
-});
 
 router.get('/success', (req, res) => {
     res.render('success')

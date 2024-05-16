@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="flex justify-center w-full h-[100vh] items-center">
+        <div class="text-center">
+            <h2 class="text-2xl font-bold mb-4">เลือกโฟลเดอร์ที่ต้องการสำรองข้อมูลเป็น Zip</h2>
+            <div class="space-y-4">
+                <form action="/acticles_images" method="POST" class="mb-4"> <!-- เปลี่ยน href เป็น action และ method เป็น POST -->
+                    <button type="submit" class="block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">สำรองข้อมูลภาพบทความเป็น Zip</button>
+                </form>
+                <form action="/cover_videos" method="POST" class="mb-4"> <!-- เปลี่ยน href เป็น action และ method เป็น POST -->
+                    <button type="submit" class="block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">สำรองข้อมูลภาพปกเป็น Zip</button>
+                </form>
+                <form action="/images" method="POST" class="mb-4"> <!-- เปลี่ยน href เป็น action และ method เป็น POST -->
+                    <button type="submit" class="block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">สำรองข้อมูลภาพปกเป็น Zip</button>
+                </form>
+                <form action="/videos" method="POST" class="mb-4"> <!-- เปลี่ยน href เป็น action และ method เป็น POST -->
+                    <button type="submit" class="block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">สำรองข้อมูล Videos Zip</button>
+                </form>
+                <a href="/videos" download="/videos">Videos</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

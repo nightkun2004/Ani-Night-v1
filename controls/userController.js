@@ -8,7 +8,7 @@ exports.getAllUser = async (req, res) => {
     const Userdata = ({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password 
     })
     try {
         const saltRounds = 10;
