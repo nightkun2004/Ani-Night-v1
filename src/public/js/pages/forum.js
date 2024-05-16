@@ -63,7 +63,7 @@ document.querySelectorAll(".btn-reply").forEach(btn => {
 
         if (replyText) {
             try {
-                const response = await fetch("/reply", {
+                const response = await fetch("/reply", { 
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

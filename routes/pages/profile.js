@@ -48,9 +48,11 @@ const upload = multer({
     storage: uploadprofile
 });
 
-router.get('/:url', authenticatetoken, profileController.getProfile) 
+router.get('/:url', authenticatetoken, profileController.getProfile)
+router.get('/:userID', authenticatetoken, profileController.getUserID)
 router.post('/playment', profileController.playment)
-router.get('/logout/:id', profileController.logOut)
+router.post('/auth/user/studio', profileController.getAuthUser)
+router.get('/logout/:id', profileController.logOut)  
 
 router.post('/edit_profile', upload.single('profileprofile'), async (req,res) => {
     try {

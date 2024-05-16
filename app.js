@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const path = require("path")
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
@@ -29,6 +30,20 @@ const updateReward = require('./routes/admin/updateReward')
 const admin = require('./routes/admin')
 const routersRoute = require('./routes/pages/router')
 // const routerAnimebord = require('./routes/pages/dashboard/edits/animeboard')
+
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+};
+
+// Middleware สำหรับกำหนดการอนุญาตของ CORS
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5000')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 
 app.use(session({
   secret: process.env.ACCESS_TOKEN_SECRET,
@@ -69,6 +84,8 @@ app.use(profileRoute)
 app.use(videosprofileRoute)
 app.use(vidoechannelRoute)
 // app.use(routerAnimebord)
+
+app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
   res.status(404).render('404');

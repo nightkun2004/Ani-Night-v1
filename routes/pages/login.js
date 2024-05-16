@@ -130,5 +130,6 @@ router.post('/resetPassword', async (req, res) => {
     }
 });
 
-router.post('/login', userController.getLogin);
+router.post('/api/login', userController.getAPIlogin);
+router.post('/auth/login', userController.getLogin);
 module.exports = router

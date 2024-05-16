@@ -24,7 +24,15 @@
             
         </div>
         <div class="profile_btn">
-            <button id="openEdit">แก้ไขโปรไฟล์</button>
+            <!-- <form action="/auth/user/studio" method="post">
+                <input type="hidden" value="<%= usersesstion._id %>" name="IDUser">
+                <input type="email" name="email" value="<%= usersesstion.email %>">
+                <button type="submit" class="bg-sky-500 p-2 rounded text-white">ไปที่ Studio</button>
+            </form> -->
+            <button class="bg-sky-500 p-2 rounded text-white">
+                <a href="http://localhost:5173/<%= usersesstion._id %>" target="_blank" rel="noopener noreferrer">ไปที่ Studio</a>
+            </button>
+            <button id="openEdit" class="bg-red-500 p-2 rounded text-white">แก้ไขโปรไฟล์</button>
         </div>
     </div>
 </div>

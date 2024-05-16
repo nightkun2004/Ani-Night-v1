@@ -43,7 +43,7 @@ exports.getAllUser = async (req, res) => {
     }
 };
 
-exports.getLogin = async (req, res) => {
+exports.getLogin = async (req, res) => { 
     try {
         const { email, password } = req.body;
         const userlogin = await User.findOne({ email }) 
@@ -91,6 +91,57 @@ exports.getLogin = async (req, res) => {
     } catch(error) {
         console.log(error)
         return res.redirect('/login?alertMessage=เกิดข้อผิดพลาด');
+    }
+};
+
+exports.getAPIlogin = async (req, res) => { 
+    try {
+        const { email, password } = req.body;
+        const userlogin = await User.findOne({ email }) 
+
+        if(!userlogin) {
+            return res.status(400).json({ success: false, message: 'เราไม่พบชื่อผู้ใช้' });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, userlogin.password);
+
+        if(!isPasswordValid) {
+            return res.status(400).json({ success: false, message: 'รหัสผ่านไม่ถูกต้อง' });
+        }
+
+        const accessToken = jwt.sign({ userlogin: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+        res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
+
+        req.session.userlogin = {
+            _id: userlogin._id,
+            uid: userlogin.uid,
+            name: userlogin.name,
+            username: userlogin.username,
+            email: userlogin.email,
+            password: userlogin.password,
+            profile: userlogin.profile,
+            googleprofile: userlogin.googleprofile,
+            bio: userlogin.bio,
+            videos: userlogin.videos,
+            acticles: userlogin.acticles,
+            posts: userlogin.posts,
+            createdAt: userlogin.createdAt,
+            followed: userlogin.followed,
+            url: userlogin.url,
+            followers: userlogin.followers,
+            youtube: userlogin.youtube,
+            tiktok: userlogin.tiktok,
+            facebook: userlogin.facebook, 
+            accessToken: accessToken,
+            alertMessage: req.query.alertMessage,
+            userid: userlogin.userid,
+            approval_admin: true
+        };
+
+        return res.status(200).json({ success: true, message: 'เข้าสุ่ระบบสำเร็จ', accessToken: accessToken, userlogin: req.session.userlogin });
+    } catch(error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาด' });
     }
 };
 
