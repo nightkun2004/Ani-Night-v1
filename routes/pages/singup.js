@@ -19,6 +19,6 @@ router.get('/singup', (req, res) => {
     res.render(template, { active: 'singup', alertMessage, alertMessageerror, usersesstion }); 
 })
 
-router.post('/singup', userController.getAllUser);
+router.post('/auth/singup', userController.getAllUser);
 
 module.exports = router

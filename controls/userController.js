@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 require('dotenv').config()
 
-exports.getAllUser = async (req, res) => {
+exports.getAllUser = async (req, res) => { 
     const Userdata = ({
         username: req.body.username,
         email: req.body.email,
