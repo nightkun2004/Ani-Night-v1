@@ -32,13 +32,13 @@ const routersRoute = require('./routes/pages/router')
 // const routerAnimebord = require('./routes/pages/dashboard/edits/animeboard')
 
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: 'http://localhost:3100',
   credentials: true,
 };
 
-// Middleware สำหรับกำหนดการอนุญาตของ CORS
+// Middleware สำหรับกำหนดการอนุญาตของ CORS 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5000')
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3100')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -59,7 +59,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 app.use(uploadRoute)

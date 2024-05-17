@@ -17,7 +17,7 @@
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100">
     <%- include('../../navnar_Header') %>
 
     <section class=" mx-auto px-4 xl:max-w-7xl">
@@ -32,9 +32,8 @@
     
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
     <script src="/js/sidebar.js"></script>
-    <script src="./js/pages/script_Section.js"></script>
     <script src="./js/pages/profuleupload_Section.js"></script>
-    <script src="./js/pages/profile_Pages.js"></script>
+
     <script>
         function previewImage(input) {
             var preview = document.getElementById('preview');
@@ -70,17 +69,6 @@
                 }
             });
         }
-    </script>
-    <script>
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
-
     </script>
       <% if (typeof alertMessage !=='undefined' && alertMessage ) { %>
         <script>

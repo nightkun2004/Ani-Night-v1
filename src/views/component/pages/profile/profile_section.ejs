@@ -1,101 +1,130 @@
-<div class="profile_banner" style="background-image: url(https://t4.ftcdn.net/jpg/04/04/73/39/360_F_404733910_2mIXr6RbC5G3WZJFjopVsBaR3EOM6Bqy.jpg);"></div>
-<div class="profile_section">
-    <div class="profile_left">
-        <div class="profile_image">
+<!-- Profile Info -->
+<div class="max-w-6xl mx-auto mt-8 bg-white rounded-lg shadow">
+    <div class="flex justify-between items-center px-6 py-4 border-b">
+        <div class="flex items-center">
             <% if (usersesstion.profile) { %>
-                <a target="_blank" href="/profiles/<%= usersesstion.profile %>">
-                <img src="/profiles/<%= usersesstion.profile %>" alt="" width="100px" height="100px">
-            </a>
-           <% } %>
+                <div class="flex-shrink-0 mr-4">
+                    <a href="/profiles/<%= usersesstion.profile %>" target="_blank" rel="noopener noreferrer">
+                        <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Picture"
+                            class="h-16 w-16 rounded-full object-cover">
+                    </a>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">
+                        <%= usersesstion.name %>
+                    </h2>
+                    <p class="text-gray-600">@<%= usersesstion.username %>
+                    </p>
+                    <p>ไอดีผู้ใช้ : <%= usersesstion.userid %>
+                    </p>
+                </div>
+                <% } %>
+        </div>
+        <div class="hidden md:block">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
+                    href="https://studio.ani-night.online/" target="_blank" rel="noopener noreferrer">ไปที่
+                    Studio</a></button>
+                    <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
         </div>
     </div>
-    <div class="profile_right">
-        <div class="profile_info">
-            <% if (usersesstion.name) { %>
-                <h2>ชื่อผู้ใช้ : <%= usersesstion.name %></h2>
-            </a>
-           <% } %>
-            <p class="email">อีเมล : <%= usersesstion.email %></p>
-            <p>ประวัติ : <%= usersesstion.bio %></p>
-            <div class="id_F">
-                <p>ไอดีผู้ใช้ : <%= usersesstion.userid %></p>
-                <p>ผู้ติดตาม : <%= usersesstion.followers %></p>
-            </div>
-            
-        </div>
-        <div class="profile_btn">
-            <!-- <form action="/auth/user/studio" method="post">
-                <input type="hidden" value="<%= usersesstion._id %>" name="IDUser">
-                <input type="email" name="email" value="<%= usersesstion.email %>">
-                <button type="submit" class="bg-sky-500 p-2 rounded text-white">ไปที่ Studio</button>
-            </form> -->
-            <button class="bg-sky-500 p-2 rounded text-white">
-                <a href="http://localhost:5173/<%= usersesstion._id %>" target="_blank" rel="noopener noreferrer">ไปที่ Studio</a>
-            </button>
-            <button id="openEdit" class="bg-red-500 p-2 rounded text-white">แก้ไขโปรไฟล์</button>
-        </div>
+    <div class="mt-2 p-2 md:hidden">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
+                href="https://studio.ani-night.online/" target="_blank" rel="noopener noreferrer">ไปที่
+                Studio</a></button>
+         <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
+    </div>
+    <div class="px-6 py-4">
+        <p class="text-gray-700">
+            <%= usersesstion.bio %>.
+        </p>
     </div>
 </div>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
+<!-- PoPup -->
 
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-     <div class="header_edit">
-        <h2>แก้ไขโปรไฟล์ของคุณ</h2>
-     </div>
-     <form action="/edit_profile" method="POST" enctype="multipart/form-data">
-        <div class="form_groud">
-            <label for="name">ชื่อช่อง</label>
-           <div class="input_box_form_edit">
-            <input type="text" name="name" id="name" value="<%= usersesstion.name %>">
-           </div>
-        </div>
-        <div class="form_groud">
-            <label for="name">ชื่อผู้ใช้</label>
-           <div class="input_box_form_edit">
-            <input type="text" name="username" id="username" value="<%= usersesstion.username %>">
-           </div>
-        </div>
-        <div class="form_groud">
-            <label for="name">เพิ่มประวัติ</label>
-           <div class="input_box_form_edit">
-            <textarea name="bio" id="bio" cols="30" maxlength="400" rows="10">
+<div id="editPopup" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
+    <div class="bg-white rounded-lg overflow-hidden max-w-md w-full">
+      <!-- Header -->
+      <div class="bg-gray-100 py-3 px-4 flex items-center justify-between">
+        <h2 class="text-lg font-bold text-gray-800">แก้ไข</h2>
+        <button id="closeButton" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Content -->
+      <div class="p-4 overflow-auto h-[500px]">
+        <form action="/edit_profile" method="POST" enctype="multipart/form-data" class=" max-w-6xl mx-auto mt-8">
+            <div class="form_groud">
+                <label for="name">ชื่อช่อง</label>
+                <div class="input_box_form_edit">
+                    <input type="text" name="name" id="name" value="<%= usersesstion.name %>">
+                </div>
+            </div>
+            <div class="form_groud">
+                <label for="name">ชื่อผู้ใช้</label>
+                <div class="input_box_form_edit">
+                    <input type="text" name="username" id="username" value="<%= usersesstion.username %>">
+                </div>
+            </div>
+            <div class="form_groud">
+                <label for="name">เพิ่มประวัติ</label>
+                <div class="input_box_form_edit">
+                    <textarea name="bio" id="bio" cols="30" maxlength="400" rows="10">
                <%= usersesstion.bio %>
             </textarea>
-           </div>
-           <p>ใส่สุ่งสุด 400 คำ</p>
-        </div>
-        <div class="form_groud">
-            <label for="name">url โปรไฟล์</label>
-           <div class="input_box_form_edit">
-            <input type="text" name="url" id="url" value="<%= usersesstion.url %>">
-           </div>
-           <p style="margin-top: 10px;">โปรดใส่เป็นภาษาอังกฤษ</p>
-        </div>
-        <div class="form_groud">
-            <h3 class="header_edit_file"></h3>
-            <div class="card">
-                <div class="drop_box">
-                  <header>
-                    <h4>เลือกไฟล์ที่นี่ แก้ไขโปรไฟล์</h4>
-                  </header>
-                  <p>รองรับไฟล์ .jpg .png </p>
-                  <input id="dropzone-file" type="file" name="profileprofile" accept="image/*"
-                  onchange="previewImage(this)" />
-                </div>  
-              </div>
-        </div>
-        <div class="form_groud">
-            <img id="preview" style="width: 100px; height: 100px; border-radius: 50px; border: 1px solid #eee;"
-            src="" alt="">
-        </div>
-        <div class="form_groud">
-            <button type="submit">บันทึก</button>
-        </div>
-     </form>
+                </div>
+                <p>ใส่สุ่งสุด 400 คำ</p>
+            </div>
+            <div class="form_groud">
+                <label for="name">url โปรไฟล์</label>
+                <div class="input_box_form_edit">
+                    <input type="text" name="url" id="url" value="<%= usersesstion.url %>">
+                </div>
+                <p style="margin-top: 10px;">โปรดใส่เป็นภาษาอังกฤษ</p>
+            </div>
+            <div class="form_groud">
+                <h3 class="header_edit_file"></h3>
+                <div class="card">
+                    <div class="drop_box">
+                        <header>
+                            <h4>เลือกไฟล์ที่นี่ แก้ไขโปรไฟล์</h4>
+                        </header>
+                        <p>รองรับไฟล์ .jpg .png </p>
+                        <input id="dropzone-file" type="file" name="profileprofile" accept="image/*"
+                            onchange="previewImage(this)" />
+                    </div>
+                </div>
+            </div>
+            <div class="form_groud">
+                <img id="preview" style="width: 100px; height: 100px; border-radius: 50px; border: 1px solid #eee;"
+                    src="" alt="">
+            </div> 
+      </div>
+      <!-- Footer -->
+      <div class="bg-gray-100 py-3 px-4 flex justify-end">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">บันทึก</button>
+        <button id="cancelButton" class="bg-gray-200 text-gray-700 hover:text-gray-800 px-4 py-2 rounded-full ml-2 focus:outline-none">ยกเลิก</button>
+      </div>
+    </form>
     </div>
-  
   </div>
+
+<style>
+    /* Customize scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
+  

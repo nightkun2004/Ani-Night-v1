@@ -1,27 +1,61 @@
-<nav class="navbar_profile">
-    <ul>
-        <li id="home">
-            <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken%>">
-                หน้าหลัก
-            </a>
-        </li>
-        <li id="videos">
-            <a href="/<%= usersesstion.url %>/video?tokenlogin=<%= usersesstion.accessToken%>">
-                วีดีโอ
-            </a>
-        </li>
-        <li id="reward">
-            <a href="/<%= usersesstion.url %>/reward?tokenlogin=<%= usersesstion.accessToken%>">
-            รางวัล
-        </a>
-        <li id="reward">
-            <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>">
-            สร้างบทความ
-        </a>
-        <li id="reward">
-            <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>">
-                แก้ไขบทความ
-        </a>
-    </li>
-    </ul>
+<!-- Navbar -->
+<nav class="bg-white max-w-6xl mx-auto mt-8">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <button class="text-gray-800 focus:outline-none">
+                <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken%>"
+                    class="flex items-center flex-col md:flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18l-9-9-9 9zm0 4v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6"></path>
+                      </svg>                      
+                    <span>หน้าหลัก</span>
+                </a>
+            </button>
+            <button class="text-gray-800 focus:outline-none">
+                <a href="/<%= usersesstion.url %>/video?tokenlogin=<%= usersesstion.accessToken%>"
+                    class="flex items-center flex-col md:flex">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                    <span>วีดีโอ</span>
+                </a>
+            </button>
+            <button class="text-gray-800 focus:outline-none">
+                <a href="/<%= usersesstion.url %>/reward?tokenlogin=<%= usersesstion.accessToken%>"
+                    class="flex items-center flex-col md:flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 21.21V12a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9.21a1 1 0 0 1-.447.832l-5.895 4.263a1 1 0 0 1-1.316 0L6.447 22.042a1 1 0 0 1-.447-.832z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 7v3m0 0v3m0-3h3m-3 0H9" />
+                    </svg>
+
+                    <span>รางวัล</span>
+                </a>
+            </button>
+            <button class="text-gray-800 focus:outline-none">
+                <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>"
+                    class="flex items-center flex-col md:flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                      </svg>                      
+                    <span>สร้างบทความ</span>
+                </a>
+            </button>
+            <button class="text-gray-800 focus:outline-none">
+                <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>"
+                    class="flex items-center flex-col md:flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.5 16.5l2 2L17.5 7.5l-2-2L5.5 16.5z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h4a2 2 0 0 1 2 2v4"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18h6"></path>
+                      </svg>                      
+                    <span>แก้ไข</span>
+                </a>
+            </button>
+        </div>
+    </div>
 </nav>

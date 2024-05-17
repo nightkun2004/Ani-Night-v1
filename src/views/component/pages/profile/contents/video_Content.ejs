@@ -1,24 +1,26 @@
-<section class="video_Section">
-    <h2>เนื้อหา</h2>
-    <div class="videos">
-        <% if (userData.videos.length> 0) { %>
-            <% userData.videos.forEach(video=> { %>
-        <div class="video">
-            <div class="home_pic">
-                <img src="/acticles_images/<%= video.photo %>" alt="home_pic">
+<!-- Posts -->
+<div class="max-w-6xl mx-auto mt-8 mb-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Post 1 -->
+    <% if (userData.videos.length> 0) { %>
+        <% userData.videos.forEach(video=> { %>
+            <div class="bg-white rounded-lg shadow">
+                <a href="/play/<%= video.videoid %>">
+                    <img class="w-full h-60 object-cover rounded-t-lg" src="/cover_videos/<%= video.coverImage %>"
+                        alt="Post Image">
+                    <div class="px-6 py-4">
+                        <h3 class="text-lg font-bold text-gray-800">
+                            <%= video.name %>
+                        </h3>
+                        <p class="text-gray-700 mt-2">
+                            <%= video.views %> วิว
+                        </p>
+                    </div>
+                </a>
             </div>
-           <div class="info_home">
-            <div class="home_title">
-                <h2><a href="/play/<%= video.videoid %>"><%= video.name %></a></h2>
-            </div>
-            <div class="views">
-                <%= video.views %> วิว
-            </div>
-           </div>
-        </div>
-        <% }); %>
-        <% } else { %>
-            <p style="text-align: center;">ครีเอเตอร์นี้ยังไม่มีวีดีโอ..</p>
-            <% } %>
-    </div>
-</section>
+            <% }); %>
+                <% } else { %>
+                    <p style="text-align: center; color: #000;">ครีเอเตอร์นี้ยังไม่มีวีดีโอ.
+                    </p>
+                    <% } %>
+
+</div>
