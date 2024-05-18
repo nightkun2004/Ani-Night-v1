@@ -20,33 +20,98 @@
     <meta name="keywords" content="ข้าสู่ระบบ">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 
 <body>
-    <section class="login mx-auto px-4 xl:max-w-7xl pt-[130px]" id="login">
+    <%- include('../../navnar_Header') %>
+    <!-- Login Popup -->
+<div id="login-popup" class="fixed inset-0 flex items-center justify-center modal-bg">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold">เข้าสู่ระบบ</h2>
+        </div>
+        <form id="login-form">
+            <div class="flex justify-center mb-4">
+                <button type="button" id="phone-tab"
+                    class="text-sm pr-2 font-medium text-gray-700 border-b-2 border-blue-500 pb-1">เบอร์โทรศัพท์</button>
+                <button type="button" id="account-tab" class="text-sm font-medium text-gray-700 pb-1">ใช้อีเมล</button>
+            </div>
+            <div id="phone-login">
+                <form action="" method="post">
+                    <div class="mb-4">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
+                        <div class="flex">
+                            <select id="country-code" class="border border-gray-300 rounded-l-md shadow-sm p-2">
+                                <option value="TH">TH +66</option>
+                                <!-- Add other country codes here -->
+                            </select>
+                            <input type="text" id="phone"
+                                class="cursor-no-drop outline-none block w-full border border-gray-300 bg-gray-100 rounded-r-md shadow-sm p-2"
+                                placeholder="หมายเลขโทรศัพท์มือถือ" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="otp" class="block text-sm font-medium text-gray-700">ใส่รหัสยืนยัน</label>
+                        <input type="text" id="otp"
+                            class="cursor-no-drop mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-2 outline-none"
+                            placeholder="รหัสยืนยัน" readonly>
+                    </div>
+                    <button type="button"
+                        class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 mb-5">ส่งรหัสยืนยัน</button>
+                    <button type="submit"
+                        class="cursor-no-drop bg-blue-500 text-white py-2 px-4 w-full rounded-md hover:bg-blue-700 readonly">เข้าสู่ระบบ</button>
+                </form>
+                <div class="flex items-center mb-4 mt-4">
+                    <input type="checkbox" id="remember" class="custom-checkbox  mr-2" required>
+                    <label for="remember" class="text-sm text-gray-700">ยอมรับเงื่อนไขการเข้าสู่ระบบของเราใช้ไหมครับ <a
+                            href="https://ani-night.online/privacy" target="_blank"
+                            rel="noopener noreferrer">อ่านนโบบาย</a></label>
+                </div>
+            </div>
+            <!-- Lonin Email -->
+            <div id="account-login" class="hidden">
+                <form action="/auth/login" method="post">
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-medium text-gray-700">อีเมล</label>
+                        <input type="email" id="email" name="email"
+                            class="outline-none mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
+                        <input type="password" id="password" name="password"
+                            class="outline-none mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            required>
+                    </div>
+                    <button type="submit"
+                        class="bg-blue-500 text-white py-2 px-4 w-full rounded-md hover:bg-blue-700">เข้าสู่ระบบ</button>
+                </form>
+                <div class="flex items-center mb-4 mt-4">
+                    <input type="checkbox" id="remember" class="custom-checkbox  mr-2" required>
+                    <label for="remember" class="text-sm text-gray-700">ยอมรับเงื่อนไขการเข้าสู่ระบบของเราใช้ไหมครับ <a
+                            href="https://ani-night.online/privacy" target="_blank"
+                            rel="noopener noreferrer">อ่านนโบบาย</a></label>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="flex justify-end">
+                <p class="pt-[10px] flex justify-between">ยังไม่มีบัญชีใช่ไหม: <span><a href="/singup"
+                            class="text-1xl">สมัครสมาชิค</a></span></p>
+            </div>
+            <p class="mt-4 text-xs text-gray-500">
+                เนื่องจากระบบการเข้าสู่ระบบด้วย "เบอร์โทรศัพท์" ยังอยู่ระหว่างพัฒนาเลยใช้ไม่ได้ โปรดใช้อีเมลแทน
+                คลิกที่แถบอีเมล
+            </p>
+        </form>
+    </div>
+</div>
+
+    <!-- <section class="login mx-auto px-4 xl:max-w-7xl pt-[130px]" id="login">
         <div class="container-login bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm rela">
-            <form action="/auth/login" method="POST">
-                <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">เข้าสู่ระบบ</h2>
-                <label for="username">อีเมล:</label> 
-                <input type="email" name="email" required>
 
-                <label for="password">รหัสผ่าน:</label>
-                <input class="mb-2" type="password" id="password" name="password" required>
-
-                <button class="btn-login" type="submit">เข้าสู่ระบบ</button>
-
-                <div class="flex justify-between pt-[20px]">
-                    <p class="text_login">ลืมรหัสผ่านใช่ไหม !</p>
-                    <p><a href="/forgot-password">ลืมรหัสผ่าน</a></p>
-                </div>
-                <div class="reg">
-                    <p class="pt-[10px] flex justify-between">ยังไม่มีบัญชีใช่ไหม กดสมัครเลย: <span><a href="/singup"
-                                class="text-1xl">สมัครสมาชิค</a></span></p>
-                </div>
-            </form>
-
-            <!-- <div class="tiktok-login">
+            <div class="tiktok-login">
                 <a href="/auth/tiktok">
                     <button class="login_button">
                         <img src="/images/logo/tiktok_logo.webp" alt="">
@@ -55,7 +120,7 @@
                         </div>
                     </button>
                 </a>
-            </div> -->
+            </div> 
 
             <div class="google-login">
                 <a href="/auth/google">
@@ -68,44 +133,60 @@
                 </a>
             </div>
         </div>
-    </section>
-
-
-    <!-- ===========================================================================================
-              POPUP
-            ======================================================================================== -->
-
-    <div class="popup-container" style="display: none;">
-        <div class="popup-content">
-            <div class="popup-header">
-                <h2>แจ้วเตือน</h2>
-                <div class="btn_close">
-                    <i class="material-symbols-outlined">
-                        close
-                    </i>
-                </div>
-                <div class="main-content">
-
-                   
-                </div>
-            </div>
-        </div>
-    </div>
+    </section> -->
 
 
     <script src="../js/sidebar.js"></script>
         <!-- <script src="../js/search.js"></script> -->
-        <script>
-            window.addEventListener('scroll', function () {
-                var navbar = document.getElementById('navbar');
-                if (window.scrollY > 50) {
-                    navbar.classList.add('navbar-white-bg');
-                } else {
-                    navbar.classList.remove('navbar-white-bg');
-                }
-            }); 
+        
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginPopup = document.getElementById('login-popup');
+        // const closePopupButton = document.getElementById('close-popup');
+        const phoneTab = document.getElementById('phone-tab');
+        const accountTab = document.getElementById('account-tab');
+        const phoneLogin = document.getElementById('phone-login');
+        const accountLogin = document.getElementById('account-login');
 
-        </script>
+        // closePopupButton.addEventListener('click', function() {
+        //     loginPopup.classList.add('hidden');
+        // });
+
+        phoneTab.addEventListener('click', function() {
+            phoneTab.classList.add('border-b-2','border-blue-500', 'pb-1');
+            accountTab.classList.remove('border-b-2','border-blue-500', 'pb-1');
+            phoneLogin.classList.remove('hidden');
+            accountLogin.classList.add('hidden');
+        });
+
+        accountTab.addEventListener('click', function() {
+            accountTab.classList.add('border-b-2','border-blue-500', 'pb-1');
+            phoneTab.classList.remove('border-b-2','border-blue-500', 'pb-1');
+            accountLogin.classList.remove('hidden');
+            phoneLogin.classList.add('hidden');
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Implement login logic here
+            alert('Login form submitted');
+        });
+    });
+
+    
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<% if (typeof alertMessagesuccess !=='undefined' && alertMessagesuccess ) { %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'success',
+                title: '<%= alertMessagesuccess %>',
+            });
+        });
+    </script>
+    <% } %>
+
          <% if (typeof alertMessage !=='undefined' && alertMessage ) { %>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
@@ -116,6 +197,7 @@
                 });
             </script>
             <% } %>
+      
 </body>
 
 </html>

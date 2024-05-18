@@ -36,7 +36,7 @@ exports.getAllUser = async (req, res) => {
             userid: userid
         });
         await Usersave.save();
-        return res.redirect('/login');
+        return res.redirect('/login?alertMessagesuccess=สมัครสมาชิกสำเร็จแล้วว ! เข้าสู่ระบบได้');
     } catch (err) {
         console.error(err);
         return res.redirect('/singup?alertMessageerror=อาจจะเป็นเพราะอีเมลซํ้าก็ได้ .!');
@@ -70,6 +70,8 @@ exports.getLogin = async (req, res) => {
             email: userlogin.email,
             password: userlogin.password,
             profile: userlogin.profile,
+            points: userlogin.points,
+            truemoney: userlogin.truemoney,
             googleprofile: userlogin.googleprofile,
             bio: userlogin.bio,
             videos: userlogin.videos,
@@ -120,6 +122,8 @@ exports.getAPIlogin = async (req, res) => {
             email: userlogin.email,
             password: userlogin.password,
             profile: userlogin.profile,
+            points: userlogin.points,
+            truemoney: userlogin.truemoney,
             googleprofile: userlogin.googleprofile,
             bio: userlogin.bio,
             videos: userlogin.videos,

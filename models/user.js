@@ -44,7 +44,14 @@ const userSchema= new mongoose.Schema({
     },
     profile: {
         type: String,
-        default: ""
+        default: "profile_De.jpg"
+    },
+    points: {
+        type: Number,
+        default: 0
+    },
+    truemoney: {
+        type: Number
     },
     googleprofile: {
         type: String,

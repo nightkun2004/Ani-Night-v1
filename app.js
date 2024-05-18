@@ -32,13 +32,22 @@ const routersRoute = require('./routes/pages/router')
 // const routerAnimebord = require('./routes/pages/dashboard/edits/animeboard')
 
 const corsOptions = {
-  origin: 'http://localhost:3100',
+  origin: 'http://localhost:4000',
   credentials: true,
 };
 
+const allowedOrigins = [
+  'http://localhost:4000',
+  'http://https://ani-night.online', 
+  'https://studio.ani-night.online'
+];
+
 // Middleware สำหรับกำหนดการอนุญาตของ CORS 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3100')
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', true);

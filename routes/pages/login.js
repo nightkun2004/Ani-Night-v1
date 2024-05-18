@@ -67,8 +67,12 @@ router.post('/api/googlelogin/user', async (req, res) => {
 router.get('/login', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const template = req.language === 'th' ? './component/pages/login' : './en/login';
-        res.render(template, { active: 'login', usersesstion, alertMessage: req.query.alertMessage });
+        if (usersesstion) {
+            return res.redirect(`/${usersesstion.url}?tokenlogin=${usersesstion.accessToken}&alertMessage=เข้าสุ่ระบบสำเร็จ`);
+        } else {
+            const template = req.language === 'th' ? './component/pages/login' : './en/login';
+            res.render(template, { active: 'login', usersesstion, alertMessage: req.query.alertMessage });
+        }
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error', err);
@@ -94,27 +98,20 @@ router.post('/forgotemail', [
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-        // If the email does not exist, return an error message
         return res.status(404).json({ error: 'Email not found' });
     }
-
-    // If email exists, show the reset password form
     res.render('./component/pages/Resetpassword', { email, usersesstion , active: 'home'});
-
-    // Optionally, you can send an email with a link to reset the password here
 });
-router.post('/resetPassword', async (req, res) => {
+router.post('/resetPassword', async (req, res) => { 
     const { email, password } = req.body;
     const usersesstion = req.session.userlogin;
     try {
-        // หาผู้ใช้จากอีเมล
         let user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // เข้ารหัสรหัสผ่านใหม่
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 

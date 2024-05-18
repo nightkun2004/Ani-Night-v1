@@ -53,23 +53,6 @@
             }
         }
     </script>
-    <script>
-        function confirmLogout(event) {
-            event.preventDefault();
-
-            Swal.fire({
-                title: 'ยืนยันการออกจากระบบ',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'ใช่, ออกจากระบบ',
-                cancelButtonText: 'ยกเลิก'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = event.target.href;
-                }
-            });
-        }
-    </script>
       <% if (typeof alertMessage !=='undefined' && alertMessage ) { %>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
