@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const userController = require('../../controls/userController')
 // const ensureAuthenticated = require('../../middleware/login')
+const authenticatetoken = require('../../middleware/authtoken')
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
@@ -67,12 +68,13 @@ router.post('/api/googlelogin/user', async (req, res) => {
 router.get('/login', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        if (usersesstion) {
-            return res.redirect(`/${usersesstion.url}?tokenlogin=${usersesstion.accessToken}&alertMessage=เข้าสุ่ระบบสำเร็จ`);
-        } else {
-            const template = req.language === 'th' ? './component/pages/login' : './en/login';
-            res.render(template, { active: 'login', usersesstion, alertMessage: req.query.alertMessage });
-        }
+        // if (usersesstion) {
+        //     return res.redirect(`/${usersesstion.url}?tokenlogin=${usersesstion.accessToken}&alertMessage=เข้าสุ่ระบบสำเร็จ`);
+        // } else {
+
+        // }
+        const template = req.language === 'th' ? './component/pages/login' : './en/login';
+        res.render(template, { active: 'login', usersesstion, alertMessage: req.query.alertMessage });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error', err);

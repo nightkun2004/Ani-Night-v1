@@ -59,7 +59,7 @@ exports.getLogin = async (req, res) => {
             return res.redirect('/login?alertMessage=รหัสผ่านไม่ถูกต้อง');
         }
 
-        const accessToken = jwt.sign({ userlogin: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+        const accessToken = jwt.sign({ userlogin: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
         res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
 
         req.session.userlogin = {
