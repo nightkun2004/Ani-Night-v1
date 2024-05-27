@@ -4,18 +4,18 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 require('dotenv').config()
 
-exports.getAllUser = async (req, res) => { 
+exports.getAllUser = async (req, res) => {
     const Userdata = ({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password 
+        password: req.body.password
     })
     try {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(Userdata.password, saltRounds);
 
         function generateRandomPostId() {
-            let numbers = Array.from({ length: 8 }, (_, i) => i); 
+            let numbers = Array.from({ length: 8 }, (_, i) => i);
             shuffleArray(numbers);
             return numbers.join('');
         }
@@ -42,108 +42,80 @@ exports.getAllUser = async (req, res) => {
         return res.redirect('/singup?alertMessageerror=อาจจะเป็นเพราะอีเมลซํ้าก็ได้ .!');
     }
 };
-
-exports.getLogin = async (req, res) => { 
+exports.getLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const userlogin = await User.findOne({ email }) 
 
-        if(!userlogin) {
-            return res.redirect('/login?alertMessage=เราไม่พบชื่อผู้ใช้');
+        // Check if email and password are provided
+        if (!email || !password) {
+            return res.render("./component/pages/login", { data: "กรุณากรอกทุกช่อง" });
         }
 
+        // Find the user by email
+        const userlogin = await User.findOne({ email });
+        if (!userlogin) return res.render("./component/pages/login", {data: "ไม่พบบัญชีผู้ใช้"});
 
+        // Compare provided password with stored password
         const isPasswordValid = await bcrypt.compare(password, userlogin.password);
+        if (!isPasswordValid) return res.render("./component/pages/login", { data: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"});
 
-        if(!isPasswordValid) {
-            return res.redirect('/login?alertMessage=รหัสผ่านไม่ถูกต้อง');
-        }
-
-        const accessToken = jwt.sign({ userlogin: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
+        // Generate access token
+        const accessToken = jwt.sign({ userId: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
         res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
 
+        // Destructure user object to exclude the password
+        const { password: userPassword, ...others } = userlogin._doc;
+
+        // Save user info to session
         req.session.userlogin = {
-            _id: userlogin._id,
-            uid: userlogin.uid,
-            name: userlogin.name,
-            username: userlogin.username,
-            email: userlogin.email,
-            password: userlogin.password,
-            profile: userlogin.profile,
-            points: userlogin.points,
-            truemoney: userlogin.truemoney,
-            googleprofile: userlogin.googleprofile,
-            bio: userlogin.bio,
-            videos: userlogin.videos,
-            acticles: userlogin.acticles,
-            posts: userlogin.posts,
-            createdAt: userlogin.createdAt,
-            followed: userlogin.followed, // ผูัติดตามทั้งหมด
-            url: userlogin.url,
-            followers: userlogin.followers, // ผู้ติดตาม
-            youtube: userlogin.youtube,
-            tiktok: userlogin.tiktok,
-            facebook: userlogin.facebook, 
-            accessToken: accessToken,
-            alertMessage: req.query.alertMessage,
-            userid: userlogin.userid,
+            ...others,
+            accessToken,
+            alertMessage: req.query.alertMessage || '',
             approval_admin: true
         };
-        res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}&alertMessage=เข้าสุ่ระบบสำเร็จ`);
-    } catch(error) {
-        console.log(error)
-        return res.redirect('/login?alertMessage=เกิดข้อผิดพลาด');
+
+        // Redirect with token and success message
+        res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}`);
+    } catch (error) {
+        console.error(error);
     }
 };
 
-exports.getAPIlogin = async (req, res) => { 
+
+
+exports.getAPIlogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const userlogin = await User.findOne({ email }) 
 
-        if(!userlogin) {
-            return res.status(400).json({ success: false, message: 'เราไม่พบชื่อผู้ใช้' });
+        // Find the user by email
+        const userlogin = await User.findOne({ email });
+        if (!userlogin) {
+            return res.render("./component/pages/login", { data: "ไม่พบบัญชีผู้ใช้" });
         }
 
+        // Compare provided password with stored password
         const isPasswordValid = await bcrypt.compare(password, userlogin.password);
-
-        if(!isPasswordValid) { 
-            return res.status(400).json({ success: false, message: 'รหัสผ่านไม่ถูกต้อง' });
+        if (!isPasswordValid) {
+            return res.render("./component/pages/login", { data: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" });
         }
 
-        const accessToken = jwt.sign({ userlogin: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+        // Generate access token
+        const accessToken = jwt.sign({ userId: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
         res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
 
+        // Destructure user object to exclude the password
+        const { password: userPassword, ...others } = userlogin._doc;
+
+        // Save user info to session
         req.session.userlogin = {
-            _id: userlogin._id,
-            uid: userlogin.uid,
-            name: userlogin.name,
-            username: userlogin.username,
-            email: userlogin.email,
-            password: userlogin.password,
-            profile: userlogin.profile,
-            points: userlogin.points,
-            truemoney: userlogin.truemoney,
-            googleprofile: userlogin.googleprofile,
-            bio: userlogin.bio,
-            videos: userlogin.videos,
-            acticles: userlogin.acticles,
-            posts: userlogin.posts,
-            createdAt: userlogin.createdAt,
-            followed: userlogin.followed,
-            url: userlogin.url,
-            followers: userlogin.followers,
-            youtube: userlogin.youtube,
-            tiktok: userlogin.tiktok,
-            facebook: userlogin.facebook, 
-            accessToken: accessToken,
-            alertMessage: req.query.alertMessage,
-            userid: userlogin.userid,
+            ...others,
+            accessToken,
+            alertMessage: req.query.alertMessage || '',
             approval_admin: true
         };
 
         return res.status(200).json({ success: true, message: 'เข้าสุ่ระบบสำเร็จ', accessToken: accessToken, userlogin: req.session.userlogin });
-    } catch(error) {
+    } catch (error) {
         console.error(error);
         return res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาด' });
     }

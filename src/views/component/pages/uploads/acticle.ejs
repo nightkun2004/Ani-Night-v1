@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 
 <body> 
     <%- include('../../../navnar_Header') %>
 
-    <section class="content">
+    <section class="pt-20">
        <div class="conteiner_form">
         <h2>สร้างบทความ</h2>
         <form action="/upload_acticle" method="post" enctype="multipart/form-data">
@@ -29,16 +30,14 @@
             <div class="mb-5">
                 <label for="tages"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ใสแท็กเนื้อหาของคุณ</label>
-                <input type="text" id="tages" name="tages"
+                <input type="text" id="tags" name="tags"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                <span>ใส่ได้มากสุด 10 แท็ก</span>
+                <span>ไม่ต้องใส่ # นะ ใส่ได้แท็กเดียว</span>
             </div>
-            <div class="mb-5">
-                <label for="">เขียนเนื้อหาบทความของคุณที่นี่!!</label>
-                <!-- <div id="editor-container" style="width: 100%; height: 500px;"></div> -->
-                <textarea id="content" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                 name="content" style="height: 300px;"></textarea>
-                <input type="hidden" id="username" name="username" value="<%= usersesstion.username %>" readonly> 
+            <div class="mb-4">
+                <label for="content" class="block text-sm font-medium text-gray-700">เนื้อหา</label>
+                <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                <input type="text" id="content" name="content" readonly class="mt-1 block w-full h-[100px] shadow-sm sm:text-sm border border-gray-300 rounded-md">
             </div>
             <div class="mb-5">
                 <label for="name_act"
@@ -46,23 +45,39 @@
                 <input type="text"  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light"
                  name="link_info" placeholder="ใส่หรือไม่ใส่ก็ได้">
                  <p>Tip: คุณสามารถแก้ไขได้ภายหลัง </p>
-                 <p>Tip: หากใส่จะทำการลิ้งไปที่หน้ารายละเอียนวีดีโอ </p>
             </div>
-            <div class="mb-5">
-                <label for="countries"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">เลือกหมวดหมู่;</label>
-                <select id="countries" name="categories"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>กดเพื่อเลือก</option>
-                    <option value="ข่าวอนิเมะ">ข่าวอนิเมะ</option>
-                    <option value="ข่าวสาร">ข่าวสาร</option>
-                    <option value="ข่าวหนัง">ข่าวหนัง</option>
-                    <option value="สื่อบันเทิง">สื่อบันเทิง</option>
-                    <option value="วาไรตี">วาไรตี</option>
-                    <option value="ภาพยนต์">ภาพยนต์</option>
-                    <option value="เกม">เกม</option>
-                </select>
-
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">หมวดหมู่</label>
+                <div class="flex flex-wrap gap-2 mt-2">
+                    <label class="category-label">
+                        <input type="checkbox" name="categories[]" value="anime">
+                        <span class="px-3 py-1 rounded-full border border-gray-300 cursor-pointer">อนิเมะ</span>
+                    </label>
+                    <label class="category-label">
+                        <input type="checkbox" name="categories[]" value="entertainment">
+                        <span class="px-3 py-1 rounded-full border border-gray-300 cursor-pointer">Entertainment บันเทิง</span>
+                    </label>
+                    <label class="category-label">
+                        <input type="checkbox" name="categories" value="song">
+                        <span class="px-3 py-1 rounded-full border border-gray-300 cursor-pointer">เพลง</span>
+                    </label>
+                    <label class="category-label">
+                        <input type="checkbox" name="categories[]" value="cartoon" >
+                        <span class="px-3 py-1 rounded-full border border-gray-300 cursor-pointer">การ์ตูน</span>
+                    </label>
+                    <label class="category-label">
+                        <input type="checkbox" name="categories[]" value="news">
+                        <span class="px-3 py-1 rounded-full border border-gray-300 cursor-pointer">ข่าวสาร</span>
+                    </label>
+                    <label class="category-label">
+                        <input type="checkbox" name="categories[]" value="travel">
+                        <span class="px-3 py-1 rounded-full border border-gray-300 cursor-pointer">การท่องเที่ยว</span>
+                    </label>
+                    <label class="category-label">
+                        <input type="checkbox" name="categories[]" value="food">
+                        <span class="px-3 py-1 rounded-full border border-gray-300 cursor-pointer">การทำอาหาร</span>
+                    </label>
+                </div>
             </div>
             <div class="mb-5">
                 <label for="repeat-password"
@@ -100,53 +115,60 @@
        </div>
     </section>
 
-    
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <!-- <script>
-        var quill = new Quill('#editor-container', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['link', 'video'],
-                    [{ 'color': [] }],
-                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                    [{ 'indent': '-1' }, { 'indent': '+1' }],
-                    ['align', 'script', 'code-block'],
-                    [{ 'header': [1, 2, 3, 4, 5, 6] }],
-                    ['clean']
+        <!-- Quill JS -->
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <!-- <script>
+            var quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+        
+            document.querySelector('form').onsubmit = function (event) {
+                var contentInput = document.querySelector('input[name=content]');
+                contentInput.value = quill.root.innerHTML;
+                console.log(contentInput.value);
+                // Uncomment the line below to allow form submission
+                // event.target.submit();
+            };
+        </script> -->
+        <script>
+            var quill = new Quill('#editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['link', 'video'],
+                        [{ 'color': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        ['align', 'script', 'code-block'],
+                        [{ 'header': [1, 2, 3, 4, 5, 6] }],
+                        ['clean']
+                    ]
+                },
+                formats: [
+                    'bold', 'italic', 'header', 'underline', 'strike', 'link', 'color', 'list', 'bullet', 'indent',
+                    'video', 'align', 'script', 'code-block'
                 ]
-            },
-            formats: [
-                'bold', 'italic', 'header', 'underline', 'strike', 'link', 'color', 'list', 'bullet', 'indent',
-                'video', 'align', 'script', 'code-block'
-            ]
-        });
-
-        var contentInput = document.getElementById('content');
-
-        var observer = new MutationObserver(function () {
-            contentInput.value = quill.root.innerHTML;
-        });
-
-        observer.observe(quill.root, {
-            childList: true,
-            subtree: true
-        });
-
-        quill.getModule('toolbar').addHandler('video', function () {
-            var url = prompt('Enter the URL of the video:');
-            if (url) {
-                insertVideo(url);
+            });
+        
+            var contentInput = document.getElementById('content');
+        
+            quill.on('text-change', function() {
+                contentInput.value = quill.root.innerHTML;
+            });
+        
+            quill.getModule('toolbar').addHandler('video', function() {
+                var url = prompt('Enter the URL of the video:');
+                if (url) {
+                    insertVideo(url);
+                }
+            });
+        
+            function insertVideo(url) {
+                var range = quill.getSelection();
+                quill.insertEmbed(range.index, 'video', url, Quill.sources.USER);
             }
-        });
-
-        function insertVideo(url) {
-            var range = quill.getSelection();
-            quill.insertEmbed(range.index, 'video', url, Quill.sources.USER);
-        }
-
-    </script> -->
+        </script>
     <script>
         function previewImage(input) {
             var preview = document.getElementById('preview');
@@ -165,17 +187,6 @@
                 preview.style.display = 'none';
             }
         }
-    </script>
-    <script>
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
-
     </script>
 </body>
 

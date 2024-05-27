@@ -1,5 +1,5 @@
 <!-- Profile Info -->
-<div class="max-w-6xl mx-auto mt-8 bg-white rounded-lg shadow">
+<div class="max-w-6xl mx-auto pt-20 bg-white rounded-lg shadow">
     <div class="flex justify-between items-center px-6 py-4 border-b">
         <div class="flex items-center">
             <% if (usersesstion.profile) { %>
@@ -61,19 +61,19 @@
             <div class="form_groud">
                 <label for="name">ชื่อช่อง</label>
                 <div class="input_box_form_edit">
-                    <input type="text" name="name" id="name" value="<%= usersesstion.name %>">
+                    <input type="text" name="name" id="name" value="<%= usersesstion.name %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
                 </div>
             </div>
             <div class="form_groud">
                 <label for="name">ชื่อผู้ใช้</label>
                 <div class="input_box_form_edit">
-                    <input type="text" name="username" id="username" value="<%= usersesstion.username %>">
+                    <input type="text" name="username" id="username" value="<%= usersesstion.username %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
                 </div>
             </div>
             <div class="form_groud">
                 <label for="name">เพิ่มประวัติ</label>
                 <div class="input_box_form_edit">
-                    <textarea name="bio" id="bio" cols="30" maxlength="400" rows="10">
+                    <textarea name="bio" id="bio" cols="30" maxlength="400" rows="10" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
                <%= usersesstion.bio %>
             </textarea>
                 </div>
@@ -82,7 +82,7 @@
             <div class="form_groud">
                 <label for="name">url โปรไฟล์</label>
                 <div class="input_box_form_edit">
-                    <input type="text" name="url" id="url" value="<%= usersesstion.url %>">
+                    <input type="text" name="url" id="url" value="<%= usersesstion.url %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
                 </div>
                 <p style="margin-top: 10px;">โปรดใส่เป็นภาษาอังกฤษ</p>
             </div>

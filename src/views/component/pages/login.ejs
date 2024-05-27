@@ -26,7 +26,7 @@
 <body>
     <%- include('../../navnar_Header') %>
     <!-- Login Popup -->
-<div id="login-popup" class="fixed inset-0 flex items-center justify-center modal-bg">
+<div id="login-popup" class="flex items-center pt-20 justify-center modal-bg">
     <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-2xl font-bold">เข้าสู่ระบบ</h2>
@@ -93,6 +93,11 @@
                             href="https://ani-night.online/privacy" target="_blank"
                             rel="noopener noreferrer">อ่านนโบบาย</a></label>
                 </div>
+                <% if (data) {%>
+                    <div class="bg-gray-100 rounded-lg p-2 mb-3 mt-3">
+                     <p class="text-1xl font-bold text-black"><%= data %></p>
+                    </div>
+                    <% } %>
             </div>
             
             <!-- Footer -->

@@ -28,6 +28,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+
+    <%- include('../../../navnar_Header') %>
     <section class="uplaod_video mx-auto px-4 xl:max-w-7xl pt-[50px]">
         <div class="bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm">
             <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">อัพโหลดวีดีโอ</h2>
@@ -48,9 +50,9 @@
                 <div class="mb-5">
                     <label for="tages"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ใสแท็กเนื้อหาของคุณ</label>
-                    <input type="text" id="tages" name="tages"
+                    <input type="text" id="tags" name="tags"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                    <span>ใส่ได้มากสุด 10 แท็ก</span>
+                    <span>ไม่ต้องใส่ # นะ ใส่ได้แท้กเดียว</span>
                 </div>
                 <div class="mb-5">
                     <label for="countries"
@@ -66,7 +68,7 @@
                         <option value="ภาพยนต์">ภาพยนต์</option>
                         <option value="เกม">เกม</option>
                     </select>
-
+ 
 
                     <!-- <label for="thaiSubtitle">Thai Subtitle:</label>
                     <input type="file" id="thaiSubtitle" name="subthai" accept=".vtt" required><br><br>

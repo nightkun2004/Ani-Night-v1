@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/pages/home_Section.css">
     <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
     <meta name="keyword" content="<%= acticle.title %>">
+    <meta name="keyword" content="<%= acticle.categories %>">
     <meta property="og:title" content="<%= acticle.title %>">
     <meta name="description" content="อัตเดตข่าวสารด้านอนิเมะที่คุณชอบ พร้อมเนื้อหาที่มีประโยนช์แ่คุณ!!">
     <meta property="og:image" content="https://ani-night.online/acticles_images/<%= acticle.photo %>">
@@ -41,147 +42,125 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="bg-gray-100">
     <%- include('../navnar_Header') %>
-    <section class="reads  mx-auto px-4 xl:max-w-7xl">
-        <div class="category">
-            <p><a href="/">หน้าหลัก</a><span>&gt;</span>
-            <p class="co">
-                <% if (acticle && acticle.title) { %>
-                    <%= acticle.title.substring(0, 40) + '...' %>
-                        <% } else { %>
-                            <%= acticle.title %>
-                                <% } %>
-            </p>
-            </p>
-        </div>
-        <div class="loading_container"> 
-            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                <div class="spinner"></div>
-                <p>กำลังประมวณผลข้อมูล</p>
+    <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="container pt-10">
+            <div class="loading_container"> 
+                <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p>กำลังประมวณผลข้อมูล</p>
+                </div>
             </div>
-        </div>
-        <div class="loading" style="display: none;">
-            <div class="read_title mt-8 bg-white w-full px-6 md:px-12 py-4 shadow-md rounded-md relative">
-                <div class="read_image">
-                    <a href="/acticles_images/<%= acticle.photo %>" target="_blank">
-                        <img src="/acticles_images/<%= acticle.photo %>" alt="">
-                    </a>
-                </div>
-                <div class="read_title_h2">
-                    <h2> <%= acticle.title %></h2>
-                </div>
-                <div class="views">
-                    <p class="viewsp">
-                        <% function formatNumber(number) { if (number>=
-                            1000000)
-                            {
-                            return (number / 1000000).toFixed(1) + 'm';
-                            } else if (number >= 1000) {
-                            return (number / 1000).toFixed(1) + 'k';
-                            } else {
-                            return number;
-                            }
-                            }
-    
-                            var number1 = 100;
-                            var number2 = 500;
-                            var number3 = 1500;
-                            var number4 = 1200000;
-                            %>
-                            <p class="pl-3">
-                                การดู <%= formatNumber(acticle.views) %> ครั้ง
-                            </p>
-                    </p>
-                </div>
-                <div class="data-time">
-                    <p class="pl-3">เขียนเมื่อ
-                        <%= new Date(acticle.createdAt).toLocaleDateString('en-EN') %>
-                    </p>
-                </div>
-                <div class="editor">
-                    <% if (acticle.author && acticle.author.id) { %>
-                        <div style="display: flex; align-items: center;">
-                            <div class="profile">
-                                <a href="/editor/<%= acticle.author.id.username %>">
-                                    <img data-popover-target="popover-user-profile" src="/profiles/<%= acticle.author.id.profile %>"
-                                        alt="Bonnie image" />
-                                </a>
+            <!-- Main Content -->
+            <div class="loading" style="display: none;">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-10">
+                    <!-- Post Header -->
+                    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
+                        <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                            <div>
+                                 <div class="category text-sm md:text-2xl">
+                                <p><a href="/">หน้าหลัก</a><span>&gt;</span>
+                                <p class="text-sm md:text-2xl">
+                                    <% if (acticle && acticle.title) { %>
+                                        <%= acticle.title.substring(0, 40) + '...' %>
+                                            <% } else { %>
+                                                <%= acticle.title %>
+                                                    <% } %>
+                                </p>
+                                </p>
                             </div>
-                            <h2 class="pl-[20px]">
-                                <%= acticle.author.id.username %>
-                            </h2>
-                        </div>
-                        <% } else { %>
-                            <p>Author: Unknown</p>
-                
-                            <% } %>
-                </div>
-                <div class="mt-4 mb-12">
-                    <% if (acticle && acticle.tags && acticle.tags.length > 0) { %>
-                        <h2 class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
-                            Tags: <% acticle.tags.forEach(tag => { %>
-                                <a class="text-sky-500" href="/<%= tag %>"><%= tag %></a>
-                            <% }); %>
-                        </h2>
-                    <% } else { %>
-                        <h2>Tags: ไม่มีแท็ก</h2>
-                    <% } %>
+                                <h1 class="text-sm leading-6 font-bold text-gray-900 md:text-2xl">
+                                    <%= acticle.title %>
+                                </h1>
+                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                    เขียนโดย <a href="/editor/<%= acticle.author.username %> "><%= acticle.author.username %> </a> | เวลา <%= moment(acticle.createdAt).format('YYYY-MM-DD HH:mm:ss') %>
+                                </p>
+                                <div class="mt-1 flex justify-between">
+                                    <% if (acticle && acticle.tags && acticle.tags.length > 0) { %>
+                                        <h2 class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
+                                            Tags: <% acticle.tags.forEach(tag => { %>
+                                                <a class="text-sky-500" href="/tag/<%= tag %>"><%= tag %></a>
+                                            <% }); %>
+                                        </h2>
+                                    <% } else { %>
+                                        <h2>Tags: ไม่มีแท็ก</h2>
+                                    <% } %>
+                                    
+                                    <% if (acticle.link_info) { %>
+                                        <div class="rounded-full items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
+                                        <button class="text-black"><a href="<%= acticle.link_info %>" target="_blank" rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
+                                    </div>
+                                    <% } %>
+                                    <p class="viewsp">
+                                        <% function formatNumber(number) { if (number>=
+                                            1000000)
+                                            {
+                                            return (number / 1000000).toFixed(1) + 'm';
+                                            } else if (number >= 1000) {
+                                            return (number / 1000).toFixed(1) + 'k';
+                                            } else {
+                                            return number;
+                                            }
+                                            }
                     
-                    <% if (acticle.link_info) { %>
-                        <div class="rounded-full items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
-                        <button class="text-black"><a href="<%= acticle.link_info %>" target="_blank" rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
-                    </div>
-                    <% } %>
-                </div>
-    
-                <div class="absolute md:right-12 md:bottom-4 right-4 bottom-4 px-2 py-2 rounded-full">
-                    <div class="flex items-center">
-                        <button id="copylink"
-                            class="inline-flex bg-white items-center border border-gray-300 px-4 rounded-full engfont-bold text-gray-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-share-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5" />
-                            </svg>
-                            <p class="pl-2 text-black">แชร์</p>
-                        </button>
-                        <div class="popup ml-2" id="popup" style="display: none;">
-                            <span class="popup-text" id="popupText">คัดลอกลิงค์แล้ว!</span>
+                                            var number1 = 100;
+                                            var number2 = 500;
+                                            var number3 = 1500;
+                                            var number4 = 1200000;
+                                            %>
+                                            <p class="pl-3 text-sm ">
+                                                การดู <%= formatNumber(acticle.views) %> ครั้ง
+                                            </p>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="relative flex items-center space-x-2">
+                                <button id="copylink" class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    แชร์
+                                </button>
+                                <!-- Popup container -->
+                                <div class="absolute top-5 w-[100px] right-4 ml-2 bg-white border border-gray-300 shadow-md rounded-md p-2" style="display: none;"
+                                    id="popup">
+                                    <span id="popupText">คัดลอกลิงค์แล้ว!</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200">
+                            <img class="w-full h-96 object-cover" src="/acticles_images/<%= acticle.photo %>" alt="Post Image">
                         </div>
                     </div>
-    
+
+                    <!-- ADS -->
+                    <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                            crossorigin="anonymous"></script>
+            
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-6579807593228261"
+                            data-ad-slot="9626337250"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                    
+                    <!-- Post Content -->
+                    <div class="bg-white shadow overflow-hidden sm:rounded-lg p-6">
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500 border-b-2">
+                           หมวดหมู่: <%= acticle.categories %>
+                        </p>
+                        <div class="text-lg leading-7 text-gray-700">
+                            <p class="mb-4"><%- acticle.content %></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-                    crossorigin="anonymous"></script>
-    
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-6579807593228261"
-                    data-ad-slot="9626337250"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-    <div class="content-full bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg" style="
-                    word-break: break-word;
-        line-height: 20px;
-        font-weight: 400;
-        margin-bottom: 0;
-        transition: all .3s ease-in-out;
-        white-space: pre-wrap;
-    ">
-                <%- acticle.content %>
-            </div>
-    
             
         </div>
-       
-    </section>
+    </div>
 
     <%- include('../footer') %>
    
@@ -209,18 +188,7 @@
 
 
     </script>
-    <script>
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
-
-    </script>
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function () {
             var descriptionSpan = document.querySelector('.content-full');
             var description = descriptionSpan.textContent.trim();
@@ -228,7 +196,7 @@
             var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" style="color: blue;">$1</a>');
             descriptionSpan.innerHTML = descriptionWithLinks;
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

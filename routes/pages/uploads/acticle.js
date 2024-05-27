@@ -42,7 +42,7 @@ router.get('/upload_acticle', authenticatetoken, async (req, res) => {
 router.post('/upload_acticle', upload.single('upload_picActicle'), async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const { name, tages, content, username, categories } = req.body;
+        const { name, tags, content, username, categories } = req.body;
         // const { buffer } = req.file;
         function generateRandomString(length) {
             const characters = process.env.random_token;
@@ -53,11 +53,7 @@ router.post('/upload_acticle', upload.single('upload_picActicle'), async (req, r
             return result;
         }
         
-        // const randomString = generateRandomString(14);
-        // const filename = `${randomString}.jpg`;
-        
-        // const formData = new FormData();
-        // formData.append('file', buffer, filename);
+        console.log('Categories:', categories);
         
 
 
@@ -80,15 +76,14 @@ router.post('/upload_acticle', upload.single('upload_picActicle'), async (req, r
             return res.status(400).send('No file uploaded.');
         }
 
-        const tagsArray = tages.split('#').filter(tages => tages.trim() !== '').slice(0, 5);
-
         const postcreate = {
             title: name,
             content: content,
             username: username,
             categories: categories,
-            tags: tagsArray,
+            tags: Array.isArray(tags) ? tags : [tags],
             photo: req.file.filename,
+            categories: Array.isArray(categories) ? categories : [categories],
             link: req.body.link,
             link_info: req.body.link_info,
             url: postId,

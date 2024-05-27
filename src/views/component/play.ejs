@@ -72,22 +72,11 @@
                 <link rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
                 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-                <!-- <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-    <script>
-        window.googletag = window.googletag || { cmd: [] };
-        googletag.cmd.push(function () {
-            googletag.defineSlot('/22745653040/AniNightads', [120, 20], 'div-gpt-ad-1710925870938-0').addService(googletag.companionAds()).addService(googletag.pubads());
-            googletag.pubads().enableSingleRequest();
-            googletag.pubads().enableVideoAds();
-            googletag.companionAds().setRefreshUnfilledSlots(true);
-            googletag.enableServices();
-        });
-    </script> -->
 </head>
 
 <body>
-    <%- include('../navbarPlays/navbarplay') %>
-    <section class="player_anime-container mx-auto xl:max-w-8xl">
+    <%- include('../navnar_Header') %>
+    <section class="player_anime-container mx-auto xl:max-w-8xl pt-20">
         <!-- Section Left -->
         <div class="container-play">
             <section class="section-player md:p-2">
@@ -377,7 +366,7 @@
             <div class="bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative pc">
                 <div class="tages">
                     <% if (video && video.tags && video.tags.length> 0) { %>
-                        <h2> <%- video.tags.map(tag=> `<a href="/tag/${tag}">${tag}</a>`).join(', ') %></h2>
+                        <h2><a href="/tag/<%= video.tags[0] %>"><%= video.tags[0] %></a></h2>
                         <% } else { %>
                             <h2>Tags: ไม่มีแท็ก</h2>
                             <% } %>
@@ -576,9 +565,9 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-        <script src="../js/video_player.js"></script>
-        <script src="../js/play.js"></script>
-        <script>
+        <script src="../js/video_player.js" defer></script>
+        <script src="../js/play.js" defer></script>
+        <script defer>
             function showLoadingIndicator() {
     document.querySelectorAll('.loading_container').forEach(item => {
         item.style.display = 'block';
@@ -606,7 +595,7 @@ window.addEventListener('load', function () {
         </script>
         <!-- <script src="./js/pages/videoai.js"></script> -->
         <% if (typeof rating !=='undefined' && rating ) { %>
-            <script>
+            <script defer>
                 document.addEventListener('DOMContentLoaded', function () {
                     Swal.fire({
                         icon: 'success',

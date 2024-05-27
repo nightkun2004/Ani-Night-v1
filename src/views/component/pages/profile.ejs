@@ -8,22 +8,20 @@
     <title>
         <%= usersesstion.username %>
     </title>
-    <link rel="stylesheet" href="/css/pages/profiles/home_Content.css">
-    <link rel="stylesheet" href="/css/pages/profile_section.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-        crossorigin="anonymous"></script>
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
 </head>
 <body class="bg-gray-100">
     <%- include('../../navnar_Header') %>
 
-    <section class=" mx-auto px-4 xl:max-w-7xl">
+    <section class="l">
         <div class="content_main"> 
             <%- include('./profile/profile_section') %>
-            <div class="menus"> 
+            <div class=""> 
                 <%- include('./profile/navbar') %>
             </div>
             <%- include('./profile/contents/home_Content') %> 

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หมวดหมู่อนิเมะที่กำลังมาแรง</title>
+    <meta name="description" content="สำรวจหมวดหมู่อนิเมะที่กำลังมาแรงล่าสุด รวมทั้งแอคชั่น ดราม่า คอมเมดี้ และอื่น ๆ ติดตามอนิเมะที่คุณชื่นชอบและค้นพบซีรีส์ใหม่ ๆ">
+    <meta name="keywords" content="อนิเมะ, อนิเมะที่กำลังมาแรง, หมวดหมู่อะนิเมะ, แอคชั่นอะนิเมะ, ดราม่าอะนิเมะ, คอมเมดี้อะนิเมะ, อนิเมะล่าสุด">
+    <meta name="author" content="ชื่อเว็บไซต์ของคุณ">
+    <meta property="og:title" content="หมวดหมู่อนิเมะที่กำลังมาแรง">
+    <meta property="og:description" content="สำรวจหมวดหมู่อนิเมะที่กำลังมาแรงล่าสุด รวมทั้งแอคชั่น ดราม่า คอมเมดี้ และอื่น ๆ ติดตามอนิเมะที่คุณชื่นชอบและค้นพบซีรีส์ใหม่ ๆ">
+    <meta property="og:image" content="https://ani-night.online/path-to-your-image.jpg">
+    <meta property="og:url" content="https://ani-night.online/categories">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="หมวดหมู่อนิเมะที่กำลังมาแรง">
+    <meta name="twitter:description" content="สำรวจหมวดหมู่อนิเมะที่กำลังมาแรงล่าสุด รวมทั้งแอคชั่น ดราม่า คอมเมดี้ และอื่น ๆ ติดตามอนิเมะที่คุณชื่นชอบและค้นพบซีรีส์ใหม่ ๆ">
+    <meta name="twitter:site" content="@YourTwitterHandle">
+    <meta name="twitter:image" content="https://ani-night.online/path-to-your-image.jpg">
+    <link rel="canonical" href="https://ani-night.online/categories">
+    <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/footer.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+
+<body class="bg-gray-100">
+    <%- include('../../navnar_Header') %>
+    <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="container pt-10">
+            <!-- Main Content -->
+            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">สำรวจ</h1>
+                <div class="flex items-center justify-between bg-white shadow-md p-4 mb-5">
+                    <!-- Left Scroll Button -->
+                    <button id="scroll-left" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+    
+                    <!-- Category List -->
+                    <div id="category-container" class="flex space-x-2 overflow-x-auto scrollbar-hide">
+                        <button class="category-btn px-4 py-2 rounded-lg bg-black text-white focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('ทั้งหมด')">ทั้งหมด</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('anime')">อนิเมะ</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('song')">เพลง</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('cartoon')">การ์ตูน</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('ข่าวสาร')">ข่าวสาร</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('เกม')">เกม</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('entertainment')">Entertainment บันเทิง</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('การท่องเที่ยว')">การท่องเที่ยว</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('การทำอาหาร')">การทำอาหาร</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('อัปโหลดล่าสุด')">อัปโหลดล่าสุด</button>
+                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                            onclick="filterCategory('ดูแล้ว')">ดูแล้ว</button>
+                    </div>
+    
+                    <!-- Right Scroll Button -->
+                    <button id="scroll-right" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                <p id="category-query" class="mb-4 text-lg font-semibold">เลือกหมวดหมู่ | <span>ทั้งหมด</span></p>
+                <!-- category-lists  -->
+                <div id="posts-container"
+                    class="ategory-lists grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                    <% posts.forEach(post=> { %>
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                            <img class="w-full h-56 object-cover" src="/acticles_images/<%= post.photo %>" alt="Thumbnail">
+                            <div class="p-4">
+                                <h2 class="text-lg font-semibold text-gray-900">
+                                  <a href="/read/<%= post.url %> %>" target="_blank" rel="noopener noreferrer">  <%= post.title %></a>
+                                </h2>
+                
+                                <div class="mt-3 flex items-center">
+                                    <img class="h-8 w-8 rounded-full" src="/profiles/<%= post.author.profilepic %>" alt="Profile">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">
+                                            <%= post.author.username %>
+                                        </p>
+                                        <p class="text-sm text-gray-500">
+                                            <%= post.views %> views • <%= new Date(post.createdAt).toLocaleDateString() %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../footer') %>
+    <script>
+        const scrollContainer = document.getElementById('category-container');
+        const scrollLeft = document.getElementById('scroll-left');
+        const scrollRight = document.getElementById('scroll-right');
+
+        scrollLeft.addEventListener('click', () => {
+            scrollContainer.scrollBy({
+                left: -200,
+                behavior: 'smooth'
+            });
+        });
+
+        scrollRight.addEventListener('click', () => {
+            scrollContainer.scrollBy({
+                left: 200,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+  <script>
+    function filterCategory(category) {
+        fetch(`/explore/categories?category=${category}`)
+            .then(response => response.json())
+            .then(posts => {
+                console.log(posts)
+                const postsContainer = document.getElementById('posts-container');
+                postsContainer.innerHTML = '';
+                posts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('bg-white', 'shadow-md', 'rounded-lg', 'overflow-hidden');
+                    postElement.innerHTML = `
+                        <img class="w-full h-56 object-cover" src="/acticles_images/${post.photo}" alt="Thumbnail">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold text-gray-900"><a href="/read/${post.url}" target="_blank" rel="noopener noreferrer">${post.title}</a></h2>
+                            <div class="mt-3 flex items-center">
+                                <img class="h-8 w-8 rounded-full" src="/profiles/${post.author.profilepic}" alt="Profile">
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">${post.author.username}</p>
+                                    <p class="text-sm text-gray-500">${post.views} views • ${new Date(post.createdAt).toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+
+                // Update active category button
+                const buttons = document.querySelectorAll('.category-btn');
+                buttons.forEach(btn => {
+                    if (btn.textContent === category) {
+                        btn.classList.add('bg-black', 'text-white');
+                        btn.classList.remove('bg-gray-200', 'text-gray-700');
+                    } else {
+                        btn.classList.remove('bg-black', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-700');
+                    }
+                });
+
+                // Update category query text
+                const categoryQuery = document.getElementById('category-query').querySelector('span');
+                categoryQuery.textContent = category;
+            })
+            .catch(err => console.error(err));
+    }
+
+    // Set default category on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        filterCategory('ทั้งหมด');
+    });
+</script>
+</body>
+</html>

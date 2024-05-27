@@ -1,36 +1,99 @@
-<header class="flex items-center justify-between shadow-md p-2 bg-white sticky top-0 z-20">
-    <div class="logo ">
-        <a href="/" class="flex items-center">
-            <img src="/images/logo/Aninight.png" alt="Logo Ani Night" class="w-10 ">
-            <h3 class="text-sm md:text-2xl logo-text font-bold font-Poppins">Aninight</h3>
+<nav class="bg-white border-b border-gray-200 shadow-sm fixed w-full z-10">
+    <div class="container mx-auto px-4 flex justify-between items-center h-16">
+        <!-- Logo -->
+        <a href="/" class="flex items-center space-x-2">
+            <img src="/images/logo/Aninight.png" alt="Logo" class="h-8 w-8">
+            <span class="text-lg font-semibold text-gray-700">ANINIGHT</span>
         </a>
-    </div>
-    <div class="menus">
-        <ul class="flex">
-            <li class="m-2 text-xs md-text-2xl">
-                <a href="/">
-                    หน้าหลัก
-                </a>
-            </li>
-            <li class="m-2 text-xs md-text-2xl">
-                <a href="/animeboard">
-                    บอร์ดอนิเมะ
-                </a>
-            </li>
+
+        <!-- Menu Toggle Button for Mobile -->
+        <div class="md:hidden">
+            <button id="menu-toggle" class="text-gray-700 focus:outline-none">
+                ☰
+            </button>
+        </div>
+
+        <!-- Nav Links and Icons -->
+        <div class="hidden md:flex items-center space-x-4">
+            <a href="/" class="block text-gray-700 hover:text-blue-500">หน้าหลัก</a>
+            <a href="/search" class="block text-gray-700 hover:text-blue-500">🔍 ค้นหา</a>
+            <a href="/animeboard" class="block text-gray-700 hover:text-blue-500">บอร์ดอนิเมะ</a>
+            <a href="/categories" class="block text-gray-700 hover:text-blue-500">หมวดหมู่</a>
+            <a href="/articles" class="block text-gray-700 hover:text-blue-500">บทความ</a>
             <% if (!usersesstion) { %>
-                <li class="m-2 text-xs md-text-2xl">
-                    <a href="/login">
-                        เข้าสู่ระบบ
-                    </a>
-                </li>
-                <% } %>
+             <a href="/login" class="block text-gray-700 hover:text-blue-500">เข้าสู่ระบบ</a>
+          <% } %>
             <% if (usersesstion) { %>
-                <li class="m-2 text-xs md-text-2xl">
-                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>">
-                        โปรไฟล์
-                    </a>
-                </li>
-                <% } %>
-        </ul>
+            <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 hover:text-blue-500">เขียน</a>
+          <% } %>
+         
+            <!-- Icons -->
+            <!-- <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-700 hover:text-blue-500">Icon1</a>
+                <a href="#" class="text-gray-700 hover:text-blue-500">Icon2</a>
+                <a href="#" class="text-gray-700 hover:text-blue-500">Icon3</a>
+            </div> -->
+
+            <!-- Profile Dropdown -->
+            <div class="relative">
+                <button class="focus:outline-none">
+                    <% if (usersesstion) { %>
+                        <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>">
+                            <img class="h-8 w-8 rounded-full" src="/profiles/<%= usersesstion.profile %>" alt="User Avatar">
+                        </a>
+                      <% } %>
+                </button>
+            </div>
+        </div>
     </div>
-</header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 shadow-sm hidden">
+        <div class="px-4 py-2 space-y-2">
+            <a href="/" class="block text-gray-700 hover:text-blue-500">หน้าหลัก</a>
+            <a href="/animeboard" class="block text-gray-700 hover:text-blue-500">บอร์ดอนิเมะ</a>
+            <a href="/articles" class="block text-gray-700 hover:text-blue-500">บทความ</a>
+            <% if (usersesstion) { %>
+                <div class="border-t border-gray-200 mt-2 pt-2">
+                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 hover:text-blue-500">โปรไฟล์</a>
+                    <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 hover:text-blue-500">เขียน</a>
+                    <a href="#" class="block text-gray-700 hover:text-blue-500">การตั้งค่า</a>
+                    <a href="#" class="block text-gray-700 hover:text-blue-500">ออกจากระบบ</a>
+                </div>
+          <% } %>
+        </div>
+    </div>
+</nav>
+<style>
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    .activemenu{
+        border-bottom: 3px solid #000;
+        color: #000;
+        font-weight: bold;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+</style>
+<script>
+    // Toggle the profile dropdown menu
+    document.querySelector('button').addEventListener('click', function() {
+        const dropdown = this.nextElementSibling;
+        dropdown.classList.toggle('hidden');
+    });
+
+    // Toggle the mobile menu
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>

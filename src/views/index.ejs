@@ -54,11 +54,20 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
 
+    .scrollbar-hide {
+        -ms-overflow-style: none; 
+        scrollbar-width: none; 
+    }
+</style>
 <body class="bg-gray-50">
     <%- include('./navnar_Header') %>
 
-        <div class="aninime_banner z-10">
+        <div class="aninime_banner pt-20">
             <div class="banner">
                 <div class="slideshow-container">
                     <div class="mySlides fade">
@@ -78,6 +87,8 @@
             </div>
         </div>
 
+        
+
         <div class="sectionlist mx-auto px-4 xl:max-w-7xl">
             <!-- Ads Home -->
             <script async
@@ -89,11 +100,6 @@
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
-            <div class="header_list">
-                <h2 class="text-2xl mb-2">อนิเมะเดือนนี้</h2>
-
-                <a href="/animeboard"> เช็คตอนนี้</a>
-            </div>
             <div class="text-center loadingIndicator">
                 <div role="status">
                     <svg aria-hidden="true"
@@ -110,52 +116,33 @@
                 </div>
             </div>
             <div class="loading" style="display: none;">
-                <div
-                    class="animes mobile grid sm:grid md:grid lg:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                    <% if (AnimeBordData && AnimeBordData.length> 0) { %>
-                        <% AnimeBordData.forEach(item=> { %>
-                            <% if (item.animeMay && item.animeMay.length> 0) { %>
-                                <% item.animeMay.forEach(anime=> { %>
-                                    <div class="itemcard flex flex-col w-[150px] m-1">
-                                        <div class="pic_anime w-full">
-                                            <img src="<%= anime.linkImage %>" alt="animePIC"
-                                                class="w-100 h-100 rounded">
-                                        </div>
-                                        <h3 class="title-anime">
-                                            <%= anime.nameAnime %>
-                                        </h3>
-                                        <div class="hover_card">
-                                            <p>ผลิตโดย: <span>
-                                                    <%= anime.Produced %>
-                                                </span></p>
-                                            <% if (anime.manuscript) { %>
-                                                <p>ต้นฉบับ: <span>
-                                                        <%= anime.manuscript %>
-                                                    </span></p>
-                                                <% } %>
-                                                    <p>จำนวนตอน: <span>
-                                                            <%= anime.episodes %>
-                                                        </span></p>
-                                                    <p>เริ่มฉาย: <span>
-                                                            <%= anime.start %>
-                                                        </span></p>
-
-                                                    <% if (anime.nameep) { %>
-                                                        <p>ชื่อตอน: <span>
-                                                                <%= anime.nameep %>
-                                                            </span></p>
-                                                        <% } %>
-                                        </div>
-                                    </div>
-                                    <% }); %>
-                                        <% } else { %>
-                                            <p style="text-align: center;">ไม่มีข้อมูล เดือนพฤษภาคม สำหรับ AnimeBord นี้
-                                            </p>
-                                            <% } %>
-                                                <% }); %>
-                                                    <% } else { %>
-                                                        <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
-                                                        <% } %>
+                <div class="container mx-auto px-4 py-8">
+                    <div class="mt-6 text-left">
+                        <h1 class="text-2xl font-bold mb-6">อนิเมะเดือนนี้</h1>
+                    </div>
+                    <div class="mt-6 text-right">
+                        <a href="/animeboard" class="text-blue-500 hover:underline">ดูทั้งหมด</a>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                        <% if (AnimeBordData && AnimeBordData.length> 0) { %>
+                            <% AnimeBordData.forEach(item=> { %>
+                                <% if (item.animeMay && item.animeMay.length> 0) { %>
+                                    <% item.animeMay.forEach(anime=> { %>
+                                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                                     <img src="<%= anime.linkImage %>" alt="<%= anime.nameAnime %>" class="w-full h-56 object-cover">
+                                  <div class="p-4">
+                                    <h2 class="text-lg font-semibold"><%= anime.nameAnime %></h2>
+                                 </div>
+                             </div>
+                        <% }); %>
+                        <% } else { %>
+                            <p style="text-align: center;">ไม่มีข้อมูล เดือนพฤษภาคม สำหรับ AnimeBord นี้</p>
+                        <% } %>
+                      <% }); %>
+                          <% } else { %>
+                              <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                         <% } %>
+                    </div>
                 </div>
             </div>
 
@@ -179,47 +166,31 @@
                 </div>
             </div>
             <div class="loading" style="display: none;">
-                <div class="articles_lists">
-                    <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                        <% acticles_Bors.forEach((article)=> { %>
-                            <li class="w-[150px] md:w-[190px] bg-white rounded z-2">
-                                <a href="/read/<%= article.url %>?lang=<%= language %>">
-                                    <div class="pic_article">
-                                        <img src="/acticles_images/<%= article.photo %>"
-                                            class="w-full h-[230px] sm:h-[130px] object-cover"
-                                            alt="/acticles_images/<%= article.photo %>">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Blog Post 1 -->
+                    <% acticles_Bors.forEach((article)=> { %>
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <a href="/read/<%= article.url %>?lang=<%= language %>">
+                            <img class="w-full h-48 object-cover" src="/acticles_images/<%= article.photo %>" alt="Post Image">
+                            <div class="p-6">
+                                <h2 class="text-2xl font-bold mb-2 text-gray-800">  <%= article.title %></h2>
+                                <% if (article.author && article.author.id) { %>
+                                <div class="flex items-center">
+                                    <img class="w-10 h-10 rounded-full mr-4" src="/profiles/<%= article.author.id.profile %>"
+                                        alt="Author Image">
+                                    <div class="text-sm">
+                                        <p class="text-gray-900 leading-none"><a href="/editor/<%= article.author.id.username %>"><%= article.author.id.username %></a></p>
+                                        <p class="text-gray-600"><%= moment(article.createdAt).format('YYYY-MM-DD HH:mm:ss') %></p>
                                     </div>
-                                    <div class="p-2">
-                                        <h2>
-                                            <%= article.title %>
-                                        </h2>
-                                    </div>
-                                    <% if (article.author && article.author.id) { %>
-                                        <div class="flex p-1 relative">
-                                            <div class="profile-logo z-1">
-                                                <a href="/editor/<%= article.author.id.username %>">
-                                                    <img src="/profiles/<%= article.author.id.profile %>" alt="Edior"
-                                                        class="w-[50px] h-[50px] rounded-full">
-                                                </a>
-                                            </div>
-                                            <div class="ch-text pl-1">
-                                                <a href="/editor/<%= article.author.id.username %>">
-                                                    <h2>
-                                                        <%= article.author.id.username %>
-                                                    </h2>
-                                                </a>
-                                            </div>
-                                            <div class="views p-2 absolute right-1">
-                                                <%= article.views %> วิว
-                                            </div>
-                                        </div>
-                                        <% } else { %>
-                                            <p>Author: ไม่พบผู้เขียน</p>
-                                            <% } %>
-                                </a>
-                            </li>
-                            <% }) %>
-                    </ul>
+                                </div>
+                                <% } else { %>
+                                    <p>Author: ไม่พบผู้เขียน</p>
+                            <% } %>
+                            </div>
+                        </a>
+                    </div>
+                    <% }) %>
+                    <!-- More blog posts can be added here in the same format -->
                 </div>
             </div>
 
@@ -229,31 +200,36 @@
                 <a class="bg-gray-100 p-2 rounded-full" href="/foryou" target="_blank"
                     rel="noopener noreferrer">ทั้งหมด</a>
             </div>
-            <div class="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Blog Post 1 -->
                 <% if (videos.length> 0) { %>
                     <% videos.forEach(video=> { %>
-                        <div class="bg-white rounded">
-                            <a href="/play/<%= video.videoid %>" target="_blank">
-                                <div class="pic_photo">
-                                    <img src="/cover_videos/<%= video.coverImage %>" alt="<%= video.coverImage %>"
-                                        class="w-full h-[230px] sm:h-[130px] object-cover">
-                                    <video class="video" src="/videos/<%= video.filePath %>.mp4"
-                                        style="display: none;"></video>
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    <a href="/play/<%= video.videoid %>">
+                        <img class="w-full h-48 object-cover" src="/cover_videos/<%= video.coverImage %>" alt="Video Image">
+                        <div class="p-6">
+                            <h2 class="text-2xl font-bold mb-2 text-gray-800">  <%= video.name %></h2>
+                            <p><%- video.views %> วิว</p>
+                            <% if (video.author && video.author.id) { %>
+                            <div class="flex items-center">
+                                <img class="w-10 h-10 rounded-full mr-4" src="/profiles/<%= video.author.id.profile %>"
+                                    alt="Author Image">
+                                <div class="text-sm">
+                                    <p class="text-gray-900 leading-none"><a href="/editor/<%= video.author.id.username %>"><%= video.author.id.username %></a></p>
+                                    <p class="text-gray-600"><%= moment(video.createdAt).format('YYYY-MM-DD HH:mm:ss') %></p>
                                 </div>
-                                <div class=" p-2">
-                                    <% if (video && video.description) { %>
-                                        <h2><%- video.name.substring(0, 20) + '  ....' %></h2>
-                                        <% } %>
-                                </div>
-                                <div class="relative">
-                                    <p class=" absolute right-1"> <%- video.views %> วิว</p>
-                                </div>
-                            </a>
-                        </div>
-                        <% }) %>
+                            </div>
                             <% } else { %>
-                                <p>ไม่พบข่าวอนิเมะ</p>
-                                <% } %>
+                                <p>Author: ไม่พบผู้เขียน</p>
+                        <% } %>
+                        </div>
+                    </a>
+                </div>
+                <% }) %>
+                <% } else { %>
+                 <p>ไม่พบข่าวอนิเมะ</p>
+                <% } %>
+                <!-- More blog posts can be added here in the same format -->
             </div>
         </div>
 
@@ -283,7 +259,25 @@
                 });
             </script>
 
+<script>
+    const scrollContainer = document.getElementById('category-container');
+    const scrollLeft = document.getElementById('scroll-left');
+    const scrollRight = document.getElementById('scroll-right');
 
+    scrollLeft.addEventListener('click', () => {
+        scrollContainer.scrollBy({
+            left: -200,
+            behavior: 'smooth'
+        });
+    });
+
+    scrollRight.addEventListener('click', () => {
+        scrollContainer.scrollBy({
+            left: 200,
+            behavior: 'smooth'
+        });
+    });
+</script>
 </body>
 
 </html>

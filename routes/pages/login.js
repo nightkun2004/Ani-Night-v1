@@ -74,7 +74,7 @@ router.get('/login', async (req, res) => {
 
         // }
         const template = req.language === 'th' ? './component/pages/login' : './en/login';
-        res.render(template, { active: 'login', usersesstion, alertMessage: req.query.alertMessage });
+        res.render(template, { active: 'login', usersesstion, alertMessage: req.query.alertMessage, data: false });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error', err);

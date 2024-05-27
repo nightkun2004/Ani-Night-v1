@@ -6,7 +6,10 @@ const Subtitle = require('../models/subtitle');
 const videoSchema = new mongoose.Schema({
     name: String,
     description: String,
-    tags: [String],
+    tags:{ 
+        type: Array,
+        required: true
+    },
     filePath: String,
     categories: String,
     videoid: {

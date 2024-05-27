@@ -10,18 +10,21 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-
 router.get('/tag/:tagname', async (req, res) => {
+    const usersesstion = req.session.userlogin;
     try {
-        const usersesstion = req.session.userlogin;
         const tagname = req.params.tagname;
-        const articlesWithTag = await Acticle.find({ tags: tagname }).exec();
-
-        res.render('./component/tags/index', {active: 'home', articlesWithTag, language: req.language, tagname, usersesstion });
+        let tags_se;
+        if (tagname && tagname !== 'ทั้งหมด') {
+            tags_se = await Acticle.find({ tags: tagname }).populate('author');
+        } else {
+            tags_se = await Acticle.find().populate('author');
+        }
+        res.render("./component/tags/index", { activemenu: 'tags', usersesstion, tagname, tags_se });
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal Server Error', err);
+        console.log(err);
+        res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูลโพสต์');
     }
-})
+});
 
 module.exports = router

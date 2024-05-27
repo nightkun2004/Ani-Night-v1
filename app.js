@@ -6,6 +6,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const moment = require('moment');
 dotenv.config()
 
 const indexRoute = require("./routes/index")
@@ -29,7 +30,7 @@ const uploadRoute = require('./routes/pages/uploads/uplaods')
 const updateReward = require('./routes/admin/updateReward')
 const admin = require('./routes/admin')
 const routersRoute = require('./routes/pages/router')
-// const routerAnimebord = require('./routes/pages/dashboard/edits/animeboard')
+// const categoriesRouter = require('./routes/pages/categories')
 
 const corsOptions = {
   origin: 'http://localhost:4000',
@@ -38,6 +39,7 @@ const corsOptions = {
 
 const allowedOrigins = [
   'http://localhost:4000',
+  'http://127.0.0.1:5500',
   'http://https://ani-night.online', 
   'https://studio.ani-night.online'
 ];
@@ -65,6 +67,7 @@ app.use('/app', express.static(path.join(__dirname, 'src/public/css')));
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
 
+app.locals.moment = moment;
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
@@ -92,7 +95,7 @@ app.use(singupRoute)
 app.use(profileRoute)
 app.use(videosprofileRoute)
 app.use(vidoechannelRoute)
-// app.use(routerAnimebord)
+// app.use(categoriesRouter)
 
 app.use(cors(corsOptions));
 

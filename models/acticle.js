@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 
 const ArticleSchema = new mongoose.Schema({
-    tags: [String],
+    tags:{ 
+        type: Array,
+        required: true
+    },
     link_info: {
         type: String
     },
@@ -18,8 +21,9 @@ const ArticleSchema = new mongoose.Schema({
     username: {
         type: String
     },
-    categories: {
-        type: String
+    categories: { 
+        type: Array,
+        required: true
     },
     photo: {
         type: String,

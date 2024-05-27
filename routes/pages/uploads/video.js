@@ -46,7 +46,7 @@ router.get('/upload_video', verifyToken, async (req, res) => {
 router.post('/video-upload', upload.single('file_video'), async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const { namevideo, dec_video, tages, categories } = req.body;
+        const { namevideo, dec_video, tags, categories } = req.body;
 
         function generateRandomPostId() {
             let numbers = Array.from({ length: 5 }, (_, i) => i);
@@ -63,15 +63,13 @@ router.post('/video-upload', upload.single('file_video'), async (req, res) => {
 
         let postId = generateRandomPostId();
 
-        const tagsArray = tages.split('#').filter(tag => tag.trim() !== '').slice(0, 5);
-
         // เปลี่ยนไปตรงนี้
         const newFileName = generateRandomPostId();
 
         const newVideo = new Video({
             name: namevideo,
             description: dec_video,
-            tags: tagsArray,
+            tags: Array.isArray(tags) ? tags : [tags],
             categories: categories,
             filePath: newFileName,
             videoid: postId,
