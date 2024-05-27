@@ -22,51 +22,33 @@
 <body>
     <%- include('../../../navnar_Header') %>
     <section class="editor mx-auto px-4 xl:max-w-7xl pt-[110px]" id="video">
-        <div class="grid grid-cols-1 grid-rows-1 md:grid-cols-3 gap-4 mt-8">
-            <!-- ======================= card profile ================== -->
-            <div class="shadow-lg bg-white rounded-xl px-8 py-8 w-full h-full">
-                <div class="flex items-center md">
-                    <div class="flex items-center md">
-                        <img class="w-[100px] h-[100px] p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                            src="/profiles/<%= userData.profile %>" alt="Profile User">
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <div class="flex flex-col sm:flex-row items-center">
+                    <img class="h-24 w-24 rounded-full object-cover" src="/profiles/<%= userData.profile %>" alt="Profile Picture">
+                    <div class="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left">
+                        <h1 class="text-2xl font-bold text-gray-900">
+                            <%= userData.name %>
+                        </h1>
+                        <p class="text-sm text-gray-600">@<%= userData.username %>
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            <%= userData.bio %>
+                        </p>
+                     
+                        
+                       
+                        <div class="mt-4 flex justify-center sm:justify-start space-x-4">
+                        <span class="text-sm text-gray-600"><strong><%= userData.followers %>:</strong> ผู้ติดตาม</span>
+                        <span class="text-sm text-gray-600"><strong><%= userData.followed %></strong> กำลังติดตาม</span>
+                        <!-- <span class="text-sm text-gray-600"><strong>0</strong> Likes</span> -->
                     </div>
-                    <div class="pl-[20px] md">
-                        <h2 class="text-3xl">
-                            <%= userData.username %>
-                        </h2>
-                    </div>
-                </div>
+                    <!-- <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md">Follow</button> -->
 
-                <div class="flex items-center md">
-                    <p class="m-10"> ผู้ติดตาม <%= userData.followed %> คน </p><br>
-                    <p class="followers"> กำลังกดติดตาม <%= userData.followers %> คน </p>
-                </div>
-
-                <div class="mt-[20px]">
-                    <p>
-                        <%= userData.bio %>
-                    </p>
-                </div>
-
-
-            </div>
-
-            <!-- ================================================
-            cardd Editor Right ================================== -->
-            <div class="col-span-2 bg-white shadow-lg rounded-xl px-8 py-8 w-full">
-                <div class="flex items-center">
-                    <div class="btn_sub">
-                        <a href="">
-                            <button class="edit_profile">
-                                ติดตาม
-                            </button>
-                        </a>
                     </div>
                 </div>
-
             </div>
         </div>
-
         <!-- ============================================
         Menus Editor ==================================== -->
         <div
@@ -85,35 +67,30 @@
         </div>
         <!-- ===================================
             content Editor ========================= -->
-        <div class="videos-lists">
-            <% if (userData.videos.length> 0) { %>
-                <% userData.videos.forEach(item=> { %>
-                    <a class="hover-de" target="_blank" href="/play/<%= item.videoid %>">
-                        <div class="video-list">
-                            <div class="video_image">
-                                <img src="/images/<%= item.coverImage %>" alt="vud_img">
-                                <video class="video" src="/videos/<%= item.filePath %>.mp4"
-                                    style="display: none;"></video>
-                                <span class="duration">00:00</span> 
-                            </div>
-                            <div class="video_texts">
-                                <h3 class="video_title">
-                                    <%= item.name %>
-                                </h3>
 
-                                <div class="views">
-                                    <span>
-                                        <%= item.views %> การดู
-                                    </span>
-                                </div>
+           
+            <div class="mx-auto p-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <% if (userData.videos.length> 0) { %>
+                        <% userData.videos.forEach(item=> { %>
+                    <div class="bg-white shadow rounded overflow-hidden">
+                        <a href="/play/<%= item.videoid %>" target="_blank" rel="noopener noreferrer">
+                            <img src="/cover_videos/<%= item.coverImage %>" alt="Thumbnail" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold mb-2"><%= item.name %></h3>
+                                <p class="text-sm text-gray-600"> <%= item.views %> วิว • <%= moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss') %> ที่ผ่านมา</p>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                        
+                    </div>
                     <% }); %>
-                        <% } else { %>
-                            <p style="text-align: center;">ครีเอเตอร์นี้ยังไม่มีวีดีโอ..</p>
-                            <% } %>
-
+                    <% } else { %>
+                        <p style="text-align: center;">ครีเอเตอร์นี้ยังไม่มีวีดีโอ..</p>
+                        <% } %>
+                    <!-- Repeat the above div for more videos -->
+                </div>
+            </div>
+                   
         </div>
     </section>
     <script>

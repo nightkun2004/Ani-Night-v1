@@ -51,8 +51,12 @@
     <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 shadow-sm hidden">
         <div class="px-4 py-2 space-y-2">
             <a href="/" class="block text-gray-700 hover:text-blue-500">หน้าหลัก</a>
+            <a href="/search" class="block text-gray-700 hover:text-blue-500">🔍 ค้นหา</a>
             <a href="/animeboard" class="block text-gray-700 hover:text-blue-500">บอร์ดอนิเมะ</a>
             <a href="/articles" class="block text-gray-700 hover:text-blue-500">บทความ</a>
+            <% if (!usersesstion) { %>
+                <a href="/login" class="block text-gray-700 hover:text-blue-500">เข้าสู่ระบบ</a>
+             <% } %>
             <% if (usersesstion) { %>
                 <div class="border-t border-gray-200 mt-2 pt-2">
                     <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 hover:text-blue-500">โปรไฟล์</a>

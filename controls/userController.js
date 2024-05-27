@@ -43,21 +43,22 @@ exports.getAllUser = async (req, res) => {
     }
 };
 exports.getLogin = async (req, res) => {
+    const usersesstion = req.session.userlogin;
     try {
         const { email, password } = req.body;
-
+ 
         // Check if email and password are provided
         if (!email || !password) {
-            return res.render("./component/pages/login", { data: "กรุณากรอกทุกช่อง" });
+            return res.render("./component/pages/login", { data: "กรุณากรอกทุกช่อง" , usersesstion});
         }
 
         // Find the user by email
         const userlogin = await User.findOne({ email });
-        if (!userlogin) return res.render("./component/pages/login", {data: "ไม่พบบัญชีผู้ใช้"});
+        if (!userlogin) return res.render("./component/pages/login", {data: "อ่าา เราไม่พบบัญชีผู้ใช้ของคุณ", usersesstion}); 
 
         // Compare provided password with stored password
         const isPasswordValid = await bcrypt.compare(password, userlogin.password);
-        if (!isPasswordValid) return res.render("./component/pages/login", { data: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"});
+        if (!isPasswordValid) return res.render("./component/pages/login", { data: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", usersesstion});
 
         // Generate access token
         const accessToken = jwt.sign({ userId: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
@@ -80,8 +81,6 @@ exports.getLogin = async (req, res) => {
         console.error(error);
     }
 };
-
-
 
 exports.getAPIlogin = async (req, res) => {
     try {

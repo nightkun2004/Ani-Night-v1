@@ -17,6 +17,21 @@ exports.editActicle = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
+exports.editActicleCover = async (req, res) => {
+    const usersesstion = req.session.userlogin
+    const edit_id = req.body.edit_id
+    try {
+        const article = await Acticle.findOne({ _id: edit_id }).exec();
+        if (!article) {
+            return res.status(404).json({ error: "Article not found" });
+        }
+
+        res.render('./component/pages/edits/editActicleCover', { active: 'editActicleCover', article, usersesstion })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
 
 exports.editVideo = async (req, res) => {
     const usersesstion = req.session.userlogin
@@ -52,13 +67,13 @@ exports.editVideo_cover = async (req, res) => {
 
 exports.video_saveCover = async (req, res) => {
     const coverthum_id = req.body.coverthum_id;
-  
+
     try {
         const video = await Video.findOne({ _id: coverthum_id });
         if (!video) {
             return res.status(404).json({ error: "Video not found" });
         }
-        
+
         // ตรวจสอบว่ามีไฟล์อัพโหลดหรือไม่
         if (!req.file) {
             return res.status(400).json({ error: "No file uploaded" });
@@ -67,7 +82,7 @@ exports.video_saveCover = async (req, res) => {
         // อัปเดตข้อมูลในฐานข้อมูล
         video.coverImage = req.file.filename;
         await video.save();
-        
+
         res.redirect('/?alertMessageVideo=เพิ่มซับไทยแล้ว');
     } catch (error) {
         console.error(error);
@@ -90,6 +105,29 @@ exports.editActicleuser = async (req, res) => {
                 url: req.body.url
             }
         );
+
+        res.redirect('/?alertMessage=แก้ไขเรียบร้อยแล้ว');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+exports.editActicleCovernow = async (req, res) => {
+    const update_id = req.body.update_id;
+    try {
+        const acticle = await Acticle.findOne({ _id: update_id });
+        if (!acticle) {
+            return res.status(404).json({ error: "acticle not found" });
+        }
+
+        // ตรวจสอบว่ามีไฟล์อัพโหลดหรือไม่
+        if (!req.file) {
+            return res.status(400).json({ error: "No file uploaded" });
+        }
+
+        // อัปเดตข้อมูลในฐานข้อมูล
+        acticle.photo = req.file.filename;
+        await acticle.save();
 
         res.redirect('/?alertMessage=แก้ไขเรียบร้อยแล้ว');
     } catch (error) {

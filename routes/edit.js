@@ -15,7 +15,17 @@ const storage = multer.diskStorage({
     }
 });
 
+const storageArticleCover = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'src/public/acticles_images'); // โฟลเดอร์สำหรับเก็บไฟล์ที่อัปโหลด
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
 const upload = multer({ storage });
+const uploadArticleCover = multer({ storage: storageArticleCover });
 
 router.get('/deleted', (req, res) => {
    const usersesstion = req.session.userlogin;
@@ -32,10 +42,13 @@ router.get('/delete/video/:id', editActicle.DeleteVideo)
 router.post('/edit_video/cover', editActicle.editVideo_cover)
 
 router.post('/edit_acticle', editActicle.editActicle)
+router.post('/edit_acticle/cover', editActicle.editActicleCover)
 // router.post('/edit_video/cover', editActicle.editVideo_cover)
 router.post('/edit_video', editActicle.editVideo)
 router.post('/cover/videothum',upload.single('firecovervideo'), editActicle.video_saveCover)
 router.post('/edit/article/user', editActicle.editActicleuser)
+router.post('/edit_acticle/cover', editActicle.editActicleCover)
+router.post('/edit/articlecover', uploadArticleCover.single('articlecover-image'), editActicle.editActicleCovernow)
 router.post('/edit/video/user', editActicle.editVideouser) 
 
 module.exports = router

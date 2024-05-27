@@ -82,7 +82,11 @@
             <section class="section-player md:p-2">
                 <div class="container">
                     <div class="video_player">
-                        <video webkit-playsinline playsinline preload="metadata" poster="/acticles_images/1707048259898-798275466.jpg" class="main-video" id="video">
+                        <video webkit-playsinline playsinline preload="metadata" 
+                        <% if (video.coverImage) {%>
+                            poster="/cover_videos/<%= video.coverImage %>"
+                        <% } %>
+                        class="main-video" id="video">
                             <source src="/videos/<%= video.filePath %>.mp4" size="720" type="video/mp4">
 
                             <% if (video.subthai) { %>

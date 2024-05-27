@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แก้ไขบทความ</title>
     <link rel="stylesheet" href="/css/pages/home_Section.css">
-    <link rel="stylesheet" href="./css/pages/editActicle.css">
+    <link rel="stylesheet" href="../css/pages/editActicle.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,7 +18,7 @@
 <body>
     <%- include('../../../navnar_Header') %>
 
-            <section class="content mx-auto px-4 xl:max-w-7xl pt-[110px">
+            <section class="mx-auto px-4 xl:max-w-7xl pt-[110px]">
                 <div class="container_EditVideo">
                     <div class="sidebar_left">
                         <ul>
@@ -27,14 +27,20 @@
                                     แก้ไขบทความพื้นฐาน
                                 </a>
                             </li>
+                           <li>
+                            <form action="/edit_acticle/cover" method="post">
+                                <input type="hidden" name="edit_id" value="<%= article._id %>">
+                                <button type="submit">แก้ไขภาพปก</button>
+                            </form>
+                           </li>
                         </ul>
                     </div>
         
                     <div class="content_edit">
-                        <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขบทความพื้นฐาน</h2>
+                        <h2 class="text-3xl border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขบทความพื้นฐาน</h2>
                         <div class="con_form">
-                            <form action="/edit/video/user" method="post">
-                                <input type="hidden" name="edit_id" value="<%= article._id %>">
+                            <form action="/edit/article/user" method="post">
+                                <input type="text" readonly name="edit_id" value="<%= article._id %>">
                                 <input type="hidden" name="update_id" value="<%= article._id %>">
                                 <input class="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             type="hidden" id="username" name="username"

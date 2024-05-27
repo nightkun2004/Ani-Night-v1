@@ -22,51 +22,34 @@
     <%- include('../navnar_Header') %>
 
     <section class="editor mx-auto px-4 xl:max-w-7xl pt-[110px]" id="editor">
-        <div class="grid grid-cols-1 grid-rows-1 md:grid-cols-3 gap-4 mt-8">
-            <!-- ======================= card profile ================== -->
-            <div class="shadow-lg bg-white rounded-xl px-8 py-8 w-full h-full">
-                <div class="flex items-center md">
-                    <div class="flex items-center md">
-                        <img class="w-[100px] h-[100px] p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                            src="/profiles/<%= userData.profile %>" alt="Profile User">
+
+            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
+                    <div class="flex flex-col sm:flex-row items-center">
+                        <img class="h-24 w-24 rounded-full object-cover" src="/profiles/<%= userData.profile %>" alt="Profile Picture">
+                        <div class="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left">
+                            <h1 class="text-2xl font-bold text-gray-900">
+                                <%= userData.name %>
+                            </h1>
+                            <p class="text-sm text-gray-600">@<%= userData.username %>
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                <%= userData.bio %>
+                            </p>
+                         
+                            
+                           
+                            <div class="mt-4 flex justify-center sm:justify-start space-x-4">
+                            <span class="text-sm text-gray-600"><strong><%= userData.followers %>:</strong> ผู้ติดตาม</span>
+                            <span class="text-sm text-gray-600"><strong><%= userData.followed %></strong> กำลังติดตาม</span>
+                            <!-- <span class="text-sm text-gray-600"><strong>0</strong> Likes</span> -->
+                        </div>
+                        <!-- <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md">Follow</button> -->
+
+                        </div>
                     </div>
-                    <div class="pl-[20px] md">
-                        <h2 class="text-3xl">
-                            <%= userData.username %>
-                        </h2>
-                    </div>
                 </div>
-
-                <div class="flex items-center md">
-                    <p class="m-10"> ผู้ติดตาม <%= userData.followed %> คน </p><br>
-                    <p class="followers"> กำลังกดติดตาม <%= userData.followers %> คน </p>
-                </div>
-
-                <div class="mt-[20px]">
-                    <p>
-                        <%= userData.bio %>
-                    </p>
-                </div>
-
-
             </div>
-
-            <!-- ================================================
-            cardd Editor Right ================================== -->
-            <div class="col-span-2 bg-white shadow-lg rounded-xl px-8 py-8 w-full">
-                <div class="flex items-center">
-                    <div class="btn_sub">
-                        <a href="">
-                            <button class="edit_profile">
-                                ติดตาม
-                            </button>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         <!-- ============================================
         Menus Editor ==================================== -->
         <div
@@ -86,34 +69,29 @@
 
         <!-- ===================================
             content Editor ========================= -->
-        <div class="homes">
+        <div class="homes mb-20">
             <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">หน้าแรก</h2>
             <div id="video-container">
-                <div class="videos bg-white md:px-12 py-8 md:py-12 mt-8 shadow-sm">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Blog Post 1 -->
                     <% if (userData.acticles.length> 0) { %>
                         <% userData.acticles.forEach(item=> { %>
-                            <a class="hover-de" target="_blank" href="/read/<%= item.url %>">
-                                <div class="video">
-                                    <div class="pic_phoho">
-                                        <img src="/acticles_images/<%= item.photo %>" alt="">
-                                    </div>
-                                    <div class="text_video">
-                                        <h2>
-                                            <%= item.title %>
-                                        </h2>
-                                        <p class="views">
-                                            <%= item.views %> วิว
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                            <% }); %>
-                                <% } else { %>
-                                    <p style="text-align: center;">ครีเอเตอร์นี้ยังไม่มีบทความครับ..</p>
-                                    <% } %>
-
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <a href="/read/<%= item.url %>">
+                            <img class="w-full h-48 object-cover" src="/acticles_images/<%= item.photo %>" alt="Post Image">
+                            <div class="p-6">
+                                <h2 class="text-2xl font-bold mb-2 text-gray-800"> <%= item.title %></h2>
+                                <p class="text-gray-600">   <%= item.views %> วิว</p>
+                            </div>
+                        </a>
+                    </div>
+                    <% }); %>
+                    <% } else { %>
+                        <p style="text-align: center;">ครีเอเตอร์นี้ยังไม่มีบทความครับ..</p>
+                     <% } %>
+                    <!-- More blog posts can be added here in the same format -->
                 </div>
-            </div>
+                </div>
 
         </div>
     </section>
