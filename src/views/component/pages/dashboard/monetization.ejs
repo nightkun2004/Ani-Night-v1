@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้างรายได้</title>
+    <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <%- include('../../../navnar_Header') %>
+
+    <!-- Main Content -->
+    <main class="py-10 pt-20">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- Cards Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Earnings Card -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-3 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M5 4a3 3 0 013-3h4a3 3 0 013 3v12a3 3 0 01-3 3H8a3 3 0 01-3-3V4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">ยอดวิวรวมทั้งหมด</h3>
+                            <p class="mt-2 text-sm text-gray-600"><%= totalViews %> : วิว</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ads Revenue Card -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path
+                                    d="M13 7H7v6h6V7zM4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4z" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">รายได้จากการแสดงโฆษณา</h3>
+                            <p class="mt-2 text-sm text-gray-600">฿00.00</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sponsorships Card -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center">
+                        <div class="bg-yellow-100 p-3 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path
+                                    d="M10 3a1 1 0 00-1 1v7H4a1 1 0 100 2h5v4a1 1 0 102 0v-4h5a1 1 0 100-2h-5V4a1 1 0 00-1-1z" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">ยอดทั้งหมด</h3>
+                            <p class="mt-2 text-sm text-gray-600">฿00.00</p>
+                            <p class="text-gray-600" style="font-size: 10px;">ยอดรายได่จะถูกตัดอัตโนมัติเมื่อถึง 100 บาท</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="mt-10">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">รายได้เมื่อเวลาผ่านไป</h3>
+                    <div class="mt-6">
+                        <!-- Canvas for Chart -->
+                        <canvas id="revenueChart" class="h-64 bg-gray-200 rounded-lg"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <%- include('../../../footer') %>
+    <script>
+        // Mock data for demonstration purposes
+        const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Revenue',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                data: [65, 59, 80, 81, 56, 55, 40], // Example data
+            }]
+        };
+
+        fetch
+
+        const config = {
+            type: 'line', // You can change this to 'bar', 'pie', etc.
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Render the chart
+        window.onload = function() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, config);
+        };
+    </script>
+</body>
+</html>

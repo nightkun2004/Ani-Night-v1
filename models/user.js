@@ -1,4 +1,5 @@
 const mongoose = require("../config")
+// const Acticle = require("")
 
 const userSchema= new mongoose.Schema({
     userid: {
@@ -101,6 +102,13 @@ const userSchema= new mongoose.Schema({
         default: false 
     },
 })
+
+userSchema.methods.calculateTotalViews = async function () {
+    const Acticle = require('../models/acticle'); // ดึง Acticle โมเดลเข้ามาที่นี่แทน
+    const acticles = await Acticle.find({ 'author.id': this._id });
+    return acticles.reduce((total, acticle) => total + acticle.views, 0);
+};
+
 
 const User = mongoose.model('User', userSchema);
 

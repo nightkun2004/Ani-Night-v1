@@ -106,7 +106,7 @@
     }
 </style>
 <body class="bg-gray-100">
-    <div class="slider-wrapper">
+    <div class="slider-wrapper relative">
         <div class="slider">
             <% topViewedArticles.forEach((article, index) => { %>
             <div class="slide" style="background-image: url('/acticles_images/<%= article.photo %>')">
@@ -123,13 +123,13 @@
         <button id="next" class="absolute right-4 top-1/2 transform -translate-y-1/2 nav-button">❯</button>
     </div>
 
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg sticky top-0 w-full z-10">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between">
                 <div class="flex space-x-4">
                     <!-- Logo -->
                     <div>
-                        <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
+                        <a href="/" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
                             <span class="font-bold">ANINIGHT</span>
                         </a>
                     </div>

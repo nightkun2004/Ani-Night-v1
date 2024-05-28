@@ -113,6 +113,42 @@
     </div>
   </div>
 
+  <div id="popup" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+    <div class="bg-white rounded-lg overflow-hidden max-w-md w-full">
+        <!-- Header -->
+        <div class="bg-gray-100 py-3 px-4 flex items-center justify-between">
+            <div class="flex flex-col">
+                <h2 class="text-lg font-bold text-gray-800">ขอต้อนรับสู่ครีเอเตอร์</h2>
+                <p>สร้างรายได้ด้วยโฆษณาบนเว็บในบทความของคุณ</p>
+            </div>
+            <button id="closebtn_main" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Content -->
+        <div class="flex flex-col justify-center p-4 overflow-auto h-[300px]">
+            <img src="/images/coin-ss.svg" alt="coin-ss.svg" class="h-20 mt-5">
+            <h3 class="font-bold text-center">เริ่มต้นสร้างรายได้ ด้วยเนื้อหาของคุณจากยอดวิวและโฆษณา</h3>
+            <strong class="text-sm text-center">เราต้องการคุณมาสร้างสรรค์ผลงานข่าวสารอัตเดตอนิเมะญี่ปุ่น <br> มาเริ่มสร้างผลงานกันเลย</strong>
+            <p class="text-center text-sm">อ่านข้อกำหนดได้ที่นี่ : <a href="#">ข้อกำหนด</a></p>
+        </div>
+        <!-- Footer -->
+        <div class="bg-gray-100 py-3 px-4 flex justify-center">
+            <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full focus:outline-none"><a target="_blank" href="/<%= usersesstion.url %>/monetization/overview">เริ่มต้นสร้างรายได้</a></button>
+            <button class="cancelButton bg-gray-200 text-gray-700 hover:text-gray-800 px-4 py-2 rounded-full ml-2 focus:outline-none">ไม่อ่าขอบคุณนะ</button>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('closebtn_main').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+    });
+    document.querySelector('.cancelButton').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+    });
+</script>
 <style>
     /* Customize scrollbar */
     ::-webkit-scrollbar {
