@@ -1,0 +1,104 @@
+<% if (AnimeBordData && AnimeBordData.length > 0) { %> 
+    <% AnimeBordData.forEach(item => { %>
+        <% if (item.animeMay && item.animeMay.length > 0) { %>
+            <% item.animeMay.forEach(anime => { %>
+                <div class="anime_list">
+                    <div class="flex justify-center">
+                        <img src="<%= anime.linkImage %>" alt="Anime" class="h-96 md:h-26 md:object-cover md:border-2 md:border-sky-600">
+                    </div>
+                    <div class="anime_info_text">
+                        <h2><%= anime.nameAnime %></h2>
+                        <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
+                        <% if (anime.manuscript) { %>
+                            <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
+                        <% } %>
+                        <p>จำนวนตอน: <span><%= anime.episodes %></span></p>
+                        <p>เริ่มฉาย: <span><%= anime.start %></span></p>
+                        
+                        <% if (anime.nameep) { %>
+                            <p>ชื่อตอน: <span><%= anime.nameep %></span></p>
+                        <% } %>
+                        <% if (anime.info) { %>
+                            <button class="btn_info">
+                                
+                                <a href="<%= anime.info %>">ข้อมูลเพิ่มเติม</a>
+                            </button>
+                        <% } %>
+                        <% if (anime.web) { %>
+                            <a href="<%= anime.web %>" target="_blank">
+                                <button class="btn_web web">
+                                    <div class="image">
+                                        <img src="/images/world-wide-web.png" alt="web">
+                                    </div>
+                                    เว็บทางการ
+                                </button>
+                            </a>
+                            
+                        <% } %>
+                        <% if (anime.bilibili) { %>
+                            <a href="<%= anime.bilibili %>" target="_blank">
+                                <button class="btn_bilibili bilibili">
+                                    <div class="image">
+                                        <img src="/images/bilibili.png" alt="Bilibili">
+                                    </div>
+                                    Bilibili
+                                </button>
+                            </a>
+                        <% } %>
+                        <% if (anime.Iqiyi) { %>
+                            <a href="<%= anime.Iqiyi %>" target="_blank">
+                                <button class="btn_iq iq">
+                                    <div class="image">
+                                        <img src="/icons/iqiyi-icon.png" alt="IQIYI">
+                                    </div>
+                                    IQIYI
+                                </button>
+                            </a>
+                           
+                        <% } %>
+                        <% if (anime.crunchyroll) { %>
+                            <a href="<%= anime.crunchyroll %>" target="_blank">
+                                <button class="btn_crunchyroll crunchyroll">
+                                    <div class="image">
+                                        <img src="/icons/crunchyroll_icon.png" alt="crunchyroll">
+                                    </div>
+                                    crunchyroll
+                                </button>
+                            </a>
+                           
+                        <% } %>
+                        <% if (anime.youtube) { %>
+                            <a href="<%= anime.youtube %>" target="_blank">
+                                <button class="btn_yt yt">
+                                    <div class="image">
+                                        <img src="/icons/youtube.svg" alt="youtube">
+                                    </div>
+                                    YouTube
+                                    <p class="pl-1">
+                                        <%= anime.yt_text %>
+                                    </p>
+                                </button>
+                            </a>
+                        <% } %>
+                        <% if (anime.netflix) { %>
+                            <a href="<%= anime.netflix %>" target="_blank">
+                                <button class="btn_nf netflix">
+                                    <div class="image">
+                                        <img src="/icons/netflix.png" alt="netflix">
+                                    </div>
+                                    <a  class="flex" href="">ดูบน Netflix </a>
+                                </button>
+                            </a>
+                  
+                        <% } %>
+
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
+        <% } %>
+    <% }); %>
+<% } else { %>
+    <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+<% } %>

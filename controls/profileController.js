@@ -97,10 +97,9 @@ exports.getAuthUser = async (req, res) => {
 
 
 
-
 exports.logOut = async (req, res) => {
     try {
-        if (req.session.userlogin) {
+        if (req.session.userlogin && req.session.userlogin._id) {
             if (req.params.id === req.session.userlogin._id.toString()) {
                 req.session.destroy((err) => {
                     if (err) {
@@ -108,7 +107,7 @@ exports.logOut = async (req, res) => {
                         return res.status(500).send('Internal Server Error');
                     }
 
-                    res.clearCookie('login-token'); 
+                    res.clearCookie('login-token');
                     return res.redirect('/');
                 });
             } else {
@@ -121,4 +120,4 @@ exports.logOut = async (req, res) => {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-}
+};

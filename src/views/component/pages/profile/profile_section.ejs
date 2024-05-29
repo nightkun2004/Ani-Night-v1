@@ -25,15 +25,15 @@
                     href="https://studio.ani-night.online/" target="_blank" rel="noopener noreferrer">ไปที่
                     Studio</a></button>
                     <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
-                    <button class=" bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"><a href="/logout/<%= usersesstion._id %>" onclick="logout(event)">ออกจากระบบ</a></button>
+                    <button class=" bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"><a href="/logout/user/<%= usersesstion._id %>" onclick="logout(event)">ออกจากระบบ</a></button>
         </div>
-    </div>
+    </div> 
     <div class="mt-2 p-2 md:hidden">
         <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
                 href="https://studio.ani-night.online/" target="_blank" rel="noopener noreferrer">ไปที่
                 Studio</a></button>
          <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
-         <button class=" bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"><a href="/logout/<%= usersesstion._id %>" onclick="logout(event)">ออกจากระบบ</a></button>
+         <button class=" bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"><a href="/logout/user/<%= usersesstion._id %>" onclick="logout(event)">ออกจากระบบ</a></button>
     </div>
     <div class="px-6 py-4">
         <p class="text-gray-700">
@@ -136,7 +136,7 @@
         </div>
         <!-- Footer -->
         <div class="bg-gray-100 py-3 px-4 flex justify-center">
-            <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full focus:outline-none"><a target="_blank" href="/<%= usersesstion.url %>/monetization/overview">เริ่มต้นสร้างรายได้</a></button>
+            <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full focus:outline-none"><a target="_blank" href="/studio/<%= usersesstion._id %>/monetization/overview">เริ่มต้นสร้างรายได้</a></button>
             <button class="cancelButton bg-gray-200 text-gray-700 hover:text-gray-800 px-4 py-2 rounded-full ml-2 focus:outline-none">ไม่อ่าขอบคุณนะ</button>
         </div>
     </div>

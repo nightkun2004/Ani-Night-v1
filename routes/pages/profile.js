@@ -52,7 +52,7 @@ router.get('/:url', authenticatetoken, profileController.getProfile)
 router.get('/:userID', authenticatetoken, profileController.getUserID)
 router.post('/playment', profileController.playment)
 router.post('/auth/user/studio', profileController.getAuthUser)
-router.get('/logout/:id', profileController.logOut)
+router.get('/logout/user/:id', profileController.logOut)
 
 router.post('/edit_profile', upload.single('profileprofile'), async (req,res) => {
     try {

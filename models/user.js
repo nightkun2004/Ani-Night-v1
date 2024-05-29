@@ -32,7 +32,7 @@ const userSchema= new mongoose.Schema({
         type: String
     },
     followers: {
-        type: Number,
+        type: Number, 
         default: 0
     },
     followed: {
@@ -50,6 +50,9 @@ const userSchema= new mongoose.Schema({
     points: {
         type: Number,
         default: 0
+    },
+    truemoneyname: {
+        type: String,
     },
     truemoney: {
         type: Number

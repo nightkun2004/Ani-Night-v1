@@ -12,13 +12,17 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-router.get('/:url/monetization/overview', async (req, res) => {
+router.get('/studio/:id/monetization/overview', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const url = req.params.url;
+        const userId = req.params.id;
+
+        if (!usersesstion) {
+            return res.redirect("/login")
+        }
 
          // Find user by session userlogin (assuming userlogin contains user ID)
-         const user = await User.findById(usersesstion);
+         const user = await User.findById({_id: userId});
          if (!user) {
              return res.status(404).send('User not found');
          }
@@ -29,20 +33,39 @@ router.get('/:url/monetization/overview', async (req, res) => {
          // Mock data for the chart (replace this with actual data)
         const chartData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            data: [65, 59, 80, 81, 56, 55, 40] // Replace this with actual data
+            data: [65, 59, 80, 81, 56, 55, 40]
         };
 
         res.render('./component/pages/dashboard/monetization', {
             active: 'monetization',
             usersesstion,
             totalViews,
-            chartData
+            chartData,
+            user
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 });
+
+// truemoney save
+router.post('/:id/truemoney/save', async (req,res)=>{
+    const usersesstion = req.session.userlogin;
+    const userId = req.params.id;
+    try {
+    const user = await User.findOne({_id: userId});
+    if (!user) return res.status(404).json({ error: "user not found" });
+
+    user.truemoneyname = req.body.truemoney_name
+    user.truemoney = req.body.truemoney_phone
+
+    await user.save();
+    res.redirect(`/studio/${user._id}/monetization/overview`);
+    } catch (err){
+        console.log(err)
+    }
+})
 
 router.get('/:url/monetization/overview-data', async (req, res) => {
     try {

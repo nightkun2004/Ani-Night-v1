@@ -9,12 +9,70 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<style>
+    
+.pro_con {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.tube-container {
+    width: 100px;
+    height: 400px;
+    background-color: #ddd;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+}
+
+.tube {
+    width: 20%;
+    height: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress {
+    width: 100%;
+    height: 0;
+    background: linear-gradient(180deg, rgba(174, 247, 247, 1) 8%, rgba(204, 240, 255, 1) 45%, rgba(88, 206, 255, 1) 100%);
+    position: absolute;
+    bottom: 0;
+    transition: height .5s ease;
+    animation: wave 2s infinite;
+    transform-origin: top right; 
+    overflow: hidden;
+}
+
+@keyframes wave {
+    0% { transform: scaleX(1); } 
+    20% { transform: scaleY(1.5); } 
+    50% { transform: scaleY(2.5); } 
+    100% { transform: scaleX(1); }
+}
+
+.amount {
+    font-size: 24px;
+    margin-top: 20px;
+}
+</style>
 <body class="bg-gray-100">
     <%- include('../../../navnar_Header') %>
 
     <!-- Main Content -->
     <main class="py-10 pt-20">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400">
+                <span class="font-medium text-3xl">โปรดทราบเนื่องจากระบบนี้อยู่ระว่างพัฒนาโปรแกรมคำนวณรายได้เลยไม่สามารถใช้งานได้บ้างฟิวเจอร์</span>
+            </div>
             <!-- Cards Section -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Earnings Card -->
@@ -30,7 +88,23 @@
                         </div>
                         <div class="ml-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900">ยอดวิวรวมทั้งหมด</h3>
-                            <p class="mt-2 text-sm text-gray-600"><%= totalViews %> : วิว</p>
+                            <% function formatNumber(number) { if (number>=
+                                1000000)
+                                {
+                                return (number / 1000000).toFixed(1) + 'M';
+                                } else if (number >= 1000) {
+                                return (number / 1000).toFixed(1) + 'k';
+                                } else {
+                                return number;
+                                }
+                                }
+        
+                                var number1 = 100;
+                                var number2 = 500;
+                                var number3 = 1500;
+                                var number4 = 1200000;
+                                %>
+                            <p class="mt-2 text-sm text-gray-600"><%= formatNumber(totalViews) %></p>
                         </div>
                     </div>
                 </div>
@@ -68,6 +142,99 @@
                     </div>
                 </div>
             </div>
+
+            <div class="pro_con">
+                <h2>รายได้ของคุณ</h2>
+                <div class="tube-container">
+                    <div class="tube">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="amount">0 บาท</div>
+                </div>
+                <p style="text-align: center;"
+                    class="p-4 border-2 center border-gray-200 rounded-lg dark:border-gray-700 mt-14">
+                    ระบบจะตัดการชำระเงินทุกวันที่ 29 ของทุกเดือนเมื่อยอดของคุณถึง 100 บาท
+                    <br><span>ตามช่องทางการชำระเงินที่คุณบันทึกไว้</span>
+                </p>
+                <p style="text-align: center;"
+                    class="p-4 border-2 center border-gray-200 rounded-lg dark:border-gray-700 mt-14">
+                    ระบบจะหัก 5% ค่าแพลตฟอร์ม เมื่อคุณถึง 100 บาทแล้ว <span> ให้นำ 100 - 5 =
+                        จำนวนเงินที่คุณได้</span>
+                </p>
+            </div>
+
+            <% if (!user.truemoney) { %>
+                <div class="mt-5 p-2 rounded-lg bg-gray-200">
+                    <p>โปรคลิกที่นี่เพื่อกรอกรายละเอียดการชำระเงินให้เรียบร้อย <span class="border-b-2 border-red-500" id="btn-phone">คลิกที่นี่</span></p>
+                </div>
+           <% } %>
+
+           <div class="mt-5 p-2 rounded-lg bg-gray-200">
+            <div class="save-payment">
+                <h2 class="mt-2 text-3xl font-bold tracking-tight text-gray-950 dark:text-white">
+                    ช่องทางการชำระเงินที่บันทึก</h2>
+                <div class="flex">
+                    <div class="photo-payment">
+                        <img class="h-24 rounded-lg" src="https://res.cloudinary.com/dvkilsoot/image/upload/v1706706886/6kO4BDUCJZ_tbmt87.gif"
+                            alt="">
+                    </div>
+                    <% if (user && user.truemoneyname) { %>
+                        <div class="pl-2">
+                            <h2 class="font-bold text-1xl"><%= user.truemoneyname %></h2>
+                            <p>+66 <%= user.truemoney %></p>
+                        </div>
+                    <% } else { %>
+                        <p>คุณยังไม่มีการชำระเงินที่บันทึก</p>
+                    <% } %>
+                    
+                </div>
+            </div>
+          </div>
+
+            <!-- POPUP -->
+            <div id="popup" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
+                <div class="bg-white rounded-lg overflow-hidden max-w-md w-full">
+                    <!-- Header -->
+                    <div class="bg-gray-100 py-3 px-4 flex items-center justify-between">
+                        <div class="flex flex-col">
+                            <h2 class="text-lg font-bold text-gray-800">ป้อนหมายเลขทรูมันนีของคุณ</h2>
+                        </div>
+                        <button id="closebtn_main" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Content -->
+                    <div class="flex flex-col justify-center p-4 overflow-auto h-[300px]">
+                        <form action="/<%= user._id %>/truemoney/save" method="post">
+                            <label for="truemoneyname">ชื่อบัญชี ทรูมันนี</label>
+                          <input type="text" value="<%= user.truemoneyname %>" name="truemoney_name" id="true-money-name" placeholder="mr Jord" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
+                          <label for="tal">เบอร์ทรูมันนี่</label>
+                          <input type="text" value="<%= user.truemoney %>" name="truemoney_phone" id="true-money" placeholder="ตัวอย่าง: 0999999999" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
+                    </div>
+
+                    <p>หากคุณกดอัตเดตแล้ว เบอร์ทรูมันนี่จะยังไม่อัตเดตทันที คุณจะต้องรอ  1 - 2 วันถึงจะอัตเดตให้</p>
+                    <!-- Footer -->
+                    <div class="bg-gray-100 py-3 px-4 flex justify-center">
+                        <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-full focus:outline-none">บันทึก</button>
+                    </form>
+                        <button class="cancelButton bg-gray-200 text-gray-700 hover:text-gray-800 px-4 py-2 rounded-full ml-2 focus:outline-none">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.getElementById('btn-phone').addEventListener('click', function() {
+                    document.getElementById('popup').classList.remove("hidden");
+                });
+                document.getElementById('closebtn_main').addEventListener('click', function() {
+                    document.getElementById('popup').classList.add("hidden");
+                });
+                document.querySelector('.cancelButton').addEventListener('click', function() {
+                    document.getElementById('popup').classList.add("hidden");
+                });
+            </script>
 
             <!-- Charts Section -->
             <div class="mt-10">

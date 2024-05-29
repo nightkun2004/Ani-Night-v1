@@ -52,7 +52,6 @@ exports.getLogin = async (req, res) => {
             return res.render("./component/pages/login", { data: "กรุณากรอกทุกช่อง" , usersesstion});
         }
 
-        // Find the user by email
         const userlogin = await User.findOne({ email });
         if (!userlogin) return res.render("./component/pages/login", {data: "อ่าา เราไม่พบบัญชีผู้ใช้ของคุณ", usersesstion}); 
 
@@ -72,7 +71,6 @@ exports.getLogin = async (req, res) => {
             ...others,
             accessToken,
             alertMessage: req.query.alertMessage || '',
-            approval_admin: true
         };
 
         // Redirect with token and success message
@@ -110,7 +108,6 @@ exports.getAPIlogin = async (req, res) => {
             ...others,
             accessToken,
             alertMessage: req.query.alertMessage || '',
-            approval_admin: true
         };
 
         return res.status(200).json({ success: true, message: 'เข้าสุ่ระบบสำเร็จ', accessToken: accessToken, userlogin: req.session.userlogin });
