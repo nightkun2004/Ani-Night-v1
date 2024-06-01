@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้างอนิเมะบอร์ด</title>
+    <link rel="stylesheet" href="../css/admin/dash.css">
+    <link rel="stylesheet" href="../css/admin/createAnime.css">
+    <link rel="stylesheet" href="../css/admin/Admin_section.css">
+    <link rel="stylesheet" href="../css/admin/sidebar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/acticle.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include('../../../admin/sidebars/navbar') %>
+    <section class="home-section">
+        <%- include('../../sections/navbar') %>
+        <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
+            <% if (usersesstion) { %>
+                <h5>ดำเนินด้วยบัญชี</h5>
+                <div class="profile-info">
+                <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Image">
+                <div>
+                  <p><%= usersesstion.username %></p>
+                  <p><%= usersesstion.email %></p>
+                </div>
+              </div>
+            <% } %>
+        <div class="edit_overee">
+            <form action="/edit_animeboard/Edit/anime/June" method="POST">
+                <h2>แก้ไขอนิเมะบอร์ด</h2>
+    
+                <input type="text" name="update_id" value="<%= animejune._id %>">
+    
+                <label for="name">ชื่ออนิเมะ</label>
+                <input type="text" name="nameAnime" value="<%= animejune.nameAnime %>">
+    
+                <label for="ds">ผลิตโดย</label>
+                <input type="text" name="Produced" value="<%= animejune.Produced %>">
+    
+                <label for="on">ต้นฉบับ</label>
+                <input type="text" name="manuscript" value="<%= animejune.manuscript %>">
+    
+                <label for="ep">จำนวนตอน</label>
+                <input type="text" name="episodes" value="<%= animejune.episodes %>">
+    
+                <label for="name">เริ่มฉาย</label>
+                <input type="text" name="start" value="<%= animejune.start %>">
+    
+                <label for="link">ลิงภาพ</label>
+                <input type="text" name="linkImage" value="<%= animejune.linkImage %>">
+    
+                <% if (animejune.info) { %>
+                    <label for="link">ชื่อตอน</label>
+                    <input type="text" name="nameep" value="<%= animejune.nameep %>">
+                    <% } else { %>
+                        <label for="link">ชื่อตอน</label>
+                        <input type="text" name="nameep">
+                    <% } %>
+    
+                <% if (animejune.info) { %>
+                <label for="link">ข้อมูลเพิ่มเติม</label>
+                <input type="text" name="info" value="<%= animejune.info %>">
+                <% } else { %>
+                    <label for="link">ข้อมูลเพิ่มเติม</label>
+                    <input type="text" name="info">
+                <% } %>
+    
+                <% if (animejune.web) { %>
+                    <label for="link">เว็บทางการ</label>
+                    <input type="text" name="web" value="<%= animejune.web %>">
+                    <% } else { %>
+                        <label for="link">เว็บทางการ</label>
+                        <input type="text" name="web">
+                    <% } %>
+    
+                <% if (animejune.bilibili) { %>
+                    <label for="link">แพลตฟอร์ม Bilibili</label>
+                    <input type="text" name="bilibili" value="<%= animejune.bilibili %>">
+                    <% } else { %>
+                        <label for="link">แพลตฟอร์ม Bilibili</label>
+                        <input type="text" name="bilibili">
+                    <% } %>
+                <% if (animejune.crunchyroll) { %>
+                    <label for="link">แพลตฟอร์ม Crunchyroll</label>
+                    <input type="text" name="crunchyroll" value="<%= animejune.crunchyroll %>">
+                    <% } else { %>
+                        <label for="link">แพลตฟอร์ม Crunchyroll</label>
+                        <input type="text" name="crunchyroll">
+                    <% } %>
+                <% if (animejune.iqiyi) { %>
+                    <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
+                    <input type="text" name="Iqiyi" value="<%= animejune.iqiyi %>">
+                    <% } else { %>
+                        <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
+                        <input type="text" name="Iqiyi">
+                    <% } %>
+                <% if (animejune.yt) { %>
+                    <label for="youtube">แพลตฟอร์ม Youtube</label>
+                    <input type="text" name="youtube" value="<%= animejune.yt %>">
+                    <% } else { %>
+                        <label for="youtube">แพลตฟอร์ม Youtube</label>
+                        <input type="text" name="youtube">
+                    <% } %>
+                <% if (animejune.netflix) { %>
+                    <label for="netflix">แพลตฟอร์ม netflix</label>
+                    <input type="text" name="netflix" value="<%= animejune.netflix %>">
+                    <% } else { %>
+                        <label for="netflix">แพลตฟอร์ม netflix</label>
+                        <input type="text" name="netflix">
+                    <% } %>
+                <% if (animejune.yt_text) { %>
+                    <label for="yt_text">แพลตฟอร์มช่อง Youtube ข้อความ</label>
+                    <input type="text" name="yt_text" value="<%= animejune.yt_text %>">
+                    <% } else { %>
+                        <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
+                        <input type="text" name="yt_text">
+                    <% } %>
+    
+                <input type="submit" value="เผยแพร่">
+            </form>
+        </div>
+            
+        </div>
+    </section>
+   
+
+
+    <script src="/js/admins/script.js"></script>
+</body>
+</html>

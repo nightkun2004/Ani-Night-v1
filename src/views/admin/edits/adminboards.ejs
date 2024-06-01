@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,238 +16,336 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
+
 <body>
     <%- include('../sidebars/navbar') %>
-    <section class="home-section">
-        <%- include('../sections/navbar') %>
-        <div class="mx-auto px-4 xl:max-w-5xl pt-[110px]">
-            <div class="loading" style="display: none;">
-                <div class="anime_lists sub" >
+        <section class="home-section">
+            <%- include('../sections/navbar') %>
+                <div class="mx-auto px-4 xl:max-w-5xl pt-[110px]">
+
+                    <div class="flex items-center justify-between bg-white shadow-md p-4 mb-5">
+                        <!-- Category List -->
+                        <div id="category-container" class="flex space-x-2 overflow-x-auto scrollbar-hide">
+                            <button id="all_btn"
+                                class="category-btn px-4 py-2 rounded-lg bg-black text-white focus:outline-none whitespace-nowrap"
+                                onclick="filterCategory('ทั้งหมด', this)">ทั้งหมด</button>
+                            <button id="april_btn"
+                                class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                                onclick="filterCategory('เมษายน', this)">เมษายน</button>
+                            <button id="may_btn"
+                                class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                                onclick="filterCategory('พฤษภาคม', this)">พฤษภาคม</button>
+                            <button id="june_btn"
+                                class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                                onclick="filterCategory('มิถุนายน', this)">มิถุนายน</button>
+                            <button id="July_btn"
+                                class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                                onclick="filterCategory('กรกฎาคม', this)">กรกฎาคม</button>
+                        </div>
+                    </div>
+
+                    <p id="category-query" class="mb-4 text-lg font-semibold">เลือกหมวดหมู่ | <span
+                            class="text-gray-500">ทั้งหมด</span></p>
+
+                    <section class="april_Section search_anime" id="april_Section">
+                        <div class="anime_content">
+                            <h2 class="anime_brta">เมษายน 2024</h2>
+
+                            <div class="loading" style="display: none;">
+                                <div class="anime_lists sub">
+
+                                    <% if (AnimeBordData && AnimeBordData.length> 0) { %>
+                                        <% AnimeBordData.forEach(item=> { %>
+                                            <% if (item.animeApril && item.animeApril.length> 0) { %>
+                                                <% item.animeApril.forEach(anime=> { %>
+                                                    <div class="anime_list">
+                                                        <div class="anime_item_pic">
+                                                            <img src="<%= anime.linkImage %>" alt="Anime">
+                                                        </div>
+                                                        <div class="anime_info_text">
+                                                            <h2>
+                                                                <%= anime.nameAnime %>
+                                                            </h2>
+                                                            <p>ผลิตโดย: <span>
+                                                                    <%= anime.Produced %>
+                                                                </span></p>
+                                                            <% if (anime.manuscript) { %>
+                                                                <p>ต้นฉบับ: <span>
+                                                                        <%= anime.manuscript %>
+                                                                    </span></p>
+                                                                <% } %>
+                                                                    <p>จำนวนตอน: <span>
+                                                                            <%= anime.episodes %>
+                                                                        </span> ตอน</p>
+                                                                    <p>เริ่มฉาย(ญี่ปุ่น): <span>
+                                                                            <%= anime.start %>
+                                                                        </span></p>
+                                                                    <% if (anime.info) { %>
+                                                                        <button>
+                                                                            <a href="#">ข้อมูลเพิ่มเติม</a>
+                                                                        </button>
+                                                                        <% } %>
+                                                                            <form action="/edit_animeboard"
+                                                                                method="POST">
+                                                                                <input type="hidden" name="edit_id"
+                                                                                    value="<%= anime._id %>">
+                                                                                <button type="submit" name="edit_button"
+                                                                                    class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
+                                                                            </form>
+                                                                            <button
+                                                                                class="btnde bg-red-500 p-2 rounded-lg w-full"><a
+                                                                                    onclick="confirmDelete(event)"
+                                                                                    href="/delete/anime/<%= anime._id %>">ลบอันนี้</a></button>
+                                                        </div>
+                                                    </div>
+                                                    <% }); %>
+                                                        <% } else { %>
+                                                            <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ
+                                                                AnimeBord นี้</p>
+                                                            <% } %>
+                                                                <% }); %>
+                                                                    <% } else { %>
+                                                                        <p style="text-align: center;">ไม่มีข้อมูล
+                                                                            AnimeBord</p>
+                                                                        <% } %>
+
+
+                                </div>
+                            </div>
+                            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="may_Section search_anime" id="may_Section"> 
+                        <div class="anime_content">
+                            <h2 class="anime_brta">พฤษภาคม 2024 + พากย์ไทย</h2>
+                            <div class="loading" style="display: none;">
+                                <div class="anime_lists sub">
+        
+                                    <% if (AnimeBordData && AnimeBordData.length> 0) { %>
+                                        <% AnimeBordData.forEach(item=> { %>
+                                            <% if (item.animeMay && item.animeMay.length> 0) { %>
+                                                <% item.animeMay.forEach(anime=> { %>
+                                                    <div class="anime_list">
+                                                        <div class="anime_item_pic">
+                                                            <img src="<%= anime.linkImage %>" alt="Anime">
+                                                        </div>
+                                                        <div class="anime_info_text">
+                                                            <h2>
+                                                                <%= anime.nameAnime %>
+                                                            </h2>
+                                                            <p>ผลิตโดย: <span>
+                                                                    <%= anime.Produced %>
+                                                                </span></p>
+                                                            <% if (anime.manuscript) { %>
+                                                                <p>ต้นฉบับ: <span>
+                                                                        <%= anime.manuscript %>
+                                                                    </span></p>
+                                                                <% } %>
+                                                                    <p>จำนวนตอน: <span>
+                                                                            <%= anime.episodes %>
+                                                                        </span> ตอน</p>
+                                                                    <p>เริ่มฉาย(ญี่ปุ่น): <span>
+                                                                            <%= anime.start %>
+                                                                        </span></p>
+                                                                    <% if (anime.info) { %>
+                                                                        <button>
+                                                                            <a href="#">ข้อมูลเพิ่มเติม</a>
+                                                                        </button>
+                                                                        <% } %>
+                                                                            <form action="/edit_animeboard/may" method="POST">
+                                                                                <input type="hidden" name="edit_id"
+                                                                                    value="<%= anime._id %>">
+                                                                                <button type="submit" name="edit_button"
+                                                                                    class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
+                                                                            </form>
+                                                                            <button
+                                                                                class="btnde bg-red-500 p-2 rounded-lg w-full"><a
+                                                                                    onclick="confirmDelete(event)"
+                                                                                    href="/delete/AnimeMay/<%= anime._id %>">ลบอันนี้</a></button>
+                                                        </div>
+                                                    </div>
+                                                    <% }); %>
+                                                        <% } else { %>
+                                                            <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ
+                                                                AnimeBord นี้</p>
+                                                            <% } %>
+                                                                <% }); %>
+                                                                    <% } else { %>
+                                                                        <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                                                                        <% } %>
+        
+                                </div>
+                            </div>
+                            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </section>
+
                    
-                        <% if (AnimeBordData && AnimeBordData.length > 0) { %>
-                            <% AnimeBordData.forEach(item => { %>
-                                <% if (item.animeApril && item.animeApril.length > 0) { %>
-                                    <% item.animeApril.forEach(anime => { %>
-                                        <div class="anime_list">
-                                            <div class="anime_item_pic">
-                                                <img src="<%= anime.linkImage %>" alt="Anime">
+                    <section class="june_Section search_anime" id="june_Section" > 
+                        <div class="anime_content">
+                            <h2 class="anime_brta">มิถุนายน 2024 + พากย์ไทย + เดือนที่แล้ว</h2>
+                            <% if (AnimeBordData && AnimeBordData.length> 0) { %>
+                                <% AnimeBordData.forEach(item=> { %>
+                                    <% if (item.animeJune && item.animeJune.length> 0) { %>
+                                        <% item.animeJune.forEach(anime=> { %>
+                                            <div class="anime_list">
+                                                <div class="anime_item_pic">
+                                                    <img src="<%= anime.linkImage %>" alt="Anime">
+                                                </div>
+                                                <div class="anime_info_text">
+                                                    <h2>
+                                                        <%= anime.nameAnime %>
+                                                    </h2>
+                                                    <p>ผลิตโดย: <span>
+                                                            <%= anime.Produced %>
+                                                        </span></p>
+                                                    <% if (anime.manuscript) { %>
+                                                        <p>ต้นฉบับ: <span>
+                                                                <%= anime.manuscript %>
+                                                            </span></p>
+                                                        <% } %>
+                                                            <p>จำนวนตอน: <span>
+                                                                    <%= anime.episodes %>
+                                                                </span> ตอน</p>
+                                                            <p>เริ่มฉาย(ญี่ปุ่น): <span>
+                                                                    <%= anime.start %>
+                                                                </span></p>
+                                                            <% if (anime.info) { %>
+                                                                <button>
+                                                                    <a href="#">ข้อมูลเพิ่มเติม</a>
+                                                                </button>
+                                                                <% } %>
+                                                                    <form action="/edit_animeboard/June" method="POST">
+                                                                        <input type="hidden" name="edit_id"
+                                                                            value="<%= anime._id %>">
+                                                                        <button type="submit" name="edit_button"
+                                                                            class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
+                                                                    </form>
+                                                                    <button
+                                                                        class="btnde bg-red-500 p-2 rounded-lg w-full"><a
+                                                                            onclick="confirmDelete(event)"
+                                                                            href="/delete/AnimeJune/<%= anime._id %>">ลบอันนี้</a></button>
+                                                </div>
                                             </div>
-                                            <div class="anime_info_text">
-                                                <h2><%= anime.nameAnime %></h2>
-                                                <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
-                                                <% if (anime.manuscript) { %>
-                                                    <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
-                                                <% } %>
-                                                <p>จำนวนตอน: <span><%= anime.episodes %></span> ตอน</p>
-                                                <p>เริ่มฉาย(ญี่ปุ่น): <span><%= anime.start %></span></p>
-                                                <% if (anime.info) { %>
-                                                    <button>
-                                                        <a href="#">ข้อมูลเพิ่มเติม</a>
-                                                    </button>
-                                                <% } %>
-                                                <form action="/edit_animeboard" method="POST">
-                                                <input type="hidden" name="edit_id" value="<%= anime._id %>"> 
-                                                <button type="submit" name="edit_button" class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
-                                                </form>
-                                                    <button class="btnde bg-red-500 p-2 rounded-lg w-full"><a onclick="confirmDelete(event)" href="/delete/anime/<%= anime._id %>">ลบอันนี้</a></button>
+                                            <% }); %>
+                                                <% } else { %>
+                                                    <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ
+                                                        AnimeBord นี้</p>
+                                                    <% } %>
+                                                        <% }); %>
+                                                            <% } else { %>
+                                                                <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                                                                <% } %>
+
+
+                            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="july_Section" id="july_Section" > 
+                        <div class="anime_content">
+                            <h2 class="anime_brta">กรกฎาคม 2024</h2>
+                            <% if (AnimeBordData && AnimeBordData.length> 0) { %>
+                                <% AnimeBordData.forEach(item=> { %>
+                                    <% if (item.animeJuly && item.animeJuly.length> 0) { %>
+                                        <% item.animeJuly.forEach(anime=> { %>
+                                            <div class="anime_list">
+                                                <div class="anime_item_pic">
+                                                    <img src="<%= anime.linkImage %>" alt="Anime">
+                                                </div>
+                                                <div class="anime_info_text">
+                                                    <h2>
+                                                        <%= anime.nameAnime %>
+                                                    </h2>
+                                                    <p>ผลิตโดย: <span>
+                                                            <%= anime.Produced %>
+                                                        </span></p>
+                                                    <% if (anime.manuscript) { %>
+                                                        <p>ต้นฉบับ: <span>
+                                                                <%= anime.manuscript %>
+                                                            </span></p>
+                                                        <% } %>
+                                                            <p>จำนวนตอน: <span>
+                                                                    <%= anime.episodes %>
+                                                                </span> ตอน</p>
+                                                            <p>เริ่มฉาย(ญี่ปุ่น): <span>
+                                                                    <%= anime.start %>
+                                                                </span></p>
+                                                            <% if (anime.info) { %>
+                                                                <button>
+                                                                    <a href="#">ข้อมูลเพิ่มเติม</a>
+                                                                </button>
+                                                                <% } %>
+                                                                    <form action="/edit_animeboard/July" method="POST">
+                                                                        <input type="hidden" name="edit_id"
+                                                                            value="<%= anime._id %>">
+                                                                        <button type="submit" name="edit_button"
+                                                                            class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
+                                                                    </form>
+                                                                    <button
+                                                                        class="btnde bg-red-500 p-2 rounded-lg w-full"><a
+                                                                            onclick="confirmDelete(event)"
+                                                                            href="/delete/AnimeJuly/<%= anime._id %>">ลบอันนี้</a></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    <% }); %>
-                                <% } else { %>
-                                    <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
-                                <% } %>
-                            <% }); %>
-                        <% } else { %>
-                            <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
-                        <% } %>
-                    
-                    
-                    
-                    <!-- <div class="anime_list">
-                        <div class="anime_item_pic">
-                            <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
+                                            <% }); %>
+                                                <% } else { %>
+                                                    <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ
+                                                        AnimeBord นี้</p>
+                                                    <% } %>
+                                                        <% }); %>
+                                                            <% } else { %>
+                                                                <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
+                                                                <% } %>
+                            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                                <div class="spinner"></div>
+                            </div>
                         </div>
-                        <div class="anime_info_text">
-                            <h2>Kami wa Game ni Ueteiru</h2>
-                            <p>ผลิตโดย: <span>Liden Films</span></p>
-                            <p>ต้นฉบับ: <span>Light Novel</span></p>
-                            <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
-                            <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
-                            <button>
-                                <a href="#">ข้อมูลเพิ่มเติม</a>
-                            </button>
-                        </div>
-                    </div> -->
+                    </section>
                 </div>
-            </div>
-            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                <div class="spinner"></div>
-            </div>
-    
-            <div class="loading" style="display: none;">
-                <h2>พฤษภาคม 2024</h2>
-                <div class="anime_lists sub" >
-                   
-                        <% if (AnimeBordData && AnimeBordData.length > 0) { %>
-                            <% AnimeBordData.forEach(item => { %>
-                                <% if (item.animeMay && item.animeMay.length > 0) { %>
-                                    <% item.animeMay.forEach(anime => { %>
-                                        <div class="anime_list">
-                                            <div class="anime_item_pic">
-                                                <img src="<%= anime.linkImage %>" alt="Anime">
-                                            </div>
-                                            <div class="anime_info_text">
-                                                <h2><%= anime.nameAnime %></h2>
-                                                <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
-                                                <% if (anime.manuscript) { %>
-                                                    <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
-                                                <% } %>
-                                                <p>จำนวนตอน: <span><%= anime.episodes %></span> ตอน</p>
-                                                <p>เริ่มฉาย(ญี่ปุ่น): <span><%= anime.start %></span></p>
-                                                <% if (anime.info) { %>
-                                                    <button>
-                                                        <a href="#">ข้อมูลเพิ่มเติม</a>
-                                                    </button>
-                                                <% } %>
-                                                <form action="/edit_animeboard/may" method="POST">
-                                                <input type="hidden" name="edit_id" value="<%= anime._id %>"> 
-                                                <button type="submit" name="edit_button" class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
-                                            </form>
-                                            <button class="btnde bg-red-500 p-2 rounded-lg w-full"><a onclick="confirmDelete(event)" href="/delete/AnimeMay/<%= anime._id %>">ลบอันนี้</a></button>
-                                            </div>
-                                        </div>
-                                    <% }); %>
-                                <% } else { %>
-                                    <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
-                                <% } %>
-                            <% }); %>
-                        <% } else { %>
-                            <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
-                        <% } %>
-                    
-                    
-                    
-                    <!-- <div class="anime_list">
-                        <div class="anime_item_pic">
-                            <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
-                        </div>
-                        <div class="anime_info_text">
-                            <h2>Kami wa Game ni Ueteiru</h2>
-                            <p>ผลิตโดย: <span>Liden Films</span></p>
-                            <p>ต้นฉบับ: <span>Light Novel</span></p>
-                            <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
-                            <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
-                            <button>
-                                <a href="#">ข้อมูลเพิ่มเติม</a>
-                            </button>
-                        </div>
-                    </div> -->
-                </div>
-            </div>
-            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                <div class="spinner"></div>
-            </div>
-    
-            <div class="loading" style="display: none;">
-                <h2>กรกฎาคม 2024</h2>
-                <div class="anime_lists sub" >
-                   
-                        <% if (AnimeBordData && AnimeBordData.length > 0) { %>
-                            <% AnimeBordData.forEach(item => { %>
-                                <% if (item.animeJuly && item.animeJuly.length > 0) { %>
-                                    <% item.animeJuly.forEach(anime => { %>
-                                        <div class="anime_list">
-                                            <div class="anime_item_pic">
-                                                <img src="<%= anime.linkImage %>" alt="Anime">
-                                            </div>
-                                            <div class="anime_info_text">
-                                                <h2><%= anime.nameAnime %></h2>
-                                                <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
-                                                <% if (anime.manuscript) { %>
-                                                    <p>ต้นฉบับ: <span><%= anime.manuscript %></span></p>
-                                                <% } %>
-                                                <p>จำนวนตอน: <span><%= anime.episodes %></span> ตอน</p>
-                                                <p>เริ่มฉาย(ญี่ปุ่น): <span><%= anime.start %></span></p>
-                                                <% if (anime.info) { %>
-                                                    <button>
-                                                        <a href="#">ข้อมูลเพิ่มเติม</a>
-                                                    </button>
-                                                <% } %>
-                                                <form action="/edit_animeboard/July" method="POST">
-                                                <input type="hidden" name="edit_id" value="<%= anime._id %>"> 
-                                                <button type="submit" name="edit_button" class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
-                                            </form>
-                                            <button class="btnde bg-red-500 p-2 rounded-lg w-full"><a onclick="confirmDelete(event)" href="/delete/AnimeJuly/<%= anime._id %>">ลบอันนี้</a></button>
-                                            </div>
-                                        </div>
-                                    <% }); %>
-                                <% } else { %>
-                                    <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
-                                <% } %>
-                            <% }); %>
-                        <% } else { %>
-                            <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
-                        <% } %>
-                    
-                    
-                    
-                    <!-- <div class="anime_list">
-                        <div class="anime_item_pic">
-                            <img src="https://m1r.ai/nq4ji.webp" alt="Anime Pic">
-                        </div>
-                        <div class="anime_info_text">
-                            <h2>Kami wa Game ni Ueteiru</h2>
-                            <p>ผลิตโดย: <span>Liden Films</span></p>
-                            <p>ต้นฉบับ: <span>Light Novel</span></p>
-                            <p>จำนวนตอน: <span>! ยังไม่ทราบข้อมูล</span></p>
-                            <p>เริ่มฉาย(ญี่ปุ่น): <span> 1 เม.ย. 24 - 19.30 (จันทร์)</span></p>
-                            <button>
-                                <a href="#">ข้อมูลเพิ่มเติม</a>
-                            </button>
-                        </div>
-                    </div> -->
-                </div>
-            </div>
-            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                <div class="spinner"></div>
-            </div>
-        </div>
-    </section>
-    
+        </section>
 
-    <script src="/js/admins/script.js"></script>
-    <script>
-       function showLoadingIndicator() {
-    document.querySelectorAll('.loadingIndicator').forEach(item => {
-        item.style.display = 'block';
-    });
-    document.querySelectorAll('.loading').forEach(item => {
-        item.style.display = 'none';
-    });
-}
 
-function hideLoadingIndicator() {
-    document.querySelectorAll('.loadingIndicator').forEach(item => {
-        item.style.display = 'none';
-    });
-    document.querySelectorAll('.loading').forEach(item => {
-        item.style.display = 'block';
-    });
-}
+        <script src="/js/admins/script.js"></script>
+        <script>
+            function showLoadingIndicator() {
+                document.querySelectorAll('.loadingIndicator').forEach(item => {
+                    item.style.display = 'block';
+                });
+                document.querySelectorAll('.loading').forEach(item => {
+                    item.style.display = 'none';
+                });
+            }
 
-showLoadingIndicator();
+            function hideLoadingIndicator() {
+                document.querySelectorAll('.loadingIndicator').forEach(item => {
+                    item.style.display = 'none';
+                });
+                document.querySelectorAll('.loading').forEach(item => {
+                    item.style.display = 'block';
+                });
+            }
 
-window.addEventListener('load', function() {
-    hideLoadingIndicator();
-});
+            showLoadingIndicator();
+
+            window.addEventListener('load', function () {
+                hideLoadingIndicator();
+            });
 
         </script>
-         <script>
+        <script>
             function confirmDelete(event) {
                 event.preventDefault(); // หยุดการกระทำเริ่มต้นของลิงก์
-        
+
                 const deleteUrl = event.target.getAttribute('href'); // รับ URL ที่จะลบ
-        
+
                 Swal.fire({
                     title: 'คุณแน่ใจหรือไม่?',
                     text: "คุณต้องการที่จะลบไฟล์นี้หรือไม่?",
@@ -264,5 +363,58 @@ window.addEventListener('load', function() {
                 });
             }
         </script>
+        <script>
+            function filterCategory(category, element) {
+    // Update the category query text
+    const categoryQuery = document.getElementById('category-query').querySelector('span');
+    categoryQuery.textContent = category;
+
+    // Remove active state from all buttons
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('bg-black', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-700');
+    });
+
+    // Add active state to the clicked button
+    element.classList.remove('bg-gray-200', 'text-gray-700');
+    element.classList.add('bg-black', 'text-white');
+
+    // Hide all sections
+    const sections = document.querySelectorAll('search_anime');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Show the selected section
+    if (category === 'เมษายน') {
+        document.getElementById('april_Section').style.display = 'block';
+        document.getElementById('may_Section').style.display = 'none';
+        document.getElementById('june_Section').style.display = 'none';
+        document.getElementById('july_Section').style.display = 'none';
+    } else if (category === 'พฤษภาคม') {
+        document.getElementById('april_Section').style.display = 'none';
+        document.getElementById('may_Section').style.display = 'block';
+        document.getElementById('june_Section').style.display = 'none';
+        document.getElementById('july_Section').style.display = 'none';
+    } else if (category === 'มิถุนายน') {
+        document.getElementById('april_Section').style.display = 'none';
+        document.getElementById('may_Section').style.display = 'none';
+        document.getElementById('june_Section').style.display = 'block';
+        document.getElementById('july_Section').style.display = 'none';
+    } else if (category === 'กรกฎาคม') {
+        document.getElementById('april_Section').style.display = 'none';
+        document.getElementById('may_Section').style.display = 'none';
+        document.getElementById('june_Section').style.display = 'none';
+        document.getElementById('july_Section').style.display = 'block';
+    } else if (category === 'ทั้งหมด') {
+        document.getElementById('april_Section').style.display = 'block';
+        document.getElementById('may_Section').style.display = 'block';
+        document.getElementById('june_Section').style.display = 'block';
+        document.getElementById('july_Section').style.display = 'block';
+    }
+}
+        </script>
 </body>
+
 </html>

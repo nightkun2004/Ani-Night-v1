@@ -2,9 +2,9 @@
     <% AnimeBordData.forEach(item => { %>
         <% if (item.animeMay && item.animeMay.length > 0) { %>
             <% item.animeMay.forEach(anime => { %>
-                <div class="anime_list">
-                    <div class="flex justify-center">
-                        <img src="<%= anime.linkImage %>" alt="Anime" class="h-96 md:h-26 md:object-cover md:border-2 md:border-sky-600">
+                <div class="anime_list"  style="--media-text: hsl(14,80%,30%); --media-background: hsl(43,83%,55%); --media-background-text: hsl(14,80%,30%); --media-overlay-text: hsl(14,80%,70%);">
+                    <div class="flex justify-center w-full h-[265px]">
+                        <img src="<%= anime.linkImage %>" alt="Anime" class="md:h-26 md:object-cover md:border-2 md:border-sky-600">
                     </div>
                     <div class="anime_info_text">
                         <h2><%= anime.nameAnime %></h2>

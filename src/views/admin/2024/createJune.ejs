@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>สร้างอนิเมะบอร์ด</title>
-    <link rel="stylesheet" href="../css/admin/dash.css">
-    <link rel="stylesheet" href="../css/admin/createAnime.css">
-    <link rel="stylesheet" href="../css/admin/sidebar.css">
-    <link rel="stylesheet" href="../css/admin/Admin_section.css">
+    <link rel="stylesheet" href="../../css/admin/dash.css">
+    <link rel="stylesheet" href="../../css/admin/createAnime.css">
+    <link rel="stylesheet" href="../../css/admin/Admin_section.css">
+    <link rel="stylesheet" href="../../css/admin/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../css/acticle.css">
+    <link rel="stylesheet" href="../../css/acticle.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <%- include('./sidebars/navbar') %>
+    <%- include('../../admin/sidebars/navbar') %> 
     <section class="home-section">
-        <%- include('./sections/navbar') %>
+        <%- include('../sections/navbar') %>
         <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
             <% if (usersesstion) { %>
                 <h5>ดำเนินด้วยบัญชี</h5>
@@ -28,7 +28,7 @@
                 </div>
               </div>
             <% } %>
-
+    
             <div class="edit" style="align-items: center; justify-content: center; display: flex; flex-wrap: wrap;">
                 <a style="margin: 10px;" href="/edit/anime/boards">แก้ไขสื่ออนิเมะ</a>
                 <a style="margin: 10px;" href="/admin/createAnime/may">เพิ่มเดือนพฤษภาคม</a>
@@ -36,8 +36,8 @@
                 <a style="margin: 10px;" href="/admin/createAnime/July">เพิ่มเดือนกรกฎาคม</a>
             </div>
             
-            <form action="/createAnime" method="post">
-                <h2>สร้างอนิเมะบอร์ด</h2>
+            <form action="/createAnime/June" method="post">
+                <h2>สร้างอนิเมะบอร์ด มิถุนายน</h2>
     
                 <label for="name">ชื่ออนิเมะ</label>
                 <input type="text" name="nameAnime" placeholder="ชื่ออนิเมะ">
@@ -61,8 +61,7 @@
             </form>
         </div>
     </section>
-    
-
+   
     <script src="/js/admins/script.js"></script>
 </body>
 </html>

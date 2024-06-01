@@ -69,112 +69,21 @@
       transform: rotate(360deg);
     }
   }
-
-  .modals {
-    display: none;
-    position: fixed;
-    z-index: 200;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
-}
-
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: 0 auto;
-    max-width: 800px;
-    width: 100%;
-    height: 650px;
-    overflow: scroll;
-    padding: 20px;
-}
-
-.modal-content::-webkit-scrollbar {
-    display: none;
-}
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #000000;
-}
-
-
-.close-modal:hover,
-.close-modal:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
+.modals {
+            transition: opacity 0.25s ease;
+        }
+        .modal-active {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+        }
 
 </style>
 
-<body>
+<body class="bg-gray-100">
     <%- include('../navnar_Header') %>
-        <%- include('../sidebar_Section') %>
-            <section class="content">
+            <section class="pt-20">
                 <div class="md:p-1 max-w-screen-md w-full m-auto">
-                    <div class=" sticky top-[65px] z-10 bg-white border-b-2 md:hidden">
-                        <ul class="flex flex-wrap text-sm font-medium text-center justify-center content-center bg-white">
-                            <li class="me-2">
-                                <button class="inline-block p-4 border-b-2 border-sky-500 rounded-t-lg text-2xl">ฟอรัมใหม่</button>
-                            </li>
-                            <li>
-                                <button class="inline-block p-4 rounded-t-lg text-2xl">รีโพสต์</button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div
-                        class=" hidden md:sticky md:top-[60px] md:z-10 md:flex md:justify-center md:drop-shadow-md md:bg-white md:p-5 md:flex-col md:sticky md:top-[70px] md:z-10">
-                        <% if (usersesstion) { %>
-                            <div class="flex justify-center content-center">
-                            <div class="profile_post pr-2">
-                                <% if(usersesstion) { %>
-                                    <img src="/profiles/<%= usersesstion.profile %>" alt="profile" class="w-10 h-10"
-                                    style="border-radius: 50px;">
-                               <% } %>
-                            </div>
-                            <div class="test_input flex flex-col">
-                                <form action="/post-forum" method="post">
-                                    <input type="text" name="text_mass" id=""
-                                        class="border-2 border-slate-200 outline-none text-left p-2 w-full h-[35px] rounded sm:w-[500px] h-35px"
-                                        placeholder="โพสต์ฟอรัมด้วยข้อความ" required>
-                                    <button class="btn_post bg-sky-500 rounded-lg mt-2 p-1 text-white hover:bg-sky-800"
-                                        type="submit">โพสต์ข้อความ</button>
-                                </form>
-                                <h2 class="text-2xl text-center">เวอร์ชั่นทดสอบ ยังไม่สมบูรณ์</h2>
-                            </div>
-
-                        </div>
-                      <%  } else { %>
-                        <p class="text-center">เข้าสู่ระบบเพื่อโพสต์ความอิสระของคุณ</p>
-                     <% } %>
-                        <hr class="mt-5">
-                        <!-- Munu posts -->
-                        <div class="flex flex-col bg-white">
-                            <ul class="flex justify-center">
-                                <li class="m-2 bg-cyan-500 p-1 rounded-lg text-white cursor-pointer">
-                                    โพสต์รูปภาพ
-                                </li>
-                                <li class="m-2 bg-pink-600 p-1 rounded-lg text-white cursor-pointer">
-                                    โพสต์มีม
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <%- include('./pages/sections/addforum_Post') %>
 
                     <!-- Posts -->
                     <div class="mt-5">
@@ -193,57 +102,31 @@
                             (adsbygoogle = window.adsbygoogle || []).push({});
                        </script>
                         </div>
+                        
                         <%- include('./pages/sections/forumtext_Section') %>
+
                         <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-6n+ep+14-70+a6"
-     data-ad-client="ca-pub-6579807593228261"
-     data-ad-slot="7379578718"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+                            crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-format="fluid"
+                            data-ad-layout-key="-6n+ep+14-70+a6"
+                            data-ad-client="ca-pub-6579807593228261"
+                            data-ad-slot="7379578718"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                         </div>
                       
                         <!-- สิ้นสุดโพสต์ -->
                     </div>
                 </div>
-            </section>
-
-            <div class="md:hidden sticky bottom-[50px] w-[200px]" style="left: 10px; ">
-                <ul class="flex flex-col py-1 mb-4  bg-white border w-[200px] border-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
-                    <li>
-                        <a href="#" >
-                            <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                                <path d="M18 0H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L10.414 13H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5 4h2a1 1 0 1 1 0 2h-2a1 1 0 1 1 0-2ZM5 4h5a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2Zm2 5H5a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Zm9 0h-6a1 1 0 0 1 0-2h6a1 1 0 1 1 0 2Z"/>
-                            </svg>
-                            <span class="text-sm font-medium">New post</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-5 py-2 border-b border-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white dark:border-gray-600">
-                            <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M19 4h-1a1 1 0 1 0 0 2v11a1 1 0 0 1-2 0V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V5a1 1 0 0 0-1-1ZM3 4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4Zm9 13H4a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-3H4a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-3H4a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-3h-2a1 1 0 0 1 0-2h2a1 1 0 1 1 0 2Zm0-3h-2a1 1 0 0 1 0-2h2a1 1 0 1 1 0 2Z"/>
-                                <path d="M6 5H5v1h1V5Z"/>
-                            </svg>
-                            <span class="text-sm font-medium">New topic</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="md:hidden flex flex-row-reverse" style="position: sticky; bottom: 20px; left: 10px; z-index: 12;">
-                <div class="p-5 bg-sky-500 rounded-full mr-3">
-                    Posts
-                </div>
-            </div>
-            
+            </section>            
 
             <%- include('./pages/popups/reply') %>
 
-            <script src="https://ani-night.online/js/pages/script_Section.js"></script>
+            <!-- <script src="https://ani-night.online/js/pages/script_Section.js"></script> -->
             <script src="/js/pages/forum.js"></script>
             <script src="/js/pages/loading_datas.js"></script>
             <script>

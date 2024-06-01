@@ -74,23 +74,21 @@ button {
     font-size: 29px;
     font-weight: bold;
     margin-top: 10px;
-    border-bottom: 1px solid #ccc;
 }
 
 .anime_lists {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 10px;
-    margin-top: 12px;
-    padding: 10px;
+    grid-gap: 28px 30px;
+    grid-template-columns: repeat(auto-fill, 185px);
+    justify-content: space-between;
 }
 
 .anime_list {
-    display: flex;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
+    display: grid;
+    grid-template-rows: -webkit-min-content auto;
+    grid-template-rows: min-content auto;
+    position: relative;
+    width: 185px;
 }
 
 .anime_list .anime_item_pic {
@@ -111,10 +109,10 @@ button {
 }
 
 .anime_list .anime_info_text h2 {
-    font-size: 23px;
+    font-size: 19px;
     font-weight: bold;
-    display: flex;
-    word-wrap: break-word; 
+        z-index: 5;
+        position: relative;
 }
 
 .anime_list .anime_info_text p {
@@ -295,7 +293,6 @@ button {
         width: 100%;
         padding: 0;
         flex-direction: column;
-        justify-content: center;
     }
     /* .anime_list .anime_info_text .btn_info,
     .anime_list .anime_info_text .btn_web {

@@ -15,6 +15,10 @@ const animebordlSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'animeMay'
     }],
+    animeJune: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'animeJune'
+    }],
     animeJuly: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'animeJuly'

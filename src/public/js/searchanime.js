@@ -1,64 +1,117 @@
-function searchAnime(query) {
-    if (query === undefined) {
-        return; // ไม่ทำอะไรเมื่อไม่มีค่า query
+// function searchAnime(query) {
+//     if (query === undefined) {
+//         return; // ไม่ทำอะไรเมื่อไม่มีค่า query
+//     }
+//     const trimmedQuery = query.trim();
+//     const animeList = document.querySelector(".anime_lists"); 
+//     const searchResultContainer = document.getElementById("searchResult");
+
+//     animeList.innerHTML = "";
+//     document.getElementById('result').textContent = query;
+
+//     if (trimmedQuery === '') {
+//         // ไม่มีคำค้นหา
+//         searchResultContainer.style.display = "none";
+//         return;
+//     }
+
+//     fetch(`/animeboard/search?search=${trimmedQuery}`)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Network response was not ok');
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             if (data.length === 0) {
+//                 animeList.innerHTML = "<p>ไม่พบผลการค้นหา</p>";
+//                 searchResultContainer.style.display = "none";
+//                 return;
+//             }
+
+//             // สร้างรายการ Anime จากผลลัพธ์การค้นหา
+//             data.forEach(animeData => {
+//                 // เดือนเมษายน
+//                 animeData.animeApril.forEach(anime => {
+//                     if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
+//                         const animeItem = createAnimeItem(anime);
+//                         animeList.appendChild(animeItem);
+//                     }
+//                 });
+//                 // เดือน พฤษภาคม
+//                 animeData.animeMay.forEach(anime => {
+//                     if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
+//                         const animeItem = createAnimeItem(anime);
+//                         animeList.appendChild(animeItem);
+//                     }
+//                 });
+//                 // เดือนกรกฏาคม
+//                 animeData.animeJuly.forEach(anime => {
+//                     if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
+//                         const animeItem = createAnimeItem(anime);
+//                         animeList.appendChild(animeItem);
+//                     }
+//                 });
+//             });
+
+//             // แสดงผลลัพธ์การค้นหา
+//             searchResultContainer.style.display = "block";
+//         })
+//         .catch(error => {
+//             console.error("Error fetching anime data:", error);
+//             animeList.innerHTML = "<p>เกิดข้อผิดพลาดขณะค้นหา</p>";
+//             searchResultContainer.style.display = "none";
+//         });
+// }
+function filterCategory(category, element) {
+    // Update the category query text
+    const categoryQuery = document.getElementById('category-query').querySelector('span');
+    categoryQuery.textContent = category;
+
+    // Remove active state from all buttons
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('bg-black', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-700');
+    });
+
+    // Add active state to the clicked button
+    element.classList.remove('bg-gray-200', 'text-gray-700');
+    element.classList.add('bg-black', 'text-white');
+
+    // Hide all sections
+    const sections = document.querySelectorAll('search_anime');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Show the selected section
+    if (category === 'เมษายน') {
+        document.getElementById('april_Section').style.display = 'block';
+        document.getElementById('may_Section').style.display = 'none';
+        document.getElementById('june_Section').style.display = 'none';
+        document.getElementById('july_Section').style.display = 'none';
+    } else if (category === 'พฤษภาคม') {
+        document.getElementById('april_Section').style.display = 'none';
+        document.getElementById('may_Section').style.display = 'block';
+        document.getElementById('june_Section').style.display = 'none';
+        document.getElementById('july_Section').style.display = 'none';
+    } else if (category === 'มิถุนายน') {
+        document.getElementById('april_Section').style.display = 'none';
+        document.getElementById('may_Section').style.display = 'none';
+        document.getElementById('june_Section').style.display = 'block';
+        document.getElementById('july_Section').style.display = 'none';
+    } else if (category === 'กรกฎาคม') {
+        document.getElementById('april_Section').style.display = 'none';
+        document.getElementById('may_Section').style.display = 'none';
+        document.getElementById('june_Section').style.display = 'none';
+        document.getElementById('july_Section').style.display = 'block';
+    } else if (category === 'ทั้งหมด') {
+        document.getElementById('april_Section').style.display = 'block';
+        document.getElementById('may_Section').style.display = 'block';
+        document.getElementById('june_Section').style.display = 'block';
+        document.getElementById('july_Section').style.display = 'block';
     }
-    const trimmedQuery = query.trim();
-    const animeList = document.querySelector(".anime_lists"); 
-    const searchResultContainer = document.getElementById("searchResult");
-
-    animeList.innerHTML = "";
-    document.getElementById('result').textContent = query;
-
-    if (trimmedQuery === '') {
-        // ไม่มีคำค้นหา
-        searchResultContainer.style.display = "none";
-        return;
-    }
-
-    fetch(`/animeboard/search?search=${trimmedQuery}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.length === 0) {
-                animeList.innerHTML = "<p>ไม่พบผลการค้นหา</p>";
-                searchResultContainer.style.display = "none";
-                return;
-            }
-
-            // สร้างรายการ Anime จากผลลัพธ์การค้นหา
-            data.forEach(animeData => {
-                animeData.animeApril.forEach(anime => {
-                    if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
-                        const animeItem = createAnimeItem(anime);
-                        animeList.appendChild(animeItem);
-                    }
-                });
-                animeData.animeMay.forEach(anime => {
-                    if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
-                        const animeItem = createAnimeItem(anime);
-                        animeList.appendChild(animeItem);
-                    }
-                });
-                animeData.animeJuly.forEach(anime => {
-                    if (anime.nameAnime.toLowerCase().includes(trimmedQuery.toLowerCase())) {
-                        const animeItem = createAnimeItem(anime);
-                        animeList.appendChild(animeItem);
-                    }
-                });
-            });
-
-            // แสดงผลลัพธ์การค้นหา
-            searchResultContainer.style.display = "block";
-        })
-        .catch(error => {
-            console.error("Error fetching anime data:", error);
-            animeList.innerHTML = "<p>เกิดข้อผิดพลาดขณะค้นหา</p>";
-            searchResultContainer.style.display = "none";
-        });
 }
 
 
@@ -171,22 +224,3 @@ function createAnimeItem(anime) {
 
     return animeItem;
 }
-
-const Btn_april = document.getElementById("april_btn");
-const Section_april = document.getElementById("april_Section");
-
-let Openanime = true;
-
-Btn_april.addEventListener('click', (e) => {
-    e.preventDefault();
-    const queryParam = 'april_Section=id1';
-    const url = '/animeboard?' + queryParam;
-    window.history.pushState({}, '', url);
-    if (Openanime) {
-        Section_april.style.display = 'block';
-        Openanime = false;
-    } else {
-        Section_april.style.display = 'none';
-        Openanime = true;
-    }
-});

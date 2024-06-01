@@ -36,7 +36,7 @@ exports.getForummain = async (req, res) => {
         forums.forEach(forum => {
             forum.formattedCreatedAt = moment(forum.createdAt).fromNow();
         });
-        res.render('./component/forum', { usersesstion, active: 'forum', forums })
+        res.render('./component/forum', { usersesstion, active: 'forum', forums, moment })
     } catch {
         console.error(error);
         res.status(500).send('Server Error', error);
@@ -82,7 +82,7 @@ exports.getBookmark = async (req, res) => {
         if (!forum) {
             return res.status(404).send('Forum not found');
         }
-        
+
 
         // Check if the forum is already bookmarked by the user
         const isBookmarked = forum.bookmarkby.some(usersession => usersession.equals(usersession._id));
@@ -102,8 +102,10 @@ exports.getBookmark = async (req, res) => {
     }
 }
 
-exports.getForumreply = async (req,res) => {
-    const usersesstion = req.session.userlogin;
+exports.getForumreply = async (req, res) => {
+    const usersession = req.session.userlogin;
+    console.log(usersession)
+    console.log(usersession.username)
     try {
         const { forumId, replyText } = req.body;
         // Find the forum post by ID 
@@ -111,22 +113,35 @@ exports.getForumreply = async (req,res) => {
         if (!forum) {
             return res.status(404).json({ message: 'Forum post not found' });
         }
-        // Add the reply to the forum's replies array
-        forum.replies.push({
-            replies: {
-                id: usersesstion._id,
-                username: usersesstion.username,
-                profile: usersesstion.profile
+        // Create the new reply
+        const newReply = {
+            username: {
+                id: usersession._id,
+                username: usersession.username,
+                profile: usersession.profile
             },
             content: replyText,
             createdAt: new Date()
-        });
+        };
+        // Add the reply to the forum's replies array
+        forum.replies.push(newReply);
         // Save the updated forum post
         await forum.save();
         console.log(forum)
-        res.status(200).json({ message: 'Reply added successfully' });
+        // Prepare the reply data to be sent back
+        const replyData = {
+            username: {
+                id: usersession._id,
+                username: usersession.username,
+                profile: usersession.profile
+            },
+            content: replyText,
+            createdAt: newReply.createdAt,
+        };
+
+        res.status(200).json(replyData);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error' });
     }
-}
+};

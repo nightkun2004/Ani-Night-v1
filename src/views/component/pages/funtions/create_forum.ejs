@@ -1,0 +1,79 @@
+<% // ฟังก์ชันสำหรับการแปลงวันที่ให้เป็นรูปแบบที่ต้องการ
+function formatDate(dateString) {
+    const thaiMonths = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม",
+                "เมษายน", "พฤษภาคม", "มิถุนายน",
+                "กรกฎาคม", "สิงหาคม", "กันยายน",
+                "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffInMilliseconds = now - date;
+
+            // เวลาที่ผ่านมาในรูปแบบนาที
+            const minutesAgo = Math.floor(diffInMilliseconds / (1000 * 60));
+
+            // เวลาที่ผ่านมาในรูปแบบวัน
+            const daysAgo = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+            if (minutesAgo < 60) {
+                return `เขียนเมื่อ: ${minutesAgo} นาทีที่แล้ว`;
+            } else if (daysAgo === 1) {
+                return `เมื่อวานนี้`;
+            } else {
+                const day = date.getDate();
+                const month = thaiMonths[date.getMonth()];
+                const year = date.getFullYear();
+                const hour = date.getHours();
+                const minute = date.getMinutes();
+                return `${day} ${month} ${year} ${hour}:${minute}`;
+            }
+            }
+    %>
+
+
+<% 
+                                       function formatTimeAgo(dateString) {
+                                        const thaiMonths = [
+                                            "มกราคม", "กุมภาพันธ์", "มีนาคม",
+                                            "เมษายน", "พฤษภาคม", "มิถุนายน",
+                                            "กรกฎาคม", "สิงหาคม", "กันยายน",
+                                            "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+                                        ];
+
+                                        const date = new Date(dateString);
+                                        const now = new Date();
+                                        const diffInMilliseconds = now - date;
+
+                                        // เวลาที่ผ่านมาในรูปแบบนาที
+                                        const minutesAgo = Math.floor(diffInMilliseconds / (1000 * 60));
+
+                                        // เวลาที่ผ่านมาในรูปแบบชั่วโมง
+                                        const hoursAgo = Math.floor(minutesAgo / 60);
+
+                                        // เวลาที่ผ่านมาในรูปแบบวัน
+                                        const daysAgo = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+                                        if (minutesAgo < 60) {
+                                            // ถ้าน้อยกว่า 60 นาทีให้แสดงเป็นนาทีที่ผ่านมา
+                                            return `ตอบกลับเมื่อ ${minutesAgo} นาทีที่แล้ว`;
+                                        } else if (hoursAgo === 1) {
+                                            // ถ้าเป็นหนึ่งชั่วโมงที่ผ่านมาให้แสดงเป็นหนึ่งชั่วโมงที่แล้ว
+                                            return `ตอบกลับเมื่อ ${hoursAgo} ชั่วโมงที่แล้ว`;
+                                        } else if (daysAgo === 1) {
+                                            // ถ้าเป็นเมื่อวานนี้ให้แสดงเป็นเมื่อวานนี้
+                                            return `ตอบกลับเมื่อเมื่อวานนี้`;
+                                        } else {
+                                            // นอกเหนือจากนี้ให้แสดงวันที่และเวลา
+                                            const day = date.getDate();
+                                            const month = thaiMonths[date.getMonth()];
+                                            const year = date.getFullYear();
+                                            const hour = date.getHours();
+                                            const minute = date.getMinutes();
+                                            return `${day} ${month} ${year} ${hour}:${minute}`;
+                                        }
+                                    }
+
+
+                                        %>     

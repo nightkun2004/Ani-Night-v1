@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
 const moment = require('moment');
+require('moment/locale/th');
 dotenv.config()
 
 const indexRoute = require("./routes/index")
@@ -66,6 +67,10 @@ app.use('/app', express.static(path.join(__dirname, 'src/public/css')));
 
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
+
+const formatDate = (date) => {
+  return moment(date).fromNow();
+};
 
 app.locals.moment = moment;
 app.use(bodyParser.json());

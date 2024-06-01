@@ -24,7 +24,7 @@ async function loadAnimeData(req, res, next) {
 router.get('/animeboard', loadAnimeData, async (req, res) => {
     const query = req.query.search; 
     const usersesstion = req.session.userlogin;
-    const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly').sort({ createdAt: -1 }); 
+    const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly').sort({ createdAt: -1 }); 
     const template = req.language === 'th' ? './component/pages/anime' : './component/pages/anime'; 
     // ./en/anime
     // console.log(AnimeBordData);
@@ -41,7 +41,7 @@ router.get('/animeboard/search', async (req, res) => {
     const query = req.query.search; 
     try {
         // ค้นหาและดึงข้อมูลทั้งหมดของอนิเมะจากฐานข้อมูล
-        const allAnimeData = await AnimeBord.find().populate('animeApril animeMay animeJuly');
+        const allAnimeData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly');
         res.json(allAnimeData); // ส่งข้อมูลทั้งหมดของอนิเมะกลับไปเป็น JSON response
     } catch (error) {
         console.error("Error fetching anime data:", error);

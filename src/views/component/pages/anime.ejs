@@ -7,45 +7,6 @@
     <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
     <meta name="description" content="รายการอนิเมะ 2024 อนิเมะ 2024 รวมมาไว้ที่นี่แล้ว ตรวจสอบอนิเมะที่คุณชอบ">
     <meta name="keywords" content="Anime2024, Anime, 2024, อนิเมะ, มีนาคม, เมษายน,">
-    <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
-        <% AnimeBordData.forEach(item => { %>
-            <% if (item.animeApril && item.animeApril.length > 0) { %>
-                <% item.animeApril.forEach(anime => { %>
-                    <meta name="keyword" content="<%= anime.nameAnime %>">
-                    <% }); %>
-                    <% } else { %>
-                        <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
-                    <% } %>
-                <% }); %>
-            <% } else { %>
-                <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
-            <% } %>
-    <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
-        <% AnimeBordData.forEach(item => { %>
-            <% if (item.animeMay && item.animeMay.length > 0) { %>
-                <% item.animeMay.forEach(anime => { %>
-                    <meta name="keyword" content="<%= anime.nameAnime %>">
-                    <% }); %>
-                    <% } else { %>
-                        <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
-                    <% } %>
-                <% }); %>
-            <% } else { %>
-                <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
-            <% } %>
-    <% if (AnimeBordData && AnimeBordData.length > 0) { %> 
-        <% AnimeBordData.forEach(item => { %>
-            <% if (item.animeJuly && item.animeJuly.length > 0) { %>
-                <% item.animeJuly.forEach(anime => { %>
-                    <meta name="keyword" content="<%= anime.nameAnime %>">
-                    <% }); %>
-                    <% } else { %>
-                        <p style="text-align: center;">ไม่มีข้อมูล AnimeApril สำหรับ AnimeBord นี้</p>
-                    <% } %>
-                <% }); %>
-            <% } else { %>
-                <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
-            <% } %>
 
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="og:url" content="https://www.ani-night.online/animeboard">
@@ -71,6 +32,16 @@
       </script>
           <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
 <body class="bg-gray-50">
     <%- include('../../navnar_Header') %>
     <section class=" mx-auto px-4 xl:max-w-7xl">
@@ -85,71 +56,93 @@
         
             </div>
         </div>
-
-        <div class="categorys bg-white rounded p-2 flex mt-5">
-            <ul>
-                <li>
-                    เดือน
-                </li>
-            </ul>
-        
-            <div class="catagory_form ml-2">
-                <h2 class="text-1xl">เลือกหมวดหมู่</h2>
-                <button id="april_btn" class="bg-gray-400 rounded  p-2 text-white">เมษายน</button>
+        <div class="flex items-center justify-between bg-white shadow-md p-4 mb-5">
+            <!-- Category List -->
+            <div id="category-container" class="flex space-x-2 overflow-x-auto scrollbar-hide">
+                <button id="all_btn" class="category-btn px-4 py-2 rounded-lg bg-black text-white focus:outline-none whitespace-nowrap" onclick="filterCategory('ทั้งหมด', this)">ทั้งหมด</button>
+                <button id="april_btn" class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap" onclick="filterCategory('เมษายน', this)">เมษายน</button>
+                <button id="may_btn" class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap" onclick="filterCategory('พฤษภาคม', this)">พฤษภาคม</button>
+                <button id="june_btn" class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap" onclick="filterCategory('มิถุนายน', this)">มิถุนายน</button>
+                <button id="July_btn"
+                class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                onclick="filterCategory('กรกฎาคม', this)">กรกฎาคม</button>
             </div>
         </div>
         
+        <p id="category-query" class="mb-4 text-lg font-semibold">เลือกหมวดหมู่ | <span class="text-gray-500">ทั้งหมด</span></p>
+        
 
-         <section class="april_Section" id="april_Section" style="display: none;"> 
-            <div class="anime_content">
-                <h2 class="anime_brta">เมษายน 2024</h2>
-                <div class="loading" style="display: none;">
-                    <div class="anime_lists sub" >
-                       <%- include('./months/April') %>
+    <!-- <div class="search">
+        <div class="bg-white px-6 md:px-12 py-8 mb-[40px] md:py-12 mt-8 shadow-sm relative">
+            <form action="" class="w-full">
+                <div class="relative mt-1 w-full">
+                    <div class="absolute w-full inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                        </svg>
                     </div>
+                    <input type="search" name="query" id="search" placeholder="ค้นหาแบบเรียวไทมเลยย..."
+                    class="block w-full p-4 ps-10 text-lg text-black-900 border border-gray-50 rounded-full h-10 bg-gray-50"
+                    oninput="searchAnime()">
+                               
                 </div>
-                
-                <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                    <div class="spinner"></div>
+            </form> 
+        </div>
+    </div> -->
+
+    <section class="april_Section search_anime" id="april_Section" style="display: none;"> 
+        <div class="anime_content">
+            <h2 class="anime_brta">เมษายน 2024</h2>
+            <div class="loading" style="display: none;">
+                <div class="anime_lists sub">
+                   <%- include('./months/April') %>
                 </div>
             </div>
-         </section>
-
+            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="may_Section search_anime" id="may_Section" style="display: none;"> 
         <div class="anime_content">
             <h2 class="anime_brta">พฤษภาคม 2024 + พากย์ไทย</h2>
             <div class="loading" style="display: none;">
-                <div class="anime_lists sub" >
+                <div class="anime_lists sub">
                    <%- include('./months/May') %>
                 </div>
             </div>
-            
             <div class="loading-indicator loadingIndicator" id="loadingIndicator">
                 <div class="spinner"></div>
             </div>
         </div>
-
+    </section>
+    
+    <section class="june_Section search_anime" id="june_Section" > 
         <div class="anime_content">
             <h2 class="anime_brta">มิถุนายน 2024 + พากย์ไทย + เดือนที่แล้ว</h2>
             <div class="loading" style="display: none;">
-                <div class="anime_lists sub" >
+                <div class="anime_lists sub">
                    <%- include('./months/June') %>
                 </div>
             </div>
-            
             <div class="loading-indicator loadingIndicator" id="loadingIndicator">
                 <div class="spinner"></div>
             </div>
         </div>
-
+    </section>
+    
+    <section class="july_Section" id="july_Section" > 
         <div class="anime_content">
             <h2 class="anime_brta">กรกฎาคม 2024</h2>
             <div class="loading" style="display: none;">
-                <div class="anime_lists sub" >
+                <div class="anime_lists sub">
                    <%- include('./months/July') %>
                 </div>
             </div>
-            
-            <div class="loading-indicator loadingIndicator">
+            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
                 <div class="spinner"></div>
             </div>
         </div>

@@ -49,7 +49,7 @@ const ForumSchema = new mongoose.Schema({
                 username: {
                     id: {
                         type: mongoose.Schema.Types.ObjectId,
-                        ref: "User"
+                        ref: "User" 
                     },
                     username: String,
                     profile: {

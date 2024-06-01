@@ -12,11 +12,13 @@ const Animemay = require('../../models/animeMay')
 const createAnime = require('../../controls/createAnimeRoute')
 const create_2024 = require('../../routes/admin/2024/create')
 const Admin_Router = require('./admin_router/admin')
-
+const AnimeJune = require('../../models/animeJune')
+ 
 const PAGE_SIZE = 5;
 
 router.get('/delete/anime/:id', createAnime.DeleteAnime);
 router.get('/delete/AnimeMay/:id', createAnime.DeleteAnimeMay);
+router.get('/delete/AnimeJune/:id', createAnime.DeleteAnimeJune);
 router.get('/delete/AnimeJuly/:id', createAnime.DeleteAnimeJuly);
 
 router.get('/admin/dash', verifyToken, async (req, res) => {
@@ -150,7 +152,7 @@ router.get('/edit/anime/boards', loadAnimeData, async (req, res) => {
     const usersesstion = req.session.userlogin;
 
     try {
-        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly');
+        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly');
         if (!AnimeBordData) {
             return res.status(404).json({ error: "AnimeBordData not found" });
         }
@@ -210,6 +212,22 @@ router.post('/edit_animeboard/July', async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+router.post('/edit_animeboard/June', async (req, res) => {
+    const usersesstion = req.session.userlogin;
+    const edit_id = req.body.edit_id;
+    try {
+        const animejune = await AnimeJune.findOne({ _id: edit_id }).exec();
+
+        if (!animejune) {
+            return res.status(404).json({ error: "AnimeApril not found" });
+        }
+
+        res.render('./admin/edits/2024/animeJune', { active: 'dashboard', animejune, usersesstion });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 
 router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
@@ -247,6 +265,7 @@ router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
 
 router.post('/edit_animeboard/May/002', verifyToken, createAnime.EditanimeMay);
 router.post('/edit_animeboard/EditanimeJuly', verifyToken, createAnime.EditanimeJuly);
+router.post('/edit_animeboard/Edit/anime/June', verifyToken, createAnime.EditanimeJune);
 router.post('/editvideo/post/videoid', verifyToken, createAnime.Editvideos);
 
 

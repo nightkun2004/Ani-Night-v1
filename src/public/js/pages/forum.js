@@ -77,28 +77,6 @@ document.querySelectorAll(".btn-reply").forEach(btn => {
                 btn.parentElement.querySelector('input[name="replybox"]').value = "";
                 alert("ตอบกลับเรียบร้อยแล้ว!");
 
-                // เพิ่มโพสต์ตอบกลับใหม่ไปยัง DOM
-                const replyData = await response.json();
-                const replyContainer = document.querySelector(".reply-container");
-                const newPost = document.createElement("li");
-                newPost.classList.add("border-l", "p-2", "flex", "content-center", "bg-gray-200", "rounded-lg", "mt-2", "mb-");
-                newPost.innerHTML = `
-                    <div class="flex">
-                        <a href="/editor/${replyData.username.username}" target="_blank" rel="noopener noreferrer">
-                            <img src="/profiles/${replyData.username.profile}" alt="profile" class="w-10 h10" style="border-radius: 50px;">
-                        </a>
-                        <div class="relative flex items-center justify-between">
-                            <p class="pl-2">${replyData.username.id.username}</p>
-                        </div>                                                    
-                    </div>
-                    <div class="flex flex-col">
-                        <h2 class="text-sm text-slate-950">${replyData.username.username}</h2>
-                        <p>${replyData.content}</p>
-                        <p class="text-sm text-gray-400">${replyData.formattedTimeAgo}</p>
-                    </div>
-                `;
-                replyContainer.appendChild(newPost);
-
             } catch (error) {
                 console.error("There was a problem with the fetch operation:", error);
                 alert("เกิดข้อผิดพลาดในการส่งข้อความตอบกลับ");
@@ -109,27 +87,26 @@ document.querySelectorAll(".btn-reply").forEach(btn => {
     });
 });
 
-// Get the buttons that open the modals
-const modalToggleBtns = document.querySelectorAll('[data-modal-toggle^="reply-modal-"]');
 
-// Get the <span> elements that close the modals
-const modalCloseBtns = document.querySelectorAll('[data-modal-close^="reply-modal-"]');
-
-// When the user clicks the button, open the corresponding modal
+const modalToggleBtns = document.querySelectorAll('[data-modal-toggle]');
 modalToggleBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
         const modalId = this.dataset.modalToggle;
         const modal = document.getElementById(modalId);
-        modal.style.display = 'block';
+        modal.classList.remove('opacity-0');
+        modal.classList.remove('pointer-events-none');
+        document.body.classList.add('modal-active');
     });
 });
 
-// When the user clicks on <span> (x), close the corresponding modal
+// ปิด modal
+const modalCloseBtns = document.querySelectorAll('[data-modal-close]');
 modalCloseBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
         const modalId = this.dataset.modalClose;
         const modal = document.getElementById(modalId);
-        modal.style.display = 'none';
+        modal.classList.add('opacity-0');
+        modal.classList.add('pointer-events-none');
+        document.body.classList.remove('modal-active');
     });
-});
-
+}); 
