@@ -29,6 +29,25 @@ exports.getPortforum = async (req, res) => {
     }
 };
 
+exports.getforumdes = async (req,res) =>{
+    const usersesstion = req.session.userlogin;
+    const forumID = req.params.forunid;
+    try {
+        
+        if (!forumID) {
+            return res.redirect('/404');
+        }
+        const forumDec = await Forum.findOne({_id: forumID}).populate('username username.id').exec();
+        if (!forumDec) return res.render("404", { usersesstion}); 
+        
+        const totalReplies = forumDec.replies.length;
+        console.log(forumDec)
+        res.render("./component/pages/posts/forumPost", {usersesstion,forumDec,totalReplies})
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 exports.getForummain = async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {

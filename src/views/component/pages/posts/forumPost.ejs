@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียนโพสต์</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <%- include('../../../navnar_Header') %>
+    <div class="container mx-auto pt-20">
+        <!-- Post Container -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <!-- Post Header -->
+            <div class="flex items-center">
+                <img class="w-12 h-12 rounded-full mr-4" src="/profiles/<%= forumDec.username.profile %>" alt="Profile Picture">
+                <div>
+                    <h2 class="text-lg font-semibold"><%= forumDec.username.username %></h2>
+                    <p class="text-sm text-gray-500">@<%= forumDec.username.username %>• <%= moment(forumDec.createdAt).locale('th').fromNow() %></p>
+                </div>
+            </div>
+            <!-- Post Content -->
+            <div class="mt-4">
+                <p class="content-Forums text-gray-700"><%= forumDec.text_mass %></p>
+                <!-- <img class="mt-4 rounded-lg" src="post_image_url" alt="Post Image"> -->
+            </div>
+            <!-- Post Interactions -->
+            <div class="flex justify-between items-center mt-6 text-gray-500">
+                <div class="flex items-center">
+                    <button class="ml-6 flex items-center space-x-2 hover:text-green-500">
+                        <% if(usersesstion) { %>
+                            <% if (!forumDec.likedBy.includes(usersesstion._id)) { %>
+                                <button class="btnlike text-3xl text-blue-400 flex content-center pl-2" data-forumid="<%= forumDec._id %>"><i class="fa-solid fa-heart"></i></button>
+                            <% } %>
+                            <% } %>
+                        
+                       <% if(usersesstion) { %>
+                         <% if (forumDec.likedBy.includes(usersesstion._id)) { %>
+                            <button class="text-3xl text-red-500 flex content-center pl-2"><i class="fa-solid fa-heart"></i></button>
+                        <% } %>      
+                       <% } %>
+                        <span><%= forumDec.likes %></span>
+                    </button>
+                    <button class="flex items-center space-x-2 hover:text-blue-500">
+                        <% if (usersesstion) { %>
+                            <% if (!forumDec.bookmarkby.includes(usersesstion._id)) { %>
+                                <button class="btnbookmark text-3xl text-sky-500" id="btnBookmark" data-forumid="<%= forumDec._id %>"><i class='bx bxs-bookmark'></i></button>
+                            <% } %>
+                        <% } %>
+                        <% if(usersesstion) { %>
+                            <% if (forumDec.bookmarkby.includes(usersesstion._id)) { %>
+                                <button class="text-3xl text-orange-400"><i class='bx bxs-bookmark'></i></button>
+                           <% } %>      
+                          <% } %>
+                          <% if(!usersesstion) { %>
+                            <button class="text-3xl text-stone-800"><i class='bx bxs-bookmark'></i></button>
+                       <% } %>
+                        <span><%= forumDec.bookmarks %></span>
+                    </button>
+                  
+                    <!-- <button class="ml-6 flex items-center space-x-2 hover:text-red-500">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        <span>789</span>
+                    </button> -->
+                </div>
+                <button class="flex items-center space-x-2 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v16c0 1.104.896 2 2 2h10l6-6V4c0-1.104-.896-2-2-2H6c-1.104 0-2 .896-2 2z"></path>
+                    </svg>
+                    <span>Share</span>
+                </button>
+            </div>
+        </div>
+        <!-- Comment Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-4 mb-8">
+            <h3 class="text-lg font-semibold mb-4">การตอบกลับ <%= totalReplies %></h3>
+            <% if (Array.isArray(forumDec.replies)) { %>
+                <% forumDec.replies.forEach(reply => { %>
+                <div class="space-y-">
+                    <div class="flex items-start space-x-4">
+                        <img class="w-10 h-10 rounded-full" src="/profiles/<%= reply.username.profile %>" alt="Profile Picture">
+                        <div class="w-full">
+                            <h4 class="text-md font-semibold"><%= reply.username.username %></h4>
+                            <p class="text-gray-700 mt-1"><%= reply.content %></p>
+                            <p class="text-sm text-gray-500"><%= moment(reply.createdAt).locale('th').fromNow() %></p>
+                            <div>
+                                <button onclick="toggleReplyForm('<%= reply._id %>')" class="text-sm text-blue-500 hover:underline">ตอบกลับ</button>
+                            </div>
+                            <div class="space-y flex">
+                                <div  class="flex items-start space-x-4">
+                                    <img class="w-10 h-10 rounded-full" src="/profiles/<%= reply.username.profile %>" alt="Profile Picture">
+                                </div>
+                                <div class="w-full pl-5">
+                                    <h4 class="text-md font-semibold">
+                                        <%= reply.username.username %>
+                                    </h4>
+                                    <p class="text-gray-700 mt-1">
+                                        <%= reply.content %>
+                                    </p>
+                                    <p class="text-sm text-gray-500">
+                                        <%= moment(reply.createdAt).locale('th').fromNow() %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div id="commentinputto-<%= reply._id %>" class="w-full hidden">
+                                <form action="/reply/to/reply" method="post" class="w-full">
+                                    <input type="hidden" name="reply_id" value="<%= reply._id %>">
+                                    <input type="text" name="reply_text" placeholder="เขียนการตอบกลับ..." style="border-bottom: 1px solid #999;" class="w-full p-2 border-gray-500 outline-none border-b-3 mb-5">
+                                    <button type="submit" class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">ตอบกลับ</button>
+                                </form>
+                            </div>                
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            <% } else { %>
+                <p class="text-center text-gray-500">No comments available.</p>
+            <% } %>
+        </div>
+        <!-- END Comments -->
+    </div>
+
+
+    <%- include('../../../footer') %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var descriptionSpans = document.querySelectorAll('.content-Forums');
+            
+            descriptionSpans.forEach(function(descriptionSpan) {
+                var description = descriptionSpan.textContent.trim();
+                var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" style="color: blue;">$1</a>');
+                descriptionSpan.innerHTML = descriptionWithLinks;
+            });
+        });
+    </script>
+    <script>
+        function toggleReplyForm(replyId) {
+            const replyForm = document.getElementById(`commentinputto-${replyId}`);
+            replyForm.classList.toggle('hidden');
+        }
+        </script>
+</body>
+</html>

@@ -32,6 +32,7 @@ router.get('/read/:url', async (req, res) => {
             { new: true, upsert: false }
         ).populate('author.id author comments').exec();
         const articleforyou = await Acticle.find().sort({ views: -1 }).limit(6).populate('author.id author'); 
+        if (!acticle) return res.render("404", { usersesstion}); 
 
 
         if (!acticle || !acticle.author || !acticle.author.id) {

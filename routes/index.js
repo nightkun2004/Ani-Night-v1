@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
     const usersesstion = req.session.userlogin;
     const alertMessage = req.query.alertMessage || null;
     try {
-        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJuly').sort({ createdAt: -1 });
+        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly').sort({ createdAt: -1 });
         const acticles = await Acticle.find().exec();
         const videos = await Video.find().sort({ createdAt: -1 }).limit(6);
         const topViewedArticles = await Acticle.find().populate('author.id').sort({ createdAt: -1, views: -1 }).limit(5);

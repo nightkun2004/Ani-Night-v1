@@ -105,7 +105,8 @@ app.use(vidoechannelRoute)
 app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
-  res.status(404).render('404');
+  const usersesstion = req.session.userlogin;
+  res.status(404).render('404', {usersesstion});
 });
 
 // app.get('/',(req,res)=>{

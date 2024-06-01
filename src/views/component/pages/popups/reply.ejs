@@ -17,11 +17,11 @@
                         <% forum.replies.forEach(reply => { %>
                             <li class="border-l p-2 flex content-center bg-gray-200 rounded-lg mt-2 mb-2">
                                 <div class="flex items-center">
-                                    <a href="/editor/<%= reply.username %>" target="_blank" rel="noopener noreferrer">
-                                        <img src="/profiles/<%= reply.profile %>" alt="profile" class="w-10 h-10 rounded-full">
+                                    <a href="/editor/<%= reply.username.username %>" target="_blank" rel="noopener noreferrer">
+                                        <img src="/profiles/<%= reply.username.profile %>" alt="profile" class="w-10 h-10 rounded-full">
                                     </a>
                                     <div class="pl-4">
-                                        <h3 class="text-sm font-semibold"><%= reply.username %></h3>
+                                        <h3 class="text-sm font-semibold"><%= reply.username.username %></h3>
                                         <p class="text-sm text-gray-600"><%= reply.content %></p>
                                         <p class="text-xs text-gray-400"><%= moment(reply.createdAt).locale('th').fromNow() %></p>
                                     </div>

@@ -16,9 +16,11 @@
         </div>
 
         <!-- Forun Content -->
-        <p class="mb-4 text-gray-800 p-4">
-            <%= forum.text_mass  %>
-        </p>
+        <a href="/post/<%= forum._id %>/forum">
+            <p class="content-Forums mb-4 text-gray-800 p-4">
+                <%= forum.text_mass %>
+            </p>
+        </a>
         
         <!-- btn heart  -->
         <div class="flex justify-between border-t-2 m-1 border-b-2 relative content-center">
@@ -117,15 +119,10 @@
                                 <div class="flex">
                                     <a href="/editor/<%= reply.username.username %>" target="_blank" rel="noopener noreferrer">
                                         <img src="/profiles/<%= reply.username.profile %>" alt="profile" class="w-10 h10" style="border-radius: 50px;">
-                                    </a>
-                                    <div class="relative flex items-center justify-between">
-                                        <div class="relative flex items-center justify-between">
-                                            <p class="pl-2"><%= reply.username && reply.username.id ? reply.username.id.username : 'Unknown User' %></p>
-                                        </div>                          
-                                    </div>                                                    
+                                    </a>                                                 
                                 </div>
-                                <div class="flex flex-col">
-                                    <h2 class="text-sm text-slate-950"><%= reply.username %></h2>
+                                <div class="flex flex-col pl-3">
+                                    <h2 class="text-sm text-slate-950"><%= reply.username.username && reply.username.username ? reply.username.username : 'Unknown User' %></h2>
                                     <%= reply.content %>
                                 <p class="text-sm text-gray-400">·<%= moment(reply.createdAt).locale('th').fromNow() %></p>
                                 </div>
