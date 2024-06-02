@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../../css/acticle.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
     <%- include('../../admin/sidebars/navbar') %> 
@@ -61,13 +62,55 @@
                 <input type="text" name="linkdemo" placeholder="ตัวอย่าง">
 
                 <label for="เรื่องย่อ">เรื่องย่อ</label>
-                <textarea name="Synopsis" id="Synopsis"></textarea>
+                <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                <input type="text" id="Synopsis" name="Synopsis" readonly class="mt-1 block w-full h-[100px] shadow-sm sm:text-sm border border-gray-300 rounded-md">
     
                 <input type="submit" value="เผยแพร่">
             </form>
         </div>
     </section>
    
+      <!-- Quill JS -->
+      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="/js/admins/script.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link', 'video'],
+                    [{ 'color': [] }],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    ['align', 'script', 'code-block'],
+                    [{ 'header': [1, 2, 3, 4, 5, 6] }],
+                    ['clean']
+                ]
+            },
+            formats: [
+                'bold', 'italic', 'header', 'underline', 'strike', 'link', 'color', 'list', 'bullet', 'indent',
+                'video', 'align', 'script', 'code-block'
+            ]
+        });
+    
+        var contentInput = document.getElementById('Synopsis');
+    
+        quill.on('text-change', function() {
+            contentInput.value = quill.root.innerHTML;
+        });
+    
+        quill.getModule('toolbar').addHandler('video', function() {
+            var url = prompt('Enter the URL of the video:');
+            if (url) {
+                insertVideo(url);
+            }
+        });
+    
+        function insertVideo(url) {
+            var range = quill.getSelection();
+            quill.insertEmbed(range.index, 'video', url, Quill.sources.USER);
+        }
+    </script>
 </body>
 </html>

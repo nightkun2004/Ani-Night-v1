@@ -84,7 +84,7 @@
                                     <%= acticle.title %>
                                 </h1>
                                 <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                    เขียนโดย <a href="/editor/<%= acticle.author.username %> "><%= acticle.author.username %> </a> | เวลา <%= moment(acticle.createdAt).format('YYYY-MM-DD HH:mm:ss') %>
+                                    เขียนโดย <a href="/editor/<%= acticle.author.username %> "><%= acticle.author.username %> </a> | <%= moment(acticle.createdAt).locale('th').fromNow() %>
                                 </p>
                                 <div class="mt-1 flex justify-between">
                                     <% if (acticle && acticle.tags && acticle.tags.length > 0) { %>

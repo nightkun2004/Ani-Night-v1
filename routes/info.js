@@ -12,12 +12,9 @@ router.get('/anime/:animeid', async (req, res) => {
         const usersesstion = req.session.userlogin;
         const animeid = req.params.animeid;
 
-        if (!animeid) {
-            return res.render("404", { usersesstion});
-        }
-
+        // ตรวจสอบว่า animeid เป็น ObjectId ที่ถูกต้อง
         if (!mongoose.Types.ObjectId.isValid(animeid)) {
-            return res.status(400).send('Invalid anime ID');
+            return res.render("404", { usersesstion });
         }
 
         // หาข้อมูลจากหลาย ๆ คอลเลคชัน

@@ -3,12 +3,12 @@
         <% if (item.animeApril && item.animeApril.length > 0) { %>
             <% item.animeApril.forEach(anime => { %>
                 <div class="anime_list">
-                    <div class="flex justify-center">
-                        <a href="/anime/<%= anime._id %>">
+                    <a href="/anime/<%= anime._id %>">
+                        <div class="flex justify-center">
                             <img src="<%= anime.linkImage %>" alt="Anime" class="md:border-2 md:border-sky-600">
-                        </a>
-                    </div>
-                        <div class="anime_info_text">
+                        </div>
+                    </a>
+                          <div class="anime_info_text">
                             <h2><%= anime.nameAnime %></h2>
                             <p>ผลิตโดย: <span><%= anime.Produced %></span></p>
                             <% if (anime.manuscript) { %>

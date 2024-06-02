@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/acticle.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
     <%- include('../../../admin/sidebars/navbar') %>
@@ -55,15 +56,17 @@
 
                 <% if (animeJuly.Synopsis) { %>
                     <label for="Synopsis">เรื่องย่อ</label>
-                    <textarea name="Synopsis" id="Synopsis"><%= animeJuly.Synopsis %></textarea>
-                    <% } else { %>
-                        <label for="Synopsis">เรื่องย่อ</label>
-                        <textarea name="Synopsis" id="Synopsis"></textarea>
-                    <% } %>
+                    <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                    <input type="hidden" id="Synopsis" name="Synopsis" value="<%= animeJuly.Synopsis %>">
+                <% } else { %>
+                    <label for="Synopsis">เรื่องย่อ</label>
+                    <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                    <input type="hidden" id="Synopsis" name="Synopsis">
+                <% } %>
 
-                    <% if (animejune.linkdemo) { %>
+                    <% if (animeJuly.linkdemo) { %>
                         <label for="linkdemo">ตัวอย่าง</label>
-                        <input type="text" name="linkdemo" value="<%= animejune.linkdemo %>">
+                        <input type="text" name="linkdemo" value="<%= animeJuly.linkdemo %>">
                         <% } else { %>
                             <label for="linkdemo">ชื่อตอน</label>
                             <input type="text" name="linkdemo">
@@ -144,7 +147,49 @@
     </section>
    
 
-
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="/js/admins/script.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link', 'video'],
+                    [{ 'color': [] }],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    ['align', 'script', 'code-block'],
+                    [{ 'header': [1, 2, 3, 4, 5, 6] }],
+                    ['clean']
+                ]
+            },
+            formats: [
+                'bold', 'italic', 'header', 'underline', 'strike', 'link', 'color', 'list', 'bullet', 'indent',
+                'video', 'align', 'script', 'code-block'
+            ]
+        });
+    
+        var contentInput = document.getElementById('Synopsis');
+        
+        // ตั้งค่าเนื้อหาเริ่มต้นใน Quill editor
+        quill.clipboard.dangerouslyPasteHTML(contentInput.value);
+        
+        quill.on('text-change', function() {
+            contentInput.value = quill.root.innerHTML;
+        });
+    
+        quill.getModule('toolbar').addHandler('video', function() {
+            var url = prompt('Enter the URL of the video:');
+            if (url) {
+                insertVideo(url);
+            }
+        });
+    
+        function insertVideo(url) {
+            var range = quill.getSelection();
+            quill.insertEmbed(range.index, 'video', url, Quill.sources.USER);
+        }
+    </script>
 </body>
 </html>

@@ -121,6 +121,7 @@
                     <section class="may_Section search_anime" id="may_Section"> 
                         <div class="anime_content">
                             <h2 class="anime_brta">พฤษภาคม 2024 + พากย์ไทย</h2>
+
                             <div class="loading" style="display: none;">
                                 <div class="anime_lists sub">
         
@@ -189,6 +190,9 @@
                     <section class="june_Section search_anime" id="june_Section" > 
                         <div class="anime_content">
                             <h2 class="anime_brta">มิถุนายน 2024 + พากย์ไทย + เดือนที่แล้ว</h2>
+                            <div class="loading" style="display: none;">
+                                <div class="anime_lists sub">
+
                             <% if (AnimeBordData && AnimeBordData.length> 0) { %>
                                 <% AnimeBordData.forEach(item=> { %>
                                     <% if (item.animeJune && item.animeJune.length> 0) { %>
@@ -242,7 +246,8 @@
                                                                 <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
                                                                 <% } %>
 
-
+                                </div>
+                            </div>
                             <div class="loading-indicator loadingIndicator" id="loadingIndicator">
                                 <div class="spinner"></div>
                             </div>
@@ -252,6 +257,8 @@
                     <section class="july_Section" id="july_Section" > 
                         <div class="anime_content">
                             <h2 class="anime_brta">กรกฎาคม 2024</h2>
+                            <div class="loading" style="display: none;">
+                                <div class="anime_lists sub">
                             <% if (AnimeBordData && AnimeBordData.length> 0) { %>
                                 <% AnimeBordData.forEach(item=> { %>
                                     <% if (item.animeJuly && item.animeJuly.length> 0) { %>
@@ -304,6 +311,8 @@
                                                             <% } else { %>
                                                                 <p style="text-align: center;">ไม่มีข้อมูล AnimeBord</p>
                                                                 <% } %>
+                                </div>
+                                </div>
                             <div class="loading-indicator loadingIndicator" id="loadingIndicator">
                                 <div class="spinner"></div>
                             </div>
