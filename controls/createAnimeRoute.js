@@ -15,6 +15,7 @@ exports.Addanimemay = async (req, res) => {
             episodes: req.body.episodes,
             start: req.body.start,
             linkImage: req.body.linkImage,
+
         });
 
         const author = {
@@ -42,7 +43,9 @@ exports.AddanimeJune = async (req,res) =>{
             episodes: req.body.episodes,
             start: req.body.start,
             linkImage: req.body.linkImage,
-        })
+            linkdemo: req.body.linkdemo,
+            Synopsis: req.body.Synopsis,
+        }) 
 
         const author = {
             id: usersesstion._id,
@@ -69,6 +72,8 @@ exports.AddanimeJuly = async (req, res) => {
             episodes: req.body.episodes,
             start: req.body.start,
             linkImage: req.body.linkImage,
+            linkdemo: req.body.linkdemo,
+            Synopsis: req.body.Synopsis,
         });
 
         const author = {
@@ -143,6 +148,8 @@ exports.EditanimeJune = async (req, res) => {
         animeBord.netflix = req.body.netflix;
         animeBord.yt_text = req.body.yt_text;
         animeBord.crunchyroll = req.body.crunchyroll;
+        animeBord.Synopsis = req.body.Synopsis;
+        animeBord.linkdemo = req.body.linkdemo;
 
         await animeBord.save();
 
@@ -175,6 +182,8 @@ exports.EditanimeJuly = async (req, res) => {
         animeBord.netflix = req.body.netflix;
         animeBord.yt_text = req.body.yt_text;
         animeBord.crunchyroll = req.body.crunchyroll;
+        animeBord.Synopsis = req.body.Synopsis;
+        animeBord.linkdemo = req.body.linkdemo;
 
         await animeBord.save();
 

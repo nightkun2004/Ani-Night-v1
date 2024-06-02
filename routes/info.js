@@ -1,30 +1,39 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require('mongoose');
 const animebord = require('../models/animebord');
+const animeApril = require("../models/animeApril");
+const animeMay = require("../models/animeMay");
+const animeJuly = require("../models/animeJuly");
+const animeJune = require("../models/animeJune");
 
-router.get('/info/:animeid', async (req, res) => {
+router.get('/anime/:animeid', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const animeid = req.params.animeid;
 
-        let animebordData;
-
-        animebordData = await animebord.findOne({ 'animeApril': animeid })
-            .populate('animeApril animeMay animeJuly').exec();
-
-        if (!animebordData) {
-            animebordData = await animebord.findOne({ 'animeMay': animeid })
-                .populate('animeApril animeMay animeJuly').exec();
+        if (!animeid) {
+            return res.render("404", { usersesstion});
         }
 
-        if (!animebordData) {
-            animebordData = await animebord.findOne({ 'animeJuly': animeid })
-                .populate('animeApril animeMay animeJuly').exec();
+        if (!mongoose.Types.ObjectId.isValid(animeid)) {
+            return res.status(400).send('Invalid anime ID');
         }
 
+        // หาข้อมูลจากหลาย ๆ คอลเลคชัน
+        let AnimeDataset = await animeApril.findOne({_id: animeid})
+            || await animeMay.findOne({_id: animeid})
+            || await animeJuly.findOne({_id: animeid})
+            || await animeJune.findOne({_id: animeid});
+
+        if (!AnimeDataset) {
+            return res.render("404", { usersesstion});
+        }
+        
+        // console.log(AnimeDataset);
 
         // ส่งข้อมูลไปที่หน้าเว็บผ่าน EJS template
-        res.render('./component/info', { usersesstion, animebordData });
+        res.render('./component/info', { usersesstion, AnimeDataset });
         // res.json(animebordData)
     } catch (err) {
         if (err.response && err.response.status === 404) {

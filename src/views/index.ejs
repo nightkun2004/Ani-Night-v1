@@ -129,7 +129,9 @@
                                 <% if (item.animeJune && item.animeJune.length> 0) { %>
                                     <% item.animeJune.forEach(anime=> { %> 
                                  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                                     <img src="<%= anime.linkImage %>" alt="<%= anime.nameAnime %>" class="w-full h-56 object-cover">
+                                    <a href="/anime/<%= anime._id %>">
+                                        <img src="<%= anime.linkImage %>" alt="Anime" class="md:border-2 md:border-sky-600">
+                                    </a>
                                   <div class="p-4">
                                     <h2 class="text-lg font-semibold"><%= anime.nameAnime %></h2>
                                  </div>

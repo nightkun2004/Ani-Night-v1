@@ -52,6 +52,22 @@
     
                 <label for="link">ลิงภาพ</label>
                 <input type="text" name="linkImage" value="<%= animeJuly.linkImage %>">
+
+                <% if (animeJuly.Synopsis) { %>
+                    <label for="Synopsis">เรื่องย่อ</label>
+                    <textarea name="Synopsis" id="Synopsis"><%= animeJuly.Synopsis %></textarea>
+                    <% } else { %>
+                        <label for="Synopsis">เรื่องย่อ</label>
+                        <textarea name="Synopsis" id="Synopsis"></textarea>
+                    <% } %>
+
+                    <% if (animejune.linkdemo) { %>
+                        <label for="linkdemo">ตัวอย่าง</label>
+                        <input type="text" name="linkdemo" value="<%= animejune.linkdemo %>">
+                        <% } else { %>
+                            <label for="linkdemo">ชื่อตอน</label>
+                            <input type="text" name="linkdemo">
+                        <% } %>
     
                 <% if (animeJuly.info) { %>
                     <label for="link">ชื่อตอน</label>

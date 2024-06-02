@@ -4,7 +4,9 @@
             <% item.animeMay.forEach(anime => { %>
                 <div class="anime_list"  style="--media-text: hsl(14,80%,30%); --media-background: hsl(43,83%,55%); --media-background-text: hsl(14,80%,30%); --media-overlay-text: hsl(14,80%,70%);">
                     <div class="flex justify-center w-full h-[265px]">
-                        <img src="<%= anime.linkImage %>" alt="Anime" class="md:h-26 md:object-cover md:border-2 md:border-sky-600">
+                        <a href="/anime/<%= anime._id %>">
+                            <img src="<%= anime.linkImage %>" alt="Anime" class="md:border-2 md:border-sky-600">
+                        </a>
                     </div>
                     <div class="anime_info_text">
                         <h2><%= anime.nameAnime %></h2>

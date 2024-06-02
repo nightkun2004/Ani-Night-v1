@@ -46,6 +46,12 @@ const animeJuneSchema = new mongoose.Schema({
     crunchyroll: {
         type:String
     },
+    Synopsis: {
+        type:String
+    },
+    linkdemo: {
+        type:String
+    },
     createdAt: {
         type: Date,
         default: Date.now

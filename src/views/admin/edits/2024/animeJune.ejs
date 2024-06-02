@@ -31,7 +31,7 @@
             <% } %>
         <div class="edit_overee">
             <form action="/edit_animeboard/Edit/anime/June" method="POST">
-                <h2>แก้ไขอนิเมะบอร์ด</h2>
+                <h2>แก้ไขอนิเมะบอร์ด มิถุนายน</h2>
     
                 <input type="text" name="update_id" value="<%= animejune._id %>">
     
@@ -52,6 +52,21 @@
     
                 <label for="link">ลิงภาพ</label>
                 <input type="text" name="linkImage" value="<%= animejune.linkImage %>">
+                <% if (animeJuly.Synopsis) { %>
+                    <label for="Synopsis">เรื่องย่อ</label>
+                    <textarea name="Synopsis" id="Synopsis"><%= animeJuly.Synopsis %></textarea>
+                    <% } else { %>
+                        <label for="Synopsis">เรื่องย่อ</label>
+                        <textarea name="Synopsis" id="Synopsis"></textarea>
+                    <% } %>
+                
+                    <% if (animejune.linkdemo) { %>
+                        <label for="linkdemo">ตัวอย่าง</label>
+                        <input type="text" name="linkdemo" value="<%= animejune.linkdemo %>">
+                        <% } else { %>
+                            <label for="linkdemo">ชื่อตอน</label>
+                            <input type="text" name="linkdemo">
+                        <% } %>
     
                 <% if (animejune.info) { %>
                     <label for="link">ชื่อตอน</label>
@@ -60,6 +75,7 @@
                         <label for="link">ชื่อตอน</label>
                         <input type="text" name="nameep">
                     <% } %>
+
     
                 <% if (animejune.info) { %>
                 <label for="link">ข้อมูลเพิ่มเติม</label>

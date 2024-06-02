@@ -4,7 +4,10 @@
             <% item.animeJune.forEach(anime => { %>
                 <div class="anime_list" style="overflow: hidden;">
                     <div class="flex justify-center w-full h-[265px]">
-                        <img src="<%= anime.linkImage %>" alt="Anime" class="md:border-2 md:border-sky-600">
+                        <a href="/anime/<%= anime._id %>">
+                            <img src="<%= anime.linkImage %>" alt="Anime" class="md:border-2 md:border-sky-600">
+                        </a>
+                        
                     </div>
                     <div class="anime_info_text">
                         <h2><%= anime.nameAnime %></h2>
