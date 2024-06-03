@@ -55,50 +55,39 @@
                     </div>
                 </div>
 
-                <div class="mt-8 px-6 md:px-12 py-4 relative">
-                    <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">ข่าวอนิเมะปี 2024</h2>
+                <div class="pt-20 px-6 md:px-12 py-4 relative">
+                    <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5">ข่าวอนิเมะปี 2024</h2>
                     <div class="loading" style="display: none;">
-                        <div class="videos">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <% if (paginatedVideos.length > 0) { %>
                                 <% paginatedVideos.forEach(video=> { %>
-                                <div class="video">
-                                    <a href="/play/<%= video.videoid %>" target="_blank">
-                                        <div class="pic_photo">
-                                            <img src="/cover_videos/<%= video.coverImage %>"
-                                                alt="<%= video.coverImage %>">
-                                            <video class="video" src="/videos/<%= video.filePath %>.mp4"
-                                                style="display: none;"></video>
-                                            <span class="time duration">9:00</span>
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <a href="/play/<%= video.videoid %>" target="_blank" rel="noopener noreferrer">
+                                    <img src="/cover_videos/<%= video.coverImage %>" alt="Thumbnail" class="w-full h-44 object-cover">
+                                <div class="p-4">
+                                    <% if (video && video.description) { %>
+                                    <h3 class="font-semibold text-lg text-gray-900"><%- video.name.substring(0, 20) + '  ....' %></h3>
+                                    <% } %> 
+                                    <% if (video.author && video.author.id) { %>
+                                    <div class="flex space-x-2 items-center">
+                                        <div class="mt-1">
+                                            <img class="w-[50px] h-[50px] p-1 rounded-full" src="/profiles/<%= video.author.id.profile %>" alt="">
                                         </div>
-                                        <div class="text_video">
-                                            <% if (video && video.description) { %>
-                                                <h2><%- video.name.substring(0, 20) + '  ....' %></h2>
-                                            <% } %>                                            
-                                            <p class="views"> <%- video.views %> วิว</p>
-                                        </div>
-                                    </a>
+                                        <p class="text-gray-600 text-sm">
+                                            <%= video.author.id.username %> • <%= moment(video.createdAt).locale('th').fromNow() %>
+                                        </p>
+                                    </div>
+                                    <% } else { %>
+                                        <p>Author: Unknown</p>
+                                        <% } %>
                                 </div>
-                                <% }) %>
-                                <% } else { %>
-                                    <p>ไม่พบข่าวอนิเมะ</p>
-                                <% } %>
-
-
-                                    <!-- <div class="video">
-                            <a href="#">
-                                <div class="pic_photo">
-                                    <img src="/images/demo.jpg" alt="">
-                                    <video class="video" src="/videos/40321.mp4" style="display: none;"></video>
-                                    <span class="time duration">9:00</span>
-                                </div>
-                                <div class="text_video">
-                                    <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, impedit.
-                                    </h2>
-                                    <p class="views">0 วิว</p>
-                                </div>
-                            </a>
-                        </div> -->
-
+                                </a>
+                            </div>
+                            <% }) %>
+                            <% } else { %>
+                                <p>ไม่พบข่าวอนิเมะ</p>
+                            <% } %>
+                    
                         </div>
                     </div>
 

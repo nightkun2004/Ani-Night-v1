@@ -15,7 +15,7 @@
 
         <!-- Nav Links and Icons -->
         <div class="hidden md:flex items-center space-x-4">
-            <a href="/" class="block text-gray-700 hover:text-blue-500">หน้าหลัก</a>
+            <a href="/" class="text-gray-700 hover:text-blue-500">หน้าหลัก</a>
             <a href="/search" class="block text-gray-700 hover:text-blue-500">🔍 ค้นหา</a>
             <a href="/animeboard" class="block text-gray-700 hover:text-blue-500">บอร์ดอนิเมะ</a>
             <a href="/forums" class="block text-gray-700 hover:text-blue-500">ฟอรัม</a>
@@ -36,17 +36,63 @@
             </div> -->
 
             <!-- Profile Dropdown -->
-            <div class="relative">
+            <div class="relative group">
                 <button class="focus:outline-none">
                     <% if (usersesstion) { %>
                         <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>">
-                            <img class="h-8 w-8 rounded-full" src="/profiles/<%= usersesstion.profile %>" alt="User Avatar">
+                            <img class="w-9 h-9 rounded-full border-2 border-gray-300 cursor-pointer" src="/profiles/<%= usersesstion.profile %>" alt="User Avatar">
                         </a>
-                      <% } %>
+                    <% } %>
                 </button>
+                <% if (usersesstion) { %>
+                <!-- เมนูการ์ด -->
+                <div class="absolute right-1 transform hidden group-hover:block w-64 p-4 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                    <div class="flex items-center">
+                        <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Picture" class="w-12 h-12 rounded-full border-2 border-gray-300">
+                        <div class="ml-3">
+                            <h3 class="text-lg text-black font-semibold"><%= usersesstion.name %></h3>
+                            <p class="text-gray-500">@<%= usersesstion.username %></p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-700"><%= usersesstion.bio %>.</p>
+                    </div>
+                    <div class="mt-4">
+                        <ul class="list-none">
+                            <li class="py-1"><a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 rounded-lg p-2 hover:bg-gray-100"><%= usersesstion.username %></a></li>
+                          <div class="relative">
+                            <li class="py-1"><a href="#" class="block text-gray-700 rounded-lg p-2 hover:bg-gray-100">การแจ้งเตือน</a> </li>
+                            <span class="absolute right-0 top-0 bg-red-500 text-white px-1 rounded-full">0</span>
+                          </div>
+                            <ul class="absolute right-full top-40 mt-0 ml-2 hidden group-hover:block w-40 bg-white border border-gray-300 rounded-lg shadow-lg">
+                                <!-- header card -->
+                                <div class="border-b-2 p-2">
+                                    <h3 class="text-lg font-bold text-black">การแจ้งเตือน</h3>
+                                </div>
+                                <!-- <li class="py-1 px-2"><a href="#" class="text-gray-700 hover:text-blue-500">Notification 1</a></li>
+                                <li class="py-1 px-2"><a href="#" class="text-gray-700 hover:text-blue-500">Notification 2</a></li>
+                                <li class="py-1 px-2"><a href="#" class="text-gray-700 hover:text-blue-500">Notification 3</a></li> -->
+                            </ul>
+                            <li class="py-1"><a href="#" class="block text-gray-700 rounded-lg p-2 hover:bg-gray-100">ออกจากระบบ</a></li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 border-t-2 p-2 flex items-center">
+                        <h2 class="text-black">เปลี่ยนโหมด</h2>
+                        <div class=" mx-auto p-4">
+                            <div class="flex justify-end">
+                                <label for="theme-toggle" class="inline-flex items-center cursor-pointer">
+                                    <div class="relative">
+                                        <input type="checkbox" id="theme-toggle" class="sr-only">
+                                        <div class="block-dack bg-gray-100 w-14 h-8 rounded-full"></div>
+                                        <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform"></div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
             </div>
-        </div>
-    </div>
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 shadow-sm hidden">
@@ -102,5 +148,37 @@
     document.getElementById('menu-toggle').addEventListener('click', function() {
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenu.classList.toggle('hidden');
+    });
+</script>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Load theme from localStorage
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+        body.classList.add('bg-black', 'text-white');
+        body.classList.remove('bg-white', 'text-black');
+        themeToggle.checked = true;
+        document.querySelector('.dot').classList.add('translate-x-full', 'bg-white');
+        document.querySelector('.block-dack').classList.add('bg-green-500');
+    }
+
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            body.classList.add('bg-black' , 'text-white');
+            body.classList.remove('bg-white', 'text-black');
+            localStorage.setItem('theme', 'dark');
+            document.querySelector('.dot').classList.add('translate-x-full', 'bg-white');
+            document.querySelector('.block-dack').classList.add('bg-green-500');
+            document.querySelector('.block-dack').classList.remove('bg-gray-100');
+        } else {
+            body.classList.add('bg-gray.100', 'text-white');
+            body.classList.remove('bg-black', 'text-white');
+            localStorage.setItem('theme', 'light');
+            document.querySelector('.dot').classList.remove('translate-x-full', 'bg-black');
+            document.querySelector('.block-dack').classList.add('bg-gray-100');
+            document.querySelector('.block-dack').classList.remove('bg-green-500');
+        }
     });
 </script>

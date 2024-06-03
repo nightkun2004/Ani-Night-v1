@@ -120,7 +120,7 @@
                 </div>
 
                 <!-- info Mobile -->
-                <div class="bg-white mt-5 px-6 md:px-12 py-4 shadow-md rounded-md relative Mobile">
+                <div class="bg-white text-black mt-5 px-6 md:px-12 py-4 shadow-md rounded-md relative Mobile">
                     <div class="tages">
                         <% if (video && video.tags && video.tags.length> 0) { %>
                             <h2> <%- video.tags.map(tag=> `<a href="/tag/${tag}">${tag}</a>`).join(', ') %></h2>
@@ -152,7 +152,7 @@
                 </div>
 
                 <!-- ส่วนคำอธิบาย -->
-                <div class="description bg-white text-black mt-8 Mobile" style="border-radius: 10px; padding: 20px;">
+                <div class="description bg-white text-black text-black mt-8 Mobile" style="border-radius: 10px; padding: 20px;">
                     <div class="flex m-1 text-gray-400">
                         <% if (video && video.createdAt) { %>
                             <p>สร้างเมื่อ : <%= new Date(video.createdAt).toLocaleDateString('en-EN') %></p>
@@ -177,9 +177,9 @@
                 </div>
 
                 <!-- แพลตฟอร์มถูกลิขสิทธิ์ -->
-                <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+                <div class="mt-8 bg-white text-black px-6 md:px-12 py-4 shadow-md rounded-md relative">
                     <h2 class="text-2xl font-bold font-weight-500 mb-[20px]">ดูได้ที่แพลตฟอร์มถูกลิขสิทธิ์เหล่านี้</h2>
-                    <div class="links-pathfrom">
+                    <div class="links-pathfrom text-black">
                         <% if (!video.web || !video.bilibili || !video.Iqiyi || !video.netflix || !video.youtube) { %>
                             <p>ยังไม่มีแพลตฟอร์ม</p>
                         <% } %>                        
@@ -256,106 +256,6 @@
                     </div>
                 </div>
 
-                <!-- content Dubing -->
-                <!-- <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
-                    <h2 class="text-2xl font-bold font-weight-500 mb-[20px]">นักพากย์ไทยและญี่ปุ่น</h2>
-                    <ul
-                        class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                        <li class="me-2">
-                            <a href="#" aria-current="page"
-                                class="inline-block p-4 text-white bg-amber-400 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">นักพากย์ไทย</a>
-                        </li>
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">นักพากย์ญี่ปุ่น</a>
-                        </li>
-                    </ul>
-
-                    <p>No Data..</p>
-
-                    <div class="dubvoice-row">
-                       <div class="dubitem">
-                            <div class="dubitem-left">
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
-                                </div>
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อนักพากย์</h2>
-                                </div>
-                            </div>
-
-                            <div class="dubitem-right">
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อตัวละคร</h2>
-                                    <p>ตัลละครหลัก</p>
-                                </div>
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
-                                </div>
-                            </div>
-                       </div>
-                       <div class="dubitem">
-                            <div class="dubitem-left">
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
-                                </div>
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อนักพากย์</h2>
-                                </div>
-                            </div>
-
-                            <div class="dubitem-right">
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อตัวละคร</h2>
-                                    <p>ตัลละครหลัก</p>
-                                </div>
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
-                                </div>
-                            </div>
-                       </div>
-                       <div class="dubitem">
-                            <div class="dubitem-left">
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
-                                </div>
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อนักพากย์</h2>
-                                </div>
-                            </div>
-
-                            <div class="dubitem-right">
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อตัวละคร</h2>
-                                    <p>ตัลละครหลัก</p>
-                                </div>
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
-                                </div>
-                            </div>
-                       </div>
-                       <div class="dubitem">
-                            <div class="dubitem-left">
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/g42bk.jpg" alt="voice-pic">
-                                </div>
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อนักพากย์</h2>
-                                </div>
-                            </div>
-
-                            <div class="dubitem-right">
-                                <div class="dubvoice-info">
-                                    <h2>ชื่อตัวละคร</h2>
-                                    <p>ตัลละครหลัก</p>
-                                </div>
-                                <div class="dubvoice-pic">
-                                    <img src="https://m1r.ai/9/af8nm.png" alt="voice-pic">
-                                </div>
-                            </div>
-                       </div>
-                    </div>
-                </div> -->
         </div>
         <!-- Section Right -->
         <div class="info md:p-2">
@@ -367,7 +267,7 @@
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script><br>
-            <div class="bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative pc">
+            <div class="bg-white text-black px-6 md:px-12 py-4 shadow-md rounded-md relative pc">
                 <div class="tages">
                     <% if (video && video.tags && video.tags.length> 0) { %>
                         <h2><a href="/tag/<%= video.tags[0] %>"><%= video.tags[0] %></a></h2>
@@ -398,7 +298,7 @@
                         <% } %>
             </div>
 
-            <div class="description bg-white text-black mt-8 pc" style="border-radius: 10px; padding: 20px;">
+            <div class="description text-black bg-white text-black mt-8 pc" style="border-radius: 10px; padding: 20px;">
                 <div class="flex m-1 text-gray-400">
                     <% if (video && video.createdAt) { %>
                         <p>สร้างเมื่อ : <%= new Date(video.createdAt).toLocaleDateString('en-EN') %></p>
@@ -447,7 +347,7 @@
 
             </div> -->
 
-            <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+            <div class="mt-8 w-full text-black bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
                 <h2 style="font-size: 20px; font-weight: bold;" class="mb-5">ความคิดเห็น</h2>
                 <% if (usersesstion) { %>
                 <form>
@@ -474,7 +374,7 @@
               <% } %>
             </div>
 
-            <div class="mt-8 w-full bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+            <div class="mt-8 w-full text-black bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
                 <div class="comment-lists">
                     <% if (video && video.replies) { %>
                         <% const totalReplies = video.replies.length; %>

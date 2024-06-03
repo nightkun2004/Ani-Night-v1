@@ -9,7 +9,7 @@ const perPage = 20;
 router.get('/foryou', async (req, res) => {
     try { 
         const usersesstion = req.session.userlogin;
-        const videos = await Video.find();
+        const videos = await Video.find().populate('author.id');
 
         if (!Array.prototype.shuffle) {
             Array.prototype.shuffle = function () {
@@ -30,7 +30,7 @@ router.get('/foryou', async (req, res) => {
 
         videos.shuffle();
 
-        const totalVideo = videos.length;
+        const totalVideo = videos.length; 
         const totalPages = Math.ceil(totalVideo / perPage);
         const currentPage = req.query.page ? parseInt(req.query.page) : 1;
         const skip = (currentPage - 1) * perPage;

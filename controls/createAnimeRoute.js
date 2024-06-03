@@ -150,6 +150,10 @@ exports.EditanimeJune = async (req, res) => {
         animeBord.crunchyroll = req.body.crunchyroll;
         animeBord.Synopsis = req.body.Synopsis;
         animeBord.linkdemo = req.body.linkdemo;
+        animeBord.Dubbings = {
+            dubthai: req.body.dubthai,
+            dubjpan: req.body.dubjpan
+        }; 
 
         await animeBord.save();
 
@@ -184,6 +188,10 @@ exports.EditanimeJuly = async (req, res) => {
         animeBord.crunchyroll = req.body.crunchyroll;
         animeBord.Synopsis = req.body.Synopsis;
         animeBord.linkdemo = req.body.linkdemo;
+        animeBord.Dubbings = {
+            dubthai: req.body.dubthai,
+            dubjpan: req.body.dubjpan
+        };
 
         await animeBord.save();
 

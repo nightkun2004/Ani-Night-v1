@@ -54,6 +54,39 @@
                 <label for="link">ลิงภาพ</label>
                 <input type="text" name="linkImage" value="<%= animeJuly.linkImage %>">
 
+                <hr class="w-full h-[5px] text-red-500 bg-red-600 border-none mt-5" 5px="">
+                <h2>นักพากยืเสียงไทย (Thai)</h2>
+                <label for="dubthai[0][namevoice]">ชื่อนักพากย์:</label>
+                <input type="text" name="dubthai[0][namevoice]" id="dubthai[0][namevoice]">
+                
+                <label for="dubthai[0][voiceimage]">รูปภาพนักพากย์:</label>
+                <input type="text" name="dubthai[0][voiceimage]" id="dubthai[0][voiceimage]">
+                
+                <label for="dubthai[0][character]">ตัวละคร:</label>
+                <input type="text" name="dubthai[0][character]" id="dubthai[0][character]">
+                
+                <label for="dubthai[0][role]">บทบาท:</label>
+                <input type="text" name="dubthai[0][role]" id="dubthai[0][role]">
+                
+                <label for="dubthai[0][characterimage]">ภาพตัวละคร:</label>
+                <input type="text" name="dubthai[0][characterimage]" id="dubthai[0][characterimage]">
+                <hr class="w-full h-[5px] text-red-500 bg-red-600 border-none mt-5" 5px="">
+
+                <hr class="w-full h-[5px] text-red-500 bg-red-600 border-none mt-5" 5px="">
+                <h2>นักพากย์เสียงญี่ปุ่น (Japanese)</h2>
+                <label for="dubjpan[0][namevoice]">Name Voice:</label>
+                <input type="text" name="dubjpan[0][namevoice]" id="dubjpan[0][namevoice]"><br>
+                <label for="dubjpan[0][voiceimage]">Voice Image:</label>
+                <input type="text" name="dubjpan[0][voiceimage]" id="dubjpan[0][voiceimage]"><br>
+                <label for="dubjpan[0][character]">Character:</label>
+                <input type="text" name="dubjpan[0][character]" id="dubjpan[0][character]"><br>
+                <label for="dubjpan[0][role]">Role:</label>
+                <input type="text" name="dubjpan[0][role]" id="dubjpan[0][role]"><br>
+                <label for="dubjpan[0][characterimage]">Character Image:</label>
+                <input type="text" name="dubjpan[0][characterimage]" id="dubjpan[0][characterimage]"><br>
+                <hr class="w-full h-[5px] text-red-500 bg-red-600 border-none mt-5" 5px="">
+
+
                 <% if (animeJuly.Synopsis) { %>
                     <label for="Synopsis">เรื่องย่อ</label>
                     <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
@@ -138,6 +171,8 @@
                         <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
                         <input type="text" name="yt_text">
                     <% } %>
+
+                    
     
                 <input type="submit" value="เผยแพร่">
             </form>

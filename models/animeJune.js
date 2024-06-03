@@ -52,6 +52,46 @@ const animeJuneSchema = new mongoose.Schema({
     linkdemo: {
         type:String
     },
+    Dubbings: {
+        dubthai: [
+            {
+                namevoice: {
+                    type: String
+                },
+                voiceimage: {
+                    type: String
+                },
+                character: {
+                    type: String
+                },
+                role: {
+                    type: String
+                },
+                characterimage: {
+                    type: String
+                }
+            }
+        ],
+        dubjpan: [
+            {
+                namevoice: {
+                    type: String
+                },
+                voiceimage: {
+                    type: String
+                },
+                character: {
+                    type: String
+                },
+                role: {
+                    type: String
+                },
+                characterimage: {
+                    type: String
+                }
+            }
+        ]
+    },
     createdAt: {
         type: Date,
         default: Date.now
