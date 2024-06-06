@@ -49,7 +49,7 @@ router.get('/articles', async (req, res) => {
 
 router.get('/acticle/api', async (req, res) => {
     try {
-        const acticles = await Acticle.find().exec();
+        const acticles = await Acticle.find().sort({ createdAt: -1 }).exec();
         res.json(acticles)
     } catch (err) {
         console.error(err);
