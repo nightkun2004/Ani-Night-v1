@@ -92,8 +92,7 @@ const videoSchema = new mongoose.Schema({
     ratedBy: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User', 
-            unique: true 
+            ref: 'User'
         }
     ],
     subthai: {

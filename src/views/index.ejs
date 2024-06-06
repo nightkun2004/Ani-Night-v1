@@ -87,9 +87,28 @@
             </div>
         </div>
 
-        
-
         <div class="sectionlist mx-auto px-4 xl:max-w-7xl">
+
+            <!-- links -->
+       <div class="px-4 flex flex-col space-y-2 mt-2 md:hidden">
+        <a href="/" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">หน้าหลัก</a>
+        <a href="/search" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">🔍 ค้นหา</a>
+        <a href="/animeboard" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">บอร์ดอนิเมะ</a>
+        <a href="/categories" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">หมวดหมู่</a>
+        <a href="/forums" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">ฟอรัม</a>
+        <a href="/articles" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">บทความ</a>
+        <% if (!usersesstion) { %>
+            <a href="/login" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">เข้าสู่ระบบ</a>
+        <% } %>
+        <% if (usersesstion) { %>
+            <div class="flex flex-col space-y-2">
+                <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">โปรไฟล์</a>
+                <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">เขียน</a>
+                <a href="#" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">การตั้งค่า</a>
+                <a href="#" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">ออกจากระบบ</a>
+            </div>
+        <% } %>
+    </div>
             <!-- Ads Home -->
             <script async
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
@@ -261,7 +280,7 @@
                 });
             </script>
 
-<script>
+<!-- <script>
     const scrollContainer = document.getElementById('category-container');
     const scrollLeft = document.getElementById('scroll-left');
     const scrollRight = document.getElementById('scroll-right');
@@ -279,7 +298,7 @@
             behavior: 'smooth'
         });
     });
-</script>
+</script> -->
 </body>
 
 </html>

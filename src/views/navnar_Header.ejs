@@ -6,13 +6,12 @@
             <span class="text-lg font-semibold text-gray-700">ANINIGHT</span>
         </a>
 
-        <!-- Menu Toggle Button for Mobile -->
-        <div class="md:hidden">
-            <button id="menu-toggle" class="text-gray-700 focus:outline-none">
-                ☰
-            </button>
-        </div>
-
+     <!-- Menu Toggle Button for Mobile -->
+     <div class="md:hidden">
+        <button id="menu-toggle" class="menu-toggle-btn text-gray-700 focus:outline-none">
+            ☰
+        </button>
+    </div>
         <!-- Nav Links and Icons -->
         <div class="hidden md:flex items-center space-x-4">
             <a href="/" class="text-gray-700 hover:text-blue-500">หน้าหลัก</a>
@@ -93,29 +92,37 @@
                 </div>
                 <% } %>
             </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 shadow-sm hidden">
-        <div class="px-4 py-2 space-y-2">
-            <a href="/" class="block text-gray-700 hover:text-blue-500">หน้าหลัก</a>
-            <a href="/search" class="block text-gray-700 hover:text-blue-500">🔍 ค้นหา</a>
-            <a href="/animeboard" class="block text-gray-700 hover:text-blue-500">บอร์ดอนิเมะ</a>
-            <a href="/categories" class="block text-gray-700 hover:text-blue-500">หมวดหมู่</a>
-            <a href="/forums" class="block text-gray-700 hover:text-blue-500">ฟอรัม</a>
-            <a href="/articles" class="block text-gray-700 hover:text-blue-500">บทความ</a>
-            <% if (!usersesstion) { %>
-                <a href="/login" class="block text-gray-700 hover:text-blue-500">เข้าสู่ระบบ</a>
-             <% } %>
-            <% if (usersesstion) { %>
-                <div class="border-t border-gray-200 mt-2 pt-2">
-                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 hover:text-blue-500">โปรไฟล์</a>
-                    <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 hover:text-blue-500">เขียน</a>
-                    <a href="#" class="block text-gray-700 hover:text-blue-500">การตั้งค่า</a>
-                    <a href="#" class="block text-gray-700 hover:text-blue-500">ออกจากระบบ</a>
-                </div>
-          <% } %>
-        </div>
+<!-- Mobile Menu -->
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 shadow-sm hidden">
+    <div class="px-4 py-2 space-y-2">
+        <a href="/" class="block text-gray-700 hover:text-blue-500">หน้าหลัก</a>
+        <a href="/search" class="block text-gray-700 hover:text-blue-500">🔍 ค้นหา</a>
+        <a href="/animeboard" class="block text-gray-700 hover:text-blue-500">บอร์ดอนิเมะ</a>
+        <a href="/categories" class="block text-gray-700 hover:text-blue-500">หมวดหมู่</a>
+        <a href="/forums" class="block text-gray-700 hover:text-blue-500">ฟอรัม</a>
+        <a href="/articles" class="block text-gray-700 hover:text-blue-500">บทความ</a>
+        <% if (!usersesstion) { %>
+            <a href="/login" class="block text-gray-700 hover:text-blue-500">เข้าสู่ระบบ</a>
+        <% } %>
+        <% if (usersesstion) { %>
+            <div class="border-t border-gray-200 mt-2 pt-2">
+                <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 hover:text-blue-500">โปรไฟล์</a>
+                <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="block text-gray-700 hover:text-blue-500">เขียน</a>
+                <a href="#" class="block text-gray-700 hover:text-blue-500">การตั้งค่า</a>
+                <a href="#" class="block text-gray-700 hover:text-blue-500">ออกจากระบบ</a>
+            </div>
+        <% } %>
     </div>
+</div>
+
+<!-- Menu Toggle Button for Mobile -->
+<div class="md:hidden">
+    <button id="menu-toggle" class="menu-toggle-btn text-gray-700 focus:outline-none">
+        ☰
+    </button>
+</div>
+
 </nav>
 <style>
     ::-webkit-scrollbar {
@@ -138,18 +145,31 @@
     }
 </style>
 <script>
-    // Toggle the profile dropdown menu
-    document.querySelector('button').addEventListener('click', function() {
-        const dropdown = this.nextElementSibling;
-        dropdown.classList.toggle('hidden');
-    });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle the profile dropdown menu
+        document.querySelector('.menu-toggle-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        });
 
-    // Toggle the mobile menu
-    document.getElementById('menu-toggle').addEventListener('click', function() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenu.classList.toggle('hidden');
+        // Toggle the mobile menu
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        });
     });
 </script>
+
+ 
+
 <script>
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
