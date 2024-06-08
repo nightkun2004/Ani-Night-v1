@@ -1,7 +1,7 @@
 const mongoose = require("../config")
 // const Acticle = require("")
 
-const userSchema= new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     userid: {
         type: String,
         unique: true,
@@ -11,7 +11,7 @@ const userSchema= new mongoose.Schema({
     },
     username: {
         type: String
-    }, 
+    },
     email: {
         type: String,
         unique: true,
@@ -20,7 +20,7 @@ const userSchema= new mongoose.Schema({
     url: {
         type: String,
         default: "@",
-        set: function(value) {
+        set: function (value) {
             if (value) {
                 return value;
             } else {
@@ -32,7 +32,7 @@ const userSchema= new mongoose.Schema({
         type: String
     },
     followers: {
-        type: Number, 
+        type: Number,
         default: 0
     },
     followed: {
@@ -82,8 +82,8 @@ const userSchema= new mongoose.Schema({
     videos: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Video'
-    }], 
-    posts: [{ 
+    }],
+    posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'posts'
     }],
@@ -103,15 +103,22 @@ const userSchema= new mongoose.Schema({
     points: {
         type: Number
     },
+    withdrawalHistory: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'WithdrawalHistory'
+        }
+    ],
     approval_admin: {
         type: Boolean,
-        default: false 
+        default: false
     },
 })
 
+
 // lสำหรับคำนวณยอดวิว
 userSchema.methods.calculateTotalViews = async function () {
-    const Acticle = require('../models/acticle'); 
+    const Acticle = require('../models/acticle');
     const acticles = await Acticle.find({ 'author.id': this._id });
     return acticles.reduce((total, acticle) => total + acticle.views, 0);
 };

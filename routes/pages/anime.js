@@ -40,7 +40,6 @@ router.get('/animeboard', loadAnimeData, async (req, res) => {
 router.get('/animeboard/search', async (req, res) => {
     const query = req.query.search; 
     try {
-        // ค้นหาและดึงข้อมูลทั้งหมดของอนิเมะจากฐานข้อมูล
         const allAnimeData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly');
         res.json(allAnimeData); // ส่งข้อมูลทั้งหมดของอนิเมะกลับไปเป็น JSON response
     } catch (error) {

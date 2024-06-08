@@ -1,0 +1,33 @@
+const express = require("express")
+const router = express.Router()
+const Acticle = require('../../../models/acticle')
+const User = require('../../../models/user')
+const WithdrawalHistory = require('../../../models/withdrawalHistory');
+
+router.get('/withdrawal-history', async (req, res) => {
+    try {
+        const usersesstion = req.session.userlogin;
+
+        // หาข้อมูลผู้ใช้จาก user ID
+        const user = await User.findById(usersesstion).populate('withdrawalHistory').sort({ createdAt: -1 });
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // ดึงประวัติการถอนเงินของผู้ใช้
+        const withdrawalHistory = user.withdrawalHistory;
+
+        // ส่งข้อมูลไปยังหน้าแสดงผล HTML
+        return res.render('./component/pages/dashboard/withdrawal-history', {
+            active: 'withdrawHistory',
+            withdrawalHistory,
+            usersesstion
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+module.exports = router

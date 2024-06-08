@@ -17,6 +17,26 @@ router.get('/read', (req,res)=> {
     res.render('404')
 })
 
+router.post('/api/score', async (req, res) => {
+    const { userId, score } = req.body;
+    const usersesstion = req.session.userlogin;
+    try {
+        const user = await User.findOne({ _id: userId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        user.points += score;
+        await user.save();
+
+        res.json({ message: 'Score updated successfully', points: user.points });
+    } catch (error) {
+        console.error('Error updating score:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}); 
+
 router.get('/read/:url', async (req, res) => { 
     try {
         const usersesstion = req.session.userlogin;

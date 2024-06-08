@@ -117,7 +117,7 @@ router.post('/resetPassword', async (req, res) => {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        // อัปเดตรหัสผ่านใหม่ในฐานข้อมูล
+        // อัปเดตรหัสผ่านใหม่ในฐานข้อมูล 
         user.password = hashedPassword;
         await user.save();
 
@@ -128,6 +128,7 @@ router.post('/resetPassword', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+
 
 router.post('/api/login', userController.getAPIlogin);
 router.post('/auth/login', userController.getLogin);

@@ -44,143 +44,148 @@
 
 <body class="bg-gray-100">
     <%- include('../navnar_Header') %>
-    <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="container pt-10">
-            <div class="loading_container"> 
-                <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                    <div class="spinner"></div>
-                    <p>กำลังประมวณผลข้อมูล</p>
-                </div>
-            </div>
-            <!-- Main Content -->
-            <div class="loading" style="display: none;">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-10">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-     crossorigin="anonymous"></script>
-<!-- ads_home -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:900px;height:150px"
-     data-ad-client="ca-pub-6579807593228261"
-     data-ad-slot="7305022131"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-                    <!-- Post Header -->
-                    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
-                        <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-                            <div>
-                                 <div class="category text-sm md:text-2xl">
-                                <p><a href="/">หน้าหลัก</a><span class="text-black">&gt;</span>
-                                <p class="text-sm text-black md:text-2xl">
-                                    <% if (acticle && acticle.title) { %>
-                                        <%= acticle.title.substring(0, 40) + '...' %>
-                                            <% } else { %>
-                                                <%= acticle.title %>
-                                                    <% } %>
-                                </p>
-                                </p>
-                            </div>
-                                <h1 class="text-sm leading-6 font-bold text-gray-900 md:text-2xl">
-                                    <%= acticle.title %>
-                                </h1>
-                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                    เขียนโดย <a href="/editor/<%= acticle.author.username %> "><%= acticle.author.username %> </a> | <%= moment(acticle.createdAt).locale('th').fromNow() %>
-                                </p>
-                                <div class="mt-1 flex justify-between">
-                                    <% if (acticle && acticle.tags && acticle.tags.length > 0) { %>
-                                        <h2 class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
-                                            Tags: <% acticle.tags.forEach(tag => { %>
-                                                <a class="text-sky-500" href="/tag/<%= tag %>"><%= tag %></a>
-                                            <% }); %>
-                                        </h2>
-                                    <% } else { %>
-                                        <h2>Tags: ไม่มีแท็ก</h2>
-                                    <% } %>
-                                    
-                                    <% if (acticle.link_info) { %>
-                                        <div class="rounded-full items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
-                                        <button class="text-black"><a href="<%= acticle.link_info %>" target="_blank" rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
-                                    </div>
-                                    <% } %>
-                                    <p class="viewsp">
-                                        <% function formatNumber(number) { if (number>=
-                                            1000000)
-                                            {
-                                            return (number / 1000000).toFixed(1) + 'm';
-                                            } else if (number >= 1000) {
-                                            return (number / 1000).toFixed(1) + 'k';
-                                            } else {
-                                            return number;
-                                            }
-                                            }
-                    
-                                            var number1 = 100;
-                                            var number2 = 500;
-                                            var number3 = 1500;
-                                            var number4 = 1200000;
-                                            %>
-                                            <p class="pl-3 text-sm ">
-                                                การดู <%= formatNumber(acticle.views) %> ครั้ง
-                                            </p>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="relative flex items-center space-x-2">
-                                <button id="copylink" class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                    แชร์
-                                </button>
-                                <!-- Popup container -->
-                                <div class="absolute top-5 w-[100px] right-4 ml-2 bg-white border border-gray-300 shadow-md rounded-md p-2" style="display: none;"
-                                    id="popup">
-                                    <span id="popupText">คัดลอกลิงค์แล้ว!</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-t border-gray-200">
-                            <img class="w-full h-96 object-contain" src="/acticles_images/<%= acticle.photo %>" alt="Post Image">
-                        </div>
+        <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="container pt-10">
+                <div class="loading_container">
+                    <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p>กำลังประมวณผลข้อมูล</p>
                     </div>
+                </div>
+                <!-- Main Content -->
+                <div class="loading" style="display: none;">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-10">
+                        <script async
+                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                            crossorigin="anonymous"></script>
+                        <!-- ads_home -->
+                        <ins class="adsbygoogle" style="display:inline-block;width:900px;height:150px"
+                            data-ad-client="ca-pub-6579807593228261" data-ad-slot="7305022131"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                        <!-- Post Header -->
+                        <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
+                            <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                                <div>
+                                    <div class="category text-sm md:text-2xl">
+                                        <p><a href="/">หน้าหลัก</a><span class="text-black">&gt;</span>
+                                        <p class="text-sm text-black md:text-2xl">
+                                            <% if (acticle && acticle.title) { %>
+                                                <%= acticle.title.substring(0, 40) + '...' %>
+                                                    <% } else { %>
+                                                        <%= acticle.title %>
+                                                            <% } %>
+                                        </p>
+                                        </p>
+                                    </div>
+                                    <h1 class="text-sm leading-6 font-bold text-gray-900 md:text-2xl">
+                                        <%= acticle.title %>
+                                    </h1>
+                                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                        เขียนโดย <a href="/editor/<%= acticle.author.username %> ">
+                                            <%= acticle.author.username %>
+                                        </a> | <%= moment(acticle.createdAt).locale('th').fromNow() %>
+                                    </p>
+                                    <div class="mt-1 flex justify-between">
+                                        <% if (acticle && acticle.tags && acticle.tags.length> 0) { %>
+                                            <h2
+                                                class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
+                                                Tags: <% acticle.tags.forEach(tag=> { %>
+                                                    <a class="text-sky-500" href="/tag/<%= tag %>">
+                                                        <%= tag %>
+                                                    </a>
+                                                    <% }); %>
+                                            </h2>
+                                            <% } else { %>
+                                                <h2>Tags: ไม่มีแท็ก</h2>
+                                                <% } %>
 
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-6579807593228261"
-     data-ad-slot="2386038227"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+                                                    <% if (acticle.link_info) { %>
+                                                        <div
+                                                            class="rounded-full items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
+                                                            <button class="text-black"><a
+                                                                    href="<%= acticle.link_info %>" target="_blank"
+                                                                    rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
+                                                        </div>
+                                                        <% } %>
+                                                            <p class="viewsp">
+                                                                <% function formatNumber(number) { if (number>=
+                                                                    1000000)
+                                                                    {
+                                                                    return (number / 1000000).toFixed(1) + 'm';
+                                                                    } else if (number >= 1000) {
+                                                                    return (number / 1000).toFixed(1) + 'k';
+                                                                    } else {
+                                                                    return number;
+                                                                    }
+                                                                    }
 
-                    <!-- ADS -->
-                    <!-- <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
+                                                                    var number1 = 100;
+                                                                    var number2 = 500;
+                                                                    var number3 = 1500;
+                                                                    var number4 = 1200000;
+                                                                    %>
+                                                                    <p class="pl-3 text-sm ">
+                                                                        การดู <%= formatNumber(acticle.views) %> ครั้ง
+                                                                    </p>
+                                                            </p>
+                                    </div>
+                                </div>
+                                <div class="relative flex items-center space-x-2">
+                                    <button id="copylink"
+                                        class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                        แชร์
+                                    </button>
+                                    <!-- Popup container -->
+                                    <div class="absolute top-5 w-[100px] right-4 ml-2 bg-white border border-gray-300 shadow-md rounded-md p-2"
+                                        style="display: none;" id="popup">
+                                        <span id="popupText">คัดลอกลิงค์แล้ว!</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200">
+                                <img class="w-full h-96 object-contain" src="/acticles_images/<%= acticle.photo %>"
+                                    alt="Post Image">
+                            </div>
+                        </div>
+
+                        <script async
+                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                            crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
+                            data-ad-format="fluid" data-ad-client="ca-pub-6579807593228261"
+                            data-ad-slot="2386038227"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+
+                        <!-- ADS -->
+                        <!-- <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
                         
                     </div> -->
-                    
-                    <!-- Post Content -->
-                    <div class="bg-white shadow overflow-hidden sm:rounded-lg p-6">
-                        <p class="mt-1 max-w-2xl text-sm text-gray-500 border-b-2">
-                           หมวดหมู่: <%= acticle.categories %>
-                        </p>
-                        <div class="text-lg leading-7 text-gray-700">
-                            <p class="mb-4"><%- acticle.content %></p>
-                        </div>
-                    </div>
 
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                        <!-- Post Content -->
+                        <div class="bg-white shadow overflow-hidden sm:rounded-lg p-6">
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500 border-b-2">
+                                หมวดหมู่: <%= acticle.categories %>
+                            </p>
+                            <div class="text-lg leading-7 text-gray-700" id="article-content">
+                                <p class="mb-4"><%- acticle.content %></p>
+                            </div>
+                        </div>
+
+                        <script async
+                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
                             crossorigin="anonymous"></script>
-                        <ins class="adsbygoogle"
-                            style="display:block; text-align:center;"
-                            data-ad-layout="in-article"
-                            data-ad-format="fluid"
-                            data-ad-client="ca-pub-6579807593228261"
+                        <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
+                            data-ad-format="fluid" data-ad-client="ca-pub-6579807593228261"
                             data-ad-slot="3002127657"></ins>
                         <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
-                    
-                    <!-- <section class="mt-8">
+
+                        <!-- <section class="mt-8">
                         <h3 class="text-2xl font-semibold mb-4">ความคิดเห็น</h3>
                         <div class="space-y-4">
                             <form class="bg-white rounded-lg shadow-lg p-4">
@@ -200,39 +205,117 @@
                             </div>
                         </div>
                     </section> -->
+                    </div>
+                </div>
+
+                <div id="scroll-bar-container"
+                    class="fixed flex items-center justify-center bottom-20 right-5 w-[50px] h-[50px] rounded-full bg-sky-600">
+                    <div class="flex items-center justify-center">
+
+                        <!-- สำหรับนับถอนหลักแบบตัวเลข -->
+                        <div id="countdown-timer" class="absolute text-xl font-bold text-white">60</div>
+
+                        <!-- Scrool Timeout นับถอนหลังแบบหมุนรอบ -->
+                        <div id="scroll-bar"
+                    class="w-[60px] h-[60px] border-gray-800 border-2 rounded-full"></div>
+                    </div>
+                </div>
+                
+
+                <div id="popuppoint"
+                    class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white p-4 rounded shadow-md"
+                    style="display: none;">
+                    
                 </div>
             </div>
-            
+
         </div>
-    </div>
+        </div>
 
-    <%- include('../footer') %>
-   
-
-    <script src="/js/pages/loading_datas.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var copyButton = document.getElementById('copylink');
-            var popup = document.getElementById('popup');
-
-            copyButton.addEventListener('click', function () {
-                var qriyLink = document.createElement('input');
-                qriyLink.value = window.location.href;
-                document.body.appendChild(qriyLink);
-                qriyLink.select();
-                document.execCommand('copy');
-                document.body.removeChild(qriyLink);
-
-                popup.style.display = 'block'; // แสดง Popup
-                setTimeout(function () {
-                    popup.style.display = 'none'; // ซ่อน Popup
-                }, 2000); // 2 วินาที
-            });
-        });
+        <%- include('../footer') %>
 
 
-    </script>
-    <!-- <script>
+            <script src="/js/pages/loading_datas.js"></script>
+            <!-- <script src="/js/pages/read.js" defer></script> -->
+
+            <% if (usersesstion) {%>
+                <script>
+                    // เริ่มการนับถอยหลังเมื่อโหลดหน้าเว็บ
+                    let countdown = 60;
+                     let intervalId;
+
+                        function startCountdown() {
+                            countdown = 60;
+                            intervalId = setInterval(() => {
+                                countdown--;
+                                updateCountdownUI(countdown);
+                                if (countdown <= 0) {
+                                    clearInterval(intervalId);
+                                    const randomScore = [20, 50, 70, 100][Math.floor(Math.random() * 4)];
+                                    saveScoreToDatabase(randomScore);
+                                    showPopup(randomScore);
+                                    startCountdown();
+                                }
+                            }, 1000);
+                        }
+
+                        // เมื่อผู้ใช้ปิดหน้าเว็บ หยุดการนับถอยหลัง
+                        window.onbeforeunload = function() {
+                            clearInterval(intervalId);
+                        };
+
+                    function showPopup(score) {
+                        const popuppoint = document.getElementById('popuppoint');
+                        popuppoint.innerText = `คุณได้รับ ${score} คะแนน!`;
+                        popuppoint.style.display = 'block';
+                        setTimeout(() => {
+                            popuppoint.style.display = 'none';
+                        }, 6000); // ซ่อน Popup หลังจากแสดงเป็นเวลา 2 วินาที
+                    }
+                    // ฟังก์ชันสำหรับแสดงการนับถอยหลังบน UI
+                    function updateCountdownUI(countdown) {
+                        document.getElementById('countdown-timer').innerText = countdown;
+                    }
+                    // ฟังก์ชันสำหรับบันทึกคะแนนลงในฐานข้อมูล
+                    function saveScoreToDatabase(score) {
+                        fetch('/api/score', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ userId: '<%= usersesstion._id %>', score: score })
+                        })
+                            .then(response => response.json())
+                            .then(data => console.log(data))
+                            .catch(error => console.error('Error saving score:', error));
+                    }
+
+                    startCountdown();
+                </script>
+            <% } %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var copyButton = document.getElementById('copylink');
+                    var popup = document.getElementById('popup');
+
+                    copyButton.addEventListener('click', function () {
+                        var qriyLink = document.createElement('input');
+                        qriyLink.value = window.location.href;
+                        document.body.appendChild(qriyLink);
+                        qriyLink.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(qriyLink);
+
+                        popup.style.display = 'block'; // แสดง Popup
+                        setTimeout(function () {
+                            popup.style.display = 'none'; // ซ่อน Popup
+                        }, 2000); // 2 วินาที
+                    });
+                });
+
+
+            </script>
+            <!-- <script>
         document.addEventListener('DOMContentLoaded', function () {
             var descriptionSpan = document.querySelector('.content-full');
             var description = descriptionSpan.textContent.trim();

@@ -22,16 +22,16 @@
         </div>
         <div class="hidden md:block">
             <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
-                    href="https://studio.ani-night.online/" target="_blank" rel="noopener noreferrer">ไปที่
-                    Studio</a></button>
+                    href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
+                    แดชบอร์ด</a></button>
                     <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
                     <button class=" bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"><a href="/logout/user/<%= usersesstion._id %>" onclick="logout(event)">ออกจากระบบ</a></button>
         </div>
     </div> 
     <div class="mt-2 p-2 md:hidden">
         <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
-                href="https://studio.ani-night.online/" target="_blank" rel="noopener noreferrer">ไปที่
-                Studio</a></button>
+                href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
+                แดชบอร์ด</a></button>
          <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
          <button class=" bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"><a href="/logout/user/<%= usersesstion._id %>" onclick="logout(event)">ออกจากระบบ</a></button>
     </div>
@@ -113,7 +113,7 @@
     </div>
   </div>
 
-  <div id="popup" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+  <div id="popup-m" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 hidden bg-opacity-50 z-50">
     <div class="bg-white rounded-lg overflow-hidden max-w-md w-full">
         <!-- Header -->
         <div class="bg-gray-100 py-3 px-4 flex items-center justify-between">

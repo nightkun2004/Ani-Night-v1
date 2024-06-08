@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="../../../css/admin/dash.css">
+    <link rel="stylesheet" href="../../css/admin/sidebar.css">
+    <link rel="stylesheet" href="../css/admin/Admin_section.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/acticle.css">
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <%- include('./../sidebars/navbar') %>
+    <section class="home-section">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold mb-6">ประวัติการถอนเงิน</h1>
+    
+            <% if (users && users.length > 0) { %>
+                <% const totalusers = users.length; %>
+                <div class="flex justify-between items-center pb-3 border-b-2">
+                    <h2 class="text-2xl font-bold">คำขอทั้งหมดถอนเงิน: <%= totalusers %></h2>
+                </div>
+                <% users.forEach(user => { %>             
+                    <div class="mb-6">
+                        <!-- เพิ่มลุงซอดบ็อกซ์เพื่อครอบชื่อผู้ใช้ -->
+                        <div class="bg-white rounded">
+                            <h2 class="text-2xl font-semibold mb-4 cursor-pointer" onclick="toggleWithdrawalHistory('<%= user._id %>')">
+                                <!-- เพิ่มลูกศรด้านขวาของชื่อผู้ใช้ -->
+                                <%= user.name %> (<%= user.email %>) <span class="ml-2">&#9660;</span>
+                            </h2>
+                            <div id="withdrawalHistory_<%= user._id %>" style="display: none;">
+                                <% if (user.withdrawalHistory && user.withdrawalHistory.length > 0) { %>
+                                    <% user.withdrawalHistory.forEach(withdrawal => { %>
+                                        <div class="p-6 mb-4">
+                                            <p class="text-lg font-semibold mb-2">ระบบการถอนเงิน: <%= withdrawal.method %></p>
+                                            <% if (withdrawal.method === 'True Money') { %>
+                                                <p class="text-gray-600 mb-2">ระบบการถอนเงิน: True Money</p>
+                                                <p class="text-gray-600 mb-2">ข้อความ: <%= withdrawal.message %></p>
+                                                <p class="text-gray-600 mb-2">เบอร์โทรศัพท์ True Money: <%= withdrawal.phoneNumber %></p>
+                                            <% } else { %>
+                                                <p class="text-gray-600 mb-2">ข้อความ: <%= withdrawal.message %></p>
+                                                <p class="text-gray-600 mb-2">เบอร์โทรศัพท์: <%= withdrawal.phoneNumber %></p>
+                                            <% } %>
+                                            <p class="text-gray-600">ถอนเมื่อ: <%= moment(withdrawal.timestamp).locale('th').fromNow() %></p>
+            
+                                            <% if (withdrawal.paid) { %>
+                                                <p class="text-green-500 font-semibold">สถานะ: จ่ายแล้ว</p>
+                                            <% } else { %>
+                                                <p class="text-red-500 font-semibold">สถานะ: ยังไม่จ่าย</p>
+                                                <form action="/admin/mark-paid/<%= user._id %>/<%= withdrawal._id %>" method="post">
+                                                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">ทำเครื่องหมายว่าจ่ายแล้ว</button>
+                                                </form>
+                                            <% } %>
+                                        </div>
+                                    <% }); %>
+                                <% } else { %>
+                                    <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+                                        <p class="text-gray-600 text-center">ไม่มีประวัติการถอนเงิน</p>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <p class="text-gray-600 text-center">ไม่มีผู้ใช้ที่มีประวัติการถอนเงิน</p>
+                </div>
+            <% } %>
+        
+            
+        </div>
+    </section>
+    
+
+    <script>
+        function toggleWithdrawalHistory(userId) {
+            const withdrawalHistoryDiv = document.getElementById(`withdrawalHistory_${userId}`);
+            if (withdrawalHistoryDiv.style.display === 'none') {
+                withdrawalHistoryDiv.style.display = 'block';
+            } else {
+                withdrawalHistoryDiv.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

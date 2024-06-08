@@ -5,6 +5,7 @@ const isAdmin = require('../../middleware/in_Admin')
 const User = require('../../models/user')
 const Article = require('../../models/acticle')
 const Videos = require('../../models/video')
+const WithdrawalHistory = require('../../models/withdrawalHistory');
 const AnimeApril = require('../../models/animeApril')
 const AnimeJuly = require('../../models/animeJuly')
 const AnimeBord = require('../../models/animebord')
@@ -13,6 +14,7 @@ const createAnime = require('../../controls/createAnimeRoute')
 const create_2024 = require('../../routes/admin/2024/create')
 const Admin_Router = require('./admin_router/admin')
 const AnimeJune = require('../../models/animeJune')
+const { withdrawalId, getWithdrawal } = require('../../controls/withdrawalCto')
  
 const PAGE_SIZE = 5;
 
@@ -50,7 +52,7 @@ router.get('/admin/dash', verifyToken, async (req, res) => {
         const userCount = await User.countDocuments();
         const VideosCount = await Videos.countDocuments();
         const articleCount = await Article.countDocuments();
-        const users = await User.find();
+        const users = await User.find().populate('withdrawalHistory');
         res.render('./admin/dash', {
             userCount,
             users,
@@ -65,6 +67,10 @@ router.get('/admin/dash', verifyToken, async (req, res) => {
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้');
     }
 });
+
+router.get('/addmin/withdrawal/usersall', verifyToken, getWithdrawal)
+router.post('/admin/mark-paid/:userId/:withdrawalId', verifyToken, withdrawalId);
+
 
 router.get('/admin/update_code', verifyToken, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
