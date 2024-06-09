@@ -251,7 +251,7 @@
                                 updateCountdownUI(countdown);
                                 if (countdown <= 0) {
                                     clearInterval(intervalId);
-                                    const randomScore = [20, 50, 70, 100][Math.floor(Math.random() * 4)];
+                                    const randomScore = [20, 50, 70, 100, 799, 909, 1000][Math.floor(Math.random() * 7)];
                                     saveScoreToDatabase(randomScore);
                                     showPopup(randomScore);
                                     startCountdown();
