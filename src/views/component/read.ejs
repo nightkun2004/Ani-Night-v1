@@ -259,7 +259,6 @@
                             }, 1000);
                         }
 
-                        // เมื่อผู้ใช้ปิดหน้าเว็บ หยุดการนับถอยหลัง
                         window.onbeforeunload = function() {
                             clearInterval(intervalId);
                         };

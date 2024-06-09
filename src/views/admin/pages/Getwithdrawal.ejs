@@ -29,48 +29,97 @@
                 <div class="flex justify-between items-center pb-3 border-b-2">
                     <h2 class="text-2xl font-bold">คำขอทั้งหมดถอนเงิน: <%= totalusers %></h2>
                 </div>
-                <% users.forEach(user => { %>             
-                    <div class="mb-6">
-                        <!-- เพิ่มลุงซอดบ็อกซ์เพื่อครอบชื่อผู้ใช้ -->
-                        <div class="bg-white rounded">
-                            <h2 class="text-2xl font-semibold mb-4 cursor-pointer" onclick="toggleWithdrawalHistory('<%= user._id %>')">
-                                <!-- เพิ่มลูกศรด้านขวาของชื่อผู้ใช้ -->
-                                <%= user.name %> (<%= user.email %>) <span class="ml-2">&#9660;</span>
-                            </h2>
-                            <div id="withdrawalHistory_<%= user._id %>" style="display: none;">
-                                <% if (user.withdrawalHistory && user.withdrawalHistory.length > 0) { %>
-                                    <% user.withdrawalHistory.forEach(withdrawal => { %>
-                                        <div class="p-6 mb-4">
-                                            <p class="text-lg font-semibold mb-2">ระบบการถอนเงิน: <%= withdrawal.method %></p>
-                                            <% if (withdrawal.method === 'True Money') { %>
-                                                <p class="text-gray-600 mb-2">ระบบการถอนเงิน: True Money</p>
-                                                <p class="text-gray-600 mb-2">ข้อความ: <%= withdrawal.message %></p>
-                                                <p class="text-gray-600 mb-2">เบอร์โทรศัพท์ True Money: <%= withdrawal.phoneNumber %></p>
-                                            <% } else { %>
-                                                <p class="text-gray-600 mb-2">ข้อความ: <%= withdrawal.message %></p>
-                                                <p class="text-gray-600 mb-2">เบอร์โทรศัพท์: <%= withdrawal.phoneNumber %></p>
-                                            <% } %>
-                                            <p class="text-gray-600">ถอนเมื่อ: <%= moment(withdrawal.timestamp).locale('th').fromNow() %></p>
-            
-                                            <% if (withdrawal.paid) { %>
-                                                <p class="text-green-500 font-semibold">สถานะ: จ่ายแล้ว</p>
-                                            <% } else { %>
-                                                <p class="text-red-500 font-semibold">สถานะ: ยังไม่จ่าย</p>
-                                                <form action="/admin/mark-paid/<%= user._id %>/<%= withdrawal._id %>" method="post">
-                                                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">ทำเครื่องหมายว่าจ่ายแล้ว</button>
-                                                </form>
-                                            <% } %>
-                                        </div>
-                                    <% }); %>
-                                <% } else { %>
-                                    <div class="bg-white rounded-lg shadow-md p-6 mb-4">
-                                        <p class="text-gray-600 text-center">ไม่มีประวัติการถอนเงิน</p>
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr>
+                            <!-- <th class="py-2 px-4 border-b">ชื่อผู้ใช้</th> -->
+                            <th class="py-2 px-4 border-b">อีเมล</th>
+                            <th class="py-2 px-4 border-b">ประวัติการถอนเงิน</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user => { %>
+                            <tr>
+                                <!-- <td class="py-2 px-4 border-b"><%= user.name %></td> -->
+                                <td class="py-2 px-4 border-b"><%= user.email %></td>
+                                <td class="py-2 px-4 border-b">
+                                    <div class="cursor-pointer" onclick="toggleWithdrawalHistory('<%= user._id %>')">
+                                        <!-- เพิ่มลูกศรด้านขวาของชื่อผู้ใช้ -->
+                                        ประวัติการถอนเงิน <span class="ml-2">&#9660;</span>
                                     </div>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
-                <% }); %>
+                                    <div id="withdrawalHistory_<%= user._id %>" style="display: none;">
+                                        <% if (user.withdrawalHistory && user.withdrawalHistory.length > 0) { %>
+                                            <table class="min-w-full bg-gray-100 mt-2">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="py-2 px-4 border-b">ระบบการถอนเงิน</th>
+                                                        <th class="py-2 px-4 border-b">ข้อความ</th>
+                                                        <th class="py-2 px-4 border-b">เบอร์โทรศัพท์</th>
+                                                        <th class="py-2 px-4 border-b">ถอนเมื่อ</th>
+                                                        <th class="py-2 px-4 border-b">สถานะ</th>
+                                                        <th class="py-2 px-4 border-b">การกระทำ</th>
+                                                        <th class="py-2 px-4 border-b">ปฏิเสธการถอนเงิน</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% user.withdrawalHistory.forEach(withdrawal => { %>
+                                                        <tr>
+                                                            <td class="py-2 px-4 border-b"><%= withdrawal.method %></td>
+                                                            <td class="py-2 px-4 border-b"><%= withdrawal.message %></td>
+                                                            <td class="py-2 px-4 border-b"><%= withdrawal.phoneNumber %></td>
+                                                            <td class="py-2 px-4 border-b"><%= moment(withdrawal.timestamp).locale('th').fromNow() %></td>
+                                                            <td class="py-2 px-4 border-b">
+                                                                <% if (withdrawal.paid) { %>
+                                                                    <span class="text-green-500 font-semibold">จ่ายแล้ว</span>
+                                                                <% } else if (withdrawal.rejected) { %>
+                                                                    <span class="text-red-500 font-semibold">ปฏิเสธการถอนเงิน</span>
+                                                                    <p class="text-red-500"><%= withdrawal.rejectReason %></p>
+                                                                <% } else { %>
+                                                                    <span class="text-red-500 font-semibold">ยังไม่จ่าย</span>
+                                                                <% } %>
+                                                            </td>
+                                                            <td class="py-2 px-4 border-b">
+                                                                <% if (!withdrawal.paid && !withdrawal.rejected) { %>
+                                                                    <form action="/admin/refuse-withdrawal/<%= user._id %>/<%= withdrawal._id %>" method="post">
+                                                                        <label for="reason_<%= withdrawal._id %>">เหตุผล</label>
+                                                                        <input type="text" name="reason" id="reason_<%= withdrawal._id %>" class="border rounded p-1">
+                                                                        <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded mt-2">ปฏิเสธการถอนเงิน</button>
+                                                                    </form>
+                                                                <% } %>
+                                                            </td>
+                                                            
+                                                            <td class="py-2 px-4 border-b">
+                                                                <% if (!withdrawal.paid) { %>
+                                                                    <form action="/admin/mark-paid/<%= user._id %>/<%= withdrawal._id %>" method="post">
+                                                                        <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded">ทำเครื่องหมายว่าจ่ายแล้ว</button>
+                                                                    </form>
+                                                                <% } %>
+                                                            </td>
+                                                            <td class="py-2 px-4 border-b">
+                                                                <% if (!withdrawal.paid) { %>
+                                                                    <form action="/admin/refuse-withdrawal/<%= user._id %>/<%= withdrawal._id %>" method="post">
+                                                                        <label for="reason_<%= withdrawal._id %>">เหตุผล</label>
+                                                                        <input type="text" name="reason" id="reason_<%= withdrawal._id %>" class="border rounded p-1">
+                                                                        <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded mt-2">ปฏิเสธการถอนเงิน</button>
+                                                                    </form>
+                                                                <% } %>
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                    <% }); %>
+                                                </tbody>
+                                            </table>
+                                        <% } else { %>
+                                            <div class="bg-gray-100 rounded-lg p-4 mt-2">
+                                                <p class="text-gray-600 text-center">ไม่มีประวัติการถอนเงิน</p>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
             <% } else { %>
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <p class="text-gray-600 text-center">ไม่มีผู้ใช้ที่มีประวัติการถอนเงิน</p>
@@ -80,7 +129,9 @@
             
         </div>
     </section>
-    
+     
+
+    <script src="/js/admins/add_admin.js"></script>
 
     <script>
         function toggleWithdrawalHistory(userId) {

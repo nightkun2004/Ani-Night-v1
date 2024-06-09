@@ -33,9 +33,13 @@
                         <p class="text-gray-600 mb-2">เวลาที่ถอน: <%= moment(withdrawal.timestamp).locale('th').fromNow() %></p>
                         <% if (withdrawal.paid) { %>
                             <p class="text-green-500 font-semibold">สถานะ: จ่ายแล้ว</p>
+                        <% } else if (withdrawal.rejected) { %>
+                            <p class="text-red-500 font-semibold">สถานะ: ปฏิเสธการถอนเงิน</p>
+                            <p class="text-red-500">เหตุผล: <%= withdrawal.rejectReason %></p>
                         <% } else { %>
                             <p class="text-red-500 font-semibold">สถานะ: ยังไม่จ่าย</p>
-                        <% } %>
+                        <% } %>                        
+
                     </div>
                 <% }); %>
             </div>

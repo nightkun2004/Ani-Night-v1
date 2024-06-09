@@ -17,6 +17,7 @@ exports.withdrawalId = async (req, res) => {
 
         withdrawal.paid = true;
         await withdrawal.save();
+        console.log(withdrawal)
 
         res.redirect('/addmin/withdrawal/usersall');
     } catch (err) {
@@ -24,6 +25,34 @@ exports.withdrawalId = async (req, res) => {
         res.status(500).send('เกิดข้อผิดพลาดในการอัพเดตสถานะการจ่ายเงิน');
     }
 }
+
+exports.refuseWithdrawal = async (req, res) => {
+    try {
+        const { userId, withdrawalId } = req.params;
+        const { reason } = req.body;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        const withdrawal = await WithdrawalHistory.findById(withdrawalId);
+        if (!withdrawal) {
+            return res.status(404).send('Withdrawal not found');
+        }
+
+        withdrawal.paid = false;
+        withdrawal.rejected = true;
+        withdrawal.rejectReason = reason;
+        await withdrawal.save();
+
+        res.redirect('/addmin/withdrawal/usersall');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('เกิดข้อผิดพลาดในการปฏิเสธการถอนเงิน');
+    }
+}
+
 exports.getWithdrawal = async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;

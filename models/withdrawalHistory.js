@@ -23,7 +23,12 @@ const withdrawalSchema = new mongoose.Schema({
     paid: {
         type: Boolean,
         default: false
-    }
+    },
+    rejected: {
+        type: Boolean,
+        default: false
+    },
+    rejectReason: String
 });
 
 const WithdrawalHistory = mongoose.model('WithdrawalHistory', withdrawalSchema);

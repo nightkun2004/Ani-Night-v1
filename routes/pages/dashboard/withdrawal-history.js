@@ -29,5 +29,24 @@ router.get('/withdrawal-history', async (req, res) => {
     }
 });
 
+router.get('/api/withdrawal-history/:id', async (req, res) => {
+    try {
+        const userid = req.params.id
+        // หาข้อมูลผู้ใช้จาก user ID
+        const user = await User.findById(userid).populate('withdrawalHistory').sort({ createdAt: -1 });
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // ดึงประวัติการถอนเงินของผู้ใช้
+        const withdrawalHistory = user.withdrawalHistory;
+
+        // ส่งข้อมูลไปยังหน้าแสดงผล HTML
+        return  res.json(withdrawalHistory)
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 module.exports = router

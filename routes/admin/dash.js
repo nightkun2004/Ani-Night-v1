@@ -14,7 +14,7 @@ const createAnime = require('../../controls/createAnimeRoute')
 const create_2024 = require('../../routes/admin/2024/create')
 const Admin_Router = require('./admin_router/admin')
 const AnimeJune = require('../../models/animeJune')
-const { withdrawalId, getWithdrawal } = require('../../controls/withdrawalCto')
+const { withdrawalId, getWithdrawal, refuseWithdrawal } = require('../../controls/withdrawalCto')
  
 const PAGE_SIZE = 5;
 
@@ -67,9 +67,10 @@ router.get('/admin/dash', verifyToken, async (req, res) => {
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูลผู้ใช้');
     }
 });
-
+ 
 router.get('/addmin/withdrawal/usersall', verifyToken, getWithdrawal)
 router.post('/admin/mark-paid/:userId/:withdrawalId', verifyToken, withdrawalId);
+router.post('/admin/refuse-withdrawal/:userId/:withdrawalId', verifyToken, refuseWithdrawal);
 
 
 router.get('/admin/update_code', verifyToken, isAdmin, (req, res) => {
