@@ -34,6 +34,22 @@ exports.getProfile = async (req, res) => {
     }
 }
 
+exports.getProfileApi = async (req, res) => {
+    try {
+        const userID = req.params.id;
+
+        const userData = await User.findOne({ _id: userID })
+            .populate('acticles');
+
+        res.json(userData);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดกับโปรไฟล์');
+    }
+}
+
+
 exports.getUserID = async (req, res) => {
     try {
         const Users = await User.find
@@ -45,7 +61,7 @@ exports.getUserID = async (req, res) => {
     }
 }
 
-exports.playment = async (req,res) => {
+exports.playment = async (req, res) => {
     try {
         const { name, truemoney } = req.body;
         const payment = await Payment.create({ name, truemoney });

@@ -1,85 +1,75 @@
-<section class="home-section">
-    <nav>
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <span class="dashboard">Dashboard</span>
-        </div>
-        <div class="search-box">
-            <input type="text" placeholder="Search...">
-            <i class='bx bx-search'></i>
-        </div>
-        <div class="profile-details">
-            <% if (usersesstion.approval_admin) { %>
-                <img src="/profiles/<%= usersesstion.profile %>" alt="">
-            <% } %> 
-            <% if (usersesstion.approval_admin) { %>
-                <span class="admin_name"><%= usersesstion.username %></span>
-            <% } %>
-        </div>
-    </nav>
+<section class="home-section p-6">
     <div class="home-content">
-        <div class="overview-boxes">
-            <div class="box">
-                <div class="right-side">
-                    <div class="box-topic">ผู้ใช้ทั้งหมด</div>
-                    <div class="number">
+        <div class="overview-boxes grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="box bg-white p-4 rounded-lg shadow-md flex items-center">
+                <div class="right-side flex-1">
+                    <div class="box-topic text-lg font-semibold">ผู้ใช้ทั้งหมด</div>
+                    <div class="number text-2xl font-bold">
                         <%= userCount %>
                     </div>
-                    <div class="indicator">
+                    <div class="indicator text-sm mt-2 flex items-center">
                         <% if (userCount.up > 0) { %>
-                            <i class='bx bx-up-arrow-alt'></i>
-                            <span class="text">เพิ่มขึ้นจากเมื่อวานนี้ +<%= userCountup %></span>
+                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 19l7-7 7 7"></path>
+                            </svg>
+                            <span class="text-green-500 ml-2">เพิ่มขึ้นจากเมื่อวานนี้ +<%= userCountup %></span>
                         <% } else if (userCount.up < 0) { %>
-                            <i class='bx bx-down-arrow-alt'></i>
-                            <span class="text">ลดลงจากเมื่อวานนี้ <%= Math.abs(userCountup) %></span>
+                            <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7M5 5l7 7 7-7"></path>
+                            </svg>
+                            <span class="text-red-500 ml-2">ลดลงจากเมื่อวานนี้ <%= Math.abs(userCountup) %></span>
                         <% } else { %>
-                            <span class="text">ไม่มีการเปลี่ยนแปลงจากเมื่อวานนี้</span>
+                            <span class="text-gray-500">ไม่มีการเปลี่ยนแปลงจากเมื่อวานนี้</span>
                         <% } %>
                     </div>
                 </div>
-                
-                <i class='bx bx-user' ></i>
+                <svg class="w-10 h-10 text-blue-500 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A11.94 11.94 0 0112 15c1.558 0 3.042.296 4.379.804M12 3v3m0 0a8.001 8.001 0 018 8h3M12 6c-1.886 0-3.62.658-5.121 1.796M5 13H2v7h7v-3H5v-4z"></path>
+                </svg>
             </div>
-            <div class="box">
-                <div class="right-side">
-                    <div class="box-topic">บทความทั้งหมด</div>
-                    <div class="number"><%= articleCount %></div>
+            <div class="box bg-white p-4 rounded-lg shadow-md flex items-center">
+                <div class="right-side flex-1">
+                    <div class="box-topic text-lg font-semibold">บทความทั้งหมด</div>
+                    <div class="number text-2xl font-bold"><%= articleCount %></div>
                 </div>
-                <i class='bx bxs-file-doc'></i>
+                <svg class="w-10 h-10 text-yellow-500 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m1 0a9 9 0 110-18 9 9 0 011 17.73"></path>
+                </svg>
             </div>
-            <div class="box">
-                <div class="right-side">
-                    <div class="box-topic">จำนวนโพสต์</div>
-                    <div class="number">0</div>
+            <div class="box bg-white p-4 rounded-lg shadow-md flex items-center">
+                <div class="right-side flex-1">
+                    <div class="box-topic text-lg font-semibold">จำนวนโพสต์</div>
+                    <div class="number text-2xl font-bold">0</div>
                 </div>
             </div>
-            <div class="box">
-                <div class="right-side">
-                    <div class="box-topic">จำนวนวีดีโอ</div>
-                    <div class="number"><%= VideosCount %></div>
+            <div class="box bg-white p-4 rounded-lg shadow-md flex items-center">
+                <div class="right-side flex-1">
+                    <div class="box-topic text-lg font-semibold">จำนวนวีดีโอ</div>
+                    <div class="number text-2xl font-bold"><%= VideosCount %></div>
                 </div>
             </div>
         </div>
-        <div class="sales-boxes">
-            <div class="recent-sales box">
-                <div class="title">ข้อมูลสมาชิก</div>
+        
+        <div class="sales-boxes mt-6">
+            <div class="recent-sales box bg-white p-4 rounded-lg shadow-md">
+                <div class="title text-lg font-semibold mb-4">ข้อมูลสมาชิก</div>
                 <div class="sales-details">
-                    <div class="short-data" style="width: 100%;">
-                        <table >
-                            <thead>
+                    <div class="short-data overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th>ลำดับ</th>
-                                    <th>ไอดีผู้ใช้</th>
-                                    <th>เวลาลงทะเบียน</th>
-                                    <th>ชื่อผู้ใช้</th>
-                                    <th>อีเมลผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">ลำดับ</th>
+                                    <th class="py-2 px-4 border-b">ไอดีผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">เวลาลงทะเบียน</th>
+                                    <th class="py-2 px-4 border-b">ชื่อผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">อีเมลผู้ใช้</th>
                                 </tr>
                             </thead>
-                            <tbody >
+                            <tbody>
                                 <% users.slice(0, 5).forEach((user, index) => { %>
-                                    <tr>
-                                        <td><%= index + 1 %></td>
-                                        <td><a href="#"><%= user.userid %></a></td>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-2 px-4 border-b"><%= index + 1 %></td>
+                                        <td class="py-2 px-4 border-b"><a href="#" class="text-blue-500"><%= user.userid %></a></td>
                                         <% // ฟังก์ชันสำหรับการแปลงวันที่ให้เป็นรูปแบบที่ต้องการ
                                         function formatDate(dateString) {
                                           const thaiMonths = [
@@ -99,35 +89,31 @@
                                         }
                                         
                                             %>
-                                            <td>
-                                                <%= formatDate(user.createdAt) %>
-                                            </td>
-                                            <td><a href="#"> <%= user.username %></a></td>
-                                            <td><a href="#">
-                                                    <%= user.email %>
-                                                </a></td>
+                                        <td class="py-2 px-4 border-b"><%= formatDate(user.createdAt) %></td>
+                                        <td class="py-2 px-4 border-b"><a href="#" class="text-blue-500"><%= user.username %></a></td>
+                                        <td class="py-2 px-4 border-b"><a href="#" class="text-blue-500"><%= user.email %></a></td>
                                     </tr>
-                                    <% }); %>
+                                <% }); %>
                             </tbody>
                         </table>
                     </div>
                    
-                    <div class="full-data"  style="display: none; width: 100%;">
-                        <table >
-                            <thead>
+                    <div class="full-data hidden overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th>ลำดับ</th>
-                                    <th>ไอดีผู้ใช้</th>
-                                    <th>เวลาลงทะเบียน</th>
-                                    <th>ชื่อผู้ใช้</th>
-                                    <th>อีเมลผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">ลำดับ</th>
+                                    <th class="py-2 px-4 border-b">ไอดีผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">เวลาลงทะเบียน</th>
+                                    <th class="py-2 px-4 border-b">ชื่อผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">อีเมลผู้ใช้</th>
                                 </tr>
                             </thead>
-                            <tbody >
+                            <tbody>
                                 <% users.forEach((user, index) => { %>
-                                    <tr>
-                                        <td><%= index + 1 %></td>
-                                        <td><a href="#"><%= user.userid %></a></td>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="py-2 px-4 border-b"><%= index + 1 %></td>
+                                        <td class="py-2 px-4 border-b"><a href="#" class="text-blue-500"><%= user.userid %></a></td>
                                         <% // ฟังก์ชันสำหรับการแปลงวันที่ให้เป็นรูปแบบที่ต้องการ
                                         function formatDate(dateString) {
                                           const thaiMonths = [
@@ -147,26 +133,20 @@
                                         }
                                         
                                             %>
-                                            <td>
-                                                <%= formatDate(user.createdAt) %>
-                                            </td>
-                                            <td><a href="#"> <%= user.username %></a></td>
-                                            <td><a href="#">
-                                                    <%= user.email %>
-                                                </a></td>
+                                        <td class="py-2 px-4 border-b"><%= formatDate(user.createdAt) %></td>
+                                        <td class="py-2 px-4 border-b"><a href="#" class="text-blue-500"><%= user.username %></a></td>
+                                        <td class="py-2 px-4 border-b"><a href="#" class="text-blue-500"><%= user.email %></a></td>
                                     </tr>
-                                    <% }); %>
+                                <% }); %>
                             </tbody>
                         </table>
                     </div>
                     
                 </div>
-                <div class="mortbtn button">
-                        <a href="#">ดูต่อ</a>
+                <div class="mortbtn mt-4">
+                    <a href="#" class="text-blue-500 hover:underline">ดูต่อ</a>
                 </div>
-                
-                            
-            
             </div>
         </div>
+    </div>
 </section>

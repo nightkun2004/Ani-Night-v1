@@ -1,4 +1,83 @@
-<!-- Ipdate -->
+<!-- Sidebar -->
+<div id="sidebar"
+  class="sidebar fixed h-full w-64 h-screen bg-white shadow-md">
+  <div class="p-4 border-b">
+    <h1 class="text-lg font-bold">Admin Dashboard</h1>
+  </div>
+  
+<button id="menuToggle" class="md:hidden fixed top-4 right-3 mb-4 px-4 py-2 bg-blue-500 text-white rounded">
+  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+  </svg>
+</button>
+
+  <ul class="mt-4">
+    <li class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'home-admin' ? 'bg-black text-white' : '' %>">
+      <a href="/admin/dash">ภาพรวม</a>
+    </li>
+    <li class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'update-admin' ? 'bg-black text-white' : '' %>">
+      <a href="/admin/update_code">อัตเดตซอง</a>
+    </li>
+    <li
+      class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'update-update_linkwallet' ? 'bg-black text-white' : '' %>">
+      <a href="/admin/update_linkwallet">อัตเดตลิ้งอั่งเปา</a>
+    </li>
+    <li class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'createAnime-admin' ? 'bg-black text-white' : '' %>">
+      <a href="/admin/createAnime">สร้างอนิเมะบอร์ด</a>
+    </li>
+    <li class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'videos' ? 'bg-black text-white' : '' %>">
+      <a target="_blank" href="/upload_video">สร้างตัวอย่างวีดีโอ</a>
+    </li>
+    <li class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'add-admin' ? 'bg-black text-white' : '' %>">
+      <a href="/add-admin">เพิ่มผู้ดูแล</a>
+    </li>
+    <li class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'editvideos' ? 'bg-black text-white' : '' %>">
+      <a href="/admin/editvideos">แก้ไขวีดีโอ</a>
+    </li>
+    <li class="p-4 hover:bg-gray-200 cursor-pointer">
+      <a href="">ทีมทั้งหมด</a>
+    </li>
+    <li class="p-4 hover:bg-gray-200 cursor-pointer">
+      <a href="#">ข้อความติดต่อ</a>
+    </li>
+    <li
+      class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'home-admin-withdrawal' ? 'bg-black text-white' : '' %>">
+      <a href="/admin/withdrawal/usersAll">จ่ายเงินให้ผู้ใช้</a>
+    </li>
+    <% if (usersesstion.approval_admin) { %>
+      <% } else { %>
+        <% } %>
+  </ul>
+</div>
+
+
+<style>
+  .main-section {
+    position: relative;
+    background: #f5f5f5;
+    min-height: 100vh;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+  }
+
+  .sidebar-collapsed .main-section {
+    width: 100%;
+    left: -240px;
+  }
+
+  .sidebar-collapsed .sidebar {
+    left: -240px;
+  }
+</style>
+
+<script>
+  document.getElementById('menuToggle').addEventListener('click', function () {
+    document.body.classList.toggle('sidebar-collapsed');
+  });
+</script>
+
+<!-- 
 <div class="sidebar">
     <div class="logo-details">
       <i class='bx bxl-c-plus-plus'></i>
@@ -6,49 +85,20 @@
     </div>
       <ul class="nav-links">
         <li>
-          <a href="/admin/dash" class="<%= active === 'home-admin' ? 'active' : '' %>">
-            <i class='bx bx-grid-alt' ></i>
-            <span class="links_name">ภาพรวม</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/update_code" class="<%= active === 'update-admin' ? 'active' : '' %>">
-            <i class='bx bx-box' ></i>
-            <span class="links_name">อัพเดตซอง</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/update_linkwallet" class="<%= active === 'update-update_linkwallet' ? 'active' : '' %>">
-            <i class='bx bx-box' ></i>
-            <span class="links_name">อัพเดตลิ้งทรูวอเลิท</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/createAnime" class="<%= active === 'createAnime-admin' ? 'active' : '' %>">
-            <i class='bx bx-list-ul' ></i>
-            <span class="links_name">สร้างรายการอนิเมะ</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/editvideos" class="<%= active === 'editvideos' ? 'active' : '' %>">
+          <a href="" class=">">
             <i class='bx bx-edit' ></i>
-            <span class="links_name">แก้ไขวีดีโอ</span>
+            <span class="links_name"></span>
           </a>
         </li>
         <li>
-          <a href="/upload_video" class="<%= active === 'createAnime-admin' ? 'active' : '' %>">
+          <a href="" class="">
             <i class='bx bx-cloud-upload' ></i>
             <span class="links_name">สร้างวีดีโอตัวอย่าง</span>
           </a>
         </li>
-        <!-- <li>
-          <a href="#">
-            <i class='bx bx-pie-chart-alt-2' ></i>
-            <span class="links_name">Analytics</span>
-          </a>
-        </li> -->
+
         <li>
-          <a href="/add-admin" class="<%= active === 'add-admin' ? 'active' : '' %>">
+          <a href="" class="">
             <i class='bx bx-coin-stack' ></i>
             <span class="links_name">เพิ่มผู้ดูแล</span>
           </a>
@@ -66,25 +116,25 @@
           </a>
         </li>
         <li>
-          <a href="/addmin/withdrawal/usersall">
+          <a href="">
             <i class='bx bx-coin' ></i>
             <span class="links_name">จ่ายเงินผู้ใช้</span>
           </a>
         </li>
-        <% if (usersesstion.approval_admin) { %>
+      
             <li class="log_out">
                 <a href="/admin/logout">
                   <i class='bx bx-log-out'></i>
                   <span class="links_name">ออกจากระบบ</span>
                 </a>
               </li>
-              <% } else { %>
+           
         <li class="log_in">
             <a href="#" class="<%= active === 'login-admin' ? 'active' : '' %>">
               <i class='bx bx-log-in'></i>
               <span class="links_name">เข้าสู่ระบบ</span>
             </a>
           </li>
-          <% } %>
+         
       </ul>
-  </div>
+  </div> -->

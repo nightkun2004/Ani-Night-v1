@@ -39,80 +39,70 @@
 </style>
 <body>
     <%- include('../sidebars/navbar') %>
-    <section class="home-section">
-        <%- include('../sections/navbar') %>
+    <section  class="main-section w-full min-h-screen">
         <div style="display: block; justify-content: center; align-items: center;" class="loading-indicator loadingIndicator" id="loadingIndicator">
             <div class="spinner"></div>
         </div>
         <div class="loading" style="display: none;">
-            <div class="home-content">
-                <div class="sales-boxes">
-                    <div class="recent-sales box">
-                       <div class="input-search-id box">
-                        <input type="search" name="searchID" id="searchID" placeholder="ค้นหาไอดี">
-                        <button type="submit">ค้นหา</button>
-                       </div>
-        
-                       <div class="search_result">
-                        <div class="title_result">
-                            ผลการค้นหาไอดี 
-                        </div>
-                        <table>
-                            <thead>
+            <div class="container mx-auto p-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="mb-4">
+                        <input type="search" class="border p-2 rounded w-full" name="searchID" id="searchID" placeholder="ค้นหาไอดี">
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border">
+                            <thead class="bg-gray-200">
                                 <tr>
-                                    <th>ลำดับ</th>
-                                    <th>ไอดีผู้ใช้</th>
-                                    <th>เวลาลงทะเบียน</th>
-                                    <th>ชื่อผู้ใช้</th>
-                                    <th>อีเมลผู้ใช้</th>
-                                    <th>อนุมัติเป็นแอดมิน</th>
+                                    <th class="py-2 px-4 border-b">ลำดับ</th>
+                                    <th class="py-2 px-4 border-b">ไอดีผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">เวลาลงทะเบียน</th>
+                                    <th class="py-2 px-4 border-b">ชื่อผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">อีเมลผู้ใช้</th>
+                                    <th class="py-2 px-4 border-b">อนุมัติเป็นแอดมิน</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="userTable">
                                 <% users.forEach((user, index) => { %>
-                                    <tr>
-                                        <td><%= index + 1 %></td>
-                                        <td><a href="#"><%= user.userid %></a></td>
-                                        <% // ฟังก์ชันสำหรับการแปลงวันที่ให้เป็นรูปแบบที่ต้องการ
-                                                function formatDate(dateString) {
-                                                  const thaiMonths = [
-                                                    "มกราคม", "กุมภาพันธ์", "มีนาคม",
-                                                    "เมษายน", "พฤษภาคม", "มิถุนายน",
-                                                    "กรกฎาคม", "สิงหาคม", "กันยายน",
-                                                    "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-                                                  ];
-                                                
-                                                  const date = new Date(dateString);
-                                                  const day = date.getDate();
-                                                  const month = thaiMonths[date.getMonth()];
-                                                  const year = date.getFullYear();
-                                                  const hour = date.getHours();
-                                                  const minute = date.getMinutes();
-                                                  return `${day} ${month} ${year} ${hour}:${minute}`;
-                                                }
-                                                
-                                                    %>
-                                                    <td>
-                                                        <%= formatDate(user.createdAt) %>
-                                                    </td>
-                                        <td><a href="#"><%= user.username %></a></td>
-                                        <td><a href="#"><%= user.email %></a></td>
-                                        <td>
-                                            <form action="/admin/approve/<%= user.userid %>" method="get">
-                                                <button class="admin-approval-btn" data-userid="<%= user.userid %>" data-approval="<%= user.approval_admin %>">
-                                                    <% if (user.approval_admin) { %>
-                                                        อนุมัติแล้ว
-                                                    <% } else { %>
-                                                        รอการอนุมัติ
-                                                    <% } %>
-                                                </button>
-                                            </form>
+                                    <tr class="user-row">
+                                        <td class="py-2 px-4 border-b"><%= index + 1 %></td>
+                                        <td class="py-2 px-4 border-b"><a href="#<%= user.userid %>"><%= user.userid %></a></td>
+                                        <td class="py-2 px-4 border-b">
+                                            <% // ฟังก์ชันสำหรับการแปลงวันที่ให้เป็นรูปแบบที่ต้องการ
+                                            function formatDate(dateString) {
+                                              const thaiMonths = [
+                                                "มกราคม", "กุมภาพันธ์", "มีนาคม",
+                                                "เมษายน", "พฤษภาคม", "มิถุนายน",
+                                                "กรกฎาคม", "สิงหาคม", "กันยายน",
+                                                "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+                                              ];
+                                            
+                                              const date = new Date(dateString);
+                                              const day = date.getDate();
+                                              const month = thaiMonths[date.getMonth()];
+                                              const year = date.getFullYear();
+                                              const hour = date.getHours();
+                                              const minute = date.getMinutes();
+                                              return `${day} ${month} ${year} ${hour}:${minute}`;
+                                            }
+                                            
+                                                %>
+                                            <%= formatDate(user.createdAt) %>
+                                        </td>
+                                        <td class="py-2 px-4 border-b"><a href="#<%= user.username %>"><%= user.username %></a></td>
+                                        <td class="py-2 px-4 border-b"><a href="@<%= user.email %>"><%= user.email %></a></td>
+                                        <td class="py-2 px-4 border-b">
+                                            <button class="admin-approval-btn bg-blue-500 text-white py-1 px-3 rounded" data-userid="<%= user.userid %>" data-approval="<%= user.approval_admin %>">
+                                                <% if (user.approval_admin) { %>
+                                                    อนุมัติแล้ว
+                                                <% } else { %>
+                                                    รอการอนุมัติ
+                                                <% } %>
+                                            </button>
                                         </td>
                                     </tr>
                                 <% }); %>
                             </tbody>
                         </table>
-                    </div>            
                     </div>
                 </div>
             </div>
@@ -121,7 +111,32 @@
 
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="/js/pages/loading_datas.js"></script>
     <script src="/js/admins/add_admin.js"></script>
+    <script>
+        function showLoadingIndicator() {
+    document.querySelectorAll('.loadingIndicator').forEach(item => {
+        item.style.display = 'block';
+    });
+    document.querySelectorAll('.loading').forEach(item => {
+        item.style.display = 'none';
+    });
+}
+
+function hideLoadingIndicator() {
+    document.querySelectorAll('.loadingIndicator').forEach(item => {
+        item.style.display = 'none';
+    });
+    document.querySelectorAll('.loading').forEach(item => {
+        item.style.display = 'block';
+    });
+}
+
+showLoadingIndicator();
+
+window.addEventListener('load', function () {
+    hideLoadingIndicator();
+});
+
+    </script>
 </body>
 </html>

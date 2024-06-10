@@ -20,5 +20,6 @@ router.get('/singup', (req, res) => {
 })
 
 router.post('/auth/singup', userController.getAllUser);
+router.post('/api/v2/auth/signup', userController.getSignupAPI);
 
 module.exports = router

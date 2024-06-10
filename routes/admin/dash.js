@@ -68,7 +68,7 @@ router.get('/admin/dash', verifyToken, async (req, res) => {
     }
 });
  
-router.get('/addmin/withdrawal/usersall', verifyToken, getWithdrawal)
+router.get('/admin/withdrawal/usersAll', verifyToken, getWithdrawal)
 router.post('/admin/mark-paid/:userId/:withdrawalId', verifyToken, withdrawalId);
 router.post('/admin/refuse-withdrawal/:userId/:withdrawalId', verifyToken, refuseWithdrawal);
 

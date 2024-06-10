@@ -5,10 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Reward Code</title>
-    <link rel="stylesheet" href="../css/admin/Admin_section.css">
-    <link rel="stylesheet" href="../css/admin/dash.css">
-    <link rel="stylesheet" href="../css/admin/code.css">
-    <link rel="stylesheet" href="../css/admin/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css"
         integrity="sha512-d0olNN35C6VLiulAobxYHZiXJmq+vl+BGIgAxQtD5+kqudro/xNMvv2yIHAciGHpExsIbKX3iLg+0B6d0k4+ZA=="
@@ -21,14 +17,12 @@
 <body>
     <%- include('./sidebars/navbar') %>
     <section class="home-section">
-        <%- include('./sections/navbar') %>
-         <div class="container_form">
-             <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">อัพเดตโค้ดอั่งเปา</h2>
-             <div class="content">
+        <div class="main-section justify-center items-center flex  w-full min-h-screen">
+             <div class="bg-white p-8 rounded shadow-lg w-full max-w-md">
                 <form action="/reward/update-link-code" method="post">
-                    <label for="new_code">link Code:</label>
-                    <input type="text" id="linkcode" name="linkcode" placeholder="Enter link code"><br><br>
-                    <button type="submit">Update Link Code</button>
+                    <label for="new_code">ลิ้งอั่งเปา:</label>
+                    <input type="text" id="linkcode" name="linkcode" placeholder="Enter link code"  class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"><br><br>
+                    <button class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 type="submit">อัพเดต</button>
                 </form>
             </div>
          </div>

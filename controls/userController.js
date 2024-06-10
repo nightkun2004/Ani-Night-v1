@@ -42,6 +42,46 @@ exports.getAllUser = async (req, res) => {
         return res.redirect('/singup?alertMessageerror=อาจจะเป็นเพราะอีเมลซํ้าก็ได้ .!');
     }
 };
+
+exports.getSignupAPI = async (req, res) => {
+    const Userdata = ({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+    })
+    try {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(Userdata.password, saltRounds);
+
+        function generateRandomPostId() {
+            let numbers = Array.from({ length: 8 }, (_, i) => i);
+            shuffleArray(numbers);
+            return numbers.join('');
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        let userid = generateRandomPostId();
+
+        const Usersave = new User({
+            username: Userdata.username,
+            email: Userdata.email,
+            password: hashedPassword,
+            userid: userid
+        });
+        await Usersave.save();
+        return res.status(200).json({ success: true, message: 'สมัครสมาชิกสำเร็จ'});
+    } catch (err) {
+        console.error(err);
+        return res.redirect('/singup?alertMessageerror=อาจจะเป็นเพราะอีเมลซํ้าก็ได้ .!');
+    }
+};
+
 exports.getLogin = async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {

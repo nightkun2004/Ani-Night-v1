@@ -17,108 +17,145 @@
     <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+
+    <style>
+        .loading-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3d84ff;
+            /* สีของ Spinner */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            /* การหมุนของ Spinner */
+        }
+    
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
     <%- include('./../sidebars/navbar') %>
-    <section class="home-section">
-        <div class="container mx-auto px-4 py-8">
+    <section class="main-section w-full min-h-screen p-2 bg-gray-200">
+        <div class="w-full mx-auto px-4 py-8">
             <h1 class="text-3xl font-bold mb-6">ประวัติการถอนเงิน</h1>
     
             <% if (users && users.length > 0) { %>
                 <% const totalusers = users.length; %>
                 <div class="flex justify-between items-center pb-3 border-b-2">
                     <h2 class="text-2xl font-bold">คำขอทั้งหมดถอนเงิน: <%= totalusers %></h2>
+                    <div class="bg-gray-100 rounded border-pink-500 flex items-center">
+                        <input type="search" class="border-none outline-none p-2 bg-gray-100" name="search_email" id="search_email" placeholder="ค้นหาผู้ใช้ด้วยอีเมล">
+                        <button class="bg-blue-500 p-2 rounded text-white" type="button">ค้นหา</button>
+                    </div>
+                </div>
+                <div style="display: block; justify-content: center; align-items: center;" class="loading-indicator loadingIndicator" id="loadingIndicator">
+                    <div class="flex items-center">
+                        <div class="spinner">
+                        </div>
+                        <p class="pl-4">กำลังประมวณผล</p>
+                    </div>
                 </div>
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <!-- <th class="py-2 px-4 border-b">ชื่อผู้ใช้</th> -->
                             <th class="py-2 px-4 border-b">อีเมล</th>
                             <th class="py-2 px-4 border-b">ประวัติการถอนเงิน</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <% users.forEach(user => { %>
-                            <tr>
-                                <!-- <td class="py-2 px-4 border-b"><%= user.name %></td> -->
-                                <td class="py-2 px-4 border-b"><%= user.email %></td>
-                                <td class="py-2 px-4 border-b">
-                                    <div class="cursor-pointer" onclick="toggleWithdrawalHistory('<%= user._id %>')">
-                                        <!-- เพิ่มลูกศรด้านขวาของชื่อผู้ใช้ -->
-                                        ประวัติการถอนเงิน <span class="ml-2">&#9660;</span>
-                                    </div>
-                                    <div id="withdrawalHistory_<%= user._id %>" style="display: none;">
-                                        <% if (user.withdrawalHistory && user.withdrawalHistory.length > 0) { %>
-                                            <table class="min-w-full bg-gray-100 mt-2">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="py-2 px-4 border-b">ระบบการถอนเงิน</th>
-                                                        <th class="py-2 px-4 border-b">ข้อความ</th>
-                                                        <th class="py-2 px-4 border-b">เบอร์โทรศัพท์</th>
-                                                        <th class="py-2 px-4 border-b">ถอนเมื่อ</th>
-                                                        <th class="py-2 px-4 border-b">สถานะ</th>
-                                                        <th class="py-2 px-4 border-b">การกระทำ</th>
-                                                        <th class="py-2 px-4 border-b">ปฏิเสธการถอนเงิน</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <% user.withdrawalHistory.forEach(withdrawal => { %>
+                        <tbody id="userTable" class="loading" style="display: none;">
+                            <% users.forEach(user => { %>
+                                <tr class="user-row">
+                                    <td class="py-2 px-4 border-b"><%= user.email %></td>
+                                    <td class="py-2 px-4 border-b">
+                                        <div class="cursor-pointer" onclick="toggleWithdrawalHistory('<%= user._id %>')">
+                                            <!-- เพิ่มลูกศรด้านขวาของชื่อผู้ใช้ -->
+                                            ประวัติการถอนเงิน <span class="ml-2">&#9660;</span>
+                                        </div>
+                                        <!-- style="display: none;" -->
+                                        <div id="withdrawalHistory_<%= user._id %>" >
+                                            <% if (user.withdrawalHistory && user.withdrawalHistory.length > 0) { %>
+                                                <table class="min-w-full bg-gray-100 mt-2">
+                                                    <thead>
                                                         <tr>
-                                                            <td class="py-2 px-4 border-b"><%= withdrawal.method %></td>
-                                                            <td class="py-2 px-4 border-b"><%= withdrawal.message %></td>
-                                                            <td class="py-2 px-4 border-b"><%= withdrawal.phoneNumber %></td>
-                                                            <td class="py-2 px-4 border-b"><%= moment(withdrawal.timestamp).locale('th').fromNow() %></td>
-                                                            <td class="py-2 px-4 border-b">
-                                                                <% if (withdrawal.paid) { %>
-                                                                    <span class="text-green-500 font-semibold">จ่ายแล้ว</span>
-                                                                <% } else if (withdrawal.rejected) { %>
-                                                                    <span class="text-red-500 font-semibold">ปฏิเสธการถอนเงิน</span>
-                                                                    <p class="text-red-500"><%= withdrawal.rejectReason %></p>
-                                                                <% } else { %>
-                                                                    <span class="text-red-500 font-semibold">ยังไม่จ่าย</span>
-                                                                <% } %>
-                                                            </td>
-                                                            <td class="py-2 px-4 border-b">
-                                                                <% if (!withdrawal.paid && !withdrawal.rejected) { %>
-                                                                    <form action="/admin/refuse-withdrawal/<%= user._id %>/<%= withdrawal._id %>" method="post">
-                                                                        <label for="reason_<%= withdrawal._id %>">เหตุผล</label>
-                                                                        <input type="text" name="reason" id="reason_<%= withdrawal._id %>" class="border rounded p-1">
-                                                                        <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded mt-2">ปฏิเสธการถอนเงิน</button>
-                                                                    </form>
-                                                                <% } %>
-                                                            </td>
-                                                            
-                                                            <td class="py-2 px-4 border-b">
-                                                                <% if (!withdrawal.paid) { %>
-                                                                    <form action="/admin/mark-paid/<%= user._id %>/<%= withdrawal._id %>" method="post">
-                                                                        <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded">ทำเครื่องหมายว่าจ่ายแล้ว</button>
-                                                                    </form>
-                                                                <% } %>
-                                                            </td>
-                                                            <td class="py-2 px-4 border-b">
-                                                                <% if (!withdrawal.paid) { %>
-                                                                    <form action="/admin/refuse-withdrawal/<%= user._id %>/<%= withdrawal._id %>" method="post">
-                                                                        <label for="reason_<%= withdrawal._id %>">เหตุผล</label>
-                                                                        <input type="text" name="reason" id="reason_<%= withdrawal._id %>" class="border rounded p-1">
-                                                                        <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded mt-2">ปฏิเสธการถอนเงิน</button>
-                                                                    </form>
-                                                                <% } %>
-                                                            </td>
-                                                            
+                                                            <th class="py-2 px-4 border-b">ระบบการถอนเงิน</th>
+                                                            <th class="py-2 px-4 border-b">ข้อความ</th>
+                                                            <th class="py-2 px-4 border-b">เบอร์โทรศัพท์</th>
+                                                            <th class="py-2 px-4 border-b">ถอนเมื่อ</th>
+                                                            <th class="py-2 px-4 border-b">สถานะ</th>
+                                                            <th class="py-2 px-4 border-b">การกระทำ</th>
+                                                            <th class="py-2 px-4 border-b">ปฏิเสธการถอนเงิน</th>
                                                         </tr>
-                                                    <% }); %>
-                                                </tbody>
-                                            </table>
-                                        <% } else { %>
-                                            <div class="bg-gray-100 rounded-lg p-4 mt-2">
-                                                <p class="text-gray-600 text-center">ไม่มีประวัติการถอนเงิน</p>
-                                            </div>
-                                        <% } %>
-                                    </div>
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% user.withdrawalHistory.forEach(withdrawal => { %>
+                                                            <tr>
+                                                                <td class="py-2 px-4 border-b"><%= withdrawal.method %></td>
+                                                                <td class="py-2 px-4 border-b"><%= withdrawal.message %></td>
+                                                                <td class="py-2 px-4 border-b"><%= withdrawal.phoneNumber %></td>
+                                                                <td class="py-2 px-4 border-b"><%= moment(withdrawal.timestamp).locale('th').fromNow() %></td>
+                                                                <td class="py-2 px-4 border-b">
+                                                                    <% if (withdrawal.paid) { %>
+                                                                        <span class="text-green-500 font-semibold">จ่ายแล้ว</span>
+                                                                    <% } else if (withdrawal.rejected) { %>
+                                                                        <span class="text-red-500 font-semibold">ปฏิเสธการถอนเงิน</span>
+                                                                        <p class="text-red-500"><%= withdrawal.rejectReason %></p>
+                                                                    <% } else { %>
+                                                                        <span class="text-red-500 font-semibold">ยังไม่จ่าย</span>
+                                                                    <% } %>
+                                                                </td>
+                                                                <td class="py-2 px-4 border-b">
+                                                                    <% if (!withdrawal.paid && !withdrawal.rejected) { %>
+                                                                        <form action="/admin/refuse-withdrawal/<%= user._id %>/<%= withdrawal._id %>" method="post">
+                                                                            <label for="reason_<%= withdrawal._id %>">เหตุผล</label>
+                                                                            <input type="text" name="reason" id="reason_<%= withdrawal._id %>" class="border rounded p-1">
+                                                                            <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded mt-2">ปฏิเสธการถอนเงิน</button>
+                                                                        </form>
+                                                                    <% } %>
+                                                                </td>
+                                                                
+                                                                <td class="py-2 px-4 border-b">
+                                                                    <% if (!withdrawal.paid) { %>
+                                                                        <form action="/admin/mark-paid/<%= user._id %>/<%= withdrawal._id %>" method="post">
+                                                                            <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded">ทำเครื่องหมายว่าจ่ายแล้ว</button>
+                                                                        </form>
+                                                                    <% } %>
+                                                                </td>
+                                                                <td class="py-2 px-4 border-b">
+                                                                    <% if (!withdrawal.paid) { %>
+                                                                        <form action="/admin/refuse-withdrawal/<%= user._id %>/<%= withdrawal._id %>" method="post">
+                                                                            <label for="reason_<%= withdrawal._id %>">เหตุผล</label>
+                                                                            <input type="text" name="reason" id="reason_<%= withdrawal._id %>" class="border rounded p-1">
+                                                                            <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded mt-2">ปฏิเสธการถอนเงิน</button>
+                                                                        </form>
+                                                                    <% } %>
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                        <% }); %>
+                                                    </tbody>
+                                                </table>
+                                            <% } else { %>
+                                                <div class="bg-gray-100 rounded-lg p-4 mt-2">
+                                                    <p class="text-gray-600 text-center">ไม่มีประวัติการถอนเงิน</p>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
                 </table>
             <% } else { %>
                 <div class="bg-white rounded-lg shadow-md p-6">
@@ -142,6 +179,51 @@
                 withdrawalHistoryDiv.style.display = 'none';
             }
         }
+    </script>
+     <script>
+        function filterTable() {
+            const searchInput = document.getElementById('search_email');
+            const filter = searchInput.value.toLowerCase();
+            const rows = document.querySelectorAll('.user-row');
+            
+            rows.forEach(row => {
+                const emailCell = row.querySelector('td:first-child');
+                const email = emailCell.textContent.toLowerCase();
+                if (email.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('search_email').addEventListener('input', filterTable);
+    </script>
+    <script>
+        function showLoadingIndicator() {
+    document.querySelectorAll('.loadingIndicator').forEach(item => {
+        item.style.display = 'block';
+    });
+    document.querySelectorAll('.loading').forEach(item => {
+        item.style.display = 'none';
+    });
+}
+
+function hideLoadingIndicator() {
+    document.querySelectorAll('.loadingIndicator').forEach(item => {
+        item.style.display = 'none';
+    });
+    document.querySelectorAll('.loading').forEach(item => {
+        item.style.display = 'block';
+    });
+}
+
+showLoadingIndicator();
+
+window.addEventListener('load', function () {
+    hideLoadingIndicator();
+});
+
     </script>
 </body>
 </html>

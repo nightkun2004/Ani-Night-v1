@@ -67,6 +67,23 @@ router.post('/:id/truemoney/save', async (req,res)=>{
     }
 })
 
+// API save True Money
+router.post('/api/v2/truemoney/save/:id', async (req,res)=>{
+    const userId = req.params.id;
+    try {
+    const user = await User.findOne({_id: userId});
+    if (!user) return res.status(404).json({ error: "user not found" });
+
+    user.truemoneyname = req.body.truemoney_name
+    user.truemoney = req.body.truemoney_phone
+
+    await user.save();
+    res.json({ mass: "บันทึกสำเร็จ"})
+    } catch (err){
+        console.log(err)
+    }
+})
+
 router.get('/:url/monetization/overview-data', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;

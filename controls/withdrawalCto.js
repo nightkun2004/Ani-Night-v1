@@ -61,7 +61,7 @@ exports.getWithdrawal = async (req, res) => {
         const users = await User.find().populate('withdrawalHistory');
         res.render('./admin/pages/Getwithdrawal', {
             users,
-            active: 'home-admin-w',
+            active: 'home-admin-withdrawal',
             usersesstion
         });
     } catch (err) {

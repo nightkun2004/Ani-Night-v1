@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Reward Code</title>
-    <link rel="stylesheet" href="../css/admin/Admin_section.css">
-    <link rel="stylesheet" href="../css/admin/code.css">
-    <link rel="stylesheet" href="../css/admin/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,20 +12,23 @@
 </head>
 
 <body>
-    <%- include('./sidebars/navbar') %>
-    <section class="home-section">
-       <%- include('./sections/navbar') %>
-        <div class="container_form">
-            <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">อัพเดตโค้ดอั่งเปา</h2>
-            <div class="content">
-                <form action="/reward/update" method="post">
-                    <label for="new_code">สร้างโค้ดอั่งเปา:</label>
-                    <input type="text" id="new_code" name="new_code" placeholder="ใส่โค้ดอั่งเปาใหม่"><br><br>
-                    <button type="submit">ฮัพเดตโค้ด</button>
+    <div class="bg-gray-100 flex flex-col md:flex-row">
+        <%- include('./sidebars/navbar') %>
+        <div class="main-section justify-center items-center flex  w-full min-h-screen">
+            <div class="bg-white p-8 rounded shadow-lg w-full max-w-md">
+                <form action="/reward/update" method="post" class="space-y-4">
+                    <div>
+                        <label for="new_code" class="block text-sm font-medium text-gray-700">สร้างโค้ดอั่งเปา:</label>
+                        <input type="text" id="new_code" name="new_code" placeholder="ใส่โค้ดอั่งเปาใหม่" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">อัปเดตโค้ด</button>
+                    </div>
                 </form>
             </div>
-        </div>
-    </section> 
+            </div>
+    </div>
+   
 
     <script src="/js/admins/script.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>

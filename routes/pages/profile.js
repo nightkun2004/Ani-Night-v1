@@ -54,6 +54,9 @@ router.post('/playment', profileController.playment)
 router.post('/auth/user/studio', profileController.getAuthUser)
 router.get('/logout/user/:id', profileController.logOut)
 
+// API Profile
+router.get("/api/user/profile/v2/:id", profileController.getProfileApi )
+
 router.post('/edit_profile', upload.single('profileprofile'), async (req,res) => {
     try {
         const usersesstion = req.session.userlogin
@@ -99,5 +102,38 @@ router.post('/edit_profile', upload.single('profileprofile'), async (req,res) =>
         res.send('เกิดข้อผิดพลาดในการแก้ไขโปรไฟล์');
     }
 })
+
+// สร้าง API สำหรับการแก้ไขโปรไฟล์โดยใช้ข้อมูลผู้ใช้ที่ส่งมาจาก client-side
+router.put('/api/v2/edit-profile/:id', upload.single('profileprofile'), async (req, res) => {
+    try {
+        const userID = req.params.id;
+        const { username, name, url, bio } = req.body;
+        const profileprofile = req.file;
+
+        const currentTime = new Date();
+        const registrationTime = new Date(usersession.registrationTime);
+        const timeDifference = currentTime - registrationTime;
+        const sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
+
+        // ตรวจสอบเวลาที่ผ่านมาเพื่อกำหนดเงื่อนไขการเปลี่ยนแปลง username
+        if (timeDifference < sevenDaysInMillis) {
+            return res.status(400).send('ไม่สามารถเปลี่ยนแปลง username ได้ น้อยกว่า 7 วัน');
+        }
+
+        // อัพเดตข้อมูลโปรไฟล์ของผู้ใช้
+        const updatedUser = await User.findByIdAndUpdate(userID, {
+            username: username,
+            name: name,
+            url: url,
+            bio: bio,
+            profile: profileprofile ? profileprofile.filename : undefined // อัพโหลดไฟล์โปรไฟล์ใหม่ (ถ้ามี)
+        }, { new: true });
+
+        res.json({ message: "บันทึกโปรไฟล์สำเร็จ", user: updatedUser });
+    } catch (error) {
+        console.error(error);
+        res.send('เกิดข้อผิดพลาดในการแก้ไขโปรไฟล์');
+    }
+});
 
 module.exports = router 

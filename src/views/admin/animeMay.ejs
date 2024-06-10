@@ -16,7 +16,6 @@
 <body>
     <%- include('./sidebars/navbar') %>
     <section class="home-section">
-        <%- include('./sections/navbar') %>
         <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
             <% if (usersesstion) { %>
                 <h5>ดำเนินด้วยบัญชี</h5>
@@ -34,7 +33,7 @@
             </div>
             
             <form action="/createAnime/may" method="post">
-                <h2>สร้างอนิเมะบอร์ด</h2>
+                <h2>สร้างอนิเมะบอร์ดเดือน พฤษภาคม</h2>
     
                 <label for="name">ชื่ออนิเมะ</label>
                 <input type="text" name="nameAnime" placeholder="ชื่ออนิเมะ">
