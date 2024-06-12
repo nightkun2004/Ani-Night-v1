@@ -46,7 +46,7 @@ exports.refuseWithdrawal = async (req, res) => {
         withdrawal.rejectReason = reason;
         await withdrawal.save();
 
-        res.redirect('/addmin/withdrawal/usersall');
+        res.redirect('/admin/withdrawal/usersAll');
     } catch (err) {
         console.error(err);
         res.status(500).send('เกิดข้อผิดพลาดในการปฏิเสธการถอนเงิน');

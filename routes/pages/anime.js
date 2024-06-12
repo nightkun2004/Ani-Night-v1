@@ -21,21 +21,21 @@ async function loadAnimeData(req, res, next) {
     }
 }
 
+router.get('/anime/th-TH/foryou', (req, res) => {
+    const usersesstion = req.session.userlogin;
+    const template = req.language === 'th' ? './component/th/anime' : './component/th/anime'; 
+   
+    res.render(template, { active: 'anime-th', usersesstion});
+})
+
 router.get('/animeboard', loadAnimeData, async (req, res) => {
     const query = req.query.search; 
     const usersesstion = req.session.userlogin;
     const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly').sort({ createdAt: -1 }); 
     const template = req.language === 'th' ? './component/pages/anime' : './component/pages/anime'; 
-    // ./en/anime
-    // console.log(AnimeBordData);
    
     res.render(template, { active: 'anime', usersesstion, AnimeBordData, seq: { query: query }});
 })
-
-// router.get('/animeboard:april', async (req,res)=>{
-//     const query_april = req.query.april; 
-//     const usersesstion = req.session.userlogin;
-// })
 
 router.get('/animeboard/search', async (req, res) => {
     const query = req.query.search; 
@@ -47,5 +47,6 @@ router.get('/animeboard/search', async (req, res) => {
         res.status(500).json({ error: "An error occurred while fetching anime data" }); // จัดการข้อผิดพลาด
     }
 });
+
 
 module.exports = router

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,54 +12,107 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+
+<body class="bg-gray-100">
     <%- include('./navnar_Header') %>
-    <section class="p-2 mx-auto px-4 xl:max-w-7xl">
-        <div class="privacy ">
-            <div class="mb-5">
-                <h2 class="text-4xl">เกี่ยวกับเรา AniNight</h2>
-                <p>อัพเดตเมื่อ 4/04/2024</p>
-                <hr class="mt-5 mb-5">
-                <p class=" leading-8 font-light pt-5 font-Thongterm">
-                    AniNight คือแพลตฟอร์มที่ให้ลงสื่อบันเทิงข่าวสารบทความด้านอนิเมะหรือวัฒนธรรมของญี่ปุ่นหรือด้านบันเทิง <br>
-                    เรายังมีบอร์ดอนิเมะที่จะอัพเดตตารางฉายอนิเมะเป็นรายเดือนพร้อมลิ้งค์ช่องทางถูกลิขสิทธิ์ <br>
+        <section class="p-2 mx-auto px-4 xl:max-w-7xl">
+            <div class="privacy mt-20 bg-white p-5">
+                <div class="mb-5">
+                    <section id="about">
+                        <h2 class="text-4xl">เกี่ยวกับเรา AniNight</h2>
+                        <p>อัพเดตเล่าสุด 12/06/2024</p>
+                        <hr class="mt-5 mb-5">
+                        <p class=" leading-8 font-light pt-5 font-Thongterm">
+                            AniNight
+                            คือแพลตฟอร์มที่ให้ลงสื่อบันเทิงข่าวสารบทความด้านอนิเมะหรือวัฒนธรรมของญี่ปุ่นหรือด้านบันเทิง <br>
+                            เรายังมีบอร์ดอนิเมะที่จะอัพเดตตารางฉายอนิเมะเป็นรายเดือนพร้อมลิ้งค์ช่องทางถูกลิขสิทธิ์ <br>
+    
+                        </p>
+                    </section>
+                   
+                    <main class="container mx-auto p-6 bg-white shadow-md mt-6 mb-6 rounded-lg">
+                        <section id="collection" class="mb-6">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">การเก็บรวบรวมข้อมูลส่วนบุคคล</h2>
+                            <p class="text-gray-700 mb-2">เราอาจเก็บรวบรวมข้อมูลส่วนบุคคลของท่านเมื่อท่าน:</p>
+                            <ul class="list-disc pl-6 text-gray-700 mb-4">
+                                <li>ลงทะเบียนเพื่อสร้างบัญชีผู้ใช้งาน</li>
+                                <li>ใช้บริการหรือซื้อสินค้าของเรา</li>
+                                <li>ติดต่อเราผ่านทางช่องทางต่างๆ เช่น เว็บไซต์ อีเมล หรือโทรศัพท์</li>
+                                <li>เข้าร่วมกิจกรรมหรือโปรโมชั่นต่างๆ ที่เราจัดขึ้น</li>
+                            </ul>
+                            <p class="text-gray-700 mb-2">ข้อมูลที่เราเก็บรวบรวมอาจรวมถึง แต่ไม่จำกัดเพียง:</p>
+                            <ul class="list-disc pl-6 text-gray-700">
+                                <li>ชื่อ</li>
+                                <li>ที่อยู่</li>
+                                <li>อีเมล</li>
+                                <li>หมายเลขโทรศัพท์</li>
+                                <li>ข้อมูลการชำระเงิน</li>
+                                <li>ข้อมูลการใช้งานเว็บไซต์หรือแอปพลิเคชัน</li>
+                            </ul>
+                        </section>
                 
-                </p>
-                <br>
-                <h2 class="text-3xl text-black">นโยบายการคุ้มครองข้อมูลส่วนบุคคล (Privacy Policy)</h2>
-                <hr class="mt-4">
-                <div class="py-5">
-                    <h2 class="text-3xl">ข้อมูลส่วนตัวบนแพลตฟอร์ม</h2>
-                    <p class=" leading-8 font-light pt-5 font-Thongterm">
-                        เรามีการเก็บข้อมูลส่วนตัวบางส่วนเพื่อเอาไว้สำหรับประมาณผลระบบของเรา อย่างเช่น อีเมล ชื่อผู้ใช้ เบอร์ <br>
-                        รุปโปรไฟล์ ฯลฯ 
-                        หากคุณไม่ยิมยอมกับนโยบาลของเราคุณสามารถยอกเลิกการสมัครสมาชิกได้เลย
-                    </p>
-                    <h2 class="text-3xl">เหตุประสงค์ที่มีการเก็บข้อมูลส่วนตัว</h2>
-                    <p class="pt-5 leading-8 font-light font-Thongterm ">
-                        เรามีวัตถุประสงค์เก็บข้อมูลส่วนตัวเพื่อที่จะนำไปเพิ่มประสิทธิภาพให้กับแพลฟอร์ม <br>
-                        หากคุณยิมยอมกับแพลตฟอร์มคุณสามารถสมัครสามชิกเพื่อดำเนินต่อได้ หากคุณไม่ยิมยอมคุณสามารถปิดเว็บแพลตฟอร์มของเราได้เลย
-                    </p>
+                        <section id="usage" class="mb-6">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">การใช้ข้อมูลส่วนบุคคล</h2>
+                            <p class="text-gray-700 mb-2">เราจะใช้ข้อมูลส่วนบุคคลของท่านเพื่อวัตถุประสงค์ดังต่อไปนี้:</p>
+                            <ul class="list-disc pl-6 text-gray-700">
+                                <li>ให้บริการและปรับปรุงบริการของเรา</li>
+                                <li>ประมวลผลคำสั่งซื้อและการชำระเงิน</li>
+                                <li>ติดต่อสื่อสารกับท่านเกี่ยวกับบัญชีของท่านหรือบริการที่ท่านใช้</li>
+                                <li>ส่งข้อมูลเกี่ยวกับโปรโมชั่น กิจกรรม หรือข่าวสารที่ท่านอาจสนใจ</li>
+                                <li>ปรับปรุงประสบการณ์การใช้งานของท่านบนเว็บไซต์หรือแอปพลิเคชันของเรา</li>
+                            </ul>
+                        </section>
+                
+                        <section id="disclosure" class="mb-6">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">การเปิดเผยข้อมูลส่วนบุคคล</h2>
+                            <p class="text-gray-700 mb-2">เราจะไม่เปิดเผยข้อมูลส่วนบุคคลของท่านให้กับบุคคลภายนอก ยกเว้นในกรณีดังต่อไปนี้:</p>
+                            <ul class="list-disc pl-6 text-gray-700">
+                                <li>ได้รับความยินยอมจากท่าน</li>
+                                <li>เป็นไปตามที่กฎหมายกำหนด</li>
+                                <li>เป็นไปเพื่อปกป้องสิทธิ์และทรัพย์สินของเรา</li>
+                                <li>เป็นไปเพื่อป้องกันและตรวจสอบการกระทำที่ผิดกฎหมายหรือการละเมิดเงื่อนไขการใช้บริการ</li>
+                            </ul>
+                        </section>
+                
+                        <section id="storage" class="mb-6">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">การจัดเก็บและรักษาความปลอดภัยข้อมูล</h2>
+                            <p class="text-gray-700">เรามีมาตรการรักษาความปลอดภัยที่เหมาะสมในการป้องกันการสูญหาย การเข้าถึง การใช้งาน การแก้ไข หรือการเปิดเผยข้อมูลส่วนบุคคลโดยไม่ได้รับอนุญาต ข้อมูลส่วนบุคคลของท่านจะถูกจัดเก็บไว้ตราบเท่าที่จำเป็นตามวัตถุประสงค์ที่ระบุไว้ในนโยบายนี้</p>
+                        </section>
+                
+                        <section id="rights" class="mb-6">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">สิทธิ์ของท่าน</h2>
+                            <p class="text-gray-700 mb-2">ท่านมีสิทธิ์ในการ:</p>
+                            <ul class="list-disc pl-6 text-gray-700">
+                                <li>เข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคลของท่านที่เราเก็บรวบรวม</li>
+                                <li>แก้ไขหรือปรับปรุงข้อมูลส่วนบุคคลของท่านที่ไม่ถูกต้องหรือไม่สมบูรณ์</li>
+                                <li>ขอให้ลบข้อมูลส่วนบุคคลของท่าน</li>
+                                <li>คัดค้านหรือจำกัดการใช้ข้อมูลส่วนบุคคลของท่าน</li>
+                                <li>ขอให้เราส่งข้อมูลส่วนบุคคลของท่านไปยังบุคคลภายนอกในรูปแบบที่สามารถอ่านได้ด้วยเครื่องมืออัตโนมัติ</li>
+                            </ul>
+                            <p class="text-gray-700">หากท่านต้องการใช้สิทธิ์เหล่านี้ กรุณาติดต่อเราผ่านช่องทางที่ระบุไว้ด้านล่าง</p>
+                        </section>
+                
+                        <section id="changes" class="mb-6">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">การเปลี่ยนแปลงนโยบายการคุ้มครองข้อมูลส่วนบุคคล</h2>
+                            <p class="text-gray-700">เราขอสงวนสิทธิ์ในการเปลี่ยนแปลงนโยบายการคุ้มครองข้อมูลส่วนบุคคลนี้ตามความเหมาะสม เราจะแจ้งให้ท่านทราบถึงการเปลี่ยนแปลงผ่านทางเว็บไซต์ของเราหรือช่องทางการติดต่อที่ท่านได้ให้ไว้</p>
+                        </section>
+                
+                        <section id="contact" class="mb-6">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">ติดต่อเรา</h2>
+                            <p class="text-gray-700">หากท่านมีคำถาม ข้อสงสัย หรือต้องการใช้สิทธิ์ของท่านตามนโยบายนี้ กรุณาติดต่อเราได้ที่:</p>
+                            <p class="text-gray-700 mb-2">
+                                อีเมล: <a href="mailto:nightnattkun@gmail.com" class="text-blue-500 hover:underline">nightnattkun@gmail.com</a><br>
+                                Facebook:  <a href="https://web.facebook.com/AniNightThailand" target="_blank" class="text-blue-500 hover:underline">Facebook Thailand</a>
+                            </p>
+                        </section>
+                    </main>
                 </div>
-
-
-                <h2 class="text-4xl">การบริการ</h2>
-                <hr class="mt-5 mb-5">
-                <p class="pt-5 leading-8 text-3xl font-light font-Thongterm ">
-                    ▪ เรามีการบริการด้านเนื้อหาบทความที่ครีเอเตอร์อัพโหลด
-                </p>
-                <p class="pt-5 leading-8 text-3xl font-light font-Thongterm ">
-                    ▪ เรามีฟอรัมที่ให้บริการที่มีการให้เหล่าแฟนๆมาพูดคุณกัน (อยู่ระหว่างพัฒนา)
-                </p>
-                <p class="pt-5 leading-8 text-3xl font-light font-Thongterm ">
-                    ▪ เรามีแถบเนื้อหาประเภทวีดีโอ(อยู่ระหว่างพัฒนา)
-                </p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <%- include('./footer') %>
+        <%- include('./footer') %>
 
-    <script src="./js/pages/script_Section.js"></script>
+            <script src="./js/pages/script_Section.js"></script>
 </body>
+
 </html>

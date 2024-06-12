@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comic คอมมิค</title>
+    <meta name="description" content="comic เรื่องใหม่ก่อนใครได้ที่  AniNightพร้อมให้คุณอ่านได้อย่างง่ายที่นี่ที่เดี่ยว ! เลย">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <style>
+        /* Hide scrollbar for WebKit browsers */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for other browsers */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <%- include('../../navnar_Header') %>
+
+    <div class="container w-full mx-auto pt-24">
+        <div class="wrap-container bg-white shadow-md p-4 mb-5">
+            <h2 class="font-bold text-2xl border-sky-500 border-l-4 p-2 m-5">คอมมิคเรื่องใหม่ </h2>
+            <div class="flex items-center justify-between">
+                <!-- Left Scroll Button -->
+                <button id="scroll-left" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+    
+                <!-- Category List -->
+                <div class="flex space-x-4 overflow-x-auto scrollbar-hide">
+                    <div id="comic-container" class="flex overflow-x-auto scrollbar-hide">
+                        <% if(comics.length > 0) { %>
+                            <% comics.forEach(comic => { %>
+                        <div class="flex-none w-48 sm:w-60 md:w-72 lg:w-80 p-4 flex flex-col">
+                            <a href="/comic/info/<%= comic._id %>">
+                                <div class="relative">
+                                    <img class="hover:grow rounded-lg hover:shadow-lg" src="/posters/<%= comic.poster %>" alt="comic">
+                                    <p class="absolute bg-sky-500 p-2 text-white top-0 right-0" style="border-radius: 0 0 0 7px;">มาใหม่</p>
+                                </div>
+                                <div class="pt-3 flex items-center justify-between">
+                                    <p class="text-lg font-bold"><%= comic.titlecomic %></p>
+                                </div>
+                            </a>
+                        </div>
+                        <% }) %>
+                        <% } else { %>
+                            <p class="text-center">ยังไม่มีคอมมิคในขณะนี้</p>
+                        <% } %>
+                        <!-- Repeat comic cards as needed -->
+                    </div>
+                </div>
+    
+                <!-- Right Scroll Button -->
+                <button id="scroll-right" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../../footer') %>
+
+
+
+    <script>
+        document.getElementById('scroll-left').addEventListener('click', function() {
+            document.getElementById('comic-container').scrollBy({
+                left: -200,
+                behavior: 'smooth'
+            });
+        });
+
+        document.getElementById('scroll-right').addEventListener('click', function() {
+            document.getElementById('comic-container').scrollBy({
+                left: 200,
+                behavior: 'smooth'
+            });
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= comic.titlecomic %> | AniNight
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-100">
+    <%- include('../../navnar_Header') %>
+        <div class="w-full mx-auto pt-20">
+            <div class="mx-auto px-4 xl:max-w-7xl">
+                <div class="flex flex-col justify-between mb-20 md:flex-row">
+                    <div class="poster w-full">
+                        <img class="w-full rounded-lg" src="/posters/<%= comic.poster %>" alt="Comic Poster">
+                    </div>
+
+                    <div class="ep w-full md:pl-3">
+                        <div class="p-4 bg-white rounded-lg mt-4 mb-4">
+                            <!-- ชื่อหนังสือการ์ตูน -->
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                                <%= comic.titlecomic %>
+                            </h2>
+
+                            <p class="">หมวดหมู่: <%= comic.categories.join(', ') %></p>
+        
+                            <!-- เรื่องย่อ -->
+                            <p class="text-gray-600">เรื่องย่อ: <%- comic.Synopsis %></p>
+                        </div>
+                        <div class="mt-8">
+                            <% if (Array.isArray(chapters)) { %>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <% chapters.forEach((item, index)=> { %>
+                                    <a class="bg-white items-center flex justify-center rounded-lg p-2 hover:bg-gray-100"
+                                     href="/comic/content/<%= comic._id %>/<%= item.ep %>">
+                                        บทที่ <%= item.ep %>
+                                    </a>
+                                    <% }) %>
+                                </div>
+                                        <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../../footer') %>
+</body>
+
+</html>

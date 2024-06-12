@@ -34,18 +34,29 @@
     <li class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'editvideos' ? 'bg-black text-white' : '' %>">
       <a href="/admin/editvideos">แก้ไขวีดีโอ</a>
     </li>
-    <li class="p-4 hover:bg-gray-200 cursor-pointer">
-      <a href="">ทีมทั้งหมด</a>
+    <li class="p-4 block hover:bg-gray-200 cursor-pointer <%= active === 'Comic' ? 'bg-black text-white' : '' %>"">
+      <a href="/admin/create/comic">สร้างคอมมิค</a>
     </li>
-    <li class="p-4 hover:bg-gray-200 cursor-pointer">
-      <a href="#">ข้อความติดต่อ</a>
+    <li class="p-4 hover:bg-gray-200 cursor-pointer  <%= active === 'ComicAll' ? 'bg-black text-white' : '' %>">
+      <a href="/admin/ComicList/All">คอมมิคทั้งหมด</a>
     </li>
     <li
-      class="p-4 hover:bg-gray-200 cursor-pointer <%= active === 'home-admin-withdrawal' ? 'bg-black text-white' : '' %>">
+      class="p-4 block hover:bg-gray-200 cursor-pointer <%= active === 'home-admin-withdrawal' ? 'bg-black text-white' : '' %>">
       <a href="/admin/withdrawal/usersAll">จ่ายเงินให้ผู้ใช้</a>
     </li>
     <% if (usersesstion.approval_admin) { %>
+      <li class="block p-4 hover:bg-gray-200 cursor-pointer">
+        <a href="/admin/logout">
+          <span class="links_name">ออกจากระบบ</span>
+        </a>
+      </li>
       <% } else { %>
+        <li class="log_in">
+          <a href="#" class="<%= active === 'login-admin' ? 'active' : '' %>">
+            <i class='bx bx-log-in'></i>
+            <span class="links_name">เข้าสู่ระบบ</span>
+          </a>
+        </li>
         <% } %>
   </ul>
 </div>
@@ -76,65 +87,3 @@
     document.body.classList.toggle('sidebar-collapsed');
   });
 </script>
-
-<!-- 
-<div class="sidebar">
-    <div class="logo-details">
-      <i class='bx bxl-c-plus-plus'></i>
-      <span class="logo_name">Admin</span>
-    </div>
-      <ul class="nav-links">
-        <li>
-          <a href="" class=">">
-            <i class='bx bx-edit' ></i>
-            <span class="links_name"></span>
-          </a>
-        </li>
-        <li>
-          <a href="" class="">
-            <i class='bx bx-cloud-upload' ></i>
-            <span class="links_name">สร้างวีดีโอตัวอย่าง</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="" class="">
-            <i class='bx bx-coin-stack' ></i>
-            <span class="links_name">เพิ่มผู้ดูแล</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-user' ></i>
-            <span class="links_name">ทีมทั้งหมด</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-message' ></i>
-            <span class="links_name">ข้อมความติดต่อ</span>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <i class='bx bx-coin' ></i>
-            <span class="links_name">จ่ายเงินผู้ใช้</span>
-          </a>
-        </li>
-      
-            <li class="log_out">
-                <a href="/admin/logout">
-                  <i class='bx bx-log-out'></i>
-                  <span class="links_name">ออกจากระบบ</span>
-                </a>
-              </li>
-           
-        <li class="log_in">
-            <a href="#" class="<%= active === 'login-admin' ? 'active' : '' %>">
-              <i class='bx bx-log-in'></i>
-              <span class="links_name">เข้าสู่ระบบ</span>
-            </a>
-          </li>
-         
-      </ul>
-  </div> -->

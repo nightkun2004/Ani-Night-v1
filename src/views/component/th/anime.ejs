@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อนิเมะ </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <style>
+        /* Hide scrollbar for WebKit browsers */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for other browsers */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <%- include('../../navnar_Header') %>
+        <div class="mx-auto px-4 xl:max-w-7xl pt-24">
+            <div class="wrap-container bg-white shadow-md p-4 mb-5">
+                <h2 class="font-bold text-2xl border-sky-500 border-l-4 p-2 m-5">อนิเมะมาใหม่</h2>
+                <div class="flex items-center justify-between">
+                    <!-- Left Scroll Button -->
+                    <button id="scroll-left" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+
+                    <!-- Category List -->
+                    <div class="flex space-x-4 overflow-x-auto scrollbar-hide">
+                        <div id="comic-container" class="flex overflow-x-auto scrollbar-hide">
+                            <div class="flex-none w-48 sm:w-60 md:w-72 lg:w-80 p-4 flex flex-col">
+                                <a href="#">
+                                    <img class="hover:grow rounded-lg hover:shadow-lg"
+                                        src="https://via.placeholder.com/390x250" alt="comic">
+                                    <div class="pt-3 flex items-center justify-between">
+                                        <p class="text-lg font-bold"> Title</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="flex-none w-48 sm:w-60 md:w-72 lg:w-80 p-4 flex flex-col">
+                                <a href="#">
+                                    <img class="hover:grow rounded-lg hover:shadow-lg"
+                                        src="https://via.placeholder.com/390x250" alt="comic">
+                                    <div class="pt-3 flex items-center justify-between">
+                                        <p class="text-lg font-bold"> Title</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Repeat comic cards as needed -->
+                        </div>
+                    </div>
+
+                    <!-- Right Scroll Button -->
+                    <button id="scroll-right" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <%- include('../../footer') %>
+
+        <script>
+            document.getElementById('scroll-left').addEventListener('click', function() {
+                document.getElementById('comic-container').scrollBy({
+                    left: -200,
+                    behavior: 'smooth'
+                });
+            });
+    
+            document.getElementById('scroll-right').addEventListener('click', function() {
+                document.getElementById('comic-container').scrollBy({
+                    left: 200,
+                    behavior: 'smooth'
+                });
+            });
+            </script>
+</body>
+
+</html>
