@@ -4,6 +4,8 @@ const mongoose = require("../config")
 const Acticle = require("../models/acticle")
 const User = require('../models/user')
 const comments = require('../models/comment')
+const authenticatetoken = require("../middleware/authtoken")
+const io = require("../socket")
 
 function setLanguage(req, res, next) {
     const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
@@ -50,7 +52,7 @@ router.get('/read/:url', async (req, res) => {
             { url: url },
             { $inc: { views: 1 } },
             { new: true, upsert: false }
-        ).populate('author.id author comments').exec();
+        ).populate('author.id author username.id username replies').exec();
         const articleforyou = await Acticle.find().sort({ views: -1 }).limit(6).populate('author.id author'); 
         if (!acticle) return res.render("404", { usersesstion}); 
 
@@ -105,6 +107,35 @@ router.post('/follow/:userId', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
+    }
+});
+
+router.post('/replie/read/:id', authenticatetoken, async (req, res) => {
+    const usersesstion = req.session.userlogin;
+    const articleid = req.params.id;
+    const { inputcomment } = req.body;
+
+    if (!articleid) {
+        return res.status(400).json({ message: "ID Article Not Found" });
+    }
+    try {
+        const newReply = {
+            username: {
+                id: usersesstion._id,
+                username: usersesstion.username,
+                profile: usersesstion.profile
+            },
+            inputcomment: inputcomment,
+            createdAt: new Date()
+        };
+
+        const saveconsole = await Acticle.findByIdAndUpdate(articleid, { $push: { replies: newReply } });
+        console.log(saveconsole)
+        io.emit('newComment', newReply);
+        res.status(201).json({ message: 'แสดงความคิดเห็นแล้ว' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'ข้อผิดพลาดของเซิร์ฟเวอร์' });
     }
 });
 

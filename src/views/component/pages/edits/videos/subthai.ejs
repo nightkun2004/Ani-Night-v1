@@ -18,9 +18,8 @@
 
 <body>
     <%- include('../../../../navnar_Header') %>
-    <%- include('../../../../sidebar_Section') %>
-    <section class="content">
-        <div class="container_EditVideo mx-auto px-4 xl:max-w-7xl pt-[110px">
+    <section class="">
+        <div class="container_EditVideo mx-auto px-4 xl:max-w-7xl pt-[110px]">
             <div class="sidebar_left">
                 <ul>
                     <li>
@@ -56,7 +55,7 @@
             </div>
 
             <div class="content_edit">
-                <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">เพิ่มซับไทย</h2>
+                <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">เพิ่มซับไทย</h2>
                 <div class="con_form">
                     <form action="/add/subthai" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="sub_id" value="<%= video._id %>">

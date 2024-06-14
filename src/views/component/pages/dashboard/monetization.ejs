@@ -70,9 +70,6 @@
     <!-- Main Content -->
     <main class="py-10 pt-20">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400">
-                <span class="font-medium text-3xl">โปรดทราบเนื่องจากระบบนี้อยู่ระว่างพัฒนาโปรแกรมคำนวณรายได้เลยไม่สามารถใช้งานได้บ้างฟิวเจอร์</span>
-            </div>
             <!-- Cards Section -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Earnings Card -->
@@ -124,7 +121,23 @@
                         </div>
                         <div class="ml-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900">ยอดคะแนนทั้งหมด</h3>
-                            <p class="mt-2 text-2xl text-gray-600"><%= user.points %> คะแนน</p>
+                            <% function formatNumber(number) { if (number>=
+                                1000000)
+                                {
+                                return (number / 1000000).toFixed(1) + 'M';
+                                } else if (number >= 1000) {
+                                return (number / 1000).toFixed(1) + 'k';
+                                } else {
+                                return number;
+                                }
+                                }
+        
+                                var number1 = 100;
+                                var number2 = 500;
+                                var number3 = 1500;
+                                var number4 = 1200000;
+                                %>
+                            <p class="mt-2 text-2xl text-gray-600"><%= formatNumber(user.points) %> คะแนน</p>
                             <button class="bg-cyan-500 p-2 text-white rounded-lg">
                                 <a href="/studio/<%= usersesstion._id %>/monetization/withdraw">ถอนรายได้จากการอ่าน</a>
                             </button>
@@ -134,35 +147,15 @@
                 </div>
             </div>
 
-            <!-- <div class="pro_con">
-                <h2>รายได้ของคุณ</h2>
-                <div class="tube-container">
-                    <div class="tube">
-                        <div class="progress" id="progress"></div>
-                    </div>
-                    <div class="amount">0 บาท</div>
-                </div>
-                <p style="text-align: center;"
-                    class="p-4 border-2 center border-gray-200 rounded-lg dark:border-gray-700 mt-14">
-                    ระบบจะตัดการชำระเงินทุกวันที่ 29 ของทุกเดือนเมื่อยอดของคุณถึง 100 บาท
-                    <br><span>ตามช่องทางการชำระเงินที่คุณบันทึกไว้</span>
-                </p>
-                <p style="text-align: center;"
-                    class="p-4 border-2 center border-gray-200 rounded-lg dark:border-gray-700 mt-14">
-                    ระบบจะหัก 5% ค่าแพลตฟอร์ม เมื่อคุณถึง 100 บาทแล้ว <span> ให้นำ 100 - 5 =
-                        จำนวนเงินที่คุณได้</span>
-                </p>
-            </div> -->
-
             <% if (!user.truemoney) { %>
                 <div class="mt-5 p-2 rounded-lg bg-gray-200">
                     <p>โปรคลิกที่นี่เพื่อกรอกรายละเอียดการชำระเงินให้เรียบร้อย <span class="border-b-2 border-red-500" id="btn-phone">คลิกที่นี่</span></p>
                 </div>
            <% } %>
 
-           <div class="mt-5 p-2 rounded-lg bg-gray-200">
+           <div class="mt-5 p-2 rounded-lg bg-white">
             <div class="save-payment">
-                <h2 class="mt-2 text-3xl font-bold tracking-tight text-gray-950 dark:text-white">
+                <h2 class="mt-2 text-2xl font-bold tracking-tight text-gray-950 dark:text-white">
                     ช่องทางการชำระเงินที่บันทึก</h2>
                 <div class="flex">
                     <div class="photo-payment">
@@ -175,10 +168,33 @@
                             <p>+66 <%= user.truemoney %></p>
                         </div>
                     <% } else { %>
-                        <p>คุณยังไม่มีการชำระเงินที่บันทึก</p>
+                        <p class="text-center">คุณยังไม่มีการชำระเงินที่บันทึก</p>
                     <% } %>
                     
                 </div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap mt-5 gap-3">
+            <div class="bg-white rounded shadow-lg md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a href="/withdrawal-history" class="block inline-block">
+                    ประวัติการถอนเงิน
+                </a>
+            </div>
+            <div class="bg-white rounded shadow-lg md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>" class="block inline-block">
+                    จัดการบทความ
+                </a>
+            </div>
+            <div class="bg-white rounded shadow-lg md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>" class="block inline-block">
+                    จัดการวีดีโอ
+                </a>
+            </div>
+            <div class="bg-white rounded shadow-lg md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+                <a href="/studio/<%= usersesstion._id %>/monetization/withdraw" class="block inline-block">
+                    ถอนเงิน
+                </a>
             </div>
           </div>
 

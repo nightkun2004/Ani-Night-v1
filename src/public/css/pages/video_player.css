@@ -24,7 +24,7 @@ video::cue {
 .caption_text {
     position: absolute;
     left: 50%;
-    bottom: 11%;
+    bottom: 10%;
     width: 90%;
     max-width: 90%;
     transform: translate(-50%, -50%);
@@ -38,13 +38,13 @@ video::cue {
 }
 
 .caption_text mark {
-    background-color: #0000008f !important;
+    background-color: #5b5b5b8f !important;
     color: #fff;
-    border-radius: 5px;
     padding: 6px;
-    font-size: 155%;
+    font-size: 18px;
     text-shadow: 2px 2px 4px black;
 }
+
 
 .material-icons {
     user-select: none;
@@ -142,6 +142,33 @@ video::cue {
     width: 100%;
     height: 100%;
     outline: none;
+    pointer-events: none;
+    object-fit: contain;
+}
+
+.comments-container {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 200px;
+}
+
+.comment {
+    position: absolute;
+    white-space: nowrap;
+    color: white;
+    font-size: 28px;
+    animation: slideLeft 5s linear;
+}
+
+@keyframes slideLeft {
+    from {
+        right: -100%;
+    }
+    to {
+        right: 100%;
+    }
 }
 
 .video_player .progressAreaTime  {

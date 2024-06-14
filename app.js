@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const socketIo = require('socket.io');
 const path = require("path")
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -30,7 +31,8 @@ const vidoechannelRoute = require("./routes/pages/channel/video")
 const uploadRoute = require('./routes/pages/uploads/uplaods')
 const updateReward = require('./routes/admin/updateReward')
 const admin = require('./routes/admin')
-const routersRoute = require('./routes/pages/router')
+const routersRoute = require('./routes/pages/router');
+const Acticle = require("./models/acticle");
 // const categoriesRouter = require('./routes/pages/categories')
 
 const corsOptions = {
@@ -109,10 +111,18 @@ app.use((req, res, next) => {
   res.status(404).render('404', {usersesstion});
 });
 
-// app.get('/',(req,res)=>{
-//   res.send
-// })
-
-app.listen(3000, () => {
+const server = app.listen(3000, () => {
   console.log(`server is Runing to http://localhost:3000`)
+})
+
+const io = socketIo(server)
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
+
+io.on("connection", (socket) => {
+  console.log("A user connected")
+  
 })

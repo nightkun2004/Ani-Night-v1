@@ -3,14 +3,23 @@ const router = express.Router()
 const mongoose = require("../config")
 const Video = require('../models/video')
 const User = require('../models/user')
+const Episodes = require("../models/Episodes")
 
-router.get('/play/:videoid', async (req, res) => {
+router.get('/play/:videoid/:id', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const videoid = req.params.videoid;
+        const videoIDparams = req.params.id;
 
-        const video = await Video.findOne({ videoid: videoid }).populate('commentvideo user author.id author username.id username replies').exec();
+        const video = await Video.findOne({ videoid: videoid })
+            .populate('commentvideo Episodes user author.id author username.id username replies')
+            .exec();
 
+        if (!video) {
+            return res.render('404');
+        }
+                                            
+        const episodes = await Episodes.find({ video: videoIDparams });
         if (!video) {
             return res.render('404');
         }
@@ -38,6 +47,7 @@ router.get('/play/:videoid', async (req, res) => {
             active: 'home',
             usersesstion,
             video,
+            episodes,
             rating: req.query.rating,
         });
     } catch (err) {
@@ -46,7 +56,7 @@ router.get('/play/:videoid', async (req, res) => {
     }
 });
 
-router.post('/video/like', async (req, res) => {
+router.post('/video/like', async (req, res) => { 
     const { videoId, commentId } = req.body;
 
     try {

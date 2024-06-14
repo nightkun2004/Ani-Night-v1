@@ -35,13 +35,10 @@
 
 .info {
     width: 50%;
+    overflow: auto;
 }
-
-#ad-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+.info::-webkit-scrollbar{
+    display: none;
 }
 
 .more-btn,
@@ -429,7 +426,7 @@
     display: block;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 880px) {
     .player_anime-container {
         flex-direction: column;
     }
@@ -440,6 +437,9 @@
 
     .pc {
         display: none;
+    }
+    .info {
+        width: 100%;
     }
 }
 

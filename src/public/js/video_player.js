@@ -116,7 +116,7 @@ video_players.forEach(video_player => {
       <span>เลือกซับ</span>
       <ul>
         
-      </ul>
+      </ul> 
     </div>
   </div>
   <div class="audios">
@@ -165,7 +165,6 @@ video_players.forEach(video_player => {
         tracks = video_player.querySelectorAll("track"),
         tracksad = video_player.querySelectorAll("trackad"),
         loader = video_player.querySelector(".loader"),
-        ads_container = video_player.querySelector(".ads_container"),
         icon_Close = video_player.querySelector(".icon-close"),
         volumeCard = video_player.querySelector('.maincolunCard');
 
@@ -300,7 +299,6 @@ video_players.forEach(video_player => {
             play_pause.innerHTML = "pause";
             play_pause.title = "pause";
             video_player.classList.add("paused");
-            ads_container.style.display = 'none';
             mainVideo.play();
         }
 
@@ -309,7 +307,6 @@ video_players.forEach(video_player => {
             play_pause.innerHTML = "play_arrow";
             play_pause.title = "play";
             video_player.classList.remove("paused");
-            ads_container.style.display = 'block';
             mainVideo.pause();
         }
 
@@ -323,12 +320,6 @@ video_players.forEach(video_player => {
                 }
             }
         });
-
-
-
-        icon_Close.addEventListener('click', () => {
-            ads_container.style.display = 'none'
-        })
 
         let isDragging = false;
 
@@ -721,26 +712,6 @@ video_players.forEach(video_player => {
             }
         });
 
-        // Open audios
-        // audioBtn.addEventListener("click", () => {
-        //     audios.classList.toggle("active");
-        //     audioBtn.classList.toggle("active");
-        //     if (
-        //         settingsBtn.classList.contains("active") ||
-        //         settings.classList.contains("active")
-        //     ) {
-        //         settings.classList.remove("active");
-        //         settingsBtn.classList.remove("active");
-        //     } else if (
-        //         captionsBtn.classList.contains("active") ||
-        //         captions.classList.contains("active")
-        //     ) {
-        //         captions.classList.remove("active");
-        //         captionsBtn.classList.remove("active");
-        //     }
-        // });
-
-
         // Playback Rate
 
         playback.forEach((event) => {
@@ -875,27 +846,9 @@ video_players.forEach(video_player => {
             xhr.send();
         }
 
-        //  blob url track
-        // let mainSubtitleSources = mainVideo.querySelectorAll("track");
-        // for (let i = 0; i < mainSubtitleSources.length; i++) {
-        //     let videoUrl = mainSubtitleSources[i].src;
-        //     blobUrl(mainSubtitleSources[i], videoUrl);
-        // }
-        // function blobUrl(video, videoUrl) {
-        //     let xhr = new XMLHttpRequest();
-        //     xhr.open("GET", videoUrl);
-        //     xhr.responseType = "arraybuffer";
-        //     xhr.onload = (e) => {
-        //         let blob = new Blob([xhr.response]);
-        //         let url = URL.createObjectURL(blob);
-        //         video.src = url;
-        //     };
-        //     xhr.send();
-        // }
-
-        mainVideo.addEventListener("contextmenu", (e) => {
-            e.preventDefault();
-        });
+        // mainVideo.addEventListener("contextmenu", (e) => {
+        //     e.preventDefault();
+        // });
 
         // Mouse move controls
         let timer;

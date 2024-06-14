@@ -45,22 +45,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
             descriptionSpan.innerHTML = descriptionWithLinks;
         });
     });
-    
-    // Open Menus Play
-    const sidebarOpen = document.getElementById("sidebarOpen");
-    const menus_play = document.getElementById("menus_play");
-    let Openmasspopup = false;
-    
-    sidebarOpen.addEventListener('click', () => {
-        if (!Openmasspopup) {
-            menus_play.style.display = 'block';
-            Openmasspopup = true;
-        } else {
-            menus_play.style.display = 'none';
-            Openmasspopup = false;
-        }
-    })
-    
     // ========================================================================================= //
     const ratingInputs = document.querySelectorAll('.rating input');
     const ratingNumber = document.querySelector('.rating-number');

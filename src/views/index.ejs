@@ -208,7 +208,7 @@
                 <% if (videos.length> 0) { %>
                     <% videos.forEach(video=> { %>
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <a href="/play/<%= video.videoid %>">
+                    <a href="/play/<%= video.videoid %>/<%= video._id %>">
                         <img class="w-full h-48 object-cover" src="/cover_videos/<%= video.coverImage %>" alt="Video Image">
                         <div class="p-6">
                             <h2 class="text-2xl font-bold mb-2 text-gray-800">  <%= video.name %></h2>

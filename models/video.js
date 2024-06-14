@@ -52,7 +52,7 @@ const videoSchema = new mongoose.Schema({
     subtitles: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Subtitle', // ระบุ ref เป็น 'Subtitle'
+            ref: 'Subtitle',
         }
     ],
     watched: {
@@ -88,21 +88,6 @@ const videoSchema = new mongoose.Schema({
     subthai: {
         type: String,
     },
-    web: {
-        type: String
-    },
-    bilibili: {
-        type: String
-    },
-    Iqiyi: {
-        type:String
-    },
-    youtube: {
-        type:String
-    },
-    netflix: {
-        type:String
-    },
     replies:
     [
 
@@ -125,7 +110,21 @@ const videoSchema = new mongoose.Schema({
             report: String,
             createdAt: { type: Date, default: Date.now }
         }
-    ]
+    ],
+    Episodes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Episodes'
+    }],
+    publicationStartTime: {
+        type: Date,
+        default: Date.now
+    },
+    expirationDate: Date,
+    isPublished: {
+        type: Boolean,
+        default: false
+    }
+
 });
 
 const Video = mongoose.model('Video', videoSchema);

@@ -19,7 +19,7 @@ exports.withdrawalId = async (req, res) => {
         await withdrawal.save();
         console.log(withdrawal)
 
-        res.redirect('/addmin/withdrawal/usersall');
+        res.redirect('/admin/withdrawal/usersAll');
     } catch (err) {
         console.error(err);
         res.status(500).send('เกิดข้อผิดพลาดในการอัพเดตสถานะการจ่ายเงิน');

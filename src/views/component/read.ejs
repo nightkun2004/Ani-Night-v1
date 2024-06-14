@@ -9,7 +9,6 @@
     </title>
     <link rel="stylesheet" href="../css/pages/read.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/pages/home_Section.css">
     <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
     <meta name="keyword" content="<%= acticle.title %>">
     <meta name="keyword" content="<%= acticle.categories %>">
@@ -100,15 +99,6 @@
                                             <% } else { %>
                                                 <h2>Tags: ไม่มีแท็ก</h2>
                                                 <% } %>
-
-                                                    <% if (acticle.link_info) { %>
-                                                        <div
-                                                            class="rounded-full items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
-                                                            <button class="text-black"><a
-                                                                    href="<%= acticle.link_info %>" target="_blank"
-                                                                    rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
-                                                        </div>
-                                                        <% } %>
                                                             <p class="viewsp">
                                                                 <% function formatNumber(number) { if (number>=
                                                                     1000000)
@@ -174,6 +164,14 @@
                                 <p class="mb-4"><%- acticle.content %></p>
                             </div>
                         </div>
+                        <% if (acticle.link_info) { %>
+                            <div
+                                class="rounded-full mt-5 items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
+                                <button class="text-black"><a
+                                        href="<%= acticle.link_info %>" target="_blank"
+                                        rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
+                            </div>
+                            <% } %>
 
                         <script async
                             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
@@ -185,26 +183,67 @@
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
 
-                        <!-- <section class="mt-8">
-                        <h3 class="text-2xl font-semibold mb-4">ความคิดเห็น</h3>
-                        <div class="space-y-4">
-                            <form class="bg-white rounded-lg shadow-lg p-4">
-                                <div class="mb-4">
-                                    <label for="comment" class="block text-gray-700 mb-2">แสดงความคิดเห็น</label>
-                                    <textarea id="comment" rows="4" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="เขียนความคิดเห็นของคุณที่นี่"></textarea>
+                        <section class="mt-8">
+                            <div class="space-y-4">
+                                <div class="bg-white rounded-lg shadow-lg p-3">
+                                    <!-- Box Input Comment -->
+                                    <div class="comment mb-5">
+                                        <% if (usersesstion) {%>
+                                            <form id="commentForm" class="w-full">
+                                                <div class="flex items-center">
+                                                    <img class="w-10 h-10 rounded-full" src="http://localhost:3000/profiles/1718010908357-371355329.jpg" alt="Coment user">
+                                                    <div class="flex flex-col pl-4 w-full">
+                                                        <input type="text" name="UserName" id="UserName" value="@<%= usersesstion.username %>" readonly class="outline-none border-none">
+                                                        <div class="comtemt-text flex flex-row">
+                                                            <input class="bg-gray-100 w-full px-4 outline-none border-none" type="text" placeholder="แสดงความคิดเห็น" name="inputcomment" id="inputcomment">
+                                                            <button class="bg-blue-500 text-white rounded px-4" type="submit">ส่ง</button>
+                                                        </div>
+                                                        <p>หากแสดงความคิดไม่ขึ้นให้ รีเฟรชหน้าเว็บ </p>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        <% } else {%>
+                                        <h3 class="text-center">เข้าสู่ระบบเพื่อแสดงความคิดเห็น</h3>
+                                        <% } %>
+
+                                    </div>
+                                    <% if (acticle && acticle.replies) { %>
+                                        <% const totalReplies = acticle.replies.length; %>
+                                        <h3 class="font-bold text-1xl">ความคิดเห็นทั้งหมด <%= totalReplies %></h3>
+                                    <% } %>
+                                    <div id="outputcomment">
+                                        <% acticle.replies.slice().reverse().forEach(comment => { %>
+                                            <div class="p-4">
+                                                <div class="flex items-center">
+                                                    <img class="w-10 h-10 rounded-full" src="/profiles/<%= comment.username.profile %>"
+                                                        alt="Coment user">
+                                                    <div class="flex flex-col pl-4">
+                                                        <h3>@<%= comment.username.username %></h3>
+                                                        <div class="comtemt-text">
+                                                            <%= comment.inputcomment %>
+                                                        </div>
+                                                        <div class="flex gap-2">
+                                                            <div class="comment__operate__item">
+                                                                <form>
+                                                                    <i class="fa-regular fa-thumbs-up"></i> 
+                                                                    <span class="text-1xl likes-count">0</span>
+                                                                </form>                                            
+                                                            </div>
+                                                            <div class="comment__operate__item report">
+                                                                <i class="fa-regular fa-flag"></i>
+                                                                <span data-v-a42dab90="">รายงาน</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-600 text-sm">โพสต์เมื่อ: <%=  moment(comment.createdAt ).locale('th').fromNow() %></p>
+                                            </div>
+                                            <% }); %>  
+                                    </div>
                                 </div>
-                                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">ส่งความคิดเห็น</button>
-                            </form>
-                            <div class="bg-white rounded-lg shadow-lg p-4">
-                                <p class="text-gray-700 mb-2"><strong>ผู้ใช้ C:</strong> ความคิดเห็นของผู้ใช้ C เกี่ยวกับหัวข้อนี้</p>
-                                <p class="text-gray-600 text-sm">โพสต์เมื่อ: 2 ชั่วโมงที่แล้ว</p>
+                               
                             </div>
-                            <div class="bg-white rounded-lg shadow-lg p-4">
-                                <p class="text-gray-700 mb-2"><strong>ผู้ใช้ D:</strong> ความคิดเห็นของผู้ใช้ D เกี่ยวกับหัวข้อนี้</p>
-                                <p class="text-gray-600 text-sm">โพสต์เมื่อ: 1 วันที่แล้ว</p>
-                            </div>
-                        </div>
-                    </section> -->
+                    </section>
                     </div>
                 </div>
 
@@ -232,15 +271,21 @@
         </div>
         </div>
 
+        <script>
+            function connecten() {
+                let socket = io.connecten("http://localhost:3000/read/<%= acticle.url %>?lang=<%= language %>")
+            }
+            connecten();
+        </script>
+
         <%- include('../footer') %>
 
-
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
             <script src="/js/pages/loading_datas.js"></script>
             <!-- <script src="/js/pages/read.js" defer></script> -->
 
             <% if (usersesstion) {%>
                 <script>
-                    // เริ่มการนับถอยหลังเมื่อโหลดหน้าเว็บ
                     let countdown = 60;
                      let intervalId;
 
@@ -253,7 +298,7 @@
                                     clearInterval(intervalId);
                                     const randomScore = [20, 50, 70, 100, 799, 909, 1000][Math.floor(Math.random() * 7)];
                                     saveScoreToDatabase(randomScore);
-                                    showPopup(randomScore);
+                                    showPopupScore(randomScore);
                                     startCountdown();
                                 }
                             }, 1000);
@@ -263,19 +308,17 @@
                             clearInterval(intervalId);
                         };
 
-                    function showPopup(score) {
+                    function showPopupScore(score) {
                         const popuppoint = document.getElementById('popuppoint');
                         popuppoint.innerText = `คุณได้รับ ${score} คะแนน!`;
                         popuppoint.style.display = 'block';
                         setTimeout(() => {
                             popuppoint.style.display = 'none';
-                        }, 6000); // ซ่อน Popup หลังจากแสดงเป็นเวลา 2 วินาที
+                        }, 6000); 
                     }
-                    // ฟังก์ชันสำหรับแสดงการนับถอยหลังบน UI
                     function updateCountdownUI(countdown) {
                         document.getElementById('countdown-timer').innerText = countdown;
                     }
-                    // ฟังก์ชันสำหรับบันทึกคะแนนลงในฐานข้อมูล
                     function saveScoreToDatabase(score) {
                         fetch('/api/score', {
                             method: 'POST',
@@ -292,6 +335,89 @@
                     startCountdown();
                 </script>
             <% } %>
+
+
+            <% if (usersesstion) {%>
+                <script>
+                      const socket = io();
+                    document.getElementById('commentForm').addEventListener('submit', async function (event) {
+                        event.preventDefault();
+
+                        const inputcomment = document.getElementById('inputcomment').value;
+                        const articleId = '<%= acticle._id %>';
+
+                        const response = await fetch(`/replie/read/${articleId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer <%= usersesstion.accessToken %>`
+                            },
+                            body: JSON.stringify({ inputcomment })
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            showPopup(result.message);
+                            document.getElementById('inputcomment').value = '';
+                        } else {
+                            showPopup(result.message);
+                        }
+                    });
+
+                        socket.on('newComment', (comment) => {
+                            outputComent(comment);
+                        });
+
+                    function outputComent(comment) {
+                        const outputcomment = document.getElementById('outputcomment');
+                        const commentHtml = `
+                                <div class="p-4 bg-white rounded shadow mb-4">
+                                    <div class="flex items-center">
+                                        <img class="w-10 h-10 rounded-full" src="${comment.username.profile}" alt="Coment user">
+                                        <div class="flex flex-col pl-4">
+                                            <h3 class="font-semibold">@${comment.username.username}</h3>
+                                            <div class="comtemt-text">
+                                                ${comment.content}
+                                            </div>
+                                            <div class="flex gap-2 mt-2">
+                                                <div class="comment__operate__item">
+                                                    <i class="fa-regular fa-thumbs-up"></i> 
+                                                    <span class="text-1xl likes-count">0</span>                                           
+                                                </div>
+                                                <div class="comment__operate__item report">
+                                                    <i class="fa-regular fa-flag"></i>
+                                                    <span data-v-a42dab90="">รายงาน</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 text-sm mt-2">โพสต์เมื่อ: เพิ่งโพสต์</p>
+                                </div>
+                            `;
+                        outputcomment.insertAdjacentHTML('afterbegin', commentHtml);
+                    }
+
+                    function showPopup(message) {
+                        const popup = document.createElement('div');
+                        popup.className = 'fixed flex items-center justify-center bottom-20 left-1/2 transform -translate-x-1/2 bg-white text-black px-4 py-2 rounded shadow-lg';
+                        popup.textContent = message;
+
+                        document.body.appendChild(popup);
+
+                        setTimeout(() => {
+                            popup.classList.add('opacity-0');
+                        }, 2000);
+
+                        setTimeout(() => {
+                            document.body.removeChild(popup);
+                        }, 2500);
+                    }
+                </script>
+                    
+                    
+            <% } %>
+
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     var copyButton = document.getElementById('copylink');
@@ -314,15 +440,6 @@
 
 
             </script>
-            <!-- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var descriptionSpan = document.querySelector('.content-full');
-            var description = descriptionSpan.textContent.trim();
-
-            var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" style="color: blue;">$1</a>');
-            descriptionSpan.innerHTML = descriptionWithLinks;
-        });
-    </script> -->
 </body>
 
 </html>

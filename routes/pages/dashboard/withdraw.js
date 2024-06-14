@@ -68,6 +68,10 @@ router.post('/withdraw/payment', async (req, res) => {
                 pointsToDeduct = 10000;
                 withdrawMessage = "ถอนเงินจำนวน 1.10 บาท";
                 break;
+            case '4':
+                pointsToDeduct = 50000;
+                withdrawMessage = "ถอนเงินจำนวน 5.00 บาท";
+                break;
             default:
                 return res.status(400).json({ message: "Invalid withdraw method" });
         }
@@ -98,7 +102,7 @@ router.post('/withdraw/payment', async (req, res) => {
         // เชื่อมโยงประวัติการถอนเงินกับผู้ใช้
         if (!user.withdrawalHistory) {
             user.withdrawalHistory = [];
-        }
+        } 
         user.withdrawalHistory.push(withdrawal._id);
 
         // บันทึกการเปลี่ยนแปลงลงในฐานข้อมูล
@@ -145,12 +149,16 @@ router.post('/api/withdraw/payment/:id', async (req, res) => {
                 pointsToDeduct = 10000;
                 withdrawMessage = "ถอนเงินจำนวน 1.10 บาท";
                 break;
+            case '4':
+                pointsToDeduct = 50000;
+                withdrawMessage = "ถอนเงินจำนวน 5.00 บาท";
+                break;
             default:
                 return res.status(400).json({ message: "Invalid withdraw method" });
         }
         if (user.points < pointsToDeduct) {
             // ส่งคำตอบกลับไปยังผู้ใช้
-            return res.json({mass: "คุณมีคะแนนไม่เพียงพอ"})
+            return res.json({ mass: "คุณมีคะแนนไม่เพียงพอ" })
         }
 
         // หักคะแนนจากผู้ใช้
@@ -176,7 +184,7 @@ router.post('/api/withdraw/payment/:id', async (req, res) => {
         await user.save();
 
         // ส่งคำตอบกลับไปยังผู้ใช้
-        return res.json({mass: "ได้รับการถอนเงินสำเร็จแล้วครับ คาดว่าจะได้รับใน 1 - 2 วันทำการครับ"})
+        return res.json({ mass: "ได้รับการถอนเงินสำเร็จแล้วครับ คาดว่าจะได้รับใน 1 - 2 วันทำการครับ" })
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

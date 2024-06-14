@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 
 const ArticleSchema = new mongoose.Schema({
-    tags:{ 
+    tags: {
         type: Array,
         required: true
     },
@@ -21,7 +21,7 @@ const ArticleSchema = new mongoose.Schema({
     username: {
         type: String
     },
-    categories: { 
+    categories: {
         type: Array,
         required: true
     },
@@ -49,12 +49,29 @@ const ArticleSchema = new mongoose.Schema({
         },
     },
     date: { type: Date, default: Date.now },
-    comments: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'comment',
-        }
-    ],
+    replies:
+        [
+
+            {
+                username: {
+                    id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "User"
+                    },
+                    username: String,
+                    profile: {
+                        type: String
+                    },
+                },
+                inputcomment: String,
+                likes: {
+                    type: Number,
+                    default: 0
+                },
+                report: String,
+                createdAt: { type: Date, default: Date.now }
+            }
+        ],
     url: {
         type: String
     },
