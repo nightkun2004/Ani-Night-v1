@@ -113,8 +113,7 @@ exports.getLogin = async (req, res) => {
             alertMessage: req.query.alertMessage || '',
         };
 
-        // Redirect with token and success message
-        res.redirect(`/${userlogin.url}?tokenlogin=${accessToken}`);
+        res.redirect(`/${userlogin.url}`);
     } catch (error) {
         console.error(error);
     }

@@ -3,6 +3,7 @@ const router = express.Router()
 const Acticle = require("../../../models/acticle")
 const User = require("../../../models/user")
 const authenticatetoken = require('../../../middleware/authtoken')
+const { verifyToken, verifyTokenAdmin } = require("../../../middleware/auth")
 const path = require('path')
 const axios = require('axios');
 const multer = require('multer')
@@ -25,7 +26,7 @@ const upload = multer({
     storage: uploadActicle,
 });
 
-router.get('/upload_acticle', authenticatetoken, async (req, res) => {
+router.get('/upload_acticle', verifyToken, async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
 

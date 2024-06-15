@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router();
-const verifyToken = require('../../../middleware/auth')
+const {verifyToken,verifyTokenAdmin} = require('../../../middleware/auth')
 const isAdmin = require('../../../middleware/in_Admin')
 const User = require('../../../models/user')
 
-router.get('/add-admin', verifyToken, isAdmin, async (req, res) => {
+router.get('/add-admin', verifyTokenAdmin, isAdmin, async (req, res) => {
     try {
         const users = await User.find();
         const usersesstion = req.session.userlogin;
@@ -20,7 +20,7 @@ router.get('/add-admin', verifyToken, isAdmin, async (req, res) => {
 });
 
 
-router.get('/search/user/:userid', verifyToken, isAdmin, async (req, res) => {
+router.get('/search/user/:userid', verifyTokenAdmin, isAdmin, async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const userId = req.params.userid;
@@ -42,7 +42,7 @@ router.get('/search/user/:userid', verifyToken, isAdmin, async (req, res) => {
     }
 });
 
-router.put('/admin/approve/:userId', verifyToken , isAdmin,async (req, res) => {
+router.put('/admin/approve/:userId', verifyTokenAdmin , isAdmin,async (req, res) => {
     try {
         const userId = req.params.userId;
         const { approval_admin } = req.body;

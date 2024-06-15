@@ -5,8 +5,9 @@ const Reward = require("../../../models/code")
 const User = require("../../../models/user")
 const videos = require('../videos/router')
 const authenticatetoken = require("../../../middleware/authtoken")
+const {verifyToken} = require("../../../middleware/auth")
  
-router.get('/:url/video', authenticatetoken, async (req, res) => {
+router.get('/:url/video', verifyToken, async (req, res) => {
     try {
         const url = req.params.url;
         const usersesstion = req.session.userlogin;

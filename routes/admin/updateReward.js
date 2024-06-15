@@ -2,13 +2,13 @@ const express = require("express")
 const router = express.Router()
 const Reward = require('../../models/code')
 const linkCode = require('../../models/linkcode')
-const verifyToken = require('../../middleware/auth')
+const {verifyToken, verifyTokenAdmin} = require('../../middleware/auth')
 
-router.get('/reward/update', verifyToken, (req, res) => {
+router.get('/reward/update', verifyTokenAdmin, (req, res) => {
     res.render('./admin/updateReward');
 });
 
-router.post('/reward/update', verifyToken, async function(req, res) {
+router.post('/reward/update', verifyTokenAdmin, async function(req, res) {
     const newRewardCode = req.body.new_code;
 
     try {
@@ -33,7 +33,7 @@ router.post('/reward/update', verifyToken, async function(req, res) {
     }
 });
 
-router.post('/reward/update-link-code', verifyToken, async function(req, res) {
+router.post('/reward/update-link-code', verifyTokenAdmin, async function(req, res) {
     const Linkcode = req.body.linkcode;
 
     try {

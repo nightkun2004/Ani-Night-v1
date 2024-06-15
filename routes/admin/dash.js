@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const verifyToken = require('../../middleware/auth')
+const { verifyToken, verifyTokenAdmin } = require('../../middleware/auth')
 const isAdmin = require('../../middleware/in_Admin')
 const User = require('../../models/user')
 const Article = require('../../models/acticle')
@@ -23,7 +23,7 @@ router.get('/delete/AnimeMay/:id', createAnime.DeleteAnimeMay);
 router.get('/delete/AnimeJune/:id', createAnime.DeleteAnimeJune);
 router.get('/delete/AnimeJuly/:id', createAnime.DeleteAnimeJuly);
 
-router.get('/admin/dash', verifyToken, async (req, res) => {
+router.get('/admin/dash', verifyTokenAdmin, async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const today = new Date();
@@ -68,12 +68,12 @@ router.get('/admin/dash', verifyToken, async (req, res) => {
     }
 });
  
-router.get('/admin/withdrawal/usersAll', verifyToken, getWithdrawal)
-router.post('/admin/mark-paid/:userId/:withdrawalId', verifyToken, withdrawalId);
-router.post('/admin/refuse-withdrawal/:userId/:withdrawalId', verifyToken, refuseWithdrawal);
+router.get('/admin/withdrawal/usersAll', verifyTokenAdmin, getWithdrawal)
+router.post('/admin/mark-paid/:userId/:withdrawalId', verifyTokenAdmin, withdrawalId);
+router.post('/admin/refuse-withdrawal/:userId/:withdrawalId', verifyTokenAdmin, refuseWithdrawal);
 
 
-router.get('/admin/update_code', verifyToken, isAdmin, (req, res) => {
+router.get('/admin/update_code', verifyTokenAdmin, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
     res.render('./admin/updateReward', {
         active: 'update-admin',
@@ -81,7 +81,7 @@ router.get('/admin/update_code', verifyToken, isAdmin, (req, res) => {
     });
 }); 
 
-router.get('/admin/update_linkwallet', verifyToken, isAdmin, (req, res) => {
+router.get('/admin/update_linkwallet', verifyTokenAdmin, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
     res.render('./admin/updatelink', {
         active: 'update-update_linkwallet',
@@ -89,7 +89,7 @@ router.get('/admin/update_linkwallet', verifyToken, isAdmin, (req, res) => {
     });
 }); 
 
-router.get('/admin/editvideos', verifyToken, isAdmin, async (req, res) => {
+router.get('/admin/editvideos', verifyTokenAdmin, isAdmin, async (req, res) => {
     const usersesstion = req.session.userlogin;
     const userData = await Videos.find();
     res.render('./admin/edits/editvideos', {
@@ -99,15 +99,15 @@ router.get('/admin/editvideos', verifyToken, isAdmin, async (req, res) => {
     });
 });
 
-router.get('/admin/createAnime', verifyToken, isAdmin, (req, res) => {
+router.get('/admin/createAnime', verifyTokenAdmin, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
     res.render('./admin/createAnime', { usersesstion, active: 'createAnime-admin', });
 });
-router.get('/admin/createAnime/may', verifyToken, isAdmin, (req, res) => {
+router.get('/admin/createAnime/may', verifyTokenAdmin, isAdmin, (req, res) => {
     const usersesstion = req.session.userlogin;
     res.render('./admin/animeMay', { usersesstion, active: 'createAnime-admin' });
 });
-router.post('/createAnime', verifyToken, async (req, res) => {
+router.post('/createAnime', verifyTokenAdmin, async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {
         // สร้างออบเจ็กต์ AnimeApril ใหม่จากข้อมูลที่รับมาจากฟอร์ม

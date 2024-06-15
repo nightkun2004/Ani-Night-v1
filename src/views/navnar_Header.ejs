@@ -27,7 +27,7 @@
                 <a href="/login" class="block text-gray-700 hover:text-blue-500">เข้าสู่ระบบ</a>
                 <% } %>
                     <% if (usersesstion) { %>
-                        <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>"
+                        <a href="/upload_acticle"
                             class="block text-gray-700 hover:text-blue-500">เขียน</a>
                         <% } %>
 
@@ -42,7 +42,7 @@
                             <div class="relative group">
                                 <button class="focus:outline-none">
                                     <% if (usersesstion) { %>
-                                        <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>">
+                                        <a href="/<%= usersesstion.url %>">
                                             <img class="w-9 h-9 rounded-full border-2 border-gray-300 cursor-pointer"
                                                 src="/profiles/<%= usersesstion.profile %>" alt="User Avatar">
                                         </a>
@@ -71,7 +71,7 @@
                                         <div class="mt-4">
                                             <ul class="list-none">
                                                 <li class="py-1"><a
-                                                        href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>"
+                                                        href="/<%= usersesstion.url %>"
                                                         class="block text-gray-700 rounded-lg p-2 hover:bg-gray-100">
                                                         <%= usersesstion.username %>
                                                     </a></li>
@@ -134,8 +134,8 @@
                                     <% } %>
                                     <% if (usersesstion) { %>
                                         <div class="border-t border-gray-200 mt-2 pt-2">
-                                            <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">โปรไฟล์</a>
-                                            <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">เขียน</a>
+                                            <a href="/<%= usersesstion.url %>" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">โปรไฟล์</a>
+                                            <a href="/upload_acticle" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">เขียน</a>
                                             <a href="#" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">การตั้งค่า</a>
                                             <a href="#" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">ออกจากระบบ</a>
                                         </div>

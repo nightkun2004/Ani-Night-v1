@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 // const authenticatetoken = require('../../middleware/auth')
 const authenticatetoken = require('../../middleware/authtoken')
 const profileController = require("../../controls/profileController") 
-const verifyToken = require("../../middleware/auth")
+const {verifyToken, verifyTokenAdmin} = require("../../middleware/auth")
 
 
 function generateToken(user) {
@@ -49,8 +49,8 @@ const upload = multer({
     storage: uploadprofile
 });
 
-router.get('/:url', verifyToken, profileController.getProfile)
-router.get('/:userID', verifyToken, profileController.getUserID)
+router.get('/:url', verifyTokenAdmin, profileController.getProfile)
+router.get('/:userID', verifyTokenAdmin, profileController.getUserID)
 router.post('/playment', profileController.playment)
 router.post('/auth/user/studio', profileController.getAuthUser)
 router.get('/logout/user/:id', profileController.logOut)
