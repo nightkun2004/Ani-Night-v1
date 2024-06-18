@@ -160,6 +160,18 @@ video::cue {
     color: white;
     font-size: 28px;
     animation: slideLeft 5s linear;
+    user-select: none;
+}
+.watermark{
+    position: absolute;
+    top: 32px;
+    right: 30px;
+    user-select: none;
+    & h3{
+        font-size: 33px;
+        line-height: 7px;
+        color: rgba(255, 255, 255, 0.636);
+    }
 }
 
 @keyframes slideLeft {

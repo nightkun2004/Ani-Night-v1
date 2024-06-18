@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <script>
+            const commentForm = document.getElementById('comment-form');
+const commentInput = document.getElementById('comment-input');
+const commentsContainer = document.getElementById('comments-container');
+const videoElement = document.getElementById('video_comment');
+const videoId = '<%= video._id %>'; // ใส่ไอดีของวีดีโอที่คุณต้องการ
+
+commentForm.addEventListener('submit', async function(event) {
+    event.preventDefault(); // ป้องกันการโหลดหน้าใหม่เมื่อส่งฟอร์ม
+
+    const commentText = commentInput.value.trim(); // ดึงข้อความความคิดเห็น
+    const currentTime = videoElement.currentTime / 60; // คำนวณเวลาในรูปแบบนาที
+
+    if (commentText !== '') {
+        try {
+            const response = await fetch('/api/v2/add/comment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: commentText,
+                    time: currentTime,
+                    videoId: videoId,
+                }),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                addComment(commentText); // เพิ่มความคิดเห็นลงใน comments-container
+                commentInput.value = ''; // เคลียร์ช่องใส่ข้อความ
+            } else {
+                console.error('Error:', result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+});
+
+function addComment(commentText) {
+    const commentElement = document.createElement('div');
+    commentElement.classList.add('comment');
+    commentElement.innerText = commentText;
+
+    commentsContainer.appendChild(commentElement);
+
+    commentElement.style.animationDuration = `5s`;
+    const containerHeight = commentsContainer.offsetHeight;
+    const commentHeight = 24;
+    const randomTop = Math.random() * (containerHeight - commentHeight);
+    commentElement.style.top = `${randomTop}px`;
+
+    commentElement.addEventListener('animationend', () => {
+        commentElement.remove();
+    });
+}
+
+videoElement.addEventListener('timeupdate', async function() {
+    const currentTime = videoElement.currentTime / 60;
+
+    try {
+        const response = await fetch(`/api/v2/get/comment?time=${currentTime}&videoId=${videoId}`);
+        const comments = await response.json();
+
+        comments.forEach(comment => {
+            addComment(comment.content);
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+    </script>
+</body>
+</html>

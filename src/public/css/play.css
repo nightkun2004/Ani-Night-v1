@@ -41,6 +41,10 @@
     display: none;
 }
 
+.comment{
+    user-select: none;
+}
+
 .more-btn,
 .less-btn {
     background-color: #ccc;

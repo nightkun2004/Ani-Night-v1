@@ -6,7 +6,7 @@ const Subtitle = require('../models/subtitle');
 const videoSchema = new mongoose.Schema({
     name: String,
     description: String,
-    tags:{ 
+    tags: {
         type: Array,
         required: true
     },
@@ -32,9 +32,9 @@ const videoSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Commentvideo',
         }
-    ], 
+    ],
     user: {
-        type: mongoose.Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
     likedBy: [
@@ -42,7 +42,7 @@ const videoSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         }
-    ], 
+    ],
     notLikedBy: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -65,7 +65,7 @@ const videoSchema = new mongoose.Schema({
     username: String,
     profile: {
         type: String
-    },    
+    },
     isViolatingPolicy: {
         type: Boolean,
         ref: 'Datapolicy',
@@ -74,11 +74,11 @@ const videoSchema = new mongoose.Schema({
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User" 
+            ref: "User"
         },
-        username: String, 
+        username: String,
         profile: {
-            type: String 
+            type: String
         },
     },
     createdAt: {
@@ -89,28 +89,28 @@ const videoSchema = new mongoose.Schema({
         type: String,
     },
     replies:
-    [
+        [
 
-        {
-            username: {
-                id: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "User"
+            {
+                username: {
+                    id: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "User"
+                    },
+                    username: String,
+                    profile: {
+                        type: String
+                    },
                 },
-                username: String,
-                profile: {
-                    type: String
+                content: String,
+                likes: {
+                    type: Number,
+                    default: 0
                 },
-            },
-            content: String,
-            likes: {
-                type: Number,
-                default: 0 
-            },
-            report: String,
-            createdAt: { type: Date, default: Date.now }
-        }
-    ],
+                report: String,
+                createdAt: { type: Date, default: Date.now }
+            }
+        ],
     Episodes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Episodes'

@@ -4,6 +4,7 @@ const mongoose = require("../config")
 const Video = require('../models/video')
 const User = require('../models/user')
 const Episodes = require("../models/Episodes")
+const {addComent, getComent} = require('../controls/playerControle')
 
 router.get('/play/:videoid/:id', async (req, res) => {
     try {
@@ -55,6 +56,9 @@ router.get('/play/:videoid/:id', async (req, res) => {
         res.status(500).send('Internal Server Error', err);
     }
 });
+
+router.post('/api/v2/add/comment', addComent)
+router.get('/api/v2/get/comment', getComent)
 
 router.post('/video/like', async (req, res) => { 
     const { videoId, commentId } = req.body;
