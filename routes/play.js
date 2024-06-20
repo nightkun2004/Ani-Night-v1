@@ -10,19 +10,75 @@ router.get('/play/:videoid/:id', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const videoid = req.params.videoid;
-        const videoIDparams = req.params.id;
+        const episodeId = req.params.id;
 
         const video = await Video.findOne({ videoid: videoid })
-            .populate('commentvideo Episodes user author.id author username.id username replies')
+            .populate('commentvideo episodes user author.id author username.id username replies')
             .exec();
 
         if (!video) {
-            return res.render('404');
+            console.log(`Video with id ${videoid} not found.`);
+            return res.render('404', { usersesstion });
         }
-                                            
-        const episodes = await Episodes.find({ video: videoIDparams });
+
+        const episodes = await Episodes.find({ video: video._id })
+            .populate('video')
+            .exec();
+
+        let selectedEpisode = null;
+
+        await Video.findOneAndUpdate(
+            { videoid },
+            { $set: { watched: true }, $inc: { views: 1 } },
+            { new: true, upsert: false }
+        );
+
+        res.render('./component/play', {
+            active: 'actcile',
+            active: 'home',
+            usersesstion,
+            video,
+            episodes,
+            selectedEpisode,
+            rating: req.query.rating,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.get('/play/:videoid/selectedEpisode/:episodeId', async (req, res) => {
+    try {
+        const usersesstion = req.session.userlogin;
+        const videoid = req.params.videoid;
+        const episodeId = req.params.episodeId;
+
+        const video = await Video.findOne({ videoid: videoid })
+            .populate('commentvideo episodes user author.id author username.id username replies')
+            .exec();
+
         if (!video) {
-            return res.render('404');
+            console.log(`Video with id ${videoid} not found.`);
+            return res.render('404', { usersesstion });
+        }
+
+        const episodes = await Episodes.find({ video: video._id })
+            .populate('video')
+            .exec();
+
+        if (!episodes.length) {
+            console.log(`Episodes for video with id ${video._id} not found.`);
+            return res.render('404', { usersesstion });
+        }
+
+        let selectedEpisode = null;
+        if (episodeId) {
+            selectedEpisode = await Episodes.findOne({ _id: episodeId });
+            if (!selectedEpisode) {
+                console.log(`Selected episode with id ${episodeId} not found.`);
+                return res.render('404', { usersesstion });
+            }
         }
 
         await Video.findOneAndUpdate(
@@ -31,29 +87,18 @@ router.get('/play/:videoid/:id', async (req, res) => {
             { new: true, upsert: false }
         );
 
-        if (!video) {
-            return res.render('404');
-        }
-
-        if (!video.watched) {
-            await Video.findOneAndUpdate(
-                { videoid },
-                { $set: { watched: true }, $inc: { views: 1 } },
-                { new: true, upsert: false }
-            );
-        }
-
         res.render('./component/play', {
             active: 'actcile',
             active: 'home',
             usersesstion,
             video,
             episodes,
+            selectedEpisode,
             rating: req.query.rating,
         });
     } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error', err);
+        res.status(500).send('Internal Server Error');
     }
 });
 

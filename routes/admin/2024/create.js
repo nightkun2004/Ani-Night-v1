@@ -13,8 +13,17 @@ router.get('/admin/createAnime/June', (req, res) => {
     const usersesstion = req.session.userlogin;
     res.render('./admin/2024/createJune', { usersesstion, active: 'createAnime-admin' });
 });
+router.get('/admin/createAnime/August', (req, res) => {
+    const usersesstion = req.session.userlogin;
+    res.render('./admin/2024/createJune', { usersesstion, active: 'createAnime-admin' });
+});
+router.get('/admin/createAnime/October', (req, res) => {
+    const usersesstion = req.session.userlogin;
+    res.render('./admin/2024/createOctober', { usersesstion, active: 'createAnime-admin' });
+});
 
 router.post('/createAnime/July', createAnime.AddanimeJuly)
 router.post('/createAnime/June', createAnime.AddanimeJune)
+router.post('/createAnime/October/new', createAnime.AddanimeOctober)
 
 module.exports = router

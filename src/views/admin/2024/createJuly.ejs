@@ -16,7 +16,7 @@
 </head>
 <body>
     <%- include('../../admin/sidebars/navbar') %> 
-    <section class="home-section">
+    <section class="main-section">
         <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
             <% if (usersesstion) { %>
                 <h5>ดำเนินด้วยบัญชี</h5>
@@ -30,10 +30,7 @@
             <% } %>
     
             <div class="edit" style="align-items: center; justify-content: center; display: flex; flex-wrap: wrap;">
-                <a style="margin: 10px;" href="/edit/anime/boards">แก้ไขสื่ออนิเมะ</a>
-                <a style="margin: 10px;" href="/admin/createAnime/may">เพิ่มเดือนพฤษภาคม</a>
-                <a style="margin: 10px;" href="/admin/createAnime/June">เพิ่มเดือนมิถุนายน</a>
-                <a style="margin: 10px;" href="/admin/createAnime/July">เพิ่มเดือนกรกฎาคม</a>
+                <%- include('../sidebars/m_danime') %>
             </div>
             
             <form action="/createAnime/July" method="post">

@@ -1,9 +1,10 @@
-const mongoose = require('../config')
-const User = require('../models/user')
-const Commentvideo = require('../models/commentvideo')
-const Subtitle = require('../models/subtitle');
+const mongoose = require('../config'); // นำเข้า mongoose จากการตั้งค่า
+const User = require('../models/user'); // นำเข้า User model
+const Commentvideo = require('../models/commentvideo'); // นำเข้า Commentvideo model
+const Subtitle = require('../models/subtitle'); // นำเข้า Subtitle model
 
 const videoSchema = new mongoose.Schema({
+    // Schema fields
     name: String,
     description: String,
     tags: {
@@ -88,30 +89,28 @@ const videoSchema = new mongoose.Schema({
     subthai: {
         type: String,
     },
-    replies:
-        [
-
-            {
-                username: {
-                    id: {
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: "User"
-                    },
-                    username: String,
-                    profile: {
-                        type: String
-                    },
+    replies: [
+        {
+            username: {
+                id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "User"
                 },
-                content: String,
-                likes: {
-                    type: Number,
-                    default: 0
+                username: String,
+                profile: {
+                    type: String
                 },
-                report: String,
-                createdAt: { type: Date, default: Date.now }
-            }
-        ],
-    Episodes: [{
+            },
+            content: String,
+            likes: {
+                type: Number,
+                default: 0
+            },
+            report: String,
+            createdAt: { type: Date, default: Date.now }
+        }
+    ],
+    episodes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Episodes'
     }],
@@ -124,7 +123,6 @@ const videoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
-
 });
 
 const Video = mongoose.model('Video', videoSchema);

@@ -67,7 +67,7 @@
 <body class="bg-gray-50">
     <%- include('./navnar_Header') %>
 
-        <div class="aninime_banner pt-20">
+        <!-- <div class="aninime_banner pt-20">
             <div class="banner">
                 <div class="slideshow-container">
                     <div class="mySlides fade">
@@ -85,23 +85,22 @@
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="sectionlist mx-auto px-4 xl:max-w-7xl">
-
-            <!-- links -->
-       
-            <!-- Ads Home -->
+        <div class="sectionlist mx-auto px-4 xl:max-w-7xl pt-20">
+            <div class="bg-white rounded-lg">
+                <!-- Ads Home -->
             <script async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-                crossorigin="anonymous"></script>
-            <!-- Ani Night -->
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6579807593228261"
-                data-ad-slot="9626337250" data-ad-format="auto" data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-            <div class="text-center loadingIndicator">
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+            crossorigin="anonymous"></script>
+        <!-- Ani Night -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6579807593228261"
+            data-ad-slot="9626337250" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+            </div>
+            <!-- <div class="text-center loadingIndicator">
                 <div role="status">
                     <svg aria-hidden="true"
                         class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-cyan-500"
@@ -147,7 +146,7 @@
                          <% } %>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="header_articles flex justify-between mt-2 mb-2">
                 <h2 class="text-2xl">บทความ</h2>
@@ -209,7 +208,7 @@
                     <% videos.forEach(video=> { %>
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                     <a href="/play/<%= video.videoid %>/<%= video._id %>">
-                        <img class="w-full h-48 object-cover" src="/cover_videos/<%= video.coverImage %>" alt="Video Image">
+                        <img class="w-full h-[260px] object-cover" src="/cover_videos/<%= video.coverImage %>" alt="Video Image">
                         <div class="p-6">
                             <h2 class="text-2xl font-bold mb-2 text-gray-800">  <%= video.name %></h2>
                             <p><%- video.views %> วิว</p>

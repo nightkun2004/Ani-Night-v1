@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <%= video.name %>
+        <% if (selectedEpisode && selectedEpisode.fire.length && episodes > 0) { %>
+            <%= video.ep %>
+        <% } else { %>
+            <%= video.name %>
+        <% } %>
     </title>
     <meta name="description" content="<%= video.description %>  | Ani Night">
     <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
@@ -46,9 +50,13 @@
                 <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
                 <script src="https://cdn.tailwindcss.com"></script>
                 <link rel="stylesheet" href="../../css/play.css">
+                <link rel="stylesheet" href="../../../css/play.css">
                 <link rel="stylesheet" href="../../css/footer.css">
+                <link rel="stylesheet" href="../../../css/footer.css">
                 <link rel="stylesheet" href="../../css/font/font1.css">
+                <link rel="stylesheet" href="../../../css/font/font1.css">
                 <link rel="stylesheet" href="../../css/pages/video_player.css">
+                <link rel="stylesheet" href="../../../css/pages/video_player.css">
                 <link rel="stylesheet" type="text/css"
                     href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
                 <script type="text/javascript" src="/js/index.js"></script>
@@ -79,8 +87,13 @@
                         <% if (video.coverImage) {%>
                             poster="/cover_videos/<%= video.coverImage %>"
                         <% } %>
-                        class="main-video" id="video video_comment">
+                        class="main-video" id="video">
+
+                        <% if (selectedEpisode && selectedEpisode.fire.length > 0) { %>
+                            <source src="/Episodes/<%= selectedEpisode.fire[0] %>" size="720" type="video/mp4">
+                        <% } else { %>
                             <source src="/videos/<%= video.filePath %>.mp4" size="720" type="video/mp4">
+                        <% } %>
 
                             <% if (video.subthai) { %>
                                 <track default label="ซับไทย" kind="subtitles" src="../subtitles/<%= video.subthai %>"
@@ -94,7 +107,7 @@
                         <div id="ad-container"></div>
                     </div>
                 </div>
-                <div class="comment-sky bg-white flex p-3">
+                <div class="comment-sky bg-white text-black flex p-3">
                     <div id="settings" class="hidden md:flex md:justify-start md:items-center md:block">
                         <label for="speed-input">ความเร็วของความคิดเห็น (วินาที):</label>
                         <input type="number" id="speed-input" class="w-1/2 outline-none border-2 px-4" value="8" min="1" step="0.5">
@@ -115,8 +128,11 @@
                                 <h2>Tags: ไม่มีแท็ก</h2>
                                 <% } %>
                     </div>
-                    <h2 class="text-2xl font-bold mt-2 text-black">
+                    <h2 class="text-2xl font-bold mt-2 text-black flex">
                         <%= video.name %>
+                        <% if (selectedEpisode) {%>
+                            <p class="pl-5">เลือก: <%= selectedEpisode.ep %></p>
+                       <%  } %>
                     </h2>
                      <!-- Description -->
                 <div class="description text-black mt-8">
@@ -144,46 +160,41 @@
                 </div>
                 </div>
 
-                <div class="Mobile p-1">
-            <% if (episodes && episodes.length >= 22) { %>
-                <section class="sectioneps">
-                    <p>1-22</p>
-                </section>
-                <div class="flex flex-wrap w-full mb-20 gap-2">
-                    <% episodes.forEach((item, index) => { %>
-                        <% if (index === 0) { %>
-                            <a href="/play/<%= video.videoid %>/<%= item._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                บทที่ 1
-                            </a>
-                        <% } else { %>
-                            <a href="/play/<%= video._id %>/<%= item._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                บทที่ <%= item.ep %>
-                            </a>
+                <div class="Mobile p-1 text-black">
+                    <% if (Array.isArray(episodes)) { %>
+                        <% if (episodes && episodes.length >= 22) { %>
+                            <section class="sectioneps">
+                                <p>1-22</p>
+                            </section>
+                            <div class="flex flex-wrap w-full mb-20 gap-2">
+                                <% episodes.forEach((item, index) => { %>
+                                    <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                        pv <%= item.ep %>
+                                    </a>
+                                <% }); %>
+                            </div>
+                        <% } else if (episodes && episodes.length > 0) { %>
+                            <div class="flex flex-wrap w-full mb-20 gap-2">
+                                <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                    pv 1
+                                </a>
+                                <% episodes.forEach((item, index) => { %>
+                                    <a href="/play/<%= video.videoid %>/selectedEpisode/<%= item._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                        pv <%= item.ep %>
+                                    </a>
+                                <% }); %>
+                            </div>
+                        <% } else if (video) { %>
+                            <div class="flex flex-wrap w-full mb-20 gap-2">
+                                <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                    pv 1
+                                </a>
+                            </div>
                         <% } %>
-                    <% }); %>
+                    <% } %>
+                    
                 </div>
-            <% } else if (episodes && episodes.length > 0) { %>
-                <div class="flex flex-wrap w-full mb-20 gap-2">
-                    <% episodes.forEach((item, index) => { %>
-                        <% if (index === 0) { %>
-                            <a href="/play/<%= video.videoid %>/<%= item._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                บทที่ 1
-                            </a>
-                        <% } else { %>
-                            <a href="/play/<%= video._id %>/<%= item._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                บทที่ <%= item.ep %>
-                            </a>
-                        <% } %>
-                    <% }); %>
-                </div>
-            <% } else if (video) { %>
-                <div class="flex flex-wrap w-full mb-20 gap-2">
-                    <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                        บทที่ 1
-                    </a>
-                </div>
-            <% } %>
-                </div>
+                
 
                 <div class="Mobile">
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
@@ -238,7 +249,7 @@
                         <ul class="comment-list__wrap">
                             <% video.replies.slice().reverse().forEach(comment => { %>
                                 <li class="comment-list__wrap__item">
-                                    <div data-v-a42dab90 class="comment comment--root comment--pc">
+                                    <div class="comment--root comment--pc">
                                         <div class="iconprofile-comment">
                                             <a href="/editor/<%= comment.username.username %>" target="_blank">
                                                 <img src="/profiles/<%= comment.username.profile %>" alt="">
@@ -281,47 +292,45 @@
         <!-- Section Right -->
         <div class="info" >
             <!-- Episodes -->
-             <div class="pc">
+            <div class="pc">
                 <h3>เลือกจำนวนตอน</h3>
-            <% if (episodes && episodes.length >= 22) { %>
-                <section class="sectioneps">
-                    <p>1-22</p>
-                </section>
-                <div class="flex flex-wrap w-full mb-20 gap-2">
-                    <% episodes.forEach((item, index) => { %>
-                        <% if (index === 0) { %>
-                            <a href="/play/<%= video.videoid %>/<%= item._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                บทที่ 1
+                <% if (Array.isArray(episodes)) { %>
+                    <% if (episodes && episodes.length >= 22) { %>
+                        <section class="sectioneps">
+                            <p>1-22</p>
+                        </section>
+                        <div class="flex flex-wrap w-full mb-20 gap-2">
+                            <% episodes.forEach((item, index) => { %>
+                                <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                    pv <%= item.ep %>
+                                </a>
+                                <a href="/play/<%= video.videoid %>/selectedEpisode/<%= item._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                    pv <%= item.ep %>
+                                </a>
+                            <% }); %>
+                        </div>
+                    <% } else if (episodes && episodes.length > 0) { %>
+                        <div class="flex flex-wrap w-full mb-20 gap-2">
+                            <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                pv 1
                             </a>
-                        <% } else { %>
-                            <a href="/play/<%= video._id %>/<%= item._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                บทที่ <%= item.ep %>
+                            <% episodes.forEach((item, index) => { %>
+                                <a href="/play/<%= video.videoid %>/selectedEpisode/<%= item._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                    pv <%= item.ep %>
+                                </a>
+                            <% }); %>
+                        </div>
+                    <% } else if (video) { %>
+                        <div class="flex flex-wrap w-full mb-20 gap-2">
+                            <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
+                                pv 1
                             </a>
-                        <% } %>
-                    <% }); %>
-                </div>
-            <% } else if (episodes && episodes.length > 0) { %>
-                <div class="flex flex-wrap w-full mb-20 gap-2">
-                    <% episodes.forEach((item, index) => { %>
-                        <% if (index === 0) { %>
-                            <a href="/play/<%= video.videoid %>/<%= item._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                บทที่ 1
-                            </a>
-                        <% } else { %>
-                            <a href="/play/<%= video._id %>/<%= item._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                บทที่ <%= item.ep %>
-                            </a>
-                        <% } %>
-                    <% }); %>
-                </div>
-            <% } else if (video) { %>
-                <div class="flex flex-wrap w-full mb-20 gap-2">
-                    <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                        บทที่ 1
-                    </a>
-                </div>
-            <% } %>
-             </div>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+            
+            </div>
 
                 <div class="pc">
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้างอนิเมะบอร์ด</title>
+    <link rel="stylesheet" href="../../css/admin/dash.css">
+    <link rel="stylesheet" href="../../css/admin/createAnime.css">
+    <link rel="stylesheet" href="../../css/admin/Admin_section.css">
+    <link rel="stylesheet" href="../../css/admin/sidebar.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../../css/acticle.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../../admin/sidebars/navbar') %> 
+    <section class="main-section">
+        <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
+            <% if (usersesstion) { %>
+                <h5>ดำเนินด้วยบัญชี</h5>
+                <div class="profile-info">
+                <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Image">
+                <div>
+                  <p><%= usersesstion.username %></p>
+                  <p><%= usersesstion.email %></p>
+                </div>
+              </div>
+            <% } %>
+    
+            <div class="edit" style="align-items: center; justify-content: center; display: flex; flex-wrap: wrap;">
+                <%- include('../sidebars/m_danime') %>
+            </div>
+            
+            <form action="/createAnime/October/new" method="post">
+                <h2>สร้างอนิเมะบอร์ด ตุลาคม</h2>
+    
+                <label for="name">ชื่ออนิเมะ</label>
+                <input type="text" name="nameAnime" placeholder="ชื่ออนิเมะ">
+    
+                <label for="ds">ผลิตโดย</label>
+                <input type="text" name="Produced" placeholder="ผลิตโดย">
+    
+                <label for="on">ต้นฉบับ</label>
+                <input type="text" name="manuscript" placeholder="ต้นฉบับ">
+    
+                <label for="ep">จำนวนตอน</label>
+                <input type="text" name="episodes" placeholder="จำนวนตอน">
+    
+                <label for="name">เริ่มฉาย</label>
+                <input type="text" name="start" placeholder="เริ่มฉาย">
+    
+                <label for="link">ลิงภาพ</label>
+                <input type="text" name="linkImage" placeholder="ลิ้งภาพ">
+
+                <label for="linkdemo">ตัวอย่าง</label>
+                <input type="text" name="linkdemo" placeholder="ตัวอย่าง">
+
+                <label for="เรื่องย่อ">เรื่องย่อ</label>
+                <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                <input type="text" id="Synopsis" name="Synopsis" readonly class="mt-1 block w-full h-[100px] shadow-sm sm:text-sm border border-gray-300 rounded-md">
+    
+                <input type="submit" value="เผยแพร่">
+            </form>
+        </div>
+    </section>
+   
+      <!-- Quill JS -->
+      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="/js/admins/script.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link', 'video'],
+                    [{ 'color': [] }],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    ['align', 'script', 'code-block'],
+                    [{ 'header': [1, 2, 3, 4, 5, 6] }],
+                    ['clean']
+                ]
+            },
+            formats: [
+                'bold', 'italic', 'header', 'underline', 'strike', 'link', 'color', 'list', 'bullet', 'indent',
+                'video', 'align', 'script', 'code-block'
+            ]
+        });
+    
+        var contentInput = document.getElementById('Synopsis');
+    
+        quill.on('text-change', function() {
+            contentInput.value = quill.root.innerHTML;
+        });
+    
+        quill.getModule('toolbar').addHandler('video', function() {
+            var url = prompt('Enter the URL of the video:');
+            if (url) {
+                insertVideo(url);
+            }
+        });
+    
+        function insertVideo(url) {
+            var range = quill.getSelection();
+            quill.insertEmbed(range.index, 'video', url, Quill.sources.USER);
+        }
+    </script>
+</body>
+</html>

@@ -16,12 +16,20 @@ const Admin_Router = require('./admin_router/admin')
 const AnimeJune = require('../../models/animeJune')
 const { withdrawalId, getWithdrawal, refuseWithdrawal } = require('../../controls/withdrawalCto')
  
+
+// Import Video Add Routes
+
+const pageAddVideoRouter = require('../../routes/admin/pages/add_Video')
+
+router.use(pageAddVideoRouter)
+
 const PAGE_SIZE = 5;
 
 router.get('/delete/anime/:id', createAnime.DeleteAnime);
 router.get('/delete/AnimeMay/:id', createAnime.DeleteAnimeMay);
 router.get('/delete/AnimeJune/:id', createAnime.DeleteAnimeJune);
 router.get('/delete/AnimeJuly/:id', createAnime.DeleteAnimeJuly);
+router.get('/delete/AnimeOctober/:id', createAnime.DeleteAnimeOctober);
 
 router.get('/admin/dash', verifyTokenAdmin, async (req, res) => {
     try {
@@ -159,7 +167,7 @@ router.get('/edit/anime/boards', loadAnimeData, async (req, res) => {
     const usersesstion = req.session.userlogin;
 
     try {
-        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly');
+        const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly animeOctober');
         if (!AnimeBordData) {
             return res.status(404).json({ error: "AnimeBordData not found" });
         }
@@ -273,6 +281,7 @@ router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
 router.post('/edit_animeboard/May/002', verifyToken, createAnime.EditanimeMay);
 router.post('/edit_animeboard/EditanimeJuly', verifyToken, createAnime.EditanimeJuly);
 router.post('/edit_animeboard/Edit/anime/June', verifyToken, createAnime.EditanimeJune);
+router.post('/edit_animeboard/Edit/anime/October', verifyToken, createAnime.EditanimeOctober);
 router.post('/editvideo/post/videoid', verifyToken, createAnime.Editvideos);
 
 

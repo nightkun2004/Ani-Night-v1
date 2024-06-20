@@ -4,7 +4,7 @@
     <% if (userData.videos.length> 0) { %>
         <% userData.videos.forEach(video=> { %>
             <div class="bg-white rounded-lg shadow">
-                <a href="/play/<%= video.videoid %>">
+                <a href="/play/<%= video.videoid %>/<%= video._id %>">
                     <img class="w-full h-60 object-cover rounded-t-lg" src="/cover_videos/<%= video.coverImage %>"
                         alt="Post Image">
                     <div class="px-6 py-4">

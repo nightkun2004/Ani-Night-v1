@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const EpisodesSchema = new mongoose.Schema({
     video: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'video',
+        ref: 'Video',
         required: true
     },
     ep: { type: Number, required: true },

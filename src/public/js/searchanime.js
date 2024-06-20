@@ -64,22 +64,18 @@
 //         });
 // }
 function filterCategory(category, element) {
-    // Update the category query text
     const categoryQuery = document.getElementById('category-query').querySelector('span');
     categoryQuery.textContent = category;
 
-    // Remove active state from all buttons
     const buttons = document.querySelectorAll('.category-btn');
     buttons.forEach(btn => {
         btn.classList.remove('bg-black', 'text-white');
         btn.classList.add('bg-gray-200', 'text-gray-700');
     });
 
-    // Add active state to the clicked button
     element.classList.remove('bg-gray-200', 'text-gray-700');
     element.classList.add('bg-black', 'text-white');
 
-    // Hide all sections
     const sections = document.querySelectorAll('search_anime');
     sections.forEach(section => {
         section.style.display = 'none';
@@ -91,26 +87,50 @@ function filterCategory(category, element) {
         document.getElementById('may_Section').style.display = 'none';
         document.getElementById('june_Section').style.display = 'none';
         document.getElementById('july_Section').style.display = 'none';
+        document.getElementById('August_Section').style.display = 'none';
+        document.getElementById('October_Section').style.display = 'none';
     } else if (category === 'พฤษภาคม') {
         document.getElementById('april_Section').style.display = 'none';
         document.getElementById('may_Section').style.display = 'block';
         document.getElementById('june_Section').style.display = 'none';
         document.getElementById('july_Section').style.display = 'none';
+        document.getElementById('August_Section').style.display = 'none';
+        document.getElementById('October_Section').style.display = 'none';
     } else if (category === 'มิถุนายน') {
         document.getElementById('april_Section').style.display = 'none';
         document.getElementById('may_Section').style.display = 'none';
         document.getElementById('june_Section').style.display = 'block';
         document.getElementById('july_Section').style.display = 'none';
+        document.getElementById('August_Section').style.display = 'none';
+        document.getElementById('October_Section').style.display = 'none';
     } else if (category === 'กรกฎาคม') {
         document.getElementById('april_Section').style.display = 'none';
         document.getElementById('may_Section').style.display = 'none';
         document.getElementById('june_Section').style.display = 'none';
         document.getElementById('july_Section').style.display = 'block';
+        document.getElementById('August_Section').style.display = 'none';
+        document.getElementById('October_Section').style.display = 'none';
+    } else if (category === 'สิงหาคม') {
+        document.getElementById('april_Section').style.display = 'none';
+        document.getElementById('may_Section').style.display = 'none';
+        document.getElementById('june_Section').style.display = 'none';
+        document.getElementById('july_Section').style.display = 'none';
+        document.getElementById('August_Section').style.display = 'block';
+        document.getElementById('October_Section').style.display = 'none';
+    } else if (category === 'ตุลาคม') {
+        document.getElementById('april_Section').style.display = 'none';
+        document.getElementById('may_Section').style.display = 'none';
+        document.getElementById('june_Section').style.display = 'none';
+        document.getElementById('july_Section').style.display = 'none';
+        document.getElementById('August_Section').style.display = 'none';
+        document.getElementById('October_Section').style.display = 'block';
     } else if (category === 'ทั้งหมด') {
         document.getElementById('april_Section').style.display = 'block';
         document.getElementById('may_Section').style.display = 'block';
         document.getElementById('june_Section').style.display = 'block';
         document.getElementById('july_Section').style.display = 'block';
+        document.getElementById('August_Section').style.display = 'block';
+        document.getElementById('October_Section').style.display = 'block';
     }
 }
 

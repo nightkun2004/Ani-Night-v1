@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้างอนิเมะบอร์ด</title>
+    <link rel="stylesheet" href="../css/admin/dash.css">
+    <link rel="stylesheet" href="../css/admin/createAnime.css">
+    <link rel="stylesheet" href="../css/admin/Admin_section.css">
+    <link rel="stylesheet" href="../css/admin/sidebar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/acticle.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../../../admin/sidebars/navbar') %>
+    <section class="main-section">
+        <%- include('../../sections/navbar') %>
+        <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
+            <% if (usersesstion) { %>
+                <h5>ดำเนินด้วยบัญชี</h5>
+                <div class="profile-info">
+                <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Image">
+                <div>
+                  <p><%= usersesstion.username %></p>
+                  <p><%= usersesstion.email %></p>
+                </div>
+              </div>
+            <% } %>
+        <div class="edit_overee">
+            <form action="/edit_animeboard/EditanimeJuly" method="POST">
+                <h2>แก้ไขอนิเมะบอร์ด ตุลาคม</h2>
+    
+                <input type="text" name="update_id" value="<%= animeOctober._id %>">
+    
+                <label for="name">ชื่ออนิเมะ</label>
+                <input type="text" name="nameAnime" value="<%= animeOctober.nameAnime %>">
+    
+                <label for="ds">ผลิตโดย</label>
+                <input type="text" name="Produced" value="<%= animeOctober.Produced %>">
+    
+                <label for="on">ต้นฉบับ</label>
+                <input type="text" name="manuscript" value="<%= animeOctober.manuscript %>">
+    
+                <label for="ep">จำนวนตอน</label>
+                <input type="text" name="episodes" value="<%= animeOctober.episodes %>">
+    
+                <label for="name">เริ่มฉาย</label>
+                <input type="text" name="start" value="<%= animeOctober.start %>">
+    
+                <label for="link">ลิงภาพ</label>
+                <input type="text" name="linkImage" value="<%= animeOctober.linkImage %>">
+
+                <hr class="w-full h-[5px] text-red-500 bg-red-600 border-none mt-5" 5px="">
+                <h2>นักพากยืเสียงไทย (Thai)</h2>
+                <label for="dubthai[0][namevoice]">ชื่อนักพากย์:</label>
+                <input type="text" name="dubthai[0][namevoice]" id="dubthai[0][namevoice]">
+                
+                <label for="dubthai[0][voiceimage]">รูปภาพนักพากย์:</label>
+                <input type="text" name="dubthai[0][voiceimage]" id="dubthai[0][voiceimage]">
+                
+                <label for="dubthai[0][character]">ตัวละคร:</label>
+                <input type="text" name="dubthai[0][character]" id="dubthai[0][character]">
+                
+                <label for="dubthai[0][role]">บทบาท:</label>
+                <input type="text" name="dubthai[0][role]" id="dubthai[0][role]">
+                
+                <label for="dubthai[0][characterimage]">ภาพตัวละคร:</label>
+                <input type="text" name="dubthai[0][characterimage]" id="dubthai[0][characterimage]">
+                <hr class="w-full h-[5px] text-red-500 bg-red-600 border-none mt-5" 5px="">
+
+                <hr class="w-full h-[5px] text-red-500 bg-red-600 border-none mt-5" 5px="">
+                <h2>นักพากย์เสียงญี่ปุ่น (Japanese)</h2>
+                <label for="dubjpan[0][namevoice]">Name Voice:</label>
+                <input type="text" name="dubjpan[0][namevoice]" id="dubjpan[0][namevoice]"><br>
+                <label for="dubjpan[0][voiceimage]">Voice Image:</label>
+                <input type="text" name="dubjpan[0][voiceimage]" id="dubjpan[0][voiceimage]"><br>
+                <label for="dubjpan[0][character]">Character:</label>
+                <input type="text" name="dubjpan[0][character]" id="dubjpan[0][character]"><br>
+                <label for="dubjpan[0][role]">Role:</label>
+                <input type="text" name="dubjpan[0][role]" id="dubjpan[0][role]"><br>
+                <label for="dubjpan[0][characterimage]">Character Image:</label>
+                <input type="text" name="dubjpan[0][characterimage]" id="dubjpan[0][characterimage]"><br>
+                <hr class="w-full h-[5px] text-red-500 bg-red-600 border-none mt-5" 5px="">
+
+
+                <% if (animeOctober.Synopsis) { %>
+                    <label for="Synopsis">เรื่องย่อ</label>
+                    <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                    <input type="hidden" id="Synopsis" name="Synopsis" value="<%= animeOctober.Synopsis %>">
+                <% } else { %>
+                    <label for="Synopsis">เรื่องย่อ</label>
+                    <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                    <input type="hidden" id="Synopsis" name="Synopsis">
+                <% } %>
+
+                    <% if (animeOctober.linkdemo) { %>
+                        <label for="linkdemo">ตัวอย่าง</label>
+                        <input type="text" name="linkdemo" value="<%= animeOctober.linkdemo %>">
+                        <% } else { %>
+                            <label for="linkdemo">ชื่อตอน</label>
+                            <input type="text" name="linkdemo">
+                        <% } %>
+    
+                <% if (animeOctober.info) { %>
+                    <label for="link">ชื่อตอน</label>
+                    <input type="text" name="nameep" value="<%= animeOctober.nameep %>">
+                    <% } else { %>
+                        <label for="link">ชื่อตอน</label>
+                        <input type="text" name="nameep">
+                    <% } %>
+    
+                <% if (animeOctober.info) { %>
+                <label for="link">ข้อมูลเพิ่มเติม</label>
+                <input type="text" name="info" value="<%= animeOctober.info %>">
+                <% } else { %>
+                    <label for="link">ข้อมูลเพิ่มเติม</label>
+                    <input type="text" name="info">
+                <% } %>
+    
+                <% if (animeOctober.web) { %>
+                    <label for="link">เว็บทางการ</label>
+                    <input type="text" name="web" value="<%= animeOctober.web %>">
+                    <% } else { %>
+                        <label for="link">เว็บทางการ</label>
+                        <input type="text" name="web">
+                    <% } %>
+    
+                <% if (animeOctober.bilibili) { %>
+                    <label for="link">แพลตฟอร์ม Bilibili</label>
+                    <input type="text" name="bilibili" value="<%= animeOctober.bilibili %>">
+                    <% } else { %>
+                        <label for="link">แพลตฟอร์ม Bilibili</label>
+                        <input type="text" name="bilibili">
+                    <% } %>
+                <% if (animeOctober.crunchyroll) { %>
+                    <label for="link">แพลตฟอร์ม Crunchyroll</label>
+                    <input type="text" name="crunchyroll" value="<%= animeOctober.crunchyroll %>">
+                    <% } else { %>
+                        <label for="link">แพลตฟอร์ม Crunchyroll</label>
+                        <input type="text" name="crunchyroll">
+                    <% } %>
+                <% if (animeOctober.iqiyi) { %>
+                    <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
+                    <input type="text" name="Iqiyi" value="<%= animeOctober.iqiyi %>">
+                    <% } else { %>
+                        <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
+                        <input type="text" name="Iqiyi">
+                    <% } %>
+                <% if (animeOctober.yt) { %>
+                    <label for="youtube">แพลตฟอร์ม Youtube</label>
+                    <input type="text" name="youtube" value="<%= animeOctober.yt %>">
+                    <% } else { %>
+                        <label for="youtube">แพลตฟอร์ม Youtube</label>
+                        <input type="text" name="youtube">
+                    <% } %>
+                <% if (animeOctober.netflix) { %>
+                    <label for="netflix">แพลตฟอร์ม netflix</label>
+                    <input type="text" name="netflix" value="<%= animeOctober.netflix %>">
+                    <% } else { %>
+                        <label for="netflix">แพลตฟอร์ม netflix</label>
+                        <input type="text" name="netflix">
+                    <% } %>
+                <% if (animeOctober.yt_text) { %>
+                    <label for="yt_text">แพลตฟอร์มช่อง Youtube ข้อความ</label>
+                    <input type="text" name="yt_text" value="<%= animeOctober.yt_text %>">
+                    <% } else { %>
+                        <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
+                        <input type="text" name="yt_text">
+                    <% } %>
+
+                    
+    
+                <input type="submit" value="เผยแพร่">
+            </form>
+        </div>
+            
+        </div>
+    </section>
+   
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="/js/admins/script.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link', 'video'],
+                    [{ 'color': [] }],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    ['align', 'script', 'code-block'],
+                    [{ 'header': [1, 2, 3, 4, 5, 6] }],
+                    ['clean']
+                ]
+            },
+            formats: [
+                'bold', 'italic', 'header', 'underline', 'strike', 'link', 'color', 'list', 'bullet', 'indent',
+                'video', 'align', 'script', 'code-block'
+            ]
+        });
+    
+        var contentInput = document.getElementById('Synopsis');
+        
+        // ตั้งค่าเนื้อหาเริ่มต้นใน Quill editor
+        quill.clipboard.dangerouslyPasteHTML(contentInput.value);
+        
+        quill.on('text-change', function() {
+            contentInput.value = quill.root.innerHTML;
+        });
+    
+        quill.getModule('toolbar').addHandler('video', function() {
+            var url = prompt('Enter the URL of the video:');
+            if (url) {
+                insertVideo(url);
+            }
+        });
+    
+        function insertVideo(url) {
+            var range = quill.getSelection();
+            quill.insertEmbed(range.index, 'video', url, Quill.sources.USER);
+        }
+    </script>
+</body>
+</html>

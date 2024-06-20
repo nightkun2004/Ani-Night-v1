@@ -87,6 +87,17 @@
                 <button id="July_btn"
                 class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
                 onclick="filterCategory('กรกฎาคม', this)">กรกฎาคม</button>
+
+                <p>
+                    >>
+                </p>
+
+                <button id="July_btn"
+                class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                onclick="filterCategory('สิงหาคม', this)">สิงหาคม</button>
+                <button id="July_btn"
+                class="category-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none whitespace-nowrap"
+                onclick="filterCategory('ตุลาคม', this)">ตุลาคม</button>
             </div>
         </div>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
@@ -151,18 +162,6 @@
             </div>
         </div>
     </section>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-    crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-    style="display:block; text-align:center;"
-    data-ad-layout="in-article"
-    data-ad-format="fluid"
-    data-ad-client="ca-pub-6579807593228261"
-    data-ad-slot="3002127657"></ins>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
     <section class="june_Section search_anime" id="june_Section" > 
         <div class="anime_content">
@@ -184,6 +183,34 @@
             <div class="loading" style="display: none;">
                 <div class="anime_lists sub">
                    <%- include('./months/July') %>
+                </div>
+            </div>
+            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="August_Section" id="August_Section" > 
+        <div class="anime_content">
+            <h2 class="anime_brta">สิงหาคม 2024</h2>
+            <div class="loading" style="display: none;">
+                <div class="anime_lists sub">
+                   <%- include('./months/August') %>
+                </div>
+            </div>
+            <div class="loading-indicator loadingIndicator" id="loadingIndicator">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="October_Section" id="October_Section" > 
+        <div class="anime_content">
+            <h2 class="anime_brta">ตุลาคม 2024</h2>
+            <div class="loading" style="display: none;">
+                <div class="anime_lists sub">
+                   <%- include('./months/October') %>
                 </div>
             </div>
             <div class="loading-indicator loadingIndicator" id="loadingIndicator">
@@ -221,21 +248,6 @@
 
     <script src="../js/sidebar.js"></script>
     <script src="/js/searchanime.js"></script>
-    <!-- <script>
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
-
-        window.onload = function() {
-        searchAnime();
-    };
-
-    </script> -->
     <script>
         function showLoadingIndicator() {
             document.querySelectorAll('.loadingIndicator').forEach(item => {
