@@ -1,4 +1,4 @@
-<nav class="bg-white border-b border-gray-200 shadow-sm fixed w-full z-10">
+<nav class="bg-white border-b border-gray-200 shadow-sm fixed w-full z-20">
     <div class="container mx-auto px-4 flex justify-between items-center h-16">
         <!-- Logo -->
         <a href="/" class="flex items-center space-x-2">
@@ -7,36 +7,58 @@
         </a>
 
         <!-- Menu Toggle Button for Mobile -->
-        <button id="menu-button" class="md:hidden p-2 focus:outline-none">
-            <!-- SVG แฮมเบอร์เกอร์ -->
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-        </button>
+        <div class="md:hidden">
+            <button id="openmenu">
+                <svg fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round'
+                    viewBox='0 0 24 24' class='w-6 h-6'>
+                    <path d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+         <!-- Mobile Menu -->
+         <div id="munuscard" class="md:hidden absolute top-20 w-full bg-white border-t border-gray-200 shadow-sm" style="display: none;">
+            <div class="flex flex-col p-2 md:hidden">
+                <a href="/"class="block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-200">หน้าหลัก</a>
+                <a href="/search" class="block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-200">🔍 ค้นหา</a>
+                <a href="/browse/anime" class="block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-200">🖐🏻 อนิเมะ</a>
+                <a href="/trending" class="block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-200">มาแรง</a>
+                <a href="/categories" class="block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-200">หมวดหมู่</a>
+                <a href="/forums" class="block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-200">ฟอรัม</a>
+                <a href="/articles" class="block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-200">บทความ</a>
+                <% if (!usersesstion) { %>
+                    <a href="/login" class="block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-200">เข้าสู่ระบบ</a>
+                <% } %>
+                <% if (usersesstion) { %>
+                    <div class="border-t border-gray-200 mt-2 pt-2">
+                        <a href="/<%= usersesstion.url %>" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">โปรไฟล์</a>
+                        <a href="/upload_acticle" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">เขียน</a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
         <!-- Nav Links and Icons -->
         <div class="hidden md:flex items-center space-x-4">
             <a href="/" class="text-gray-700 hover:text-blue-500">หน้าหลัก</a>
-            <a href="/search" class="block text-gray-700 hover:text-blue-500">🔍 ค้นหา</a>
-            <a href="/animeboard" class="block text-gray-700 hover:text-blue-500">บอร์ดอนิเมะ</a>
             <a href="/trending" class="block text-gray-700 hover:text-blue-500">มาแรง</a>
             <a href="/forums" class="block text-gray-700 hover:text-blue-500">ฟอรัม</a>
-            <a href="/categories" class="block text-gray-700 hover:text-blue-500">หมวดหมู่</a>
-            <a href="/articles" class="block text-gray-700 hover:text-blue-500">บทความ</a>
-            <% if (!usersesstion) { %>
-                <a href="/login" class="block text-gray-700 hover:text-blue-500">เข้าสู่ระบบ</a>
-                <% } %>
-                    <% if (usersesstion) { %>
-                        <a href="/upload_acticle"
-                            class="block text-gray-700 hover:text-blue-500">เขียน</a>
+            <div class="relative group">
+                <a href="/" class="block text-gray-700 hover:text-blue-500">
+                    🔍 ค้นหา
+                </a>
+                <div class="absolute hidden group-hover:block bg-white shadow-lg mt-1 py-2 rounded-lg w-48 border border-gray-300 shadow-lg">
+                    <a href="/browse/anime" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">🖐🏻 อนิเมะ</a>
+                    <a href="/search" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">ค้นหา</a>
+                    <a href="/categories" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">หมวดหมู่</a>
+                    <a href="/articles" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">บทความ</a>
+                    <% if (!usersesstion) { %>
+                        <a href="/login" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">เข้าสู่ระบบ</a>
                         <% } %>
-
-                            <!-- Icons -->
-                            <!-- <div class="flex items-center space-x-4">
-                <a href="#" class="text-gray-700 hover:text-blue-500">Icon1</a>
-                <a href="#" class="text-gray-700 hover:text-blue-500">Icon2</a>
-                <a href="#" class="text-gray-700 hover:text-blue-500">Icon3</a>
-            </div> -->
+                            <% if (usersesstion) { %>
+                                <a href="/upload_acticle"
+                                    class="block px-4 py-2 text-gray-800 hover:bg-gray-200">เขียน</a>
+                                <% } %>
+                </div>
+            </div>
 
                             <!-- Profile Dropdown -->
                             <div class="relative group">
@@ -119,30 +141,9 @@
                                     <% } %>
                             </div>
         </div>
-                            <!-- Mobile Menu -->
-                            <div id="mobile-menu" class="md:hidden absolute right-1 mt-[400px] w-full bg-white border-t border-gray-200 shadow-sm hidden">
-                                <div class="px-4 flex flex-col space-y-2 mt-2 md:hidden">
-                                    <a href="/"class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">หน้าหลัก</a>
-                                    <a href="/search" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">🔍 ค้นหา</a>
-                                    <a href="/animeboard" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">บอร์ดอนิเมะ</a>
-                                    <a href="/trending" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">มาแรง</a>
-                                    <a href="/categories" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">หมวดหมู่</a>
-                                    <a href="/forums" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">ฟอรัม</a>
-                                    <a href="/articles" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">บทความ</a>
-                                    <% if (!usersesstion) { %>
-                                        <a href="/login" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">เข้าสู่ระบบ</a>
-                                    <% } %>
-                                    <% if (usersesstion) { %>
-                                        <div class="border-t border-gray-200 mt-2 pt-2">
-                                            <a href="/<%= usersesstion.url %>" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">โปรไฟล์</a>
-                                            <a href="/upload_acticle" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">เขียน</a>
-                                            <a href="#" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">การตั้งค่า</a>
-                                            <a href="#" class="py-2 px-4 bg-white rounded-md transition duration-300 ease-in-out hover:bg-black hover:text-white">ออกจากระบบ</a>
-                                        </div>
-                                    <% } %>
-                                </div>
-                            </div>
 </nav>
+
+         
 
 <style>
     .menu-hidden {
@@ -177,16 +178,27 @@
     }
 </style>
 <script>
-    document.getElementById('menu-button').addEventListener('click', function () {
-        var menu = document.getElementById('mobile-menu');
-        if (menu.classList.contains('menu-hidden')) {
-            menu.classList.remove('menu-hidden');
-            menu.classList.add('menu-visible');
-        } else {
-            menu.classList.remove('menu-visible');
-            menu.classList.add('menu-hidden');
-        }
-    });
+const Btntogger = document.getElementById('openmenu');
+const menus_scr = document.getElementById('munuscard');
+let Openmunu = false;
+
+Btntogger.addEventListener('click', () => {
+    Openmunu = !Openmunu;
+    if (Openmunu) {
+        menus_scr.style.display = 'block';
+        Btntogger.innerHTML = `<svg fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round'
+                viewBox='0 0 24 24' class='w-6 h-6'>
+                <path d="M6 18L18 6M6 6l12 12"></path>
+            </svg>`;
+    } else {
+        menus_scr.style.display = 'none';
+        Btntogger.innerHTML = `<svg fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round'
+                viewBox='0 0 24 24' class='w-6 h-6'>
+                <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>`;
+    }
+});
+
 </script>
 
 

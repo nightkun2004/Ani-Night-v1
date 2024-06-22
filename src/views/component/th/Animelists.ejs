@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายชื่ออนิเมะ | AniNight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-100">
+    <%- include('../../navnar_Header') %>
+    <main class="p-2 pt-20 sm:p-20">
+        <div>
+            <h2 class="text-2xl text-sky-500 font-bold">รายชื่ออนิเมะ</h2>
+            <div>
+                <div class="w-full bg-white">
+                    <input type="text" name="searchanime" id="searchanime" placeholder="ค้นหาอนิเมะ" class="w-full px-2 py-2 rounded-md outline-none border-none">
+                </div>
+                <div class="mt-4 grid grid-cols-1 w-full gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 bg-white rounded-md p-8 md:flex-row">
+                    <div>
+                        <label class="px-2 font-bold">เลือกปี</label>
+                        <select name="year" id="yearFilterSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
+                            <option value="all">ทั้งหมด</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="px-2 font-bold" for="month">เดือน</label>
+                        <select name="month" id="monthFilterSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
+                            <option value="all">ทั้งหมด</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="px-2 font-bold" for="season">ฤดูกาล</label>
+                        <select name="season" id="seasonSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
+                            <option value="all">ทั้งหมด</option>
+                            <option value="Spring 2024">⛈ Spring 2024</option>
+                            <option value="Summer 2024">☀ Summer 2024</option>
+                            <option value="Fall 2024">❄ Fall 2024</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="px-2 font-bold" for="dub">เสียงพากย์</label>
+                        <select name="dub" id="dubSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
+                            <option value="all">ทั้งหมด</option>
+                            <option value="พากย์ไทย">พากย์ไทย</option>
+                            <option value="พากย์ญี่ปุ่น">พากย์ญี่ปุ่น</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="px-2 font-bold" for="sub">ซับไตเติ้ล</label>
+                        <select name="sub" id="subSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
+                            <option value="all">ทั้งหมด</option>
+                            <option value="ซับไทย">ซับไทย</option>
+                            <option value="ซับอังกฤษ">ซับอังกฤษ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="px-2 font-bold" for="platform">เลือกแพลตฟอร์ม</label>
+                        <select name="platform" id="platformSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
+                            <option value="all">ทั้งหมด</option>
+                            <option value="bilibili">bilibili</option>
+                            <option value="Iqiyi">Iqiyi</option>
+                            <option value="Crunchyroll">Crunchyroll</option>
+                            <option value="Youtube">Youtube</option>
+                            <option value="Netflix">Netflix</option>
+                        </select>
+                    </div>
+                    <div class="pl-4 p-20 md:p-0">
+                        <button id="allFilterBtn" class="px-4 py-2 bg-sky-500 w-full text-white rounded-md">ทั้งหมด</button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                    crossorigin="anonymous"></script>
+                <!-- browse-anime -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-6579807593228261"
+                    data-ad-slot="1908579395"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="flex flex-col md:flex-col sm:flex-col lg:flex-row">
+                <div class="mt-5">
+                    <h2 class="text-2xl font-bold text-sky-500">อนิเมะทีกำลังอัพเดต ☃</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4" id="animeResults">
+                        <% animes.forEach(anime => { %>
+                        <a href="/browse/anime/<%= anime._id %>" class="anime-item block bg-white rounded-lg shadow-md overflow-hidden"
+                          data-year="<%= anime.year %>" data-month="<%= anime.month %>"
+                           data-season="<%= anime.season %>" data-dub="<%= anime.dub %>" data-sub="<%= anime.sub %>"
+                           <% if(anime.bilibili){ %>
+                            data-platform="bilibili"
+                        <% } %>
+                        <% if (anime.Iqiyi) {%>
+                            data-platform="Iqiyi"
+                        <% } %>
+                        <% if (anime.crunchyroll) {%>
+                            data-platform="crunchyroll"
+                        <% } %>
+                        <% if (anime.youtube) {%>
+                            data-platform="youtube"
+                        <% } %>
+                        <% if (anime.netflix) {%>
+                            data-platform="netflix"
+                        <% } %>
+                            >
+                            <div class="flex flex-col md:flex-row h-full w-full">
+                                <div class="col-3 flex justify-center">
+                                    <div class="cover-image" role="img" aria-label="<%= anime.nameAnime %>" style="background-image: url('<%= anime.linkImage %>');"></div>
+                                </div>
+                                <style>
+                                    .cover-image {
+                                        width: 220px;
+                                        height: 320px;
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        background-position: 50%;
+                                        background-color: var(--placeholder);
+                                        border-radius: .25rem;
+                                        font-size: 0;
+                                    }
+                                    @media (min-width: 768px) {
+                                        .cover-image {
+                                            width: 220px;
+                                            height: 320px;
+                                            padding-top: 0;
+                                            border-radius: 10px 0 0 10px;
+                                        }
+                                    }
+                                </style>
+                                <div class="p-4 flex flex-col justify-between w-full md:w-3/5">
+                                    <div>
+                                        <h3 class="font-bold text-lg mb-2"><%= anime.nameAnime %></h3>
+                                        <p>ผลิตโดย: <%= anime.Produced %></p>
+                                        <p>ต้นฉบับ: <%= anime.manuscript %></p>
+                                        <p>จำนวนตอน: <%= anime.episodes %></p>
+                                        <p>เริ่มฉาย: <%= anime.start %></p>
+                                        <div class="flex gap-2 items-center">
+                                            <!-- <% if (anime.web) { %>
+                                                <div class="mt-4">
+                                                    <button target="_blank" rel="noopener noreferrer" onclick="location.href='<%= anime.web %>'" class="text-blue-500 hover:underline">เว็บทางการ</button>
+                                                </div>
+                                            <% } %> -->
+                                            
+                                            <% if (anime.bilibili) { %>
+                                                <div class="mt-4">
+                                                    <img src="/icons/bilibili-icon.png" alt="bilibili icon" class="w-10 h-10 rounded-full">
+                                                </div>
+                                                <% } %>
+                                                <% if (anime.crunchyroll) { %>
+                                                    <div class="mt-4">
+                                                        <img src="/icons/crunchyroll_icon.png" alt="crunchyroll_icon" class="w-10 h-10 rounded-full">
+                                                    </div>
+                                                    <% } %>
+                                                <% if (anime.Iqiyi) { %>
+                                                    <div class="mt-4">
+                                                        <img src="/icons/iqiyi-icon.png" alt="iqiyi-icon" class="w-10 h-10 rounded-full">
+                                                    </div>
+                                                    <% } %>
+                                                <% if (anime.netflix) { %>
+                                                    <div class="mt-4">
+                                                        <img src="/icons/netflix.png" alt="netflix-icon" class="w-10 h-10 rounded-full">
+                                                    </div>
+                                                    <% } %>
+                                                <% if (anime.youtube) { %>
+                                                    <div class="mt-4">
+                                                        <img src="/icons/youtube.svg" alt="youtube-icon" class="w-10 h-10">
+                                                    </div>
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <% }) %>
+                    </div>
+                </div>
+
+                <!-- Left content -->
+               <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 pl-2 mt-5">
+                <div class="mt-5 bg-white p-2">
+                    <h3 class="font-bold text-2xl">อัตเดตใหม่</h3>
+                    <ul>
+                        <% latestUpdatedAnimes.forEach(anime => { %>
+                            <li class="px-4 m-2"><a href="/browse/anime/<%= anime._id %>"><%= anime.nameAnime %></a> - อัพเดทเมื่อ:  <span class="font-bold"><%= moment(anime.updatedAt).locale('th').fromNow() %></span></li>
+                        <% }) %>
+                    </ul>
+                </div>
+
+                <div class="mt-5 bg-white p-2">
+                    <h3 class="font-bold text-2xl">มาใหม่</h3>
+                    <ul>
+                        <% newestAnimes.forEach(anime => { %>
+                            <li class="px-4 m-2"><a href="/browse/anime/<%= anime._id %>"><%= anime.nameAnime %></a> - เพิ่มเมื่อ: <span class="font-bold"><%= moment(anime.createdAt).locale('th').fromNow() %></span></li>
+                        <% }) %>
+                    </ul>
+                </div>
+               </div>
+            </div>
+
+            
+        </div>
+    </main>
+    <%- include('../../footer') %>
+
+    <script>
+        const yearFilterSelect = document.getElementById('yearFilterSelect');
+        const startYear = 1964;
+        const endYear = 2025;
+        for (let i = endYear; i >= startYear; i--) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            yearFilterSelect.appendChild(option);
+        }
+
+        const monthFilterSelect = document.getElementById('monthFilterSelect');
+        const months = [
+            { value: '01', name: 'มกราคม' },
+            { value: '02', name: 'กุมภาพันธ์' },
+            { value: '03', name: 'มีนาคม' },
+            { value: '04', name: 'เมษายน' },
+            { value: '05', name: 'พฤษภาคม' },
+            { value: '06', name: 'มิถุนายน' },
+            { value: '07', name: 'กรกฎาคม' },
+            { value: '08', name: 'สิงหาคม' },
+            { value: '09', name: 'กันยายน' },
+            { value: '10', name: 'ตุลาคม' },
+            { value: '11', name: 'พฤศจิกายน' },
+            { value: '12', name: 'ธันวาคม' },
+        ];
+        months.forEach(month => {
+            const option = document.createElement('option');
+            option.value = month.value;
+            option.textContent = month.name;
+            monthFilterSelect.appendChild(option);
+        });
+
+        function filterAnime() {
+            const selectedYear = yearFilterSelect.value;
+            const selectedMonth = monthFilterSelect.value;
+            const selectedSeason = document.getElementById('seasonSelect').value;
+            const selectedDub = document.getElementById('dubSelect').value;
+            const selectedSub = document.getElementById('subSelect').value;
+            const selectedPlatform = document.getElementById('platformSelect').value;
+            const searchQuery = document.getElementById('searchanime').value.toLowerCase();
+            const allAnimes = document.querySelectorAll('.anime-item');
+            allAnimes.forEach(anime => {
+                const matchYear = selectedYear === 'all' || anime.dataset.year === selectedYear;
+                const matchMonth = selectedMonth === 'all' || anime.dataset.month === selectedMonth;
+                const matchSeason = selectedSeason === 'all' || anime.dataset.season === selectedSeason;
+                const matchDub = selectedDub === 'all' || anime.dataset.dub === selectedDub;
+                const matchSub = selectedSub === 'all' || anime.dataset.sub === selectedSub;
+                const matchPlatform = selectedPlatform === 'all' || anime.dataset.platform === selectedPlatform;
+                const matchSearch = anime.querySelector('h3').textContent.toLowerCase().includes(searchQuery);
+                if (matchYear && matchMonth && matchSeason && matchDub && matchSub && matchPlatform && matchSearch) {
+                    anime.classList.remove('hidden');
+                } else {
+                    anime.classList.add('hidden');
+                }
+            });
+        }
+
+        yearFilterSelect.addEventListener('change', filterAnime);
+        monthFilterSelect.addEventListener('change', filterAnime);
+        document.getElementById('seasonSelect').addEventListener('change', filterAnime);
+        document.getElementById('dubSelect').addEventListener('change', filterAnime);
+        document.getElementById('subSelect').addEventListener('change', filterAnime);
+        document.getElementById('platformSelect').addEventListener('change', filterAnime);
+        document.getElementById('searchanime').addEventListener('input', filterAnime);
+
+        document.getElementById('allFilterBtn').addEventListener('click', () => {
+            yearFilterSelect.value = 'all';
+            monthFilterSelect.value = 'all';
+            document.getElementById('seasonSelect').value = 'all';
+            document.getElementById('dubSelect').value = 'all';
+            document.getElementById('subSelect').value = 'all';
+            document.getElementById('platformSelect').value = 'all';
+            document.getElementById('searchanime').value = '';
+            filterAnime();
+        });
+    </script>
+</body>
+</html>

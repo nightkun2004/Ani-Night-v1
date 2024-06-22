@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= anime.nameAnime %></title>
+     <!-- Meta Tags for SEO -->
+     <meta name="description" content="<%- anime.Synopsis %>">
+     <meta name="keywords" content="อนิเมะ, <%= anime.nameAnime %>, <%= anime.Produced %>">
+     <meta name="author" content="https://ani-night.online">
+ 
+     <!-- Open Graph Meta Tags (Facebook, LinkedIn) -->
+     <meta property="og:title" content="<%= anime.nameAnime %>">
+     <meta property="og:description" content="<%- anime.Synopsis %>">
+     <meta property="og:type" content="website">
+     <meta property="og:image" content="<%= anime.linkImage %>">
+     <meta property="og:url" content="https://ani-night.online">
+ 
+     <!-- Twitter Meta Tags -->
+     <meta name="twitter:card" content="summary_large_image">
+     <meta name="twitter:title" content="<%= anime.nameAnime %>">
+     <meta name="twitter:description" content="<%- anime.Synopsis %>">
+     <meta name="twitter:image" content="<%= anime.linkImage %>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-100">
+    <%- include('../../navnar_Header') %>
+
+    <main class="p-2 pt-20 md:p-20 mb-20"> <!-- เพิ่ม mb-20 เพื่อเพิ่ม margin-bottom -->
+        <div class="relative w-full h-60 md:h-96" style="background-image: url('<%= anime.Imagebackgroud %>'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="relative z-10 p-8">
+                <div class="flex flex-col md:flex-row items-center md:items-start">
+                    <div class="w-1/2 md:w-1/4">
+                        <img src="<%= anime.linkImage %>" alt="<%= anime.nameAnime %>" class="w-full rounded-md shadow-lg">
+                    </div>
+                    <div class="w-full hidden md:block md:w-3/4 mt-4 md:mt-0 md:pl-8 text-white">
+                        <h1 class="text-3xl font-bold mb-2"><%= anime.nameAnime %></h1>
+                        <p class="mb-2"><strong>ผลิตโดย:</strong> <%= anime.Produced %></p>
+                        <p class="mb-2"><strong>ต้นฉบับ:</strong> <%= anime.manuscript %></p>
+                        <p class="mb-2"><strong>จำนวนตอน:</strong> <%= anime.episodes %></p>
+                        <p class="mb-2"><strong>เริ่มฉาย:</strong> <%= anime.start %></p>
+                        <p class="mb-4"><strong>เรื่องย่อ:</strong> <%- anime.Synopsis %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full md:hidden bg-white rounded-lg shadow-md mb-2 mt-[100px] p-2">
+            <h1 class="text-3xl font-bold mb-2"><%= anime.nameAnime %></h1>
+            <p class="mb-2"><strong>ผลิตโดย:</strong> <%= anime.Produced %></p>
+            <p class="mb-2"><strong>ต้นฉบับ:</strong> <%= anime.manuscript %></p>
+            <p class="mb-2"><strong>จำนวนตอน:</strong> <%= anime.episodes %></p>
+            <p class="mb-2"><strong>เริ่มฉาย:</strong> <%= anime.start %></p>
+            <p class="mb-4"><strong>เรื่องย่อ:</strong> <%- anime.Synopsis %></p>
+        </div>
+
+        <div class="p-8 bg-white rounded-lg shadow-md md:mt-[150px]">
+            <h2 class="font-bold text-3xl mb-5 text-sky-500">ดูได้ที่ 😍👇🏻</h2>
+            <div class="flex items-center gap-4 mb-4">
+                <% if (anime.bilibili) { %>
+                    <a href="<%= anime.bilibili %>" target="_blank" class="inline-block">
+                        <img src="/icons/bilibili-icon.png" alt="bilibili icon" class="w-10 h-10 rounded-full">
+                    </a>
+                <% } %>
+                <% if (anime.crunchyroll) { %>
+                    <a href="<%= anime.crunchyroll %>" target="_blank" class="inline-block">
+                        <img src="/icons/crunchyroll_icon.png" alt="crunchyroll icon" class="w-10 h-10 rounded-full">
+                    </a>
+                <% } %>
+                <% if (anime.Iqiyi) { %>
+                    <a href="<%= anime.Iqiyi %>" target="_blank" class="inline-block">
+                        <img src="/icons/iqiyi-icon.png" alt="iqiyi icon" class="w-10 h-10 rounded-full">
+                    </a>
+                <% } %>
+                <% if (anime.netflix) { %>
+                    <a href="<%= anime.netflix %>" target="_blank" class="inline-block">
+                        <img src="/icons/netflix.png" alt="netflix icon" class="w-10 h-10 rounded-full">
+                    </a>
+                <% } %>
+                <% if (anime.youtube) { %>
+                    <a href="<%= anime.youtube %>" target="_blank" class="inline-block">
+                        <img src="/icons/youtube.svg" alt="youtube icon" class="w-10 h-10">
+                    </a>
+                <% } %>
+            </div>
+
+            <% if (anime.linkdemo) { %>
+                <div class="mt-4">
+                    <a href="<%= anime.linkdemo %>" target="_blank" class="px-4 py-2 bg-sky-500 text-white rounded-md inline-block">ดูตัวอย่าง</a>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+    <%- include('../../footer') %>
+</body>
+</html>

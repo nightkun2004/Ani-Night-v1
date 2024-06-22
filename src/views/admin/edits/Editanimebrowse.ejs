@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกรายการอนิเมะที่ต้องการแก้ไข</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <%- include('../sidebars/navbar') %>
+    <main class="main-section">
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold mb-6 text-center text-sky-500">เลือกรายการอนิเมะที่ต้องการแก้ไข</h1>
+            <div class="mb-4">
+                <input type="text" id="searchAnime" placeholder="ค้นหาอนิเมะ" class="w-full px-4 py-2 border rounded-md outline-none focus:border-sky-500">
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <tr>
+                            <th class="py-3 px-6 text-left">ชื่ออนิเมะ</th>
+                            <th class="py-3 px-6 text-left">ผลิตโดย</th>
+                            <th class="py-3 px-6 text-left">จำนวนตอน</th>
+                            <th class="py-3 px-6 text-left">เริ่มฉาย</th>
+                            <th class="py-3 px-6 text-center">การดำเนินการ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="animeList" class="text-gray-600 text-sm font-light">
+                        <% AnimeData.forEach(anime => { %>
+                            <tr>
+                                <td class="py-3 px-6 text-left whitespace-nowrap" title="<%= anime.nameAnime %>">
+                                    <% if (anime && anime.nameAnime) { %>
+                                        <%= anime.nameAnime.substring(0, 40) + '...' %>
+                                            <% } else { %>
+                                                <%= anime.title %>
+                                                    <% } %>
+                                <td class="py-3 px-6 text-left"><%= anime.Produced %></td>
+                                <td class="py-3 px-6 text-left"><%= anime.episodes %></td>
+                                <td class="py-3 px-6 text-left"><%= anime.start %></td>
+                                <td class="py-3 px-6 text-center">
+                                    <form action="/edit_Anime/browse" method="post">
+                                        <input type="hidden" name="edit_id" value="<%= anime._id %>">
+                                        <button type="submit" class="text-blue-500 hover:underline">แก้ไข</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </main>
+
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const animes = [
+                { id: 1, name: 'อนิเมะ 1', produced: 'สตูดิโอ 1', episodes: 12, start: '2023-01-01' },
+                { id: 2, name: 'อนิเมะ 2', produced: 'สตูดิโอ 2', episodes: 24, start: '2023-04-01' },
+                // เพิ่มอนิเมะเพิ่มเติมตามต้องการ
+            ];
+
+            const animeList = document.getElementById('animeList');
+            const searchAnime = document.getElementById('searchAnime');
+
+            function renderAnimeList(filter = '') {
+                animeList.innerHTML = '';
+                const filteredAnimes = animes.filter(anime => anime.name.includes(filter));
+                filteredAnimes.forEach(anime => {
+                    const row = document.createElement('tr');
+                    row.classList.add('border-b', 'border-gray-200', 'hover:bg-gray-100');
+
+                    row.innerHTML = `
+                        <td class="py-3 px-6 text-left whitespace-nowrap">${anime.name}</td>
+                        <td class="py-3 px-6 text-left">${anime.produced}</td>
+                        <td class="py-3 px-6 text-left">${anime.episodes}</td>
+                        <td class="py-3 px-6 text-left">${new Date(anime.start).toLocaleDateString('th-TH')}</td>
+                        <td class="py-3 px-6 text-center">
+                            <a href="/edit-anime/${anime.id}" class="text-blue-500 hover:underline">แก้ไข</a>
+                        </td>
+                    `;
+
+                    animeList.appendChild(row);
+                });
+            }
+
+            searchAnime.addEventListener('input', (event) => {
+                renderAnimeList(event.target.value);
+            });
+
+            renderAnimeList();
+        });
+    </script> -->
+</body>
+</html>

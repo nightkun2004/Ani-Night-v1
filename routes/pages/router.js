@@ -14,12 +14,14 @@ const videoDashboard = require('../../routes/pages/dashboard/edits/videos/index'
 const editaimeboard = require('../../routes/pages/dashboard/edits/animeboard')
 
 const AnimtTHRoute = require('../../routes/th/anime')
+const APISRoute = require('../../routes/apis')
 
 const forumRoute = require('../../routes/pages/forum')
 
 router.use(source)
 router.use(dashboard)
 router.use(AnimtTHRoute)
+router.use(APISRoute)
 router.use(monetizationRouter)
 router.use(withdrawRouter)
 router.use(withdrawal_HistoryRouter)

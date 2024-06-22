@@ -33,32 +33,118 @@
             </div>
             
             <form action="/createAnime" method="post">
-                <h2>สร้างอนิเมะบอร์ด</h2>
-    
-                <label for="name">ชื่ออนิเมะ</label>
-                <input type="text" name="nameAnime" placeholder="ชื่ออนิเมะ">
-    
-                <label for="ds">ผลิตโดย</label>
-                <input type="text" name="Produced" placeholder="ผลิตโดย">
-    
-                <label for="on">ต้นฉบับ</label>
-                <input type="text" name="manuscript" placeholder="ต้นฉบับ">
-    
-                <label for="ep">จำนวนตอน</label>
-                <input type="text" name="episodes" placeholder="จำนวนตอน">
-    
-                <label for="name">เริ่มฉาย</label>
-                <input type="text" name="start" placeholder="เริ่มฉาย">
-    
-                <label for="link">ลิงภาพ</label>
-                <input type="text" name="linkImage" placeholder="ลิ้งภาพ">
-    
-                <input type="submit" value="เผยแพร่">
+                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">สร้างอนิเมะบอร์ด</h2>
+        
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 font-semibold mb-2">ชื่ออนิเมะ</label>
+                    <input type="text" name="nameAnime" placeholder="ชื่ออนิเมะ" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+        
+                <div class="mb-4">
+                    <label for="ds" class="block text-gray-700 font-semibold mb-2">ผลิตโดย</label>
+                    <input type="text" name="Produced" placeholder="ผลิตโดย" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+        
+                <div class="mb-4">
+                    <label for="on" class="block text-gray-700 font-semibold mb-2">ต้นฉบับ</label>
+                    <input type="text" name="manuscript" placeholder="ต้นฉบับ" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+        
+                <div class="mb-4">
+                    <label for="ep" class="block text-gray-700 font-semibold mb-2">จำนวนตอน</label>
+                    <input type="text" name="episodes" placeholder="จำนวนตอน" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+        
+                <div class="mb-4">
+                    <label for="start" class="block text-gray-700 font-semibold mb-2">เริ่มฉาย</label>
+                    <input type="text" name="start" placeholder="เริ่มฉาย" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+        
+                <div class="mb-4">
+                    <label for="link" class="block text-gray-700 font-semibold mb-2">ลิงภาพ</label>
+                    <input type="text" name="linkImage" placeholder="ลิ้งภาพ" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+        
+                <div class="mb-4">
+                    <label for="year" class="block text-gray-700 font-semibold mb-2">เลือกปี</label>
+                    <select name="year" id="yearSelect" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </select>
+                </div>
+        
+                <div class="mb-4">
+                    <label for="month" class="block text-gray-700 font-semibold mb-2">เลือกเดือน</label>
+                    <select name="month" id="monthSelect" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </select>
+                </div>
+        
+                <div class="mb-4">
+                    <label for="season" class="block text-gray-700 font-semibold mb-2">เลือกฤดูกาล</label>
+                    <select name="season" id="seasonSelect" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="Spring 2024">Spring 2024</option>
+                        <option value="Summer 2024">Summer 2024</option>
+                        <option value="Fall 2024">Fall 2024</option>
+                    </select>
+                </div>
+        
+                <div class="mb-4">
+                    <label for="dub" class="block text-gray-700 font-semibold mb-2">เสียงพากย์</label>
+                    <select name="dub" id="dubSelect" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="พากย์ไทย">พากย์ไทย</option>
+                        <option value="พากย์ญี่ปุ่น">พากย์ญี่ปุ่น</option>
+                    </select>
+                </div>
+        
+                <div class="mb-4">
+                    <label for="sub" class="block text-gray-700 font-semibold mb-2">ซับไตเติ้ล</label>
+                    <select name="sub" id="subSelect" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>เลือก</option>
+                        <option value="ซับไทย">ซับไทย</option>
+                        <option value="ซับอังกฤษ">ซับอังกฤษ</option>
+                    </select>
+                </div>
+        
+                <div class="text-center">
+                    <input type="submit" value="เผยแพร่" class="bg-blue-500 text-white py-3 px-6 rounded-md font-semibold cursor-pointer hover:bg-blue-600 transition duration-200">
+                </div>
             </form>
         </div>
     </section>
     
 
     <script src="/js/admins/script.js"></script>
+    <script>
+        const yearSelect = document.getElementById('yearSelect');
+        const startYear = 1964;
+        const endYear = 2025;
+        for (let i = endYear; i >= startYear; i--) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            yearSelect.appendChild(option);
+        }
+
+
+        const monthSelect = document.getElementById('monthSelect');
+        const months = [
+            { value: '01', name: 'มกราคม' },
+            { value: '02', name: 'กุมภาพันธ์' },
+            { value: '03', name: 'มีนาคม' },
+            { value: '04', name: 'เมษายน' },
+            { value: '05', name: 'พฤษภาคม' },
+            { value: '06', name: 'มิถุนายน' },
+            { value: '07', name: 'กรกฎาคม' },
+            { value: '08', name: 'สิงหาคม' },
+            { value: '09', name: 'กันยายน' },
+            { value: '10', name: 'ตุลาคม' },
+            { value: '11', name: 'พฤศจิกายน' },
+            { value: '12', name: 'ธันวาคม' },
+        ];
+        months.forEach(month => {
+            const option = document.createElement('option');
+            option.value = month.value;
+            option.textContent = month.name;
+            monthSelect.appendChild(option);
+        });
+    </script>
 </body>
 </html>

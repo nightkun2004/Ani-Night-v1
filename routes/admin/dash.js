@@ -10,6 +10,7 @@ const AnimeApril = require('../../models/animeApril')
 const AnimeJuly = require('../../models/animeJuly')
 const AnimeBord = require('../../models/animebord')
 const Animemay = require('../../models/animeMay')
+const Anime = require('../../models/Anime')
 const createAnime = require('../../controls/createAnimeRoute')
 const create_2024 = require('../../routes/admin/2024/create')
 const Admin_Router = require('./admin_router/admin')
@@ -118,14 +119,21 @@ router.get('/admin/createAnime/may', verifyTokenAdmin, isAdmin, (req, res) => {
 router.post('/createAnime', verifyTokenAdmin, async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {
-        // สร้างออบเจ็กต์ AnimeApril ใหม่จากข้อมูลที่รับมาจากฟอร์ม
-        const newAnime = new AnimeApril({
-            nameAnime: req.body.nameAnime,
-            Produced: req.body.Produced,
-            manuscript: req.body.manuscript,
-            episodes: req.body.episodes,
-            start: req.body.start,
-            linkImage: req.body.linkImage,
+        const { nameAnime, Produced, manuscript, episodes, start, linkImage, year, month, season, dub, sub } = req.body;
+
+
+        const newAnime = new Anime({
+          nameAnime,
+          Produced,
+          manuscript,
+          episodes,
+          start,
+          linkImage,
+          year,
+          month,
+          season,
+          dub,
+          sub
         });
 
         const author = {
@@ -134,19 +142,11 @@ router.post('/createAnime', verifyTokenAdmin, async (req, res) => {
             profile: usersesstion.profile
         };
 
-        // เพิ่มข้อมูลผู้เขียนลงในออบเจ็กต์ AnimeApril
         newAnime.author = author;
-
-        // บันทึกออบเจ็กต์ AnimeApril ลงในฐานข้อมูล
-        const savedAnime = await newAnime.save();
-
-        // เพิ่ม ObjectId ของ AnimeApril ลงในฟิลด์ animeApril ในโมเดล AnimeBord
-        await AnimeBord.findOneAndUpdate({}, { $push: { animeApril: savedAnime._id }, $set: { author: author } }, { new: true, upsert: true });
-
-        // เมื่อบันทึกสำเร็จ ส่งคำตอบกลับไปยังผู้ใช้
+        await newAnime.save();
+        // console.log(newAnime)
         res.status(201).send('บันทึกข้อมูลอนิเมะสำเร็จ');
     } catch (error) {
-        // หากเกิดข้อผิดพลาด ส่งคำตอบกลับไปพร้อมข้อความผิดพลาด
         res.status(400).send(error.message);
     }
 })
@@ -178,23 +178,39 @@ router.get('/edit/anime/boards', loadAnimeData, async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 })
+router.get('/anime/animebrowse/edit', loadAnimeData, async (req, res) => {
+    const usersesstion = req.session.userlogin;
 
-router.post('/edit_animeboard', async (req, res) => {
+    try {
+        const AnimeData = await Anime.find();
+        if (!AnimeData) {
+            return res.status(404).json({ error: "AnimeData not found" });
+        }
+
+        res.render('./admin/edits/Editanimebrowse', { usersesstion, AnimeData,active: 'createAnime-admin' })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+})
+
+router.post('/edit_Anime/browse', async (req, res) => {
     const usersesstion = req.session.userlogin;
     const edit_id = req.body.edit_id;
     try {
-        const animeApril = await AnimeApril.findOne({ _id: edit_id }).exec();
+        const EditAnime = await Anime.findOne({ _id: edit_id }).exec();
 
-        if (!animeApril) {
+        if (!EditAnime ) {
             return res.status(404).json({ error: "AnimeApril not found" });
         }
 
-        res.render('./admin/edits/animebord', { active: 'dashboard', animeApril, usersesstion });
+        res.render('./admin/edits/animebord', { active: 'dashboard', EditAnime, usersesstion });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 router.post('/edit_animeboard/may', async (req, res) => {
     const usersesstion = req.session.userlogin;
     const edit_id = req.body.edit_id;
@@ -245,31 +261,33 @@ router.post('/edit_animeboard/June', async (req, res) => {
 });
 
 
-router.post('/edit_animeboard/one', verifyToken, async (req, res) => {
+router.post('/edit_Anime/browse/update', verifyToken, async (req, res) => {
     const update_id = req.body.update_id;
     try {
-        const animeBord = await AnimeApril.findOne({ _id: update_id });
-        if (!animeBord) {
-            return res.status(404).json({ error: "AnimeBord not found" });
+        const animebrowse = await Anime.findOne({ _id: update_id });
+        if (!animebrowse) {
+            return res.status(404).json({ error: "animebrowse not found" });
         }
 
-        animeBord.nameAnime = req.body.nameAnime;
-        animeBord.Produced = req.body.Produced;
-        animeBord.manuscript = req.body.manuscript;
-        animeBord.episodes = req.body.episodes;
-        animeBord.start = req.body.start;
-        animeBord.linkImage = req.body.linkImage;
-        animeBord.info = req.body.info;
-        animeBord.web = req.body.web;
-        animeBord.bilibili = req.body.bilibili;
-        animeBord.nameep = req.body.nameep;
-        animeBord.netflix = req.body.netflix;
-        animeBord.Iqiyi = req.body.Iqiyi;
-        animeBord.youtube = req.body.youtube;
-        animeBord.yt_text = req.body.yt_text;
-        animeBord.crunchyroll = req.body.crunchyroll;
+        animebrowse.nameAnime = req.body.nameAnime;
+        animebrowse.Produced = req.body.Produced;
+        animebrowse.manuscript = req.body.manuscript;
+        animebrowse.episodes = req.body.episodes;
+        animebrowse.start = req.body.start;
+        animebrowse.linkImage = req.body.linkImage;
+        animebrowse.Imagebackgroud = req.body.Imagebackgroud;
+        animebrowse.web = req.body.web;
+        animebrowse.Synopsis = req.body.Synopsis;
+        animebrowse.bilibili = req.body.bilibili;
+        animebrowse.nameep = req.body.nameep;
+        animebrowse.netflix = req.body.netflix;
+        animebrowse.Iqiyi = req.body.Iqiyi;
+        animebrowse.youtube = req.body.youtube;
+        animebrowse.yt_text = req.body.yt_text;
+        animebrowse.crunchyroll = req.body.crunchyroll;
 
-        await animeBord.save();
+        await animebrowse.save();
+        // console.log(animebrowse)
 
         res.redirect('/admin/dash?alertMessageVideo=แก้ไขเรียบร้อยแล้ว');
     } catch (error) {

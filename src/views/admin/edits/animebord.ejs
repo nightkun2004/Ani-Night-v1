@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="../css/admin/sidebar.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/acticle.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <%- include('../../admin/sidebars/navbar') %>
-    <section class="home-section">
-        <%- include('../sections/navbar') %>
+    <section class="main-section">
         <div class="col_form mx-auto px-4 xl:max-w-7xl pt-[110px]">
             <% if (usersesstion) { %>
                 <h5>ดำเนินด้วยบัญชี</h5>
@@ -30,91 +30,109 @@
               </div>
             <% } %>
         <div class="edit_overee">
-            <form action="/edit_animeboard/one" method="POST">
-                <h2>แก้ไขอนิเมะบอร์ด</h2>
+            <form action="/edit_Anime/browse/update" method="POST">
+                <h2>แก้ไขอนิเมะบอร์ดตัวแก้ไขหลัก</h2>
     
-                <input type="text" name="update_id" value="<%= animeApril._id %>">
+                <input type="text" name="update_id" value="<%= EditAnime._id %>">
     
                 <label for="name">ชื่ออนิเมะ</label>
-                <input type="text" name="nameAnime" value="<%= animeApril.nameAnime %>">
+                <input type="text" name="nameAnime" value="<%= EditAnime.nameAnime %>">
     
                 <label for="ds">ผลิตโดย</label>
-                <input type="text" name="Produced" value="<%= animeApril.Produced %>">
+                <input type="text" name="Produced" value="<%= EditAnime.Produced %>">
     
                 <label for="on">ต้นฉบับ</label>
-                <input type="text" name="manuscript" value="<%= animeApril.manuscript %>">
+                <input type="text" name="manuscript" value="<%= EditAnime.manuscript %>">
     
                 <label for="ep">จำนวนตอน</label>
-                <input type="text" name="episodes" value="<%= animeApril.episodes %>">
+                <input type="text" name="episodes" value="<%= EditAnime.episodes %>">
     
                 <label for="name">เริ่มฉาย</label>
-                <input type="text" name="start" value="<%= animeApril.start %>">
+                <input type="text" name="start" value="<%= EditAnime.start %>">
     
                 <label for="link">ลิงภาพ</label>
-                <input type="text" name="linkImage" value="<%= animeApril.linkImage %>">
+                <input type="text" name="linkImage" value="<%= EditAnime.linkImage %>">
+
+                <% if (EditAnime.Imagebackgroud) { %>
+                    <label for="link">ภาพพิ้งหลัง</label>
+                    <input type="text" name="Imagebackgroud" value="<%= EditAnime.Imagebackgroud %>">
+                    <% } else { %>
+                        <label for="link">ภาพพื้นหลัง</label>
+                        <input type="text" name="Imagebackgroud">
+                    <% } %>
+              
+                    <% if (EditAnime.Synopsis) { %>
+                        <label for="Synopsis">เรื่องย่อ</label>
+                        <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                        <input type="hidden" id="Synopsis" name="Synopsis" value="<%= EditAnime.Synopsis %>">
+                    <% } else { %>
+                        <label for="Synopsis">เรื่องย่อ</label>
+                        <div id="editor" class="mt-1 block w-full h-[200px] shadow-sm sm:text-sm border border-gray-300 rounded-md"></div>
+                        <input type="hidden" id="Synopsis" name="Synopsis">
+                    <% } %>
     
-                <% if (animeApril.info) { %>
+                <% if (EditAnime.info) { %>
                     <label for="link">ชื่อตอน</label>
-                    <input type="text" name="nameep" value="<%= animeApril.nameep %>">
+                    <input type="text" name="nameep" value="<%= EditAnime.nameep %>">
                     <% } else { %>
                         <label for="link">ชื่อตอน</label>
                         <input type="text" name="nameep">
                     <% } %>
     
-                <% if (animeApril.info) { %>
+                <% if (EditAnime.info) { %>
                 <label for="link">ข้อมูลเพิ่มเติม</label>
-                <input type="text" name="info" value="<%= animeApril.info %>">
+                <input type="text" name="info" value="<%= EditAnime.info %>">
                 <% } else { %>
                     <label for="link">ข้อมูลเพิ่มเติม</label>
                     <input type="text" name="info">
                 <% } %>
     
-                <% if (animeApril.web) { %>
+                <% if (EditAnime.web) { %>
                     <label for="link">เว็บทางการ</label>
-                    <input type="text" name="web" value="<%= animeApril.web %>">
+                    <input type="text" name="web" value="<%= EditAnime.web %>">
                     <% } else { %>
                         <label for="link">เว็บทางการ</label>
                         <input type="text" name="web">
                     <% } %>
     
-                <% if (animeApril.bilibili) { %>
+                <% if (EditAnime.bilibili) { %>
                     <label for="link">แพลตฟอร์ม Bilibili</label>
-                    <input type="text" name="bilibili" value="<%= animeApril.bilibili %>">
+                    <input type="text" name="bilibili" value="<%= EditAnime.bilibili %>">
                     <% } else { %>
                         <label for="link">แพลตฟอร์ม Bilibili</label>
                         <input type="text" name="bilibili">
                     <% } %>
-                <% if (animeApril.crunchyroll) { %>
+                <% if (EditAnime.crunchyroll) { %>
                     <label for="link">แพลตฟอร์ม Crunchyroll</label>
-                    <input type="text" name="crunchyroll" value="<%= animeApril.crunchyroll %>">
+                    <input type="text" name="crunchyroll" value="<%= EditAnime.crunchyroll %>">
                     <% } else { %>
                         <label for="link">แพลตฟอร์ม Crunchyroll</label>
                         <input type="text" name="crunchyroll">
                     <% } %>
-                <% if (animeApril.Iqiyi) { %>
+                <% if (EditAnime.Iqiyi) { %>
                     <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
-                    <input type="text" name="Iqiyi" value="<%= animeApril.Iqiyi %>">
+                    <input type="text" name="Iqiyi" value="<%= EditAnime.Iqiyi %>">
                     <% } else { %>
                         <label for="Iqiyi">แพลตฟอร์ม Iqiyi</label>
                         <input type="text" name="Iqiyi">
                     <% } %>
-                <% if (animeApril.netflix) { %>
+                <% if (EditAnime.netflix) { %>
                     <label for="netflix">แพลตฟอร์ม netflix</label>
-                    <input type="text" name="netflix" value="<%= animeApril.netflix %>">
+                    <input type="text" name="netflix" value="<%= EditAnime.netflix %>">
                     <% } else { %>
                         <label for="netflix">แพลตฟอร์ม netflix</label>
                         <input type="text" name="netflix">
                     <% } %>
-                <% if (animeApril.yt) { %>
+                <% if (EditAnime.youtube) { %>
                     <label for="youtube">แพลตฟอร์ม Youtube</label>
-                    <input type="text" name="youtube" value="<%= animeApril.yt %>">
+                    <input type="text" name="youtube" value="<%= EditAnime.youtube %>">
                     <% } else { %>
                         <label for="youtube">แพลตฟอร์ม Youtube</label>
                         <input type="text" name="youtube">
                     <% } %>
-                <% if (animeApril.yt_text) { %>
+                <% if (EditAnime.yt_text) { %>
                     <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
-                    <input type="text" name="yt_text" value="<%= animeApril.yt_text %>">
+                    <input type="text" name="yt_text" value="<%= EditAnime.yt_text %>">
                     <% } else { %>
                         <label for="yt_text">แพลตฟอร์มช่อง Youtube</label>
                         <input type="text" name="yt_text">
@@ -129,5 +147,48 @@
     
 
     <script src="/js/admins/script.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link', 'video'],
+                    [{ 'color': [] }],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    ['align', 'script', 'code-block'],
+                    [{ 'header': [1, 2, 3, 4, 5, 6] }],
+                    ['clean']
+                ]
+            },
+            formats: [
+                'bold', 'italic', 'header', 'underline', 'strike', 'link', 'color', 'list', 'bullet', 'indent',
+                'video', 'align', 'script', 'code-block'
+            ]
+        });
+    
+        var contentInput = document.getElementById('Synopsis');
+        
+        // ตั้งค่าเนื้อหาเริ่มต้นใน Quill editor
+        quill.clipboard.dangerouslyPasteHTML(contentInput.value);
+        
+        quill.on('text-change', function() {
+            contentInput.value = quill.root.innerHTML;
+        });
+    
+        quill.getModule('toolbar').addHandler('video', function() {
+            var url = prompt('Enter the URL of the video:');
+            if (url) {
+                insertVideo(url);
+            }
+        });
+    
+        function insertVideo(url) {
+            var range = quill.getSelection();
+            quill.insertEmbed(range.index, 'video', url, Quill.sources.USER);
+        }
+    </script>
 </body>
 </html>
