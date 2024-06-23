@@ -2,7 +2,7 @@ body {
     background-color: #f6f6f6;
 }
 
-.col_form form{
+.col_form .main-form{
     background-color: #fff;
     border-radius: 10px;
     flex-direction: column;

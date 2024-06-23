@@ -119,7 +119,7 @@ router.get('/admin/createAnime/may', verifyTokenAdmin, isAdmin, (req, res) => {
 router.post('/createAnime', verifyTokenAdmin, async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {
-        const { nameAnime, Produced, manuscript, episodes, start, linkImage, year, month, season, dub, sub } = req.body;
+        const { nameAnime, Produced, manuscript, episodes, start, linkImage, year, month, season, dub, sub, publicationStartTime  } = req.body;
 
 
         const newAnime = new Anime({
@@ -133,7 +133,8 @@ router.post('/createAnime', verifyTokenAdmin, async (req, res) => {
           month,
           season,
           dub,
-          sub
+          sub,
+          publicationStartTime: new Date(publicationStartTime)
         });
 
         const author = {
@@ -144,7 +145,7 @@ router.post('/createAnime', verifyTokenAdmin, async (req, res) => {
 
         newAnime.author = author;
         await newAnime.save();
-        // console.log(newAnime)
+        console.log(newAnime)
         res.status(201).send('บันทึกข้อมูลอนิเมะสำเร็จ');
     } catch (error) {
         res.status(400).send(error.message);
@@ -211,6 +212,48 @@ router.post('/edit_Anime/browse', async (req, res) => {
     }
 });
 
+router.post('/edit/character/anime', async (req,res) => {
+    const usersesstion = req.session.userlogin;
+    const edit_id = req.body.edit_id;
+    try {
+        const EditAnime = await Anime.findOne({ _id: edit_id }).exec();
+
+        if (!EditAnime ) {
+            return res.status(404).json({ error: "Anime not found" });
+        }
+        res.render('./admin/edits/Addcharacter', { active: 'dashboard', usersesstion, EditAnime})
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+router.post('/edit_Anime/character/add', async (req, res) => {
+    try {
+        const { animeId, namevoice, voiceimage, character, role, characterimage, dubType } = req.body;
+        const anime = await Anime.findById(animeId);
+
+        if (!anime) {
+            return res.status(404).send('Anime not found');
+        }
+
+        const newCharacter = { namevoice, voiceimage, character, role, characterimage };
+        
+        if (dubType === 'dubjpan') {
+            anime.Dubbings.dubjpan.push(newCharacter);
+        } else if (dubType === 'dubthai') {
+            anime.Dubbings.dubthai.push(newCharacter);
+        } else {
+            return res.status(400).send('Invalid dub type');
+        }
+
+        await anime.save();
+        console.log(anime)
+        res.redirect('/anime/animebrowse/edit');
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
 router.post('/edit_animeboard/may', async (req, res) => {
     const usersesstion = req.session.userlogin;
     const edit_id = req.body.edit_id;
@@ -264,7 +307,8 @@ router.post('/edit_animeboard/June', async (req, res) => {
 router.post('/edit_Anime/browse/update', verifyToken, async (req, res) => {
     const update_id = req.body.update_id;
     try {
-        const animebrowse = await Anime.findOne({ _id: update_id });
+        const animebrowse = await Anime.findOne(
+            { _id: update_id } );
         if (!animebrowse) {
             return res.status(404).json({ error: "animebrowse not found" });
         }
@@ -285,6 +329,9 @@ router.post('/edit_Anime/browse/update', verifyToken, async (req, res) => {
         animebrowse.youtube = req.body.youtube;
         animebrowse.yt_text = req.body.yt_text;
         animebrowse.crunchyroll = req.body.crunchyroll;
+        animebrowse.linkdemo = req.body.linkdemo;
+        animebrowse.platforms = req.body.platforms;
+        animebrowse.publicationStartTime = req.body.publicationStartTime;
 
         await animebrowse.save();
         // console.log(animebrowse)

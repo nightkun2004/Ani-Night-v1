@@ -46,45 +46,30 @@ const animeSchema = new mongoose.Schema({
     linkdemo: {
         type: String
     },
+    platforms: Array,
     Dubbings: {
         dubthai: [
             {
-                namevoice: {
-                    type: String
-                },
-                voiceimage: {
-                    type: String
-                },
-                character: {
-                    type: String
-                },
-                role: {
-                    type: String
-                },
-                characterimage: {
-                    type: String
-                }
+                namevoice: String,
+                voiceimage: String,
+                character: String,
+                role: String,
+                characterimage: String
             }
         ],
         dubjpan: [
             {
-                namevoice: {
-                    type: String
-                },
-                voiceimage: {
-                    type: String
-                },
-                character: {
-                    type: String
-                },
-                role: {
-                    type: String
-                },
-                characterimage: {
-                    type: String
-                }
+                namevoice: String,
+                voiceimage: String,
+                character: String,
+                role: String,
+                characterimage: String
             }
         ]
+    },
+    publicationStartTime: {
+        type: Date,
+        default: Date.now
     },
 }, {
     timestamps: true

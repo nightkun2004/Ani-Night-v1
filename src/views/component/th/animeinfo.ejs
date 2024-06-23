@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= anime.nameAnime %></title>
      <!-- Meta Tags for SEO -->
-     <meta name="description" content="<%- anime.Synopsis %>">
      <meta name="keywords" content="อนิเมะ, <%= anime.nameAnime %>, <%= anime.Produced %>">
      <meta name="author" content="https://ani-night.online">
  
      <!-- Open Graph Meta Tags (Facebook, LinkedIn) -->
      <meta property="og:title" content="<%= anime.nameAnime %>">
-     <meta property="og:description" content="<%- anime.Synopsis %>">
      <meta property="og:type" content="website">
      <meta property="og:image" content="<%= anime.linkImage %>">
      <meta property="og:url" content="https://ani-night.online">
@@ -19,81 +17,220 @@
      <!-- Twitter Meta Tags -->
      <meta name="twitter:card" content="summary_large_image">
      <meta name="twitter:title" content="<%= anime.nameAnime %>">
-     <meta name="twitter:description" content="<%- anime.Synopsis %>">
      <meta name="twitter:image" content="<%= anime.linkImage %>">
+
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100">
     <%- include('../../navnar_Header') %>
 
-    <main class="p-2 pt-20 md:p-20 mb-20"> <!-- เพิ่ม mb-20 เพื่อเพิ่ม margin-bottom -->
-        <div class="relative w-full h-60 md:h-96" style="background-image: url('<%= anime.Imagebackgroud %>'); background-size: cover; background-position: center;">
-            <div class="absolute inset-0 bg-black opacity-50"></div>
-            <div class="relative z-10 p-8">
-                <div class="flex flex-col md:flex-row items-center md:items-start">
-                    <div class="w-1/2 md:w-1/4">
-                        <img src="<%= anime.linkImage %>" alt="<%= anime.nameAnime %>" class="w-full rounded-md shadow-lg">
-                    </div>
-                    <div class="w-full hidden md:block md:w-3/4 mt-4 md:mt-0 md:pl-8 text-white">
-                        <h1 class="text-3xl font-bold mb-2"><%= anime.nameAnime %></h1>
-                        <p class="mb-2"><strong>ผลิตโดย:</strong> <%= anime.Produced %></p>
-                        <p class="mb-2"><strong>ต้นฉบับ:</strong> <%= anime.manuscript %></p>
-                        <p class="mb-2"><strong>จำนวนตอน:</strong> <%= anime.episodes %></p>
-                        <p class="mb-2"><strong>เริ่มฉาย:</strong> <%= anime.start %></p>
-                        <p class="mb-4"><strong>เรื่องย่อ:</strong> <%- anime.Synopsis %></p>
-                    </div>
-                </div>
+    <main class="p-2 mx-auto pt-20 md:p-13 mb-20">
+        <div class="relative w-full rounded-md h-60 md:h-96" style="background-image: url('<%= anime.Imagebackgroud %>'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-black rounded-md opacity-50"></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between bg-white p-4 mt-4 rounded-md shadow-md">
+            <div class="relative z-10">
+                <img src="<%= anime.linkImage %>" alt="<%= anime.nameAnime %>" class="w-full md:w-64 rounded-md shadow-lg mb-4 md:mb-0">
+            </div>
+            <div class="w-full md:w-3/4 mt-4 md:mt-0 md:pl-8 text-black">
+                <h1 class="text-3xl font-bold mb-2"><%= anime.nameAnime %></h1>
+                <p class="mb-2"><strong>ผลิตโดย:</strong> <%= anime.Produced %></p>
+                <p class="mb-2"><strong>ต้นฉบับ:</strong> <%= anime.manuscript %></p>
+                <p class="mb-2"><strong>จำนวนตอน:</strong> <%= anime.episodes %></p>
+                <p class="mb-2"><strong>เริ่มฉาย:</strong> <%= anime.start %>  <p class="countdown-timer text-3xl font-bold text-red-600"data-publication-start-time="<%= anime.publicationStartTime %>"></p></p>
+                <p class="mb-4"><strong>เรื่องย่อ:</strong> <%- anime.Synopsis %></p>
             </div>
         </div>
 
-        <div class="w-full md:hidden bg-white rounded-lg shadow-md mb-2 mt-[100px] p-2">
-            <h1 class="text-3xl font-bold mb-2"><%= anime.nameAnime %></h1>
-            <p class="mb-2"><strong>ผลิตโดย:</strong> <%= anime.Produced %></p>
-            <p class="mb-2"><strong>ต้นฉบับ:</strong> <%= anime.manuscript %></p>
-            <p class="mb-2"><strong>จำนวนตอน:</strong> <%= anime.episodes %></p>
-            <p class="mb-2"><strong>เริ่มฉาย:</strong> <%= anime.start %></p>
-            <p class="mb-4"><strong>เรื่องย่อ:</strong> <%- anime.Synopsis %></p>
-        </div>
-
-        <div class="p-8 bg-white rounded-lg shadow-md md:mt-[150px]">
-            <h2 class="font-bold text-3xl mb-5 text-sky-500">ดูได้ที่ 😍👇🏻</h2>
-            <div class="flex items-center gap-4 mb-4">
+       <!-- Container for left and right sections -->
+       <div class="flex flex-col md:flex-row mt-6 gap-4">
+        <!-- Left Section -->
+        <div class="w-full md:w-1/4 p-4 text-black">
+            <div class="flex flex-col gap-4">
+                <% if (anime.web) { %>
+                    <a href="<%= anime.web %>" target="_blank" class="flex items-center bg-white p-2 bg-gray-100 rounded-md hover:bg-gray-100">
+                        <span class="material-symbols-outlined">public</span>
+                        <span class="pl-5">เว็บทางการ</span>
+                    </a>
+                <% } else { %>
+                    <div class="flex items-center bg-gray-300 p-2 rounded-md cursor-not-allowed">
+                        <span class="material-symbols-outlined">public</span>
+                        <span class="pl-5">เว็บทางการ</span>
+                    </div>
+                <% } %>
+            
                 <% if (anime.bilibili) { %>
-                    <a href="<%= anime.bilibili %>" target="_blank" class="inline-block">
-                        <img src="/icons/bilibili-icon.png" alt="bilibili icon" class="w-10 h-10 rounded-full">
+                    <a href="<%= anime.bilibili %>" target="_blank" class="flex items-center p-2 bg-gray-100 rounded-md bg-white hover:bg-gray-100">
+                        <img src="/icons/bilibili-icon.png" alt="bilibili icon" class="w-5 h-5 rounded-full mr-2">
+                        <span>bilibili</span>
                     </a>
+                <% } else { %>
+                    <div class="flex items-center bg-gray-300 p-2 rounded-md cursor-not-allowed">
+                        <img src="/icons/bilibili-icon.png" alt="bilibili icon" class="w-5 h-5 rounded-full mr-2">
+                        <span>bilibili</span>
+                    </div>
                 <% } %>
+            
                 <% if (anime.crunchyroll) { %>
-                    <a href="<%= anime.crunchyroll %>" target="_blank" class="inline-block">
-                        <img src="/icons/crunchyroll_icon.png" alt="crunchyroll icon" class="w-10 h-10 rounded-full">
+                    <a href="<%= anime.crunchyroll %>" target="_blank" class="flex items-center p-2 bg-gray-100 rounded-md bg-white hover:bg-gray-100">
+                        <img src="/icons/crunchyroll_icon.png" alt="crunchyroll icon" class="w-5 h-5 rounded-full mr-2">
+                        <span>Crunchyroll</span>
                     </a>
+                <% } else { %>
+                    <div class="flex items-center bg-gray-300 p-2 rounded-md cursor-not-allowed">
+                        <img src="/icons/crunchyroll_icon.png" alt="crunchyroll icon" class="w-5 h-5 rounded-full mr-2">
+                        <span>Crunchyroll</span>
+                    </div>
                 <% } %>
+            
                 <% if (anime.Iqiyi) { %>
-                    <a href="<%= anime.Iqiyi %>" target="_blank" class="inline-block">
-                        <img src="/icons/iqiyi-icon.png" alt="iqiyi icon" class="w-10 h-10 rounded-full">
+                    <a href="<%= anime.Iqiyi %>" target="_blank" class="flex items-center p-2 bg-gray-100 rounded-md bg-white hover:bg-gray-100">
+                        <img src="/icons/iqiyi-icon.png" alt="iqiyi icon" class="w-5 h-5 rounded-full mr-2">
+                        <span>iQIYI</span>
                     </a>
+                <% } else { %>
+                    <div class="flex items-center bg-gray-300 p-2 rounded-md cursor-not-allowed">
+                        <img src="/icons/iqiyi-icon.png" alt="iqiyi icon" class="w-5 h-5 rounded-full mr-2">
+                        <span>iQIYI</span>
+                    </div>
                 <% } %>
+            
                 <% if (anime.netflix) { %>
-                    <a href="<%= anime.netflix %>" target="_blank" class="inline-block">
-                        <img src="/icons/netflix.png" alt="netflix icon" class="w-10 h-10 rounded-full">
+                    <a href="<%= anime.netflix %>" target="_blank" class="flex items-center p-2 bg-gray-100 rounded-md bg-white hover:bg-gray-100">
+                        <img src="/icons/netflix.png" alt="netflix icon" class="w-5 h-5 rounded-full mr-2">
+                        <span>Netflix</span>
                     </a>
+                <% } else { %>
+                    <div class="flex items-center bg-gray-300 p-2 rounded-md cursor-not-allowed">
+                        <img src="/icons/netflix.png" alt="netflix icon" class="w-5 h-5 rounded-full mr-2">
+                        <span>Netflix</span>
+                    </div>
                 <% } %>
+            
                 <% if (anime.youtube) { %>
-                    <a href="<%= anime.youtube %>" target="_blank" class="inline-block">
-                        <img src="/icons/youtube.svg" alt="youtube icon" class="w-10 h-10">
+                    <a href="<%= anime.youtube %>" target="_blank" class="flex items-center p-2 bg-gray-100 rounded-md bg-white hover:bg-gray-100">
+                        <img src="/icons/youtube.svg" alt="youtube icon" class="w-5 h-5 mr-2">
+                        <span>YouTube</span>
                     </a>
+                <% } else { %>
+                    <div class="flex items-center bg-gray-300 p-2 rounded-md cursor-not-allowed">
+                        <img src="/icons/youtube.svg" alt="youtube icon" class="w-5 h-5 mr-2">
+                        <span>YouTube</span>
+                    </div>
                 <% } %>
             </div>
 
-            <% if (anime.linkdemo) { %>
-                <div class="mt-4">
-                    <a href="<%= anime.linkdemo %>" target="_blank" class="px-4 py-2 bg-sky-500 text-white rounded-md inline-block">ดูตัวอย่าง</a>
-                </div>
-            <% } %>
         </div>
+
+        <!-- Right Section -->
+        <div class="w-full md:w-5/6 p-4">
+            <nav class="mb-4 bg-white border-2 p-4">
+                <ul class="flex space-x-4">
+                    <li><button onclick="showSection('characters')" class="text-blue-500 hover:underline">ตัวละครและนักพากย์</button></li>
+                    <li><button onclick="showSection('trailer')" class="text-blue-500 hover:underline">ดูตัวอย่าง</button></li>
+                </ul>
+            </nav>
+        
+            <div id="characters" class="section hidden">
+                <div class="px-4 md:px-12 py-4 w-full">
+                    <div class="dubvoice-row ">
+                        <% if (anime.Dubbings.dubthai.length > 0) { %>
+                            <% anime.Dubbings.dubthai.forEach((dub) => { %>
+                                <div class="dubitem rounded-lg shadow-md mb-5 bg-white flex flex-row md:flex-row justify-between items-center">
+                                    <div class="dubitem-left flex items-center space-x-4 mb-4 md:mb-0">
+                                        <div class="dubvoice-pic w-16 h-16 md:w-20 md:h-20 overflow-hidden">
+                                            <img src="<%= dub.voiceimage %>" alt="voice-pic" style="border-radius: 10px 0 0 10px;" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="dubvoice-info">
+                                            <h2 class="text-sm md:text-xl font-semibold text-gray-800"><%= dub.namevoice %></h2>
+                                        </div>
+                                    </div>
+                                    <div class="dubitem-right flex items-center space-x-4">
+                                        <div class="dubvoice-info text-center md:text-right">
+                                            <h2 class="text-sm md:text-xl font-semibold text-gray-800"><%= dub.character %></h2>
+                                            <p class="text-gray-600 text-sm"><%= dub.role %></p>
+                                        </div>
+                                        <div class="dubvoice-pic w-16 h-16 md:w-20 md:h-20 overflow-hidden">
+                                            <img src="<%= dub.characterimage %>" alt="character-pic" class="w-full h-full object-cover">
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } else if (anime.Dubbings.dubjpan.length > 0) { %>
+                            <% anime.Dubbings.dubjpan.forEach((dub) => { %>
+                                <div class="dubitem rounded-lg shadow-md mb-5 bg-white flex flex-row md:flex-row justify-between items-center">
+                                    <div class="dubitem-left flex items-center space-x-4 mb-4 md:mb-0">
+                                        <div class="dubvoice-pic w-16 h-16 md:w-20 md:h-20 overflow-hidden">
+                                            <img src="<%= dub.voiceimage %>" alt="voice-pic" style="border-radius: 10px 0 0 10px;" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="dubvoice-info">
+                                            <h2 class="text-sm md:text-xl font-semibold text-gray-800"><%= dub.namevoice %></h2>
+                                        </div>
+                                    </div>
+                                    <div class="dubitem-right flex items-center space-x-4">
+                                        <div class="dubvoice-info text-center md:text-right">
+                                            <h2 class="text-sm md:text-xl font-semibold text-gray-800"><%= dub.character %></h2>
+                                            <p class="text-gray-600 text-sm"><%= dub.role %></p>
+                                        </div>
+                                        <div class="dubvoice-pic w-16 h-16 md:w-20 md:h-20 overflow-hidden">
+                                            <img src="<%= dub.characterimage %>" alt="character-pic" class="w-full h-full object-cover">
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>ยังไม่ได้เพิ่มข้อมูลนักพากย์</p>
+                        <% } %>
+                        
+                    </div>
+                </div>                
+
+            </div>
+            <div id="trailer" class="section ">
+                <% if (anime.linkdemo) { %>
+                    <iframe src="<%= anime.linkdemo %>" frameborder="0" class="w-full h-64"></iframe>
+                <% } %>
+            </div>
+        </div>
+    </div>
     </main>
 
     <%- include('../../footer') %>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+    </script>
+    <script>
+        function updateCountdown() {
+            const countdownElements = document.querySelectorAll('.countdown-timer');
+            countdownElements.forEach(element => {
+                const publicationStartTime = new Date(element.getAttribute('data-publication-start-time'));
+                const now = new Date();
+                const diff = publicationStartTime - now;
+    
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+                    element.textContent = `${days}วัน ${hours}ชั่วโมง ${minutes}นาที ${seconds}วินาที`;
+                } else {
+                    element.textContent = 'เริ่มแล้ววว!';
+                }
+            });
+        }
+    
+        setInterval(updateCountdown, 1000);
+        document.addEventListener('DOMContentLoaded', updateCountdown);
+    </script>
 </body>
 </html>
