@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anishots ของ @<%= userData.username %></title>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <%- include('../../../navnar_Header') %>
+    <%- include('../../../sidebar_Section') %>
+    <section class="editor mx-auto px-4 xl:max-w-7xl pt-[110px]" id="editor">
+
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
+                <div class="flex flex-col sm:flex-row items-center">
+                    <img class="h-24 w-24 rounded-full object-cover" src="/profiles/<%= userData.profile %>" alt="Profile Picture">
+                    <div class="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left">
+                        <h1 class="text-2xl font-bold text-gray-900">
+                            <%= userData.name %>
+                        </h1>
+                        <p class="text-sm text-gray-600">@<%= userData.username %>
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            <%= userData.bio %>
+                        </p>
+                     
+                        
+                       
+                        <div class="mt-4 flex justify-center sm:justify-start space-x-4">
+                        <span class="text-sm text-gray-600"><strong><%= userData.followers %>:</strong> ผู้ติดตาม</span>
+                        <span class="text-sm text-gray-600"><strong><%= userData.followed %></strong> กำลังติดตาม</span>
+                        <!-- <span class="text-sm text-gray-600"><strong>0</strong> Likes</span> -->
+                    </div>
+                    <!-- <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md">Follow</button> -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- ============================================
+    Menus Editor ==================================== -->
+    <div
+        class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+        <ul class="navbar_profile flex flex-wrap -mb-px">
+            <li class="me-2 categoryButton">
+                <a href="/editor/<%= userData.username %>"
+                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700">หน้าหลัก</a>
+            </li>
+            <li class="me-2 categoryButton">
+                <a href="/editor/<%= userData.username %>/video"
+                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700"
+                    aria-current="page">วีดีโอ</a>
+            </li>
+            <li class="me-2 categoryButton">
+                <a href="/editor/<%= userData.username %>/anishots"
+                    class="inline-block p-4 border-b-2 text-sky-500 border-b-2 border-sky-500 rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700"
+                    aria-current="page">Anishots</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ===================================
+        content Editor ========================= -->
+    <div class="homes mb-20">
+        <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">Anishots</h2>
+        <div id="video-container">
+            <div class="flex flex-wrap">
+                <!-- Blog Post 1 -->
+                <% if (userData.anishots.length > 0) { %>
+                    <script>
+                        console.log(userData.anishots)
+                    </script>
+                    <div class="flex flex-wrap w-full gap-6">
+                        <% userData.anishots.forEach(anishot => { %>
+                            <div class="bg-white w-[290px] rounded-lg shadow-md overflow-hidden">
+                                <div class="relative">
+                                    <video src="/anishos/<%= anishot.videoUrl %>" loop class="w-full h-64 object-cover"></video>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <img src="/profiles/<%= anishot.createdBy.profile %>" alt="user profile" class="w-10 h-10 rounded-full">
+                                    </div>
+                                    <div class="p-4">
+                                        <h3 class="text-xl font-semibold"><a href="#" class="hover:underline">@<%= anishot.createdBy.username %></a></h3>
+                                        <p class="text-gray-700 mt-2"><%= anishot.description %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } else { %>
+                    <p class="text-center text-gray-700">ยังไม่มี Anishots..</p>
+                <% } %>
+                <!-- More blog posts can be added here in the same format -->
+            </div>
+            </div>
+
+    </div>
+</section>
+</body>
+</html>

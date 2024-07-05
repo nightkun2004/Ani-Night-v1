@@ -13,7 +13,7 @@ router.use(setLanguage);
 router.get('/search', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const searchQuery = req.query.query; // รับคำค้นหาจาก query string
+        const searchQuery = req.query.query; 
         if (searchQuery) {
             const articles = await Acticle.find({
                 $or: [

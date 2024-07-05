@@ -1,232 +1,33 @@
-<!-- Sidebar Left -->
-<nav class="sidebar">
-    <div class="menu_content">
-        <ul class="menu_items">
-            <div class="menu_title menu_dahsboard"></div>
-            <!-- start -->
-            <li class="item">
-                <a href="/" class="nav_link submenu_item">
-                    <span class="navlink_icon">
-                        <i class="fa-solid fa-house"></i>
-                    </span>
-                    <span class="navlink">หน้าหลัก</span>
-                </a>
-            </li>
-            <!-- end -->
-            <!-- start -->
-            <li class="item <%= active === 'anime' ? 'active' : '' %>">
-                <a href="/animeboard" class="nav_link submenu_item">
-                    <span class="navlink_icon">
-                        <i class="fa-solid fa-heart"></i>
-                    </span>
-                    <span class="navlink">บอร์ดรายการอนิเมะ</span>
-                </a>
-            </li>
-            <li class="item <%= active === 'foryou' ? 'active' : '' %>">
-                <a href="/foryou" class="nav_link submenu_item">
-                    <span class="navlink_icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <span class="navlink">ข่าวอนิเมะ</span>
-                </a>
-            </li>
-            <li class="item <%= active === 'article' ? 'active' : '' %>">
-                <a href="/articles" class="nav_link submenu_item">
-                    <span class="navlink_icon">
-                        <i class='bx bx-news'></i>
-                    </span>
-                    <span class="navlink">บทความ</span>
-                </a>
-            </li>
-            <!-- <li class="item <%= active === 'forum' ? 'active' : '' %>">
-                <a href="/forums" class="nav_link submenu_item">
-                    <span class="navlink_icon">
-                        <img src="/icons/iconforum.svg" alt="icon forum">
-                    </span>
-                    <span class="navlink forum">ฟอรัม</span>
-                </a>
-            </li> -->
-            <!-- end -->
-        </ul>
-        <% if (usersesstion) { %>
-            <ul class="menu_items">
-                <div class="menu_title menu_editor"></div>
-                <!-- Start -->
-                <li class="item  <%= active === 'edit_article' ? 'active' : '' %>">
-                    <a href="/<%= usersesstion.url %>/dashboard?tokenlogin=<%= usersesstion.accessToken%>"
-                        class="nav_link">
-                        <span class="navlink_icon">
-                            <i class="fa-solid far fa-edit"></i>
-                        </span>
-                        <span class="navlink">แก้ไขบทความ</span>
-                    </a>
-                </li>
-                <!-- End -->
-                <li class="item  <%= active === 'edit_video' ? 'active' : '' %>">
-                    <a href="/<%= usersesstion.url %>/dashboard/video?tokenlogin=<%= usersesstion.accessToken%>"
-                        class="nav_link">
-                        <span class="navlink_icon">
-                            <i class="fa-solid fa-video"></i>
-                        </span> 
-                        <span class="navlink">แก้ไขวีดีโอ</span>
-                    </a>
-                </li>
-                <li class="item <%= active === 'upload_article' ? 'active' : '' %>"> 
-                    <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="nav_link">
-                        <span class="navlink_icon">
-                            <i class="bx bx-cloud-upload"></i>
-                        </span>
-                        <span class="navlink">สร้างบทความ</span>
-                    </a>
-                </li>
-                <li class="item <%= active === 'profile' ? 'active' : '' %>">
-                    <a href="/<%= usersesstion.url %>?tokenlogin=<%= usersesstion.accessToken %>" class="nav_link">
-                        <span class="navlink_icon">
-                            <i class="fa-solid fa-user"></i>
-                        </span>
-                        <span class="navlink">โปรไฟล์</span>
-                    </a>
-                </li>
-            </ul>
-            <% } %>
-                <ul class="menu_items">
-                    <div class="menu_title menu_setting"></div>
-                    <li class="item <%= active === 'rules' ? 'active' : '' %>">
-                        <a href="/source" class="nav_link">
-                            <span class="navlink_icon">
-                                <i class="bx bx-flag"></i>
-                            </span>
-                            <span class="navlink">แหล่งที่มาข้อมูลบอร์ดอนิเมะ</span>
-                        </a>
-                    </li>
-                    <li class="item">
-                        <a href="/privacy" class="nav_link">
-                            <span class="navlink_icon">
-                                <i class="bx bx-flag"></i>
-                            </span>
-                            <span class="navlink">ความเป็นส่วนตัว</span>
-                        </a>
-                    </li>
-                    <li class="item">
-                        <a href="#" class="nav_link">
-                            <span class="navlink_icon">
-                                <i class="fa-solid fas fa-dollar-sign"></i>
-                            </span>
-                            <span class="navlink">การสร้างรายได้</span>
-                        </a>
-                    </li>
-                    <li class="item">
-                        <a href="#" class="nav_link">
-                            <span class="navlink_icon">
-                                <i class="bx bx-cog"></i>
-                            </span>
-                            <span class="navlink">การตั้งค่า</span>
-                        </a>
-                    </li>
-                </ul>
-                <br>
-                <p class="footer">
-                    © 2024 AniNight <br>
-                </p>
-                <!-- Sidebar Open / Close -->
-                <div class="bottom_content">
-                    <% if (!usersesstion) { %>
-                        <div class="bottom expand_sidebar"
-                            onclick="document.getElementById('btn_open-login_popup').style.display='block'">
-                            <span> เข้าสุ่ระบบ</span>
-                            <i class='bx bx-log-in'></i>
-                        </div>
-                        <% } else { %>
-                            <a href="/logout/<%= usersesstion._id %>" class="bottom collapse_sidebar">
-                                <span> ออกจากระบบ</span>
-                                <i class='bx bx-log-out'></i>
-                            </a>
-                            <% } %>
-                </div>
-    </div>
-</nav>
-
-
-<!-- The Model login -->
-<div id="btn_open-login_popup" class="modals">
-
-    <!-- Midel content -->
-    <div class="model-content">
-        <div class="close-popup" onclick="document.getElementById('btn_open-login_popup').style.display='none'">
-            <span> <i class="fa-solid fa-close"></i></span>
-        </div>
-        <div class="fome-content_login">
-            <div class="container-login">
-                <form action="/login" method="POST">
-                    <h2 class="title-login">เข้าสู่ระบบ</h2>
-                    <label for="username">อีเมล:</label>
-                    <input type="email" name="email" required>
-
-                    <label for="password">รหัสผ่าน:</label>
-                    <input class="mb-2" type="password" id="password" name="password" required>
-
-                    <button class="btn-login" type="submit">เข้าสู่ระบบ</button>
-                </form>
-                <div class="sigup">
-                    <a href="#" id="sigup_btn">สมัครสมาชิก</a>
-                    <a href="/forgot" target="_blank" rel="noopener noreferrer">ลืมรหัสผ่าน</a>
-                </div>
-                <div class="google-login">
-                    <a href="#googlelogin_btn" >
-                        <button class="login_button">
-                            <img src="/images/logo/google_logo.png" alt="">
-                            <div class="login_text">
-                                ดำเนินต่อด้วย Google
-                            </div>
-                        </button>
-                    </a>
-                </div>
-                <div class="google-login">
-                    <a href="#facebooklogin_btn">
-                        <button class="login_button">
-                            <img src="/images/logo/facebook_5968764.png" alt="">
-                            <div class="login_text">
-                                ดำเนินต่อด้วย Facebook
-                            </div>
-                        </button>
-                    </a>
-                </div>
-                <div class="google-login">
-                    <a href="#tiktoklogin_btn">
-                        <button class="login_button">
-                            <img src="/images/logo/tiktok_logo.webp" alt="">
-                            <div class="login_text">
-                                ดำเนินต่อด้วย TikTOk
-                            </div>
-                        </button>
-                    </a>
-                </div>
-
+<div id="my__Sidebar" class="sidepanel bg-white fixed top-0 left-0 h-full w-0 z-10 shadow-lg transition-width duration-300 ease-in-out overflow-hidden">
+    <div class="flex items-center">
+        <a href="/" title="Cidpokun" data-google="search-google">
+            <div class="logo__main flex items-center">
+                <img src="/images/logo/Aninight.png" alt="Logo" class="h-8 w-8">
+                <!-- <img src="/logos/logo__main--cidpokun.svg" alt="logo__main" class="h-10 w-full"> -->
+                 <h2 class="ml-2 text-2xl font-bold">AniNight</h2>
             </div>
-        </div>
-
-        <!-- Form Sign Up -->
-        <div class="form-content_signup" style="display: none;">
-            <div class="container-login">
-                <form action="/login" method="POST">
-                    <h2 class="title-login">สมัครสมาชิก</h2>
-                    <label for="username">ตั้งชื่อช่องของคุณ:</label>
-                    <input type="text" id="username" name="username"
-                        placeholder="ตั้งแล้วจะไม่สามารถแก้ไขได้หรือเปลี่ยนแปลงได้" required>
-
-                    <label for="email">อีเมล:</label>
-                    <input type="email" id="email" name="email" placeholder="กรุณาใส่อีเมล" required>
-
-                    <label for="password">รหัสผ่าน:</label>
-                    <input type="password" id="password" name="password"
-                        placeholder="กรุณาตั้งรหัสผ่านอย่างน้อย 8 - 32 ตัว" required>
-
-                    <button class="btn-singup" type="submit">สมัคร</button>
-                </form>
-                <div class="sigup">
-                    <a href="#" id="login_btn">เข้าสุ่ระบบ</a>
-                </div>
-            </div>
-        </div>
+        </a>
+        <a href="javascript:void(0)" class="closebtn px-8 text-xl text-right block py-4" onclick="closeNav()"><i class="fa-solid fa-bars"></i></a>
     </div>
+    <a href="/" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">หน้าหลัก</a>
+    <a href="/blogs" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">บทความ</a>
+    <a href="/th/videos" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">วีดีโอ</a>
+    <% if (usersesstion) { %>
+        <a href="/profile?u=<%= usersesstion.username %>" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">โปรไฟล์</a>
+    <% } %>
+    <a href="/search" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">🔍 ค้นหา</a>
+    <a href="/browse/anime" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">🖐🏻 อนิเมะ</a>
+    <a href="/trending" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">มาแรง</a>
+    <a href="/categories" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">หมวดหมู่</a>
+    <a href="/forums" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">ฟอรัม</a>
+    <a href="/articles" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">บทความ</a>
+    <!-- <a href="/anishots" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">Anishots</a> -->
+    <% if (!usersesstion) { %>
+        <a href="/login" class="block px-4 py-2 m-5 text-gray-800 bg-red-500 text-white rounded-lg hover:bg-red-600">เข้าสู่ระบบ</a>
+    <% } %>
+    <% if (usersesstion) { %>
+            <a href="/profile?u=<%= usersesstion.username %>" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">โปรไฟล์</a>
+            <a href="/upload_acticle" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">เขียน</a>
+            <!-- <a href="/upload/create/anishot" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">สร้าง AniShot</a> -->
+    <% } %>
 </div>

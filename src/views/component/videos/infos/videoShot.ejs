@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= anishot.title %></title>
+    <link rel="stylesheet" href="/css/pages/infovideoShot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <%- include('../../../navnar_Header') %>
+    <%- include('../../../sidebar_Section') %>
+
+    <div class="video-container" data-id="<%= anishot._id %>">
+        <video src="/anishos/<%= anishot.videoUrl %>" autoplay loop ></video>
+        <div class="overlay">
+          <div class="flex items-center justify-between">
+            <div>
+              <h1 class="text-xl font-bold"><%= anishot.title %></h1>
+              <p class="text-sm">@<%= anishot.createdBy.username %></p>
+            </div>
+            <div class="flex space-x-4">
+              <div class="flex flex-col items-center">
+                <% if (!usersesstion) { %>
+                 <button class="focus:outline-none">
+                        <i class="fa-solid fa-heart fa-heart-icon"></i>
+                    </button>
+                    <span class="likes-count"><%= anishot.likes %></span>
+                    <% } %>
+                    <% if (usersesstion) { %>
+                        <button class="focus:outline-none">
+                            <i class="fa-solid fa-heart fa-heart-icon <%= anishot.likesBy.includes(usersesstion._id) ? 'liked' : '' %>" data-id="<%= anishot._id %>"></i>
+                        </button>
+                        <span class="likes-count"><%= anishot.likes %></span>
+                    <% } %>
+              </div>
+              <% if (usersesstion) { %>
+                <div class="flex flex-col items-center">
+                    <button class="focus:outline-none">
+                        <i class="fa-solid fa-bookmark <%= usersesstion.bookmarks.includes(anishot._id.toString()) ? 'bookmarked' : '' %>" data-id="<%= anishot._id %>"></i>
+                    </button>
+                    <span class="bookmark-count"><%= anishot.bookmarksCount %></span>
+                  </div>
+            <% } else {%>
+                <div class="flex flex-col items-center">
+                    <button class="focus:outline-none">
+                        <i class="fa-solid fa-bookmark " data-id="<%= anishot._id %>"></i>
+                    </button>
+                    <span class="bookmark-count"><%= anishot.bookmarksCount %></span>
+                  </div>
+            <% } %>
+              <div class="flex flex-col items-center">
+                <button class="focus:outline-none">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                </button>
+                <span>เลื่อนขึ้นเพื่อแสดงความคิดเห็น</span>
+              </div>
+            </div>
+          </div>
+          <p class="mt-2 text-sm"><%= anishot.description %> #hashtag1 #hashtag2 #hashtag3</p>
+        </div>
+      </div>
+
+      <div class="mt-4 px-4">
+        <% const totalReplies = anishot.comments.length; %>
+        <h2 class="text-xl font-bold">ความคิดเห็นทั้งหมด <%= totalReplies %></h2>
+        
+        <div class="mt-4">
+            <% if (usersesstion) {%>
+            <form id="comment-form" class="flex items-center space-x-4">
+                <input id="comment-input" type="text" placeholder="เพิ่มความคิดเห็น..." class="flex-grow px-4 py-2 bg-gray-800 text-white rounded focus:outline-none">
+                <button type="submit" class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 focus:outline-none">ส่ง</button>
+              </form>
+              <p id="comment-error" class="text-red-500 mt-2 hidden">โปรดใส่คอมเม้น</p>
+              <p id="comment-sss" class="text-sky-500 mt-2 hidden">เรียบร้อยแล้วสำหรับความคิดเห็น</p>
+              <% } %>
+        </div>
+        <div class="mt-4 space-y-4 mb-5 comments-container">
+            <% if (totalReplies> 0) { %>
+                <% anishot.comments.forEach(comment=> { %>
+                    <div class="bg-gray-800 p-4 rounded comments-list flex items-center justify-between">
+                        <div class="profile flex items-center">
+                            <img src="/profiles/<%= comment.username.profile %>" alt="" class="w-10 h-10 rounded-full">
+                            <div class="info_comment flex flex-col pl-3">
+                                <p class="font-bold"><a href="/editor/<%= comment.username.username %>/anishots">
+                                    @<%= comment.username.username %>
+                                </a>
+                                </p>
+                                <p class="text-sm">
+                                    <%= comment.inputcomment %>
+                                </p>
+                            </div>
+                        </div>
+                     <div>
+                        <p>:</p>
+                        <% if (usersesstion && comment.username.id === usersesstion._id) { %>
+                            <button class="delete-comment focus:outline-none" data-id="<%= comment._id %>">
+                              <i class="fa-solid fa-trash"></i> 
+                              <span>ลบ</span>
+                            </button>
+                          <% } %>
+                     </div>
+                          
+                    </div>
+                    <% }); %>
+                  <% } else { %>
+                <p class="text-center text-gray-500 mt-4">ไม่มีข้อความตอบกลับ</p>
+            <% } %>
+        </div>
+      </div>
+
+
+      <%- include('../../../footer') %>
+
+<% if (usersesstion) {%>
+    <script>
+        document.addEventListener('submit', async (e) => {
+      if (e.target.id === 'comment-form') {
+        e.preventDefault();
+        const form = e.target;
+        const commentInput = document.getElementById("comment-input").value;
+        const videoContainer = document.querySelector('.video-container');
+        const anishotId = videoContainer.dataset.id;
+        const commentsContainer = document.querySelector('.comments-container');
+        const commentError = document.querySelector('#comment-error');
+        const commentsss = document.querySelector('#comment-sss');
+
+        try {
+          // Post comment to server
+          const response = await fetch(`/api/v2/post/comment/anishot/${anishotId}`, {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer <%= usersesstion.token %>',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                inputcomment: commentInput
+            }),
+          });
+          if (!response.ok) {
+            const errorData = await response.json();
+            commentError.textContent = errorData.error || 'เกิดข้อผิดพลาด';
+            commentError.classList.remove('hidden');
+            return;
+          }
+          const result = await response.json();
+          commentsss.textContent = result.message;
+          commentsss.classList.remove('hidden');
+          console.log(result)
+        } catch (error) {
+          console.error('Error posting comment:', error);
+        }
+      }
+    });
+
+    document.addEventListener('click', async (e) => {
+        if (e.target.classList.contains('delete-comment')) {
+          const commentId = e.target.dataset.id;
+          const anishotId = document.querySelector('.video-container').dataset.id;
+          try {
+            const response = await fetch(`/api/v2/post/comment/anishot/${anishotId}/comment/${commentId}`, {
+              method: 'DELETE',
+              headers: {
+                'Authorization': 'Bearer <%= usersesstion.token %>'
+              }
+            });
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const result = await response.json();
+            const commentsContainer = document.querySelector('.comments-container .comments-list');
+            window.location.href = `/anishot/video/${anishotId}`
+          } catch (error) {
+            console.error('Error deleting comment:', error);
+          }
+        }
+      });
+    </script>
+    <% } %>
+</body>
+</html>

@@ -4,6 +4,7 @@ const socketIo = require('socket.io');
 const path = require("path")
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
@@ -58,6 +59,8 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
+
+app.use(fileUpload());
 
 app.use(session({
   secret: process.env.ACCESS_TOKEN_SECRET,

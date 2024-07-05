@@ -39,10 +39,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .liked {
+          color: red;
+        }
+      </style>
 </head>
 
 <body class="bg-gray-100">
     <%- include('../navnar_Header') %>
+    <%- include('../sidebar_Section') %>
         <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="container pt-10">
                 <div class="loading_container">
@@ -68,14 +75,7 @@
                             <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
                                 <div>
                                     <div class="category text-sm md:text-2xl">
-                                        <p><a href="/">หน้าหลัก</a><span class="text-black">&gt;</span>
-                                        <p class="text-sm text-black md:text-2xl">
-                                            <% if (acticle && acticle.title) { %>
-                                                <%= acticle.title.substring(0, 40) + '...' %>
-                                                    <% } else { %>
-                                                        <%= acticle.title %>
-                                                            <% } %>
-                                        </p>
+                                        <p><a href="/">หน้าหลัก</a>
                                         </p>
                                     </div>
                                     <h1 class="text-sm leading-6 font-bold text-gray-900 md:text-2xl">
@@ -121,6 +121,7 @@
                                                                     </p>
                                                             </p>
                                     </div>
+                                   
                                 </div>
                                 <div class="relative flex items-center space-x-2">
                                     <button id="copylink"

@@ -25,7 +25,11 @@
                     href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
                     แดชบอร์ด</a></button>
                     <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
-                    <button class=" bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"><a href="/logout/user/<%= usersesstion._id %>" onclick="logout(event)">ออกจากระบบ</a></button>
+                    <form id="logoutForm" action="/logout/user" method="post">
+                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
+                            ออกจากระบบ
+                        </button>
+                    </form>
         </div>
     </div> 
     <div class="mt-2 p-2 md:hidden">
@@ -33,7 +37,11 @@
                 href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
                 แดชบอร์ด</a></button>
          <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
-         <button class=" bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"><a href="/logout/user/<%= usersesstion._id %>" onclick="logout(event)">ออกจากระบบ</a></button>
+         <form id="logoutForm" action="/logout/user" method="post">
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
+                ออกจากระบบ
+            </button>
+        </form>
     </div>
     <div class="px-6 py-4">
         <p class="text-gray-700">
@@ -57,7 +65,7 @@
       </div>
       <!-- Content -->
       <div class="p-4 overflow-auto h-[500px]">
-        <form action="/edit_profile" method="POST" enctype="multipart/form-data" class=" max-w-6xl mx-auto mt-8">
+        <form id="editProfileForm" method="POST" enctype="multipart/form-data" class=" max-w-6xl mx-auto mt-8">
             <div class="form_groud">
                 <label for="name">ชื่อช่อง</label>
                 <div class="input_box_form_edit">
@@ -152,14 +160,14 @@
 <style>
     /* Customize scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 12px;
     }
     ::-webkit-scrollbar-track {
       background: #f1f1f1;
     }
     ::-webkit-scrollbar-thumb {
       background: #888;
-      border-radius: 4px;
+      border-radius: 6px;
     }
     ::-webkit-scrollbar-thumb:hover {
       background: #555;
@@ -168,8 +176,8 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script>
      function logout(event) {
-            event.preventDefault(); 
-            Swal.fire({
+        event.preventDefault();
+        Swal.fire({
             title: 'คุณแน่ใจหรือไม่?',
             text: "คุณต้องการออกจากระบบหรือไม่?",
             icon: 'warning',
@@ -180,10 +188,47 @@
             cancelButtonText: 'ยกเลิก'
         }).then((result) => {
             if (result.isConfirmed) {
-                // ถ้าผู้ใช้ยืนยันการออกจากระบบ
-                // ทำการ redirect ไปยังหน้า logout route ใน Express
-                window.location.href = '/logout';
+                document.getElementById('logoutForm').submit();
             }
         });
-        }
+    }
   </script>
+
+  <% if (usersesstion) {%>
+    <script>
+        document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+          event.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
+      
+          const formData = new FormData(this);
+          const token = '<%= usersesstion.token %>'; // รับ token จากฝั่งเซิร์ฟเวอร์
+      
+          fetch('/edit_profile', {
+              method: 'POST',
+              headers: {
+                  'Authorization': 'Bearer ' + token // เพิ่ม Authorization header
+              },
+              body: formData,
+              credentials: 'include' // ส่งคุกกี้ที่ต้องการ
+          })
+          .then(response => {
+              if (!response.ok) {
+                  return response.json().then(errorData => {
+                      throw new Error(errorData.message || 'เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์');
+                  });
+              }
+              return response.json(); // รับข้อมูลจากเซิร์ฟเวอร์ในรูปแบบ JSON
+          })
+          .then(data => {
+              alert(data.message); // แสดงข้อความตอบกลับจากเซิร์ฟเวอร์
+              if (data.redirect) {
+                  window.location.href = data.redirect; // เปลี่ยนเส้นทางหากมีการเปลี่ยนเส้นทาง
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์');
+          });
+      });
+      
+        </script>
+<% } %>

@@ -7,14 +7,14 @@ function verifyToken(req, res, next) {
     if (!accessToken) {
         req.session.returnTo = req.originalUrl;
         req.alertMessage = 'กรุณาเข้าสู่ระบบ';
-        return res.status(401).json({reqmass: req.alertMessage});
+        return res.redirect('/login');
     } 
 
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) {
             req.session.returnTo = req.originalUrl;
             req.alertMessage = 'การยืนยันตัวตนล้มเหลว';
-            return res.status(401).json({reqmass: req.alertMessage});
+            return res.redirect('/login');
         }
         req.userId = decoded.userId;
         next();
@@ -27,14 +27,14 @@ function verifyTokenAdmin(req, res, next) {
     if (!accessToken) {
         req.session.returnTo = req.originalUrl;
         req.alertMessage = 'กรุณาเข้าสู่ระบบ';
-        return res.status(401).json({reqmass: req.alertMessage});
+        return res.redirect('/login');
     }
 
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) {
             req.session.returnTo = req.originalUrl;
             req.alertMessage = 'การยืนยันตัวตนล้มเหลว';
-            return res.status(401).json({reqmass: req.alertMessage});
+            return res.redirect('/login');
         }
         req.userId = decoded.userId;
         next();

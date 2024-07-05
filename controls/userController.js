@@ -1,15 +1,17 @@
 const User = require("../models/user")
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const HttpError = require("../models/errorModel")
 const crypto = require('crypto');
 require('dotenv').config()
 
 exports.getAllUser = async (req, res) => {
-    const Userdata = ({
+    const Userdata = {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
-    })
+    };
+
     try {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(Userdata.password, saltRounds);
@@ -33,13 +35,17 @@ exports.getAllUser = async (req, res) => {
             username: Userdata.username,
             email: Userdata.email,
             password: hashedPassword,
-            userid: userid
+            userid: userid,
+            url: `/user/${Userdata.email}`
         });
+        
+        req.session.userlogin = Usersave;
         await Usersave.save();
-        return res.redirect('/login?alertMessagesuccess=สมัครสมาชิกสำเร็จแล้วว ! เข้าสู่ระบบได้');
+        return res.redirect(`/profile?u=${Userdata.username}`);
+        
     } catch (err) {
         console.error(err);
-        return res.redirect('/singup?alertMessageerror=อาจจะเป็นเพราะอีเมลซํ้าก็ได้ .!');
+        return res.redirect('/signup?alertMessageerror=อาจจะเป็นเพราะอีเมลซํ้าก็ได้ .!');
     }
 };
 
@@ -87,7 +93,6 @@ exports.getLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
  
-        // Check if email and password are provided
         if (!email || !password) {
             return res.render("./component/pages/login", { data: "กรุณากรอกทุกช่อง" , usersesstion});
         }
@@ -95,25 +100,23 @@ exports.getLogin = async (req, res) => {
         const userlogin = await User.findOne({ email });
         if (!userlogin) return res.render("./component/pages/login", {data: "อ่าา เราไม่พบบัญชีผู้ใช้ของคุณ", usersesstion}); 
 
-        // Compare provided password with stored password
         const isPasswordValid = await bcrypt.compare(password, userlogin.password);
         if (!isPasswordValid) return res.render("./component/pages/login", { data: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", usersesstion});
 
-        // Generate access token
-        const accessToken = jwt.sign({ userId: userlogin._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
-        res.cookie('login-token', accessToken, { httpOnly: true, secure: true });
+        const { _id: id, name } = userlogin;
+        const token = jwt.sign({ id, name }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+        res.cookie('login-token', token, { httpOnly: true, secure: true });
 
-        // Destructure user object to exclude the password
         const { password: userPassword, ...others } = userlogin._doc;
-
-        // Save user info to session
         req.session.userlogin = {
             ...others,
-            accessToken,
+            token,
             alertMessage: req.query.alertMessage || '',
         };
 
-        res.redirect(`/${userlogin.url}`);
+        // console.log(req.session.userlogin)
+
+        res.redirect(`/profile?u=${req.session.userlogin.username}`);
     } catch (error) {
         console.error(error);
     }

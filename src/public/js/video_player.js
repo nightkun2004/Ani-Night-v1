@@ -139,7 +139,7 @@ video_players.forEach(video_player => {
 
     const mainVideo = video_player.querySelector(".main-video"),
         progressAreaTime = video_player.querySelector(".progressAreaTime"),
-        controls = video_player.querySelector(".controls"),
+        controls = video_player.querySelector(".controls"), 
         progressArea = video_player.querySelector(".progress-area"),
         thunnaillBar = video_player.querySelector(".thunnaillBar"),
         bufferedBar = video_player.querySelector(".bufferedBar"),

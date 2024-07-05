@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้าง Anishot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+    <style>
+        /* Tailwind CSS */
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+    
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    
+</head>
+<body>
+    <%- include('../../../navnar_Header') %>
+    <%- include('../../../sidebar_Section') %>
+    <div class="container mx-auto px-4 py-8 py-[90px]">
+        <h1 class="text-3xl font-bold mb-6">สร้าง Anishot ใหม่</h1>
+        <form id="anishotForm" method="POST" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label for="title" class="block text-sm font-medium text-gray-700">ชื่อเรื่อง</label>
+                <input type="text" name="title" id="title" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-700">คำอธิบาย</label>
+                <textarea name="description" id="description" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="video" class="block text-sm font-medium text-gray-700">อัปโหลดวีดีโอ</label>
+                <input type="file" name="video" id="video" accept=".mp4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md">สร้าง Anishot</button>
+        </form>
+        <div id="message" class="bg-gray-100 rounded-lg p-2 mb-3 mt-3"></div>
+    </div>
+    
+    <!-- Popup Loading -->
+<div id="loadingPopup" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50 hidden">
+    <div class="flex items-center justify-center space-x-2">
+        <div class="w-10 h-10 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+        <p class="text-white">กำลังดำเนินการ...</p>
+    </div>
+</div>
+
+
+    <% if (usersesstion) {%>
+    <script>
+        document.getElementById('anishotForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // แสดง popup loading
+        document.getElementById('loadingPopup').classList.remove('hidden');
+        
+        const formData = new FormData(this);
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '/api/v2/post/create/anishot', true);
+
+        // Set the Authorization header correctly
+        xhr.setRequestHeader('Authorization', 'Bearer ' + '<%= usersesstion.token %>');
+
+        xhr.onload = function() {
+            const messageDiv = document.getElementById('message');
+            // ซ่อน popup loading
+            document.getElementById('loadingPopup').classList.add('hidden');
+            
+            if (xhr.status === 201) {
+                messageDiv.innerHTML = '<p class="text-green-500">สร้าง Anishot สำเร็จ!</p>';
+                document.getElementById('anishotForm').reset();
+            } else {
+                try {
+                    const error = JSON.parse(xhr.responseText);
+                    messageDiv.innerHTML = `<p class="text-red-500">${error.message}</p>`;
+                } catch (e) {
+                    messageDiv.innerHTML = '<p class="text-red-500">เกิดข้อผิดพลาดในการสร้าง Anishot</p>';
+                }
+            }
+        };
+
+        xhr.send(formData);
+    });
+    </script>
+     <% } %>
+</body>
+</html>

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/pages/home_Section.css">
     <link rel="stylesheet" href="../css/channel.css">
     <link rel="stylesheet" href="../css/font/font1.css">
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
@@ -20,7 +21,7 @@
 
 <body>
     <%- include('../navnar_Header') %>
-
+<%- include('../sidebar_Section') %>
     <section class="editor mx-auto px-4 xl:max-w-7xl pt-[110px]" id="editor">
 
             <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -63,6 +64,11 @@
                     <a href="/editor/<%= userData.username %>/video"
                         class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700"
                         aria-current="page">วีดีโอ</a>
+                </li>
+                <li class="me-2 categoryButton">
+                    <a href="/editor/<%= userData.username %>/anishots"
+                        class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-700 dark:hover:text-gray-700"
+                        aria-current="page">Anishots</a>
                 </li>
             </ul>
         </div>

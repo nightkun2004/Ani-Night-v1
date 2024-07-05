@@ -19,15 +19,14 @@ const userSchema = new mongoose.Schema({
     },
     url: {
         type: String,
-        default: "@",
-        set: function (value) {
-            if (value) {
-                return value;
-            } else {
-                return "@";
-            }
-        }
+        required: true
     },
+    bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Anishot' }],
+    anishots: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Anishot'
+    }],
+    bookmarksCount: { type: Number, default: 0 },   
     password: {
         type: String
     },
@@ -65,12 +64,12 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Acticle'
     }],
-    bookmarks: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'forum'
-        }
-    ],
+    // bookmarks: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'forum'
+    //     }
+    // ],
     forums: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'forum'
@@ -110,6 +109,7 @@ const userSchema = new mongoose.Schema({
             ref: 'WithdrawalHistory'
         }
     ],
+    anishotsCount: Number,
     approval_admin: {
         type: Boolean,
         default: false

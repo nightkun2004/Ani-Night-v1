@@ -6,6 +6,8 @@ const User = require('../models/user')
 const comments = require('../models/comment')
 const authenticatetoken = require("../middleware/authtoken")
 const io = require("../socket")
+const { likePost } = require("../controls/aticleCrollers")
+const {authMiddleware} = require("../middleware/authMainuser")
 
 function setLanguage(req, res, next) {
     const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
@@ -69,7 +71,9 @@ router.get('/read/:url', async (req, res) => {
             active: 'trending' ,
             usersesstion,
             acticle,
-            articleforyou, 
+            articleforyou,
+            userLiked: null,
+            message: null,
             language: req.language 
         });
     } catch (err) {
@@ -138,5 +142,8 @@ router.post('/replie/read/:id', authenticatetoken, async (req, res) => {
         res.status(500).json({ message: 'ข้อผิดพลาดของเซิร์ฟเวอร์' });
     }
 });
+
+
+router.post("/api/v1/posts/:id/like", authMiddleware, likePost)
 
 module.exports = router

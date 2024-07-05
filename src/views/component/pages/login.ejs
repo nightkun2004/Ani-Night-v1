@@ -25,6 +25,7 @@
 
 <body>
     <%- include('../../navnar_Header') %>
+    <%- include('../../sidebar_Section') %>
     <!-- Login Popup -->
 <div id="login-popup" class="flex items-center pt-20 justify-center modal-bg">
     <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -34,10 +35,10 @@
         <form id="login-form">
             <div class="flex justify-center mb-4">
                 <button type="button" id="phone-tab"
-                    class="text-sm pr-2 font-medium text-gray-700 border-b-2 border-blue-500 pb-1">เบอร์โทรศัพท์</button>
-                <button type="button" id="account-tab" class="text-sm font-medium text-gray-700 pb-1">ใช้อีเมล</button>
+                    class="text-sm pr-2 font-medium text-gray-700 pb-1">เบอร์โทรศัพท์</button>
+                <button type="button" id="account-tab" class="text-sm font-medium text-gray-700 pb-1 border-b-2 border-blue-500 ">ใช้อีเมล</button>
             </div>
-            <div id="phone-login">
+            <div id="phone-login" class="hidden">
                 <form action="" method="post">
                     <div class="mb-4">
                         <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
@@ -70,7 +71,7 @@
                 </div>
             </div>
             <!-- Lonin Email -->
-            <div id="account-login" class="hidden">
+            <div id="account-login" >
                 <form action="/auth/login" method="post">
                     <div class="mb-4">
                         <label for="username" class="block text-sm font-medium text-gray-700">อีเมล</label>

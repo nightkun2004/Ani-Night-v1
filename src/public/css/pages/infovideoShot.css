@@ -1,0 +1,30 @@
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+  }
+
+  .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: white;
+  }
+
+  .liked {
+    color: red;
+    transition: .4 all;
+}
+.bookmarked {
+    color: yellow;
+}

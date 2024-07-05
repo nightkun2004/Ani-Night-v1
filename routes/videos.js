@@ -2,12 +2,25 @@ const express = require("express")
 const router = express.Router()
 const mongoose = require("../config")
 const Acticle = require("../models/acticle")
+const Anishot = require("../models/Anishot")
 const Video = require('../models/video')
+const { getAnishots,
+    getCreate,
+    CreateAnishot,
+    getAuthor,
+    Likeanishot,
+    putViewsAnishots,
+    bookmarkanishot,
+    datasAnishot,
+    Commentanishot,
+    getVideoShot,
+    deleteComment } = require("../controls/AnishotsControllers")
+const { authMiddleware } = require("../middleware/authMainuser")
 
 const perPage = 20;
 
 router.get('/foryou', async (req, res) => {
-    try { 
+    try {
         const usersesstion = req.session.userlogin;
         const videos = await Video.find().populate('author.id');
 
@@ -30,7 +43,7 @@ router.get('/foryou', async (req, res) => {
 
         videos.shuffle();
 
-        const totalVideo = videos.length; 
+        const totalVideo = videos.length;
         const totalPages = Math.ceil(totalVideo / perPage);
         const currentPage = req.query.page ? parseInt(req.query.page) : 1;
         const skip = (currentPage - 1) * perPage;
@@ -59,5 +72,27 @@ router.get("/api/videos", async (req, res) => {
     }
 })
 
+router.get('/anishots', getAnishots)
+router.get('/anishot/video/:id', getVideoShot)
+router.get('/api/v1/posts/users/:id', getAuthor);
+router.get('/upload/create/anishot', getCreate)
+router.get('/api/v2/posts/anishots', datasAnishot)
+router.get('/api/v2/post/anishot/:id/comments', async (req, res, next) => {
+    try {
+        const anishot = await Anishot.findById(req.params.id).select('comments').populate('comments.username.id', 'username profile');
+        if (!anishot) {
+            return res.status(404).json({ message: 'Anishot not found' });
+        }
+        res.json({ comments: anishot.comments });
+    } catch (error) {
+        next(error);
+    }
+});
+router.post('/api/v2/post/like/anishot/:id', authMiddleware, Likeanishot)
+router.post('/api/v2/post/create/anishot', authMiddleware, CreateAnishot)
+router.post('/api/v2/post/bookmark/anishot/:id', authMiddleware, bookmarkanishot)
+router.post('/api/v2/post/comment/anishot/:id', authMiddleware, Commentanishot);
+router.put('/api/v2/post/view/:id', putViewsAnishots)
+router.delete('/api/v2/post/comment/anishot/:id/comment/:commentId', authMiddleware, deleteComment);
 
 module.exports = router

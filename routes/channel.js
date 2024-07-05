@@ -22,5 +22,30 @@ router.get('/editor/:url', async (req, res) => {
         res.status(500).send('Internal Server Error', err);
     }
 })
+router.get('/editor/:url/anishots', async (req, res) => {
+    try {
+        const usersesstion = req.session.userlogin;
+        const userId = req.params.id;
+        const username = req.params.url;
+        const userData = await User.findOne({ username: username })
+        .populate({
+            path: 'anishots',
+            populate: {
+                path: 'createdBy',
+                select: 'username profile'
+            }
+        }).exec();
+        // console.log(userData.anishots)
+
+        res.render('./component/pages/channel/anishhots.ejs', {
+            active: 'anishots',
+            usersesstion,
+            userData
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error', err);
+    }
+})
 
 module.exports = router

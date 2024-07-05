@@ -1,0 +1,87 @@
+<!-- <script>
+    $(document).ready(function() {
+      $('#like-article').on('submit', function(event) {
+        event.preventDefault();
+        const articleId = '<%= acticle._id %>';
+
+        function getCookie(name) {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        const token = getCookie('login-token');
+
+        $.ajax({
+          url: `/api/v1/posts/${articleId}/like`,
+          method: 'POST',
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          success: function(response) {
+            $('#like-message-msg').text(response.message);
+            $('#likes-number').text(response.likesCount);
+            $('#like-icon').toggleClass('liked');
+          },
+          error: function(error) {
+            $('#like-message-msg').text(error.responseJSON.message);
+          }
+        });
+      });
+    });
+  </script> -->
+  <% if(usersesstion) { %>
+    <script>
+       document.getElementById('like-article').addEventListener('submit', function(event) {
+    event.preventDefault(); // ป้องกันการส่งฟอร์มโดยตรง
+
+    // ใช้โทเค็นจากตัวแปรที่ส่งไปยัง EJS template
+    const token = '<%= usersesstion.accessToken %>';
+    
+    const form = event.target;
+    const action = form.action;
+
+    fetch(action, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.text().then(text => { throw new Error(text) });
+      }
+      return response.json();
+    })
+    .then(data => {
+      // อัพเดตข้อความและจำนวนไลค์บนหน้าเว็บ
+      document.getElementById('like-message').textContent = data.message;
+      document.getElementById('like-count').textContent = `ชอบ: ${data.likesCount}`;
+      
+      // เปลี่ยนสีปุ่มไลค์เพื่อแสดงสถานะ
+      const likeButton = document.querySelector('#like-article button');
+      if (data.message.includes('ยกเลิกไลค์โพสต์แล้ว')) {
+        likeButton.classList.remove('text-red-500');
+      } else {
+        likeButton.classList.add('text-red-500');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('like-message').textContent = 'เกิดข้อผิดพลาด';
+    });
+  });
+      </script>
+  <%} %>
+  <div class="like flex items-center">
+    <form action="/api/v1/posts/<%= acticle._id %>/like" method="POST" id="like-article">
+        <button type="submit">
+          <i class="fa-solid fa-heart text-2xl  <%= userLiked ? 'fa-solid fa-heart text-red-500' : '' %>"></i>
+        </button>
+      </form>
+
+  <div id="like-message"><%= message %></div>
+  <div id="like-count" class="pl-5">ชอบ: <%= acticle.likesCount %></div>                                 
+</div>

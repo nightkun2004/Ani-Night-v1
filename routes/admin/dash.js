@@ -121,7 +121,7 @@ router.post('/createAnime', verifyTokenAdmin, async (req, res) => {
     try {
         const { nameAnime, Produced, manuscript, episodes, start, linkImage, year, month, season, dub, sub, publicationStartTime  } = req.body;
 
-
+        const publicationStartUTC = new Date(publicationStartTime).toISOString();
         const newAnime = new Anime({
           nameAnime,
           Produced,
@@ -134,7 +134,7 @@ router.post('/createAnime', verifyTokenAdmin, async (req, res) => {
           season,
           dub,
           sub,
-          publicationStartTime: new Date(publicationStartTime)
+          publicationStartTime: publicationStartUTC
         });
 
         const author = {
@@ -313,6 +313,8 @@ router.post('/edit_Anime/browse/update', verifyToken, async (req, res) => {
             return res.status(404).json({ error: "animebrowse not found" });
         }
 
+        const publicationStartUTC = new Date(req.body.publicationStartTime).toISOString();
+
         animebrowse.nameAnime = req.body.nameAnime;
         animebrowse.Produced = req.body.Produced;
         animebrowse.manuscript = req.body.manuscript;
@@ -331,7 +333,7 @@ router.post('/edit_Anime/browse/update', verifyToken, async (req, res) => {
         animebrowse.crunchyroll = req.body.crunchyroll;
         animebrowse.linkdemo = req.body.linkdemo;
         animebrowse.platforms = req.body.platforms;
-        animebrowse.publicationStartTime = req.body.publicationStartTime;
+        animebrowse.publicationStartTime = publicationStartUTC
 
         await animebrowse.save();
         // console.log(animebrowse)

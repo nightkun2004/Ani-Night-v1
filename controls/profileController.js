@@ -8,19 +8,23 @@ const axios = require('axios');
 
 exports.getProfile = async (req, res) => {
     try {
-        const url = req.params.url;
+        const username = req.query.u;
         const usersesstion = req.session.userlogin;
 
         if (!usersesstion) {
             return res.redirect('/');
         }
 
-        if (usersesstion.url !== url) {
+        if (!username || usersesstion.username !== username) {
             return res.redirect('/');
         }
-
-        const userData = await User.findOne({ _id: usersesstion._id, url: url })
+        
+        const userData = await User.findOne({ _id: usersesstion._id, username: username })
             .populate('acticles');
+
+        if (!userData) {
+            return res.redirect('/'); // ถ้าไม่พบข้อมูลผู้ใช้ก็รีไดเรคกลับไปที่หน้าแรก
+        }
 
         // const userHistory = await History.find({ user: usersesstion._id })
         //     .sort({ createdAt: -1 })
@@ -49,17 +53,6 @@ exports.getProfileApi = async (req, res) => {
     }
 }
 
-
-exports.getUserID = async (req, res) => {
-    try {
-        const Users = await User.find
-
-        res.send(userData);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('เกิดข้อผิดกับโปรไฟล์');
-    }
-}
 
 exports.playment = async (req, res) => {
     try {
@@ -113,27 +106,11 @@ exports.getAuthUser = async (req, res) => {
 
 
 
-exports.logOut = async (req, res) => {
-    try {
-        if (req.session.userlogin && req.session.userlogin._id) {
-            if (req.params.id === req.session.userlogin._id.toString()) {
-                req.session.destroy((err) => {
-                    if (err) {
-                        console.error(err);
-                        return res.status(500).send('Internal Server Error');
-                    }
-
-                    res.clearCookie('login-token');
-                    return res.redirect('/');
-                });
-            } else {
-                return res.status(403).send('Forbidden');
-            }
-        } else {
-            return res.status(403).send('Forbidden');
+exports.logout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).send('เกิดข้อผิดพลาดในการออกจากระบบ');
         }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
+        res.redirect('/'); // รีไดเรคไปที่หน้าแรกหลังจากออกจากระบบ
+    });
 };

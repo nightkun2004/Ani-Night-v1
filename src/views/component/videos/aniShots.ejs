@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anishots</title>
+    <link rel="stylesheet" href="/css/pages/aniShots.css">
+    <link rel="stylesheet" href="/css/pages/video_player.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <%- include('../../navnar_Header') %>
+    <%- include('../../sidebar_Section') %>
+        <div class="corp__video">
+            <div class="control-buttons">
+                <i class="fa-solid fa-arrow-up prev-button btn__right"></i>
+                <i class="fa-solid fa-arrow-down next-button btn__right"></i>
+            </div>
+            <div class="videos__lists" id="anishots-container">
+                <div class="loading fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 hidden" id="loading">
+                    <div class="w-10 h-10 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+                    <p class="text-white">กำลังดำเนินการ...</p>
+                </div>
+                <% if (anishots && anishots.length > 0) { %> 
+                    <% anishots.forEach(anishot => { %>
+                        <div class="vdeo__item anishot" data-id="<%= anishot._id %>" data-views="<%= anishot.views %>">
+                          <anishot class="video-wrapper video_player flex flex-col">
+                            <video src="/anishos/<%= anishot.videoUrl %>"  loop></video>
+                            <div class="heart-container">
+                                <i class="fa-solid fa-heart heart-animation" aria-hidden="true"></i>
+                            </div>
+                            <!-- <p class="no__servie">ยังไม่พร้อมให้บริการ</p> -->
+                            
+                            <div class="popup__func">
+                                <div class="model__content">
+                                    <h3 class="text-1xl font-bold">แชร์</h3>
+                                    <div class="user__share">
+                                        <% for (let i = 0; i < 10; i++) { %>
+                                            <img src="/images/pino.jpg" alt="user share">
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comments-list comments-container overflow-y-auto max-h-60 mb-4">
+                                <!-- Existing comments will be loaded here -->
+                            </div>
+                            <!-- Popup for comments -->
+                            <div class="popup-comments fixed inset-0 flex justify-center items-center hidden">
+                                <div class="bg-white p-6 rounded-lg w-96 relative">
+                                    <h3 class="text-lg font-semibold mb-4">Comments</h3>
+                                    <form id="comment-form">
+                                        <textarea id="comment-input" class="w-full p-2 border rounded" rows="3" placeholder="Add a comment..."></textarea>
+                                        <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Post Comment</button>
+                                    </form>
+                                    <button class="close-popup absolute top-2 right-2 px-4 py-2 bg-gray-500 text-white rounded">Close</button>
+                                </div>
+                            </div>
+                        </anishot>
+                        <div class="progress-bar">
+                            <div class="progress-bar__fill"></div>
+                        </div>
+                        <div class="contrlos__video">
+                            <div class="control__left">
+                                <div class="play__control">
+                                    <i class="fa-solid fa-play play-icon" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="contrlo__right">
+                                <p class="icon fullscreen" id="fullscreen">
+                                    <i class="fas fa-expand"></i>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text__title">
+                            <h3><a href="/editor/<%= anishot.createdBy.username %>/anishots" class="hover:underline">@<%= anishot.createdBy.username %></a></h3>
+                            <!-- <script>
+                               console.log(<%- JSON.stringify(anishot.createdBy) %>);
+                            </script> -->
+                            <p class="description"> <%= anishot.description %></p>
+                        </div>
+                        <div class="video_coll">
+                            <div class="profile_user">
+                                <a href="/editor/<%= anishot.createdBy.username %>/anishots">
+                                    <img src="/profiles/<%= anishot.createdBy.profile %>" alt="user profile" class="rounded-full">
+                                </a>
+                            </div>
+                            <div class="profile__info">
+                                <% if (!usersesstion) { %>
+                                <div class="icon">
+                                    <i class="fa-solid fa-heart" data-id="<%= anishot._id %>"></i>
+                                    <span><%= anishot.likes %></span>
+                                </div>
+                                <% } %>
+                                <% if (usersesstion) { %>
+                                    <div class="icon">
+                                        <i class="fa-solid fa-heart fa-heart-icon <%= anishot.likesBy.includes(usersesstion._id) ? 'liked' : '' %>" data-id="<%= anishot._id %>"></i>
+                                        <span class="likes-count"><%= anishot.likes %></span>
+                                    </div>
+                                <% } %>
+                                <div class="icon icon__size comment-icon cursor-pointer">
+                                    <a href="/anishot/video/<%= anishot._id %>" class="flex items-center flex-col">
+                                        <i class="fa-solid fa-comment"></i>
+                                        <% const totalReplies = anishot.comments.length; %>
+                                        <span><%= totalReplies %></span>
+                                    </a>
+                                </div>
+                                <% if (usersesstion) { %>
+                                    <div class="icon icon__size">
+                                        <i class="fa-solid fa-bookmark <%= usersesstion.bookmarks.includes(anishot._id.toString()) ? 'bookmarked' : '' %>"
+                                            data-id="<%= anishot._id %>"></i>
+                                        <span class="bookmark-count">
+                                            <%= anishot.bookmarksCount %>
+                                        </span>
+                                    </div>
+                                <% } else {%>
+                                    <div class="icon icon__size">
+                                        <i class="fa-solid fa-bookmark"></i>
+                                        <span>
+                                            <%= anishot.bookmarksCount %>
+                                        </span>
+                                    </div>
+                                <% } %>
+                                <div class="icon icon__size share-button">
+                                    <i class="fa-solid fa-share"></i>
+                                    <span>แชร์</span>
+                                </div>
+                                <div class="icon icon__size">
+                                    <i class="fa-solid fa-eye"></i>
+                                    <span class="views">การดู: <%= anishot.views %></span>
+                                </div>
+                                <div class="footer__video">
+                                    <img src="/profiles/<%= anishot.createdBy.profile %>" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+                <% } else { %>
+                    <p style="text-align: center;">ไม่มีข้อมูล</p>
+                <% } %>
+                <!-- <div class="vdeo__item">
+                    <anishot class="video-wrapper video_player flex flex-col">
+                        <video src="/videos/01234.mp4"  loop></video>
+                        <div class="heart-container">
+                            <i class="fa-solid fa-heart heart-animation" aria-hidden="true"></i>
+                        </div>
+                        <p class="no__servie">ยังไม่พร้อมให้บริการ</p>
+                        <div class="popup__func">
+                            <div class="model__content">
+                                <h3 class="text-1xl font-bord">แชร์</h3>
+                                <div class="user__share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                    <img src="/images/pino.jpg" alt="user share">
+                                </div>
+                            </div>
+                        </div>
+                    </anishot>
+                    <div class="progress-bar">
+                        <div class="progress-bar__fill"></div>
+                    </div>
+                    <div class="contrlos__video">
+                        <div class="control__left">
+                            <div class="play__control">
+                                <i class="fa-solid fa-play play-icon" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="contrlo__right">
+                            d
+                        </div>
+                    </div>
+                    <div class="text__title">
+                        <h3>@username</h3>
+                        <p class="des">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, consectetur!</p>
+                    </div>
+                    <div class="video_coll">
+                        <div class="profile_user">
+                            <img src="/images/pino.jpg" alt="user pro">
+                        </div>
+                        <div class="profile__info">
+                            <div class="icon">
+                                <i class="fa-solid fa-heart"></i>
+                                <span>0</span>
+                            </div>
+                            <div class="icon icon__size">
+                                <i class="fa-solid fa-comment"></i>
+                                <span>0</span>
+                            </div>
+                            <div class="icon icon__size">
+                                <i class="fa-solid fa-bookmark"></i>
+                                <span>0</span>
+                            </div>
+                            <div class="icon icon__size share-button">
+                                <i class="fa-solid fa-share"></i>
+                                <span>แชร์</span>
+                            </div>
+                            <div class="footer__video">
+                                <img src="/images/pino.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            
+                <!-- Add more video-wrapper sections here -->
+            </div>
+        </div>
+
+        
+    <div id="Popup" style="display: none;" class="fixed inset-0 flex items-center justify-center">
+        <p class="text-white bg-gray-500 rounded-lg p-2" id="PopupText">บันทึกแล้ว</p>
+    </div>
+        
+
+        <% if (usersesstion) { %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const hearts = document.querySelectorAll('.fa-heart-icon');
+        
+                    hearts.forEach(heart => {
+                        heart.addEventListener('click', function () {
+                            const anishotId = this.dataset.id;
+        
+                            fetch(`/api/v2/post/like/anishot/${anishotId}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${'<%= usersesstion.token %>'}`
+                                },
+                                credentials: 'include'
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.message === "ไลค์โพสต์แล้ว") {
+                                    this.classList.add('liked');
+                                } else if (data.message === "ยกเลิกไลค์โพสต์แล้ว") {
+                                    this.classList.remove('liked');
+                                }
+                                // Update the number of likes displayed
+                                this.nextElementSibling.textContent = data.likes;
+                            })
+                            .catch(error => console.error('Error:', error));
+                        });
+                    });
+                });
+            </script>
+            <script>
+       
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const anishotElements = document.querySelectorAll('.anishot');
+
+                        anishotElements.forEach(function (element) {
+                            const anishotId = element.getAttribute('data-id');
+                            const initialViews = element.getAttribute('data-views');
+                            const initialBookmarks = element.getAttribute('data-bookmarks');
+
+                            // อัปเดตจำนวนวิวทันทีที่โหลดหน้า
+                            element.querySelector('.views').textContent = initialViews;
+                            element.querySelector('.bookmark-count').textContent = initialBookmarks;
+
+                            // Fetch Anishot details and update views
+                            fetch(`/api/v2/post/view/${anishotId}`, {
+                                method: 'PUT'
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    element.querySelector('.views').textContent = data.views;
+                                })
+                                .catch(error => console.error('Error:', error));
+
+                            // Handle bookmark icon click
+                            element.querySelector('.bookmark-btn').addEventListener('click', function () {
+                                const icon = this;
+                                fetch(`/api/v2/post/bookmark/anishot/${anishotId}`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Authorization': 'Bearer <%= usersesstion.token %>',
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        const bookmarkCountElement = element.querySelector('.bookmark-count');
+                                        const popupTextElement = document.getElementById('PopupText');
+                                        if (data.message.includes('ยกเลิกการบันทึกโพสต์')) {
+                                            icon.classList.remove('bookmarked');
+                                            popupTextElement.textContent = 'ยกเลิกการบันทึก';
+                                        } else {
+                                            icon.classList.add('bookmarked');
+                                            popupTextElement.textContent = 'บันทึกแล้ว';
+                                        }
+                                        bookmarkCountElement.textContent = data.bookmarksCount;
+
+                                        showPopup();
+                                    })
+                                    .catch(error => console.error('Error:', error));
+                            });
+                        });
+                    });
+
+                    function showPopup() {
+                        const popup = document.getElementById('Popup');
+                        popup.style.display = 'flex';
+                        setTimeout(() => {
+                            popup.style.display = 'none';
+                        }, 2000);
+                    }
+            </script>
+        <% } %>
+        <!-- <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const shareButtons = document.querySelectorAll('.share-button');
+                shareButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const popup = button.closest('.video__item').querySelector('.popup__func');
+                        popup.classList.toggle('hidden');
+                    });
+                });
+        
+                document.querySelectorAll('video').forEach(video => {
+                    video.addEventListener('dblclick', (event) => {
+                        const heart = video.closest('.video-wrapper').querySelector('.heart-container .heart-animation');
+                        heart.style.left = `${event.clientX}px`;
+                        heart.style.top = `${event.clientY}px`;
+                        heart.classList.add('visible');
+                        setTimeout(() => {
+                            heart.classList.remove('visible');
+                        }, 1000);
+                    });
+                });
+            });
+        </script> -->
+        <script>
+            $(document).ready(function() {
+                var isDown = false;
+                var startX;
+                var scrollLeft;
+        
+                $('.user__share').on('mousedown', function(e) {
+                    isDown = true;
+                    $(this).addClass('active');
+                    startX = e.pageX - $(this).offset().left;
+                    scrollLeft = $(this).scrollLeft();
+                });
+        
+                $('.user__share').on('mouseleave mouseup', function() {
+                    isDown = false;
+                    $(this).removeClass('active');
+                });
+        
+                $('.user__share').on('mousemove', function(e) {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    var x = e.pageX - $(this).offset().left;
+                    var walk = (x - startX) * 2; // Speed of scrolling
+                    $(this).scrollLeft(scrollLeft - walk);
+                });
+        
+                $('.share-button').click(function() {
+                    $(this).closest('.vdeo__item').find('.popup__func').toggleClass('active');
+                });
+        
+                $(document).mouseup(function(e) {
+                    var container = $(".popup__func.active");
+                    if (!container.is(e.target) && container.has(e.target).length === 0) {
+                        container.removeClass('active');
+                    }
+                });
+            });
+        
+            document.addEventListener('DOMContentLoaded', () => {
+                const videos = document.querySelectorAll('video');
+        
+                videos.forEach((video) => {
+                    const vdeoItem = video.closest('.vdeo__item');
+                    const playButton = video.closest('.vdeo__item')?.querySelector('.play-icon');
+                    const fullscreenBtn = video.closest('.vdeo__item').querySelector('.fullscreen');
+                    const progressBar = video.closest('.vdeo__item').querySelector('.progress-bar');
+                    const progressBarFill = video.closest('.vdeo__item').querySelector('.progress-bar__fill');
+                    video.volume = 0.40;
+
+                    fullscreenBtn.addEventListener("click", () => {
+                        const videoPlayer = document.querySelector('.videos__lists');
+                        if (!videoPlayer.classList.contains("openFullScreen")) {
+                            videoPlayer.classList.add("openFullScreen");
+                            fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                            videoPlayer.requestFullscreen();
+                        } else {
+                            videoPlayer.classList.remove("openFullScreen");
+                            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                            document.exitFullscreen();
+                        }
+                    });
+
+
+
+                    // fullscreenBtn.addEventListener('click', () => {
+                    //     if (!document.fullscreenElement) {
+                    //         vdeoItem.requestFullscreen().catch(err => {
+                    //             console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                    //         });
+                    //         vdeoItem.classList.add("openFullScreen");
+                    //         fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                    //     } else {
+                    //         document.exitFullscreen().catch(err => {
+                    //             console.error(`Error attempting to exit full-screen mode: ${err.message} (${err.name})`);
+                    //         });
+                    //         vdeoItem.classList.remove("openFullScreen");
+                    //         fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                    //     }
+                    // });
+        
+                    // Check if elements exist
+                    if (!playButton || !progressBar || !progressBarFill) {
+                        console.warn('One or more control elements are missing.');
+                        return;
+                    }
+
+                    video.addEventListener("click", ()=>{
+                        if(video.paused) {
+                            playVideo()
+                        } else {
+                            pauseVideo()
+                        }
+                    })
+
+                    playButton.addEventListener('click', () => {
+                        if (video.paused) {
+                            playVideo();
+                        } else {
+                            pauseVideo();
+                        }
+                    });
+        
+                    function playVideo() {
+                        playButton.classList.replace('fa-play', 'fa-pause');
+                        video.play();
+                    }
+        
+                    function pauseVideo() {
+                        playButton.classList.replace('fa-pause', 'fa-play');
+                        video.pause();
+                    }
+        
+                    // Update progress bar
+                    video.addEventListener('timeupdate', () => {
+                        const progress = (video.currentTime / video.duration) * 100;
+                        progressBarFill.style.width = `${progress}%`;
+                    });
+        
+                    // Seek video on progress bar click
+                    progressBar.addEventListener('click', (e) => {
+                        const rect = progressBar.getBoundingClientRect();
+                        const clickX = e.clientX - rect.left;
+                        const width = rect.width;
+                        const duration = video.duration;
+                        video.currentTime = (clickX / width) * duration;
+                    });
+        
+                    // Prevent default context menu
+                    video.addEventListener('contextmenu', (e) => {
+                        e.preventDefault();
+                    });
+        
+                    // Heart animation on double click
+                    video.addEventListener('dblclick', (e) => {
+                        const heartContainer = document.createElement('div');
+                        heartContainer.classList.add('heart-container');
+                        heartContainer.style.left = `${e.clientX - 25}px`;
+                        heartContainer.style.top = `${e.clientY - 25}px`;
+        
+                        const heart = document.createElement('i');
+                        heart.classList.add('fa-solid', 'fa-heart', 'heart-animation');
+                        heartContainer.appendChild(heart);
+                        document.body.appendChild(heartContainer);
+        
+                        setTimeout(() => {
+                            heartContainer.remove();
+                        }, 1000); // Adjust duration to match the animation length
+                    });
+                });
+        
+                // Intersection Observer to play/pause videos in view
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        const video = entry.target;
+                        if (entry.isIntersecting) {
+                            video.play();
+                        } else {
+                            video.pause();
+                        }
+                    });
+                }, {
+                    threshold: 0.5
+                });
+        
+                videos.forEach(video => {
+                    observer.observe(video);
+                });
+        
+                // Handle visibility change to pause/play video
+                document.addEventListener('visibilitychange', () => {
+                    let currentVideo = null;
+        
+                    // Find the currently visible video
+                    videos.forEach(video => {
+                        let rect = video.getBoundingClientRect();
+                        if (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+                            currentVideo = video;
+                        }
+                    });
+        
+                    if (document.hidden) {
+                        videos.forEach(video => {
+                            video.pause();
+                        });
+                    } else if (currentVideo) {
+                        currentVideo.play();
+                    }
+                });
+        
+                // Scroll to previous or next video
+                const videoContainer = document.querySelector('.videos__lists');
+                const prevButton = document.querySelector('.prev-button');
+                const nextButton = document.querySelector('.next-button');
+        
+                const scrollToPrev = () => {
+            const videos = document.querySelectorAll('.vdeo__item');
+            for (let i = 0; i < videos.length; i++) {
+                let rect = videos[i].getBoundingClientRect();
+                if (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+                    if (i > 0) {
+                        const prevVideo = videos[i - 1].querySelector('video');
+                        videos[i - 1].scrollIntoView({ behavior: 'smooth' });
+                        if (prevVideo) {
+                            prevVideo.play();
+                        }
+                    }
+                    break;
+                }
+            }
+        };
+
+        const scrollToNext = () => {
+            const videos = document.querySelectorAll('.vdeo__item');
+            for (let i = 0; i < videos.length; i++) {
+                let rect = videos[i].getBoundingClientRect();
+                if (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+                    if (i < videos.length - 1) {
+                        const nextVideo = videos[i + 1].querySelector('video');
+                        videos[i + 1].scrollIntoView({ behavior: 'smooth' });
+                        if (nextVideo) {
+                            nextVideo.play();
+                        }
+                    }
+                    break;
+                }
+            }
+        };
+
+        if (prevButton) prevButton.addEventListener('click', scrollToPrev);
+        if (nextButton) nextButton.addEventListener('click', scrollToNext);
+
+        // Keydown event listeners for scrolling
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') {
+                scrollToPrev();
+            } else if (e.key === 'ArrowDown') {
+                scrollToNext();
+            }
+        });
+            });
+        </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const anishotElements = document.querySelectorAll('.anishot');
+                    
+                    anishotElements.forEach(function(element) {
+                        const anishotId = element.getAttribute('data-id');
+                        const initialViews = element.getAttribute('data-views');
+                        
+                        // อัปเดตจำนวนวิวทันทีที่โหลดหน้า
+                        element.querySelector('.views').textContent = initialViews;
+        
+                        // Fetch Anishot details and update views
+                        fetch(`/api/v2/post/view/${anishotId}`, {
+                            method: 'PUT'
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            element.querySelector('.views').textContent = data.views;
+                        })
+                        .catch(error => console.error('Error:', error));
+                    });
+                });
+            </script>
+           
+</body>
+</html>

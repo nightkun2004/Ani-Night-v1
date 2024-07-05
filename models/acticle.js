@@ -84,8 +84,16 @@ const ArticleSchema = new mongoose.Schema({
     },
     profile: {
         type: String
+    },
+    likes: [{
+        type: mongoose.Schema.ObjectId,
+        ref: "User"
+    }],
+    likesCount: {
+        type: Number,
+        default: 0
     }
-});
+},  { timestamps: true });
 
 const Acticle = mongoose.model('Acticle', ArticleSchema);
 
