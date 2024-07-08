@@ -12,7 +12,7 @@ function setLanguage(req, res, next) {
 router.use(setLanguage);
 
 router.get("/browse/anime", async (req, res) => {
-    const usersesstion = req.session.userlogin;
+    const usersesstion = req.session.userlogin; 
     const animes = await Anime.find();
     const latestUpdatedAnimes = await Anime.find().sort({ updatedAt: -1 }).limit(10);
     const newestAnimes = await Anime.find().sort({ createdAt: -1 }).limit(10);

@@ -18,7 +18,7 @@ router.post('/admin/login', (req, res) => {
         const token = jwt.sign({ username: username }, 'secret_key', { expiresIn: '1d' });
         res.cookie('a_e', token, { httpOnly: true, secure: true }); 
 
-        res.send('ยินดีต้อนรับเข้าสู่ระบบแอดมิน');
+        res.redirect("/admin/dash")
     } else {
         res.send('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
     }

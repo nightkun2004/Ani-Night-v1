@@ -1,11 +1,49 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-.live {
+/* .live {
     position: relative;
 }
 
+canvas {
+    display: block;
+    background-color: #f0f0f0;
+    margin: 0 auto;
+} */
+
+.poster {
+    position: absolute;
+    background-image: url(https://m1r.ai/86m9w.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* display: none; */
+}
 .watermark {
+    position: absolute !important;
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    top: 10px;
+    right: 30px;
+    font-size: 29px;
+    font-weight: bold;
+    font-family: "Kanit", sans-serif;
+    user-select: none;
+    color: rgba(255, 255, 255, 0.50);
+}
+
+.test__bort {
     position: absolute !important;
     top: 50%;
     left: 50%;
@@ -14,10 +52,157 @@
     font-weight: bold;
     font-family: "Kanit", sans-serif;
     user-select: none;
+    color: rgba(255, 255, 255, 0.50);
 }
 
-canvas {
+body {
+    margin: 0;
+    font-family: "Kanit", sans-serif;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border: 4px solid #fff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    z-index: 100;
+    animation: animate 0.6s linear infinite;
+    display: none;
+}
+
+@keyframes animate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .video-player {
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+  }
+
+  video {
+    width: 100%;
+    height: auto;
     display: block;
-    background-color: #f0f0f0;
-    margin: 0 auto;
+  }
+
+  .controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .timer {
+    color: #fff;
+    margin-left: 10px;
+  }
+
+  .video-title {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  } */
+
+/* ปรับแต่ง full screen icon เมื่ออยู่ในโหมด full screen */
+video:-webkit-full-screen {
+    object-fit: fill;
+}
+
+video:-moz-full-screen {
+    object-fit: fill;
+}
+
+video:fullscreen {
+    object-fit: fill;
+}
+
+video:ms-fullscreen {
+    object-fit: fill;
+}
+
+.video-container {
+    @apply flex flex-col items-center bg-gray-900 text-white p-4 rounded-lg;
+}
+
+.video-player {
+    @apply relative w-full bg-black;
+}
+
+.video-player video {
+    @apply w-full;
+}
+
+.watermark {
+    @apply absolute top-2 left-2 text-white text-xs bg-black bg-opacity-50 p-1 rounded;
+}
+
+.test__bort {
+    @apply absolute top-10 left-2 text-white text-xs bg-red-500 p-1 rounded;
+}
+
+.controls {
+    @apply absolute bottom-2 left-2 right-2 p-2 bg-black bg-opacity-50 rounded;
+}
+
+.controls-left {
+    @apply flex items-center space-x-2;
+}
+
+.controls .icon {
+    @apply cursor-pointer text-white;
+}
+
+.timer {
+    @apply flex items-center space-x-1 text-xs;
+}
+
+.control-right {
+    @apply ml-auto;
+}
+
+.video-title {
+    @apply mt-4 text-center;
+}
+
+.video-title h2 {
+    @apply text-lg font-bold;
+}
+
+.video-title p {
+    @apply text-sm;
 }

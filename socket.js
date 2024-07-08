@@ -10,3 +10,12 @@ io.on('connection', (socket) => {
 });
 
 module.exports = io;
+
+// curl -I https://live-aninight.ani-night.online/live/aninight/index.m3u8
+
+// sudo nginx -t
+// sudo systemctl restart nginx
+
+// # รีสตาร์ทเซิร์ฟเวอร์ Node.js
+// node app.js
+// sudo nano /etc/nginx/conf.d/default.conf

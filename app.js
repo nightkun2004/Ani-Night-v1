@@ -44,7 +44,9 @@ const corsOptions = {
 const allowedOrigins = [
   'http://localhost:4000',
   'http://127.0.0.1:5500',
-  'http://https://ani-night.online', 
+  'https://live-aninight.ani-night.online/',
+  'http://127.0.0.1:5500',
+  'https://ani-night.online', 
   'https://studio.ani-night.online'
 ];
 
@@ -114,8 +116,8 @@ app.use((req, res, next) => {
   res.status(404).render('404', {usersesstion});
 });
 
-const server = app.listen(3000, () => {
-  console.log(`server is Runing to http://localhost:3000`)
+const server = app.listen(4000, () => {
+  console.log(`server is Runing to http://localhost:4000`)
 })
 
 const io = socketIo(server)

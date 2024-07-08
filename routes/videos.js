@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const crypto = require('crypto');
 const mongoose = require("../config")
 const Acticle = require("../models/acticle")
 const Anishot = require("../models/Anishot")
@@ -63,6 +64,43 @@ router.get('/foryou', async (req, res) => {
     }
 })
 
+function generateToken() {
+    return crypto.randomBytes(16).toString('hex');
+}
+
+function verifyToken(req, res, next) {
+    const token = req.query.token; // รับ Token จาก Query Parameters
+    const referer = req.get('Referer') || ''; // รับ Referer Header
+    const allowedDomain = 'http://localhost:4000'; // โดเมนที่อนุญาต
+
+    // ตรวจสอบว่า Referer ตรงตามโดเมนที่อนุญาต
+    if (referer.startsWith(allowedDomain)) {
+        // ตรวจสอบ Token (ใช้ Token ที่สร้างจากโดเมน)
+        const expectedToken = generateToken(allowedDomain);
+        if (token === expectedToken) {
+            return next(); // Token และ Referer ถูกต้อง
+        }
+    }
+    return res.status(403).json({ error: 'Forbidden' }); // Token หรือ Referer ไม่ถูกต้อง
+}
+
+router.get('/get-stream-url', (req, res) => {
+    const token = generateToken();
+    // Construct URL with token (you may want to include expiration time)
+    const streamUrl = `https://live-aninight.ani-night.online/live/aninight/index.m3u8?token=${token}`;
+    // console.log("token form get", token)
+    // Send URL with token to the client
+    res.json({ url: streamUrl, token: token });
+});
+
+router.get("/live/aninight", (req,res)=>{
+    const usersesstion = req.session.userlogin;
+    const token = generateToken();
+    // console.log("token form live", token)
+    const streamUrl = `https://live-aninight.ani-night.online/live/aninight/index.m3u8?token=${token}`;
+    res.render("./component/videos/live", {usersesstion, token, streamUrl})
+})
+
 router.get("/api/videos", async (req, res) => {
     try {
         const videos_data = await Video.find().exec();
@@ -70,7 +108,7 @@ router.get("/api/videos", async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-})
+}) 
 
 router.get('/anishots', getAnishots)
 router.get('/anishot/video/:id', getVideoShot)
