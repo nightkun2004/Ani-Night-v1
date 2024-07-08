@@ -116,8 +116,8 @@ app.use((req, res, next) => {
   res.status(404).render('404', {usersesstion});
 });
 
-const server = app.listen(4000, () => {
-  console.log(`server is Runing to http://localhost:4000`)
+const server = app.listen(3000, () => {
+  console.log(`server is Runing to http://localhost:3000`)
 })
 
 const io = socketIo(server)
