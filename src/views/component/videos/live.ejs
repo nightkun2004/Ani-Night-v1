@@ -13,9 +13,9 @@
 
     <%- include('../../navnar_Header') %>
     <%- include('../../sidebar_Section') %>
-    <div class="flex flex-col items-center p-4">
+    <div class="flex flex-col items-center p-4 md:flex-row">
         <!-- Video Player Section -->
-        <div class="relative w-full max-w-4xl rounded-lg overflow-hidden video-container">
+        <div class="relative w-full max-w-6xl rounded-lg overflow-hidden video-container">
             <video id="live-video" class="w-full" ></video>
             <div class="poster"></div>
             <div class="loader"></div> 
@@ -25,7 +25,7 @@
             <div class="absolute top-2 left-2 text-xs text-white bg-red-500 p-1 rounded">
                 <p>ทดสอบออกอากาศ</p>
             </div>
-            <div class="absolute controles bottom-2 left-2 right-2 flex items-center justify-between p-2 bg-black bg-opacity-50 rounded">
+            <div id="controls" class="absolute controls bottom-2 left-2 right-2 flex items-center justify-between p-2 bg-black bg-opacity-50 rounded">
                 <div class="flex items-center space-x-2">
                     <span id="play" class="text-white cursor-pointer"><i class="bi bi-play-fill"></i></span>
                     <div class="flex items-center space-x-1 text-xs">
@@ -34,31 +34,48 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-2">
+                    <span id="btnquality" class="cursor-pointer">คุณภาพ: Auto</span>
                     <span id="fullscreen-toggle" class="text-white cursor-pointer"><i class="bi bi-arrows-angle-expand"></i></span>
                 </div>
             </div>
-        </div>
 
-        <div>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-                crossorigin="anonymous"></script>
-            <!-- browse-anime -->
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-6579807593228261"
-                data-ad-slot="1908579395"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <div class="quality-selector">
+                <h3>ความละเอียดวีดีโอ</h3>
+                <ul id="quality">
+                    <li data-value="auto" class="activequality">Auto</li>
+                </ul>
+            </div>
         </div>
         
-        <!-- Video Title Section -->
-        <div class="mt-4 text-center">
-            <h2 class="text-lg font-bold">LIVE ON TV</h2>
-            <p class="text-sm">The best free TV channels</p>
+        <div class="mt-4 w-full md:w-1/2 md:p-2">
+            <h2 class="text-lg font-bold">ช่องรายการทั้งหมด</h2>
+            <ul class="space-y-2">
+                <li class="p-2 bg-gray-800 rounded">1. AniNight</li>
+                <li class="p-2 bg-gray-800 rounded">Channel 2</li>
+                <li class="p-2 bg-gray-800 rounded">Channel 3</li>
+                <li class="p-2 bg-gray-800 rounded">Channel 4</li>
+                <li class="p-2 bg-gray-800 rounded">Channel 5</li>
+            </ul>
         </div>
+    </div>
+
+    <div class="banner p-2 bg-gray-500 m-2 rounded">
+        <p>สนใจติดต่อเช่าช่อง ติดต่อได้ที่ <a class="text-underline   font-bold" style="text-decoration: underline;" href="https://web.facebook.com/AniNightThailand">Facebook</a></p>
+    </div>
+
+    <div class="rounded w-full h-54 mb-2">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+            crossorigin="anonymous"></script>
+        <!-- browse-anime -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-6579807593228261"
+            data-ad-slot="1908579395"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 
 

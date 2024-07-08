@@ -14,12 +14,12 @@ canvas {
     position: absolute;
     background-image: url(https://m1r.ai/86m9w.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; 
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,6 +29,7 @@ canvas {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     /* display: none; */
 }
+
 .watermark {
     position: absolute !important;
     /* top: 50%;
@@ -140,69 +141,71 @@ body {
 
 /* ปรับแต่ง full screen icon เมื่ออยู่ในโหมด full screen */
 video:-webkit-full-screen {
-    object-fit: fill;
+    object-fit: contain;
 }
 
 video:-moz-full-screen {
-    object-fit: fill;
+    object-fit: contain;
 }
 
 video:fullscreen {
-    object-fit: fill;
+    object-fit: contain;
 }
 
 video:ms-fullscreen {
-    object-fit: fill;
-}
-
-.video-container {
-    @apply flex flex-col items-center bg-gray-900 text-white p-4 rounded-lg;
-}
-
-.video-player {
-    @apply relative w-full bg-black;
-}
-
-.video-player video {
-    @apply w-full;
-}
-
-.watermark {
-    @apply absolute top-2 left-2 text-white text-xs bg-black bg-opacity-50 p-1 rounded;
-}
-
-.test__bort {
-    @apply absolute top-10 left-2 text-white text-xs bg-red-500 p-1 rounded;
+    object-fit: contain;
 }
 
 .controls {
-    @apply absolute bottom-2 left-2 right-2 p-2 bg-black bg-opacity-50 rounded;
+    z-index: 20;
+    opacity: 1;
+    transition: opacity 0.5s, height 0.5s;
+}
+.controls.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
-.controls-left {
-    @apply flex items-center space-x-2;
+
+.quality-selector {
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    background-color: #343434;
+    padding: 0;
+    margin: 0;
+    border-radius: 6px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
 }
 
-.controls .icon {
-    @apply cursor-pointer text-white;
+.quality-selector h3
+{
+    font-size: 12px;
+    padding: 10px;
+    border-bottom: 1px solid #fff;
 }
 
-.timer {
-    @apply flex items-center space-x-1 text-xs;
+.quality-selector ul {
+    margin: 0;
+    padding: 0;
 }
 
-.control-right {
-    @apply ml-auto;
+.quality-selector ul li{
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 7px;
+    font-size: 12px;
 }
 
-.video-title {
-    @apply mt-4 text-center;
+.quality-selector ul li:hover {
+    background-color: #000000;
 }
 
-.video-title h2 {
-    @apply text-lg font-bold;
+.quality-selector.show {
+    display: block;
 }
-
-.video-title p {
-    @apply text-sm;
+.activequality {
+    color: #0095ff;
 }
