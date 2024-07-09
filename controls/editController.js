@@ -1,6 +1,8 @@
 const Acticle = require('../models/acticle')
 const Video = require('../models/video')
+const crypto = require("crypto")
 const fs = require('fs');
+const path =require('path')
 
 exports.editActicle = async (req, res) => {
     const usersesstion = req.session.userlogin
@@ -93,19 +95,42 @@ exports.video_saveCover = async (req, res) => {
 
 exports.editActicleuser = async (req, res) => {
     const update_id = req.body.update_id;
-    try {
-        await Acticle.findOneAndUpdate(
-            { _id: update_id },
-            {
-                $push: { acticles: update_id },
-                title: req.body.title,
-                content: req.body.content,
-                link_info: req.body.link_info,
-                categories: req.body.categories,
-                url: req.body.url
-            }
-        );
 
+    try {
+        const { title, content, tags, url, categories, published } = req.body;
+        let updates = {
+            title,
+            content,
+            tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+            categories: categories ? categories.split(',').map(category => category.trim()) : [],
+            published: req.body.published === 'on',
+            url
+        };
+
+
+        // Handle additional images
+        // if (req.files['images']) {
+        //     const images = req.files['images'];
+        //     const oldImages = JSON.parse(req.body.oldImages || '[]');
+
+        //     // Delete old images
+        //     oldImages.forEach(imagePath => {
+        //         if (fs.existsSync(path.join(__dirname, '..', 'public', 'ArticlesImages_mord', path.basename(imagePath)))) {
+        //             fs.unlinkSync(path.join(__dirname, '..', 'public', 'ArticlesImages_mord', path.basename(imagePath)));
+        //         }
+        //     });
+
+        //     // Save new images
+        //     const newImages = images.map(image => {
+        //         const newImageName = crypto.randomUUID() + path.extname(image.originalname);
+        //         fs.renameSync(image.path, path.join(__dirname, '..', 'public', 'ArticlesImages_mord', newImageName));
+        //         return `/articles_images/${newImageName}`;
+        //     });
+
+        //     updates.images = newImages;
+        // }
+
+        await Acticle.findByIdAndUpdate(update_id, updates);
         res.redirect('/?alertMessage=แก้ไขเรียบร้อยแล้ว');
     } catch (error) {
         console.error(error);
@@ -124,6 +149,7 @@ exports.editActicleCovernow = async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ error: "No file uploaded" });
         }
+        
 
         // อัปเดตข้อมูลในฐานข้อมูล
         acticle.photo = req.file.filename;

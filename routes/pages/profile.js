@@ -41,7 +41,7 @@ router.get('/profile', verifyTokenAdmin, profileController.getProfile)
 router.post('/playment', profileController.playment)
 router.post('/auth/user/studio', profileController.getAuthUser)
 router.post('/logout/user', logoutAuth, verifyTokenAdmin, profileController.logout)
-
+ 
 // API Profile
 router.get("/api/user/profile/v2/:id", profileController.getProfileApi)
 

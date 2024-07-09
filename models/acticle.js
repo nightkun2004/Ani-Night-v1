@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 const ArticleSchema = new mongoose.Schema({
     tags: {
-        type: Array,
+        type: [String], // Changed to an array of strings for tags
         required: true
     },
     link_info: {
@@ -29,6 +29,9 @@ const ArticleSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    images: {
+        type: [String], // Changed to an array of strings for image URLs
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -37,7 +40,10 @@ const ArticleSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    published: Boolean,
+    published: {
+        type: Boolean,
+        default: false
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
