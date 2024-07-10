@@ -1,64 +1,64 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รายชื่ออนิเมะ | AniNight</title>
+    <title>Lists of anime | AniNight</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100">
-    <%- include('../../navnar_Header') %>
-    <%- include('../../sidebar_Section') %>
+    <%- include('../navbar/navnar_Header') %>
+    <%- include('../navbar/sidebar_Section') %>
     <main class="p-2">
         <div>
-            <h2 class="text-2xl text-sky-500 font-bold">รายชื่ออนิเมะ</h2>
+            <h2 class="text-2xl text-sky-500 font-bold">Lists of anime</h2>
             <div>
                 <div class="w-full bg-white">
-                    <input type="text" name="searchanime" id="searchanime" placeholder="ค้นหาอนิเมะ" class="w-full px-2 py-2 rounded-md outline-none border-none">
+                    <input type="text" name="searchanime" id="searchanime" placeholder="SearchAnime" class="w-full px-2 py-2 rounded-md outline-none border-none">
                 </div>
                 <div class="mt-4 grid grid-cols-1 w-full gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 bg-white rounded-md p-8 md:flex-row">
                     <div>
-                        <label class="px-2 font-bold">เลือกปี</label>
+                        <label class="px-2 font-bold">Choose a year</label>
                         <select name="year" id="yearFilterSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
-                            <option value="all">ทั้งหมด</option>
+                            <option value="all">All</option>
                         </select>
                     </div>
                     <div>
-                        <label class="px-2 font-bold" for="month">เดือน</label>
+                        <label class="px-2 font-bold" for="month">Month</label>
                         <select name="month" id="monthFilterSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
-                            <option value="all">ทั้งหมด</option>
+                            <option value="all">All</option>
                         </select>
                     </div>
                     <div>
-                        <label class="px-2 font-bold" for="season">ฤดูกาล</label>
+                        <label class="px-2 font-bold" for="season">Season</label>
                         <select name="season" id="seasonSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
-                            <option value="all">ทั้งหมด</option>
+                            <option value="all">All</option>
                             <option value="Spring 2024">⛈ Spring 2024</option>
                             <option value="Summer 2024">☀ Summer 2024</option>
                             <option value="Fall 2024">❄ Fall 2024</option>
                         </select>
                     </div>
                     <div>
-                        <label class="px-2 font-bold" for="dub">เสียงพากย์</label>
+                        <label class="px-2 font-bold" for="dub">Dubbing voice</label>
                         <select name="dub" id="dubSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
-                            <option value="all">ทั้งหมด</option>
-                            <option value="พากย์ไทย">พากย์ไทย</option>
-                            <option value="พากย์ญี่ปุ่น">พากย์ญี่ปุ่น</option>
+                            <option value="all">All</option>
+                            <option value="พากย์ไทย">Dubbed Thai</option>
+                            <option value="พากย์ญี่ปุ่น">Dubbed Jpan</option>
                         </select>
                     </div>
                     <div>
-                        <label class="px-2 font-bold" for="sub">ซับไตเติ้ล</label>
+                        <label class="px-2 font-bold" for="sub">Subtitles</label>
                         <select name="sub" id="subSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
-                            <option value="all">ทั้งหมด</option>
-                            <option value="ซับไทย">ซับไทย</option>
-                            <option value="ซับอังกฤษ">ซับอังกฤษ</option>
+                            <option value="all">All</option>
+                            <option value="ซับไทย">Thai</option>
+                            <option value="ซับอังกฤษ">English</option>
                         </select>
                     </div>
                     <div>
-                        <label class="px-2 font-bold" for="platform">เลือกแพลตฟอร์ม</label>
+                        <label class="px-2 font-bold" for="platform">Choose a platform</label>
                         <select name="platform" id="platformSelect" class="px-2 py-2 rounded-md outline-none border w-full border-gray-300">
-                            <option value="all">ทั้งหมด</option>
+                            <option value="all">All</option>
                             <option value="bilibili">bilibili</option>
                             <option value="Iqiyi">Iqiyi</option>
                             <option value="Crunchyroll">Crunchyroll</option>
@@ -68,7 +68,7 @@
                         </select>
                     </div>
                     <div class="pl-4 p-20 md:p-0">
-                        <button id="allFilterBtn" class="px-4 py-2 bg-sky-500 w-full text-white rounded-md">ทั้งหมด</button>
+                        <button id="allFilterBtn" class="px-4 py-2 bg-sky-500 w-full text-white rounded-md">All</button>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
 
             <div class="flex flex-col md:flex-col sm:flex-col lg:flex-row">
                 <div class="mt-5">
-                    <h2 class="text-2xl font-bold text-sky-500">อนิเมะทีกำลังอัพเดต ☃</h2>
+                    <h2 class="text-2xl font-bold text-sky-500">Anime currently being updated ☃</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4" id="animeResults">
                         <% animes.forEach(anime => { %>
                         <a href="/browse/anime/<%= anime._id %>" class="anime-item block bg-white rounded-lg shadow-md overflow-hidden"
@@ -128,10 +128,10 @@
                                 <div class="p-4 flex flex-col justify-between w-full md:w-3/5">
                                     <div>
                                         <h3 class="font-bold text-lg mb-2"><%= anime.nameAnime %></h3>
-                                        <p>ผลิตโดย: <%= anime.Produced %></p>
-                                        <p>ต้นฉบับ: <%= anime.manuscript %></p>
-                                        <p>จำนวนตอน: <%= anime.episodes %></p>
-                                        <p>เริ่มฉาย: <%= anime.start %></p>
+                                        <p>Produced by: <%= anime.Produced %></p>
+                                        <p>Manuscript: <%= anime.manuscript %></p>
+                                        <p>Episodes: <%= anime.episodes %></p>
+                                        <p>Start: <%= anime.start %></p>
                                         <p class="countdown-timer text-3xl font-bold text-red-600"data-publication-start-time="<%= anime.publicationStartTime %>"></p>
                                         <div class="flex gap-2 items-center">
                                             <!-- <% if (anime.web) { %>
@@ -177,14 +177,14 @@
                 <!-- Left content -->
                <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 pl-2 mt-5">
                 <div class="mt-5 bg-white p-2">
-                    <h3 class="font-bold text-2xl">อัตเดตใหม่</h3>
+                    <h3 class="font-bold text-2xl">New updated</h3>
                     <ul>
                         <% latestUpdatedAnimes.forEach(anime => { %>
                             <li class="px-4 m-2 flex items-center">
                                 <img src="<%= anime.linkImage %>" alt="<%= anime.nameAnime %>" class="w-10 h-20 object-cover">
                                <div class="flex flex-col  pl-3">
                                 <a href="/browse/anime/<%= anime._id %>"><%= anime.nameAnime %></a>
-                                - อัพเดทเมื่อ:  <span class="font-bold"><%= moment(anime.updatedAt).locale('th').fromNow() %></span>
+                                - Updated on:  <span class="font-bold"><%= moment(anime.updatedAt).locale('th').fromNow() %></span>
                                </div>
                                 </li>
                         <% }) %>
@@ -192,7 +192,7 @@
                 </div>
 
                 <div class="mt-5 bg-white p-2">
-                    <h3 class="font-bold text-2xl">มาใหม่</h3>
+                    <h3 class="font-bold text-2xl">New arrival</h3>
                     <ul>
                         <% newestAnimes.forEach(anime => { %>
                             <li class="px-4 m-2 flex items-center">
@@ -211,7 +211,7 @@
             
         </div>
     </main>
-    <%- include('../../footer') %>
+    <%- include('../footer') %>
 
     <script src="/js/pages/anilist.js" defer></script>
 </body>

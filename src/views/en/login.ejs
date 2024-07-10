@@ -20,58 +20,100 @@
 
 <body>
 
-    <div class="fixed inset-x-0 z-20" id="navbar">
-        <%- include('../en/navbar') %>
-    </div>
+<%- include('./navbar/navnar_Header') %>
+<%- include('./navbar/sidebar_Section') %>
 
-    <section class="login mx-auto px-4 xl:max-w-7xl pt-[130px]" id="login">
-        <div class="container-login bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm rela">
-            <form action="/login" method="POST">
-                <h2 class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">Login</h2>
-                <label for="username">Email:</label>
-                <input type="email" name="email" required>
-
-                <label for="password">Password:</label>
-                <input class="mb-2" type="password" id="password" name="password" required>
-
-                <button class="btn-login" type="submit">Login</button>
-
-                <div class="flex justify-between pt-[20px]">
-                        <p class="text_login">Forgot your password?</p>
-                        <p><a href="/forgot-password">Reset password?</a></p>
-                    </div>
-                <div class="reg">
-                    <p class="pt-[10px] flex justify-between">Don't have an account yet? Click to apply now:<span><a href="/singup"
-                                class="text-1xl">SignUp</a></span></p>
-                </div>
-            </form>
-
-            <div class="tiktok-login">
-                <a href="/auth/tiktok">
-                    <button class="login_button">
-                        <img src="/images/logo/tiktok_logo.webp" alt="">
-                        <div class="login_text" style="display: flex; flex-direction: column;">
-                            or login with TikTok
-                        </div>
-                    </button>
-                </a>
-            </div>
-
-            <div class="google-login">
-                <a href="/auth/google">
-                    <button class="login_button">
-                        <img src="/images/logo/google_logo.png" alt="">
-                        <div class="login_text">
-                            or login with Google
-                        </div>
-                    </button>
-                </a>
-            </div>
+<div id="login-popup" class="flex items-center pt-20 justify-center modal-bg">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold">เข้าสู่ระบบ</h2>
         </div>
-    </section>
-    <%- include('../footer') %>
-    <script src="../js/search.js"></script>
-    <script>
+        <form id="login-form">
+            <div class="flex justify-center mb-4">
+                <button type="button" id="phone-tab"
+                    class="text-sm pr-2 font-medium text-gray-700 pb-1">เบอร์โทรศัพท์</button>
+                <button type="button" id="account-tab" class="text-sm font-medium text-gray-700 pb-1 border-b-2 border-blue-500 ">ใช้อีเมล</button>
+            </div>
+            <div id="phone-login" class="hidden">
+                <form action="" method="post">
+                    <div class="mb-4">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์โทรศัพท์</label>
+                        <div class="flex">
+                            <select id="country-code" class="border border-gray-300 rounded-l-md shadow-sm p-2">
+                                <option value="TH">TH +66</option>
+                                <!-- Add other country codes here -->
+                            </select>
+                            <input type="text" id="phone"
+                                class="cursor-no-drop outline-none block w-full border border-gray-300 bg-gray-100 rounded-r-md shadow-sm p-2"
+                                placeholder="หมายเลขโทรศัพท์มือถือ" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="otp" class="block text-sm font-medium text-gray-700">ใส่รหัสยืนยัน</label>
+                        <input type="text" id="otp"
+                            class="cursor-no-drop mt-1 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100 p-2 outline-none"
+                            placeholder="รหัสยืนยัน" readonly>
+                    </div>
+                    <button type="button"
+                        class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 mb-5">ส่งรหัสยืนยัน</button>
+                    <button type="submit"
+                        class="cursor-no-drop bg-blue-500 text-white py-2 px-4 w-full rounded-md hover:bg-blue-700 readonly">เข้าสู่ระบบ</button>
+                </form>
+                <div class="flex items-center mb-4 mt-4">
+                    <input type="checkbox" id="remember" class="custom-checkbox  mr-2" required>
+                    <label for="remember" class="text-sm text-gray-700">ยอมรับเงื่อนไขการเข้าสู่ระบบของเราใช้ไหมครับ <a
+                            href="https://ani-night.online/privacy" target="_blank"
+                            rel="noopener noreferrer">อ่านนโบบาย</a></label>
+                </div>
+            </div>
+            <!-- Lonin Email -->
+            <div id="account-login" >
+                <form action="/auth/login" method="post">
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-medium text-gray-700">อีเมล</label>
+                        <input type="email" id="email" name="email"
+                            class="outline-none mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700">รหัสผ่าน</label>
+                        <input type="password" id="password" name="password"
+                            class="outline-none mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            required>
+                    </div>
+                    <button type="submit"
+                        class="bg-blue-500 text-white py-2 px-4 w-full rounded-md hover:bg-blue-700">เข้าสู่ระบบ</button>
+                </form>
+                <div class="flex items-center mb-4 mt-4">
+                    <input type="checkbox" id="remember" class="custom-checkbox  mr-2" required>
+                    <label for="remember" class="text-sm text-gray-700">ยอมรับเงื่อนไขการเข้าสู่ระบบของเราใช้ไหมครับ <a
+                            href="https://ani-night.online/privacy" target="_blank"
+                            rel="noopener noreferrer">อ่านนโบบาย</a></label>
+                </div>
+            </div>
+
+            <button onclick="loginWithFacebook()" class="bg-gray-100 rounded p-2 w-full ">เข้าสู่ระบบด้วย Facebook</button>
+            
+            <!-- Footer -->
+            <div class="flex justify-end">
+                <p class="pt-[10px] flex justify-between">ยังไม่มีบัญชีใช่ไหม: <span><a href="/singup"
+                            class="text-1xl">สมัครสมาชิค</a></span></p>
+            </div>
+            <% if (data) {%>
+                <div class="bg-gray-100 rounded-lg p-2 mb-3 mt-3">
+                 <p class="text-1xl font-bold text-black"><%= data %></p>
+                </div>
+                <% } %>
+            <p class="mt-4 text-xs text-gray-500">
+                เนื่องจากระบบการเข้าสู่ระบบด้วย "เบอร์โทรศัพท์" ยังอยู่ระหว่างพัฒนาเลยใช้ไม่ได้ โปรดใช้อีเมลแทน
+                คลิกที่แถบอีเมล
+            </p>
+        </form>
+    </div>
+</div>
+    <%- include('./footer') %>
+    <script src="js/login.js"></script>
+    <!-- <script>
         window.addEventListener('scroll', function () {
             var navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -81,7 +123,7 @@
             }
         });
 
-    </script>
+    </script> -->
 </body>
 
 </html>

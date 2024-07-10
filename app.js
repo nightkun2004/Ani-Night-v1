@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
 const moment = require('moment');
+const formatNumber = require("./formats/formatNumber")
+const setLanguage = require("./middleware/languageMiddleware")
 require('moment/locale/th');
 dotenv.config()
 
@@ -79,7 +81,15 @@ const formatDate = (date) => {
   return moment(date).fromNow();
 };
 
+app.locals.number1 = 100;
+app.locals.number2 = 500;
+app.locals.number3 = 1500;
+app.locals.number4 = 1200000;
+
 app.locals.moment = moment;
+app.locals.formatNumber = formatNumber;
+app.locals.translations= setLanguage;
+app.use(setLanguage);
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());

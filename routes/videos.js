@@ -5,6 +5,7 @@ const mongoose = require("../config")
 const Acticle = require("../models/acticle")
 const Anishot = require("../models/Anishot")
 const Video = require('../models/video')
+// const setLanguage = require('../middleware/languageMiddleware');
 const { getAnishots,
     getCreate,
     CreateAnishot,
@@ -68,6 +69,14 @@ function generateToken() {
     return crypto.randomBytes(16).toString('hex');
 }
 
+function setLanguage(req, res, next) {
+    const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
+    req.language = lang && lang.includes('th') ? 'th' : 'en'; // ตั้งค่าภาษาตามที่ผู้ใช้เลือก
+    next();
+}
+
+router.use(setLanguage);
+
 function verifyToken(req, res, next) {
     const token = req.query.token; // รับ Token จาก Query Parameters
     const referer = req.get('Referer') || ''; // รับ Referer Header
@@ -93,12 +102,30 @@ router.get('/get-stream-url', (req, res) => {
     res.json({ url: streamUrl, token: token });
 });
 
-router.get("/live/aninight", (req,res)=>{
+router.get("/live/aninight", (req, res) => {
     const usersesstion = req.session.userlogin;
     const token = generateToken();
+    const allowedCountry = 'th';
+    const isRegionSupported = req.region === allowedCountry;
     // console.log("token form live", token)
     const streamUrl = `https://live-aninight.ani-night.online/live/aninight/index.m3u8?token=${token}`;
-    res.render("./component/videos/live", {usersesstion, token, streamUrl})
+    res.render('./component/videos/live', {
+        language: req.language,
+        isRegionSupported: isRegionSupported,
+        usersesstion,
+        token,
+        streamUrl,
+    });
+    // if (isRegionSupported) {
+       
+    // } else {
+    //     // การแสดงข้อความในกรณีที่ภูมิภาคไม่รองรับ
+    //     res.render('./en/videos/Live', {
+    //         language: req.language,
+    //         usersesstion,
+    //         message: req.translations.video_not_available || 'This service is not available in your region.'
+    //     });
+    // }
 })
 
 router.get("/api/videos", async (req, res) => {
@@ -108,7 +135,7 @@ router.get("/api/videos", async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-}) 
+})
 
 router.get('/anishots', getAnishots)
 router.get('/anishot/video/:id', getVideoShot)

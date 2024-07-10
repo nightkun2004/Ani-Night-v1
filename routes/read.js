@@ -63,12 +63,15 @@ router.get('/read/:url', async (req, res) => {
             console.log('Article or Article user is undefined');
         }
 
-        const template = req.language === 'th' ? './component/read' : './component/read';
+        const recentUpdates = await Acticle.find().sort({ createdAt: -1 }).limit(5).populate('author.id author.username');
+
+        const template = req.language === 'th' ? './component/read' : './en/read';
 
         res.render(template, { 
             active: 'actcile',              
             active: 'home', 
             active: 'trending' ,
+            recentUpdates,
             usersesstion,
             acticle,
             articleforyou,
@@ -144,6 +147,6 @@ router.post('/replie/read/:id', authenticatetoken, async (req, res) => {
 });
 
 
-router.post("/api/v1/posts/:id/like", authMiddleware, likePost)
+router.post("/api/v1/posts/article/like", authMiddleware, likePost)
 
 module.exports = router

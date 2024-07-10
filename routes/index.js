@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
             .exec();
 
 
-        const template = req.language === 'th' ? 'index' : 'index';
+        const template = req.language === 'th' ? 'index' : './en/index';
 
 
         res.render(template, {
@@ -49,10 +49,11 @@ router.get('/', async (req, res) => {
             usersesstion,
             acticles,
             alertMessage,
-            topViewedArticles,
+            topViewedArticles, 
             acticlefotYou,
             videos,
             language: req.language,
+            translations: req.translations ,
             AnimeBordData,
             acticles_Bors,
             currentPage: page,

@@ -40,38 +40,32 @@
         <%- include('../en/navbar/sidebar_Section') %>
 
             <!-- Section Content -->
-            <section class="content">
-                <div class="banner">
-                    <div class="slideshow-container">
-                        <div class="mySlides fade">
-                            <a href="/animeboard" title="เซ็คลิตล์อนิเมะ 2024" data-title="Animelists">
-                                <img src="https://m1r.ai/8gsg5.jpg" alt="Slide 1">
-                            </a>
-                        </div>
-                        <div class="mySlides fade">
-                            <a href="#" title="ads" data-title="Animelists">
-                                <img src="https://m1r.ai/ofmm4.jpg" alt="Slide 2">
-                            </a>
-                        </div>
-
-                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                    </div>
-                </div>
-
+            <section class="content mt-2">
                 <div class="section-artcile">
-                    <h2>New Update Article</h2>
+                    <div class="ads-container bg-white my-8 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 aspect-w-16 aspect-h-9">
+                        <!-- Ads Home -->
+                    <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                    crossorigin="anonymous"></script>
+                <!-- Ani Night -->
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6579807593228261"
+                    data-ad-slot="9626337250" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                    </div>
+                    <h2 class="text-2xl font-bold">New Update Article</h2>
                     <div style="display: block; justify-content: center; align-items: center;" class="loading-indicator loadingIndicator" id="loadingIndicator">
                         <div class="spinner"></div>
                     </div>
                     <div class="loading" style="display: none;">
-                    <ul class="articles">
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         <% acticles_Bors.forEach((article)=> { %>
-                            <li class="article">
+                            <li class="bg-white shadow-lg rounded-lg overflow-hidden">
                                 <a href="/read/<%= article.url %>?lang=<%= language %>">
                                     <div class="pic_article">
                                         <img src="/acticles_images/<%= article.photo %>"
-                                            alt="/acticles_images/<%= article.photo %>">
+                                            alt="<%= article.title %>"class="w-full h-48 object-cover">
                                     </div>
                                     <div class="title">
                                         <h2>
@@ -79,18 +73,12 @@
                                         </h2>
                                     </div>
                                     <% if (article.author && article.author.id) { %>
-                                        <div class="ch">
-                                            <div class="profile-logo">
-                                                <a href="/editor/<%= article.author.id.username %>">
-                                                    <img src="/profiles/<%= article.author.id.profile %>" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="ch-text">
-                                                <a href="/editor/<%= article.author.id.username %>">
-                                                    <h2>
-                                                        <%= article.author.id.username %>
-                                                    </h2>
-                                                </a>
+                                        <div class="flex items-center p-2">
+                                            <img class="w-10 h-10 rounded-full mr-4" src="/profiles/<%= article.author.id.profile %>"
+                                                alt="Author Image">
+                                            <div class="text-sm">
+                                                <p class="text-gray-900 leading-none"><a href="/editor/<%= article.author.id.username %>"><%= article.author.id.username %></a></p>
+                                                <p class="text-gray-600"><%= moment(article.createdAt).format('YYYY-MM-DD HH:mm:ss') %></p>
                                             </div>
                                         </div>
                                         <% } else { %>
@@ -150,6 +138,8 @@
                 </div>
 
             </section>
+
+            <%- include('./footer') %>
 
                 <script src="./js/sidebar.js"></script>
                 <script src="./js/imagesi.js"></script>

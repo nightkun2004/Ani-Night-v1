@@ -65,6 +65,14 @@ router.post('/api/googlelogin/user', async (req, res) => {
     }
 });
 
+function setLanguage(req, res, next) {
+    const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
+    req.language = lang && lang.includes('th') ? 'th' : 'en'; // ตั้งค่าภาษาตามที่ผู้ใช้เลือก
+    next();
+}
+
+router.use(setLanguage);
+
 router.get('/login', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
@@ -129,7 +137,7 @@ router.post('/resetPassword', async (req, res) => {
     }
 });
 
-
+router.post('/auth/facebook', userController.getLoginFacebook)
 router.post('/api/login', userController.getAPIlogin);
 router.post('/auth/login', userController.getLogin);
 module.exports = router

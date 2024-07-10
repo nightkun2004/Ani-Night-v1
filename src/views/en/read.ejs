@@ -8,13 +8,13 @@
         <%= acticle.title %>
     </title>
     <link rel="stylesheet" href="../css/pages/read.css">
-    <link rel="stylesheet" href="../css/fo.css">
-    <link rel="stylesheet" href="/css/pages/home_Section.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
     <meta name="keyword" content="<%= acticle.title %>">
+    <meta name="keyword" content="<%= acticle.categories %>">
     <meta property="og:title" content="<%= acticle.title %>">
     <meta name="description" content="อัตเดตข่าวสารด้านอนิเมะที่คุณชอบ พร้อมเนื้อหาที่มีประโยนช์แ่คุณ!!">
-    <meta property="og:image" content="https://www.ani-night.online/acticles_images/<%= acticle.photo %>">
+    <meta property="og:image" content="https://ani-night.online/acticles_images/<%= acticle.photo %>">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="ani-night.online">
@@ -23,10 +23,7 @@
     <meta name="google-site-verification" content="eyTwMkNmyYZFyV7ag9MuAEh5uOPdc4uZ6ONSM3w5HRI">
     <meta property="og:url" content="https://ani-night.online/read/<%= acticle.url %>">
     <meta name="twitter:title" content="<%= acticle.title %>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <meta name="keywords" content="บทความอนิเมะ ข่าวบันเท้ง 2024 login เข้าสู่ระบบ">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <meta name="twitter:image" content="https://www.ani-night.online/acticles_images/<%= acticle.photo %>">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
         crossorigin="anonymous"></script>
@@ -39,201 +36,380 @@
 
         gtag('config', 'G-LTJP520FN4');
     </script>
-</head>
-<style>
-    .hover_link:hover {
-        color: rgb(0, 49, 92);
-    }
-</style>
-<body>
-    <%- include('../en/navbar/navnar_Header') %>
-        <%- include('../en/navbar/sidebar_Section') %>
-        <section class="content">
-            <div class="category">
-                <p><a href="/">Home</a><span>&gt;</span>
-                <p class="co">
-                    <% if (acticle && acticle.title) { %>
-                        <%= acticle.title.substring(0, 20) + '...' %>
-                            <% } else { %>
-                                <%= acticle.title %>
-                                    <% } %>
-                </p>
-                </p>
-            </div>
-            <div class="loading_container">
-                <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                    <div class="spinner"></div>
-                    <p>กำลังประมวณผลข้อมูล</p>
-                </div>
-            </div>
-            <div class="loading" style="display: none;">
-                <div class="read_title mt-8 bg-white w-full px-6 md:px-12 py-4 shadow-md rounded-md relative">
-                    <div class="read_image">
-                        <a href="/acticles_images/<%= acticle.photo %>" target="_blank">
-                            <img src="/acticles_images/<%= acticle.photo %>" alt="">
-                        </a>
-                    </div>
-                    <div class="read_title_h2">
-                        <h2> <%= acticle.title %></h2>
-                    </div>
-                    <div class="views">
-                        <p class="viewsp">
-                            <% function formatNumber(number) { if (number>=
-                                1000000)
-                                {
-                                return (number / 1000000).toFixed(1) + 'm';
-                                } else if (number >= 1000) {
-                                return (number / 1000).toFixed(1) + 'k';
-                                } else {
-                                return number;
-                                }
-                                }
-        
-                                var number1 = 100;
-                                var number2 = 500;
-                                var number3 = 1500;
-                                var number4 = 1200000;
-                                %>
-                                <p class="pl-3">
-                                    การดู <%= formatNumber(acticle.views) %> ครั้ง
-                                </p>
-                        </p>
-                    </div>
-                    <div class="data-time">
-                        <p class="pl-3">เขียนเมื่อ
-                            <%= new Date(acticle.createdAt).toLocaleDateString('en-EN') %>
-                        </p>
-                    </div>
-                    <div class="editor">
-                        <% if (acticle.author && acticle.author.id) { %>
-                            <div style="display: flex; align-items: center;">
-                                <div class="profile">
-                                    <a href="/editor/<%= acticle.author.id.username %>">
-                                        <img data-popover-target="popover-user-profile" src="/profiles/<%= acticle.author.id.profile %>"
-                                            alt="Bonnie image" />
-                                    </a>
-                                </div>
-                                <h2 class="pl-[20px]">
-                                    <%= acticle.author.id.username %>
-                                </h2>
-                            </div>
-                            <% } else { %>
-                                <p>Author: Unknown</p>
-                    
-                                <% } %>
-                    </div>
-                    <div class="mt-4 mb-12">
-                        <% if (acticle && acticle.tags && acticle.tags.length > 0) { %>
-                            <h2 class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
-                                Tags: <% acticle.tags.forEach(tag => { %>
-                                    <a class="text-sky-500" href="/tag/<%= tag %>"><%= tag %></a>
-                                <% }); %>
-                            </h2>
-                        <% } else { %>
-                            <h2>Tags: ไม่มีแท็ก</h2>
-                        <% } %>
-                        
-                        <% if (acticle.link_info) { %>
-                            <div class="rounded-full items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
-                            <button class="text-black"><a href="<%= acticle.link_info %>" target="_blank" rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
-                        </div>
-                        <% } %>
-                    </div>
-        
-                    <div class="absolute md:right-12 md:bottom-4 right-4 bottom-4 px-2 py-2 rounded-full">
-                        <div class="flex items-center">
-                            <button id="copylink"
-                                class="inline-flex bg-white items-center border border-gray-300 px-4 rounded-full engfont-bold text-gray-800">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-share-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5" />
-                                </svg>
-                                <p class="pl-2 text-black">Share</p>
-                            </button>
-                            <div class="popup ml-2" id="popup" style="display: none;">
-                                <span class="popup-text" id="popupText">Link copied!</span>
-                            </div>
-                        </div>
-        
-                    </div>
-                </div>
-        
-                <div class="content-full bg-white px-4 py-8 mt-[50px] mb-[50px] border border-gray-200 rounded-lg" style="
-                word-break: break-word;
-    line-height: 20px;
-    font-weight: 400;
-    margin-bottom: 0;
-    transition: all .3s ease-in-out;
-    white-space: pre-wrap;
-">
-                    <%- acticle.content %>
-                </div>
-        
-                <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-                        crossorigin="anonymous"></script>
-        
-                    <ins class="adsbygoogle"
-                        style="display:block"
-                        data-ad-client="ca-pub-6579807593228261"
-                        data-ad-slot="9626337250"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-            </div>
-           
-        </section>
-
-    <script src="/js/script.js"></script>
-    <script src="/js/pages/imageai.js"></script>
-    <script src="/js/pages/loading_datas.js"></script> 
-    <script src="/js/pages/script_Section.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var copyButton = document.getElementById('copylink');
-            var popup = document.getElementById('popup');
-
-            copyButton.addEventListener('click', function () {
-                var qriyLink = document.createElement('input');
-                qriyLink.value = window.location.href;
-                document.body.appendChild(qriyLink);
-                qriyLink.select();
-                document.execCommand('copy');
-                document.body.removeChild(qriyLink);
-
-                popup.style.display = 'block'; // แสดง Popup
-                setTimeout(function () {
-                    popup.style.display = 'none'; // ซ่อน Popup
-                }, 2000); // 2 วินาที
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <% if (usersesstion) {%>
+        <script>
+           $(document).ready(function() {
+            $('#like-button').on('click', function() {
+                var button = $(this);
+                var postId = button.data('id');
+                console.log("id article",postId),
+                $.ajax({
+                    url: '/api/v1/posts/article/like',
+                    type: 'POST',
+                    headers: {
+                    'Authorization': 'Bearer ' + '<%= usersesstion.token %>', 
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({ id: postId }),
+               
+                    success: function(response) {
+                        button.toggleClass('liked');
+                        $('#like-count').text(response.likesCount);
+                        alert(response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
             });
         });
+        </script>
+    <% } %>
+</head>
+
+<body class="bg-gray-100">
+    <%- include('./navbar/navnar_Header') %>
+    <%- include('./navbar/sidebar_Section') %>
+        <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <% if (acticle.published) { %>
+                <div class="container mx-auto p-4">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <!-- Main Content -->
+                        <div class="flex-1 bg-white p-4 rounded shadow-md">
+                            <div id="main-content" class="skeleton">
+                                <div class="title__main flex justify-between items-center">
+                                    <div class="title__header">
+                                        <h1 class="text-2xl font-bold mb-4"><%= acticle.title %></h1>
+                                       </div>
+                                    <div class="right__title-main">
+                                        <div class="relative">
+                                            <!-- Share Button -->
+                                            <button id="share-button" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                                Share
+                                            </button>
+
+                                        <!-- Popup Alert -->
+                                        <div class="popupalert" id="popupalert">
+                                            <p>Link shared</p>
+                                        </div>
+
+                                        <div class="data__box-share hidden">
+                                            <form>
+                                                <input type="text" name="articleTitle" value="<%= acticle.title %>">
+                                                <input type="text" name="articleContent" value="<%- acticle.content %>">
+                                                <input type="file" name="articleImage" value="/acticles_images/<%= acticle.photo %>">
+                                            </form>
+                                        </div>
+                                        
+                                            <!-- Share Popup -->
+                                            <div id="share-popup" class="hidden absolute top-full right-0 mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-50">
+                                                <h3 class="text-md font-semibold mb-2">Share this article</h3>
+                                                <button id="copy-link" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 px-2 py-1 rounded mb-2 flex items-center justify-between">
+                                                    Copy link
+                                                    <i class="fas fa-link"></i>
+                                                </button>
+                                                <button class="share-button w-full bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded mb-2 flex items-center justify-between" data-platform="facebook">
+                                                    Facebook
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </button>
+                                                <button class="share-button w-full bg-blue-400 hover:bg-blue-500 text-white px-2 py-1 rounded mb-2 flex items-center justify-between" data-platform="twitter">
+                                                    Twitter
+                                                    <i class="fab fa-twitter"></i>
+                                                </button>
+                                                <button class="share-button w-full bg-pink-500 hover:bg-pink-600 text-white px-2 py-1 rounded mb-2 flex items-center justify-between" data-platform="tiktok">
+                                                    TikTok
+                                                    <i class="fab fa-tiktok"></i>
+                                                </button>
+                                                <button class="share-button w-full bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded mb-2 flex items-center justify-between" data-platform="youtube">
+                                                    YouTube
+                                                    <i class="fab fa-youtube"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                            
+                                    </div>
+                                </div>
+                               <div class="flex justify-between items-center" style="border-bottom: 1px solid #eee;">
+                                <div class="mb-4">
+                                    <h2 class="text-lg font-semibold bg-gray-100 rounded-full p-2">By: <a href="/editor/<%= acticle.author.username %>" target="_blank" ><%= acticle.author.username %></a></h2>
+                                    <p class="text-gray-600"><%= acticle.author.bio %></p>
+                                </div>
+                                <div class="mt-1 max-w-2xl text-sm text-gray-500">
+                                     <%= moment(acticle.createdAt).locale('en').fromNow() %>
+                                     <p>Published on: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>
+                                     <p class="pl-3 text-sm">
+                                        viewing <%= formatNumber(acticle.views) %> Views
+                                    </p>
+                                </div>
+                               </div>
+
+                             <!-- Advertisement Section -->
+                            <div class="ads-container my-8 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 aspect-w-16 aspect-h-9">
+                                <div class="text-center mb-4">
+                                    <p class="text-sm text-gray-500 " style="user-select: none;">Sponsored</p>
+                                </div>
+                                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                                    crossorigin="anonymous"></script>
+                                <ins class="adsbygoogle block mx-auto" style="display:block; text-align:center; width: 50%;"
+                                    data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6579807593228261"
+                                    data-ad-slot="5440757573"></ins>
+                                <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+
+                                
+                                <p><%- acticle.content %></p>
 
 
-    </script>
-    <script>
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
+                                <div class="gallery flex justify-center flex-col mt-5">
+                                    <% if (acticle.images.length > 0) { %>
+                                        <% acticle.images.forEach(function(image) { %>
+                                            <img src="/ArticlesImages_mord/<%= image %>" alt="Article Image" style="max-width: 100%; height: 250px; object-fit: contain;">
+                                        <% }); %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Sidebar right -->
+                        <div class="w-full md:w-1/3 bg-white p-4 rounded shadow-md">
+                            <h2 class="text-lg font-semibold mb-4">You may also like the following content list.</h2>
+                            <div class="tages">
+                                <div class="mt-1 flex justify-between">
+                                    <% if (acticle && acticle.tags && acticle.tags.length> 0) { %>
+                                        <h2
+                                            class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
+                                            Tags: <% acticle.tags.forEach((tag, index) => { %>
+                                                <a class="text-sky-500" href="/tag/<%= tag %>">
+                                                    <%= tag %>
+                                                </a>
+                                                <% if (index < acticle.tags.length - 1) { %>
+                                                    ,
+                                                <% } %>
+                                            <% }); %>
+                                        </h2>
+                                        <% } else { %>
+                                            <h2>Tags: No tags</h2>
+                                            <% } %>
+                                </div>
+                            </div>
+                            <h3 class="text-md font-medium mb-2">Latest update</h3>
+                            <% recentUpdates.forEach(function(update) { %>
+                                <div class="skeleton flex overflow-hidden gap-4 p-4 border border-gray-200 rounded-lg shadow-sm transition-all mb-5 hover:shadow-md">
+                                    <div class="w-1/3">
+                                        <a href="/read/<%= update.url %>?lang=<%= language %>&id=<%= update._id %>">
+                                            <img src="/acticles_images/<%= update.photo %>" alt="<%= update.title %>" class="w-full h-auto object-cover rounded-md">
+                                        </a>
+                                    </div>
+                                    <div class="w-2/3">
+                                        <a href="/read/<%= update.url %>?lang=<%= language %>&id=<%= update._id %>">
+                                            <h3 class="text-lg font-medium text-gray-800 mb-2 hover:text-blue-600 transition-colors">
+                                                <%= update.title %>
+                                            </h3>
+                                        </a>
+                                        <p class="text-sm text-gray-600 aspect-w-16 aspect-h-9 ">
+                                            <!-- Add a brief description or excerpt if available -->
+                                            <%- update.excerpt || update.content.substring(0, 100) %>...
+                                        </p>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="flex items-center justify-center h-screen">
+                    <div class="text-center">
+                        <h1 class="text-6xl font-bold text-blue-500">404</h1>
+                        <p class="text-xl text-gray-700 mt-4">Sorry, the page you are looking for cannot be found.</p>
+                        <p class="text-gray-500 mt-2">The page you are looking for may have been removed due to copyright.</p>
+                        <p class="text-gray-500 mt-2">Try new search terms to search. The area you want to view</p>
+                        <p class="text-gray-500 mt-2">This content may have been closed. with the creator's</p>
+                        <div class="mt-6">
+                            <a href="/" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Go to Homepage</a>
+                        </div>
+                        <!-- <div class="mt-50 flex justify-center">
+                            <img src="https://path-to-your-animation.gif" alt="Not Found Animation" class="w-64 h-64 animate-bounce-slow">
+                        </div> -->
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        </div>
+
+        <script>
+            function connecten() {
+                let socket = io.connecten("http://localhost:3000/read/<%= acticle.url %>?lang=<%= language %>")
             }
-        });
+            connecten();
+        </script>
 
-    </script>
-     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var descriptionSpan = document.querySelector('.content-full');
-            var description = descriptionSpan.textContent.trim();
+        <%- include('../footer') %>
 
-            var descriptionWithLinks = description.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank" class="hover_link" style="color: blue;">$1</a>');
-            descriptionSpan.innerHTML = descriptionWithLinks;
-        });
-    </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+            <script src="/js/pages/loading_datas.js"></script>
+            <script src="/js/pages/read.js" defer></script>
+            <% if (usersesstion) {%>
+                <script>
+                    let countdown = 60;
+                     let intervalId;
+
+                        function startCountdown() {
+                            countdown = 60;
+                            intervalId = setInterval(() => {
+                                countdown--;
+                                updateCountdownUI(countdown);
+                                if (countdown <= 0) {
+                                    clearInterval(intervalId);
+                                    const randomScore = [20, 50, 70, 100, 799, 909, 1000][Math.floor(Math.random() * 7)];
+                                    saveScoreToDatabase(randomScore);
+                                    showPopupScore(randomScore);
+                                    startCountdown();
+                                }
+                            }, 1000);
+                        }
+
+                        window.onbeforeunload = function() {
+                            clearInterval(intervalId);
+                        };
+
+                    function showPopupScore(score) {
+                        const popuppoint = document.getElementById('popuppoint');
+                        popuppoint.innerText = `คุณได้รับ ${score} คะแนน!`;
+                        popuppoint.style.display = 'block';
+                        setTimeout(() => {
+                            popuppoint.style.display = 'none';
+                        }, 6000); 
+                    }
+                    function updateCountdownUI(countdown) {
+                        document.getElementById('countdown-timer').innerText = countdown;
+                    }
+                    function saveScoreToDatabase(score) {
+                        fetch('/api/score', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ userId: '<%= usersesstion._id %>', score: score })
+                        })
+                            .then(response => response.json())
+                            .then(data => console.log(data))
+                            .catch(error => console.error('Error saving score:', error));
+                    }
+
+                    startCountdown();
+                </script>
+            <% } %>
+
+
+            <% if (usersesstion) {%>
+                <script>
+                      const socket = io();
+                    document.getElementById('commentForm').addEventListener('submit', async function (event) {
+                        event.preventDefault();
+
+                        const inputcomment = document.getElementById('inputcomment').value;
+                        const articleId = '<%= acticle._id %>';
+
+                        const response = await fetch(`/replie/read/${articleId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer <%= usersesstion.accessToken %>`
+                            },
+                            body: JSON.stringify({ inputcomment })
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            showPopup(result.message);
+                            document.getElementById('inputcomment').value = '';
+                        } else {
+                            showPopup(result.message);
+                        }
+                    });
+
+                        socket.on('newComment', (comment) => {
+                            outputComent(comment);
+                        });
+
+                    function outputComent(comment) {
+                        const outputcomment = document.getElementById('outputcomment');
+                        const commentHtml = `
+                                <div class="p-4 bg-white rounded shadow mb-4">
+                                    <div class="flex items-center">
+                                        <img class="w-10 h-10 rounded-full" src="${comment.username.profile}" alt="Coment user">
+                                        <div class="flex flex-col pl-4">
+                                            <h3 class="font-semibold">@${comment.username.username}</h3>
+                                            <div class="comtemt-text">
+                                                ${comment.content}
+                                            </div>
+                                            <div class="flex gap-2 mt-2">
+                                                <div class="comment__operate__item">
+                                                    <i class="fa-regular fa-thumbs-up"></i> 
+                                                    <span class="text-1xl likes-count">0</span>                                           
+                                                </div>
+                                                <div class="comment__operate__item report">
+                                                    <i class="fa-regular fa-flag"></i>
+                                                    <span data-v-a42dab90="">รายงาน</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 text-sm mt-2">โพสต์เมื่อ: เพิ่งโพสต์</p>
+                                </div>
+                            `;
+                        outputcomment.insertAdjacentHTML('afterbegin', commentHtml);
+                    }
+
+                    function showPopup(message) {
+                        const popup = document.createElement('div');
+                        popup.className = 'fixed flex items-center justify-center bottom-20 left-1/2 transform -translate-x-1/2 bg-white text-black px-4 py-2 rounded shadow-lg';
+                        popup.textContent = message;
+
+                        document.body.appendChild(popup);
+
+                        setTimeout(() => {
+                            popup.classList.add('opacity-0');
+                        }, 2000);
+
+                        setTimeout(() => {
+                            document.body.removeChild(popup);
+                        }, 2500);
+                    }
+                </script>
+                    
+                    
+            <% } %>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var copyButton = document.getElementById('copylink');
+                    var popup = document.getElementById('popup');
+
+                    copyButton.addEventListener('click', function () {
+                        var qriyLink = document.createElement('input');
+                        qriyLink.value = window.location.href;
+                        document.body.appendChild(qriyLink);
+                        qriyLink.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(qriyLink);
+
+                        popup.style.display = 'block'; // แสดง Popup
+                        setTimeout(function () {
+                            popup.style.display = 'none'; // ซ่อน Popup
+                        }, 2000); // 2 วินาที
+                    });
+                });
+
+
+            </script>
 </body>
 
 </html>

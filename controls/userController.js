@@ -121,6 +121,33 @@ exports.getLogin = async (req, res) => {
         console.error(error);
     }
 };
+exports.getLoginFacebook = async (req, res) => {
+    const { id, username, email, accessToken } = req.body;
+
+    try {
+        let user = await User.findOne({ email });
+        if (!user) {
+            user = new User({ facebookId: id, username, email });
+            await user.save();
+        }
+
+        const token = jwt.sign({ id: user._id, username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
+        res.cookie('login-token', token, { httpOnly: true, secure: true });
+
+        req.session.userlogin = {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            token,
+            alertMessage: req.query.alertMessage || ''
+        };
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+};
 
 exports.getAPIlogin = async (req, res) => {
     try {

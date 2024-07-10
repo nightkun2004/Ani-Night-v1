@@ -1,44 +1,195 @@
- <!-- Navbar Top -->
- <nav class="navbar">
-    <div class="logo_item">
-        <i class="bx bx-menu" id="sidebarOpen"></i>
-        <a href="/">
-            AniNight
-            <!-- <img src="http://localhost:3000/images/Aninight_logo.svg" alt=""></i> -->
-    </div>
-    </a>
-    <div class="search_bar">
-        <input type="search" placeholder="ค้นหา..." />
-        <div class="header-search-bar__btn" id="searchButton">
-            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+<nav class="bg-white border-b border-gray-200 shadow-sm sticky top-0 w-full z-10">
+    <div class="container mx-auto px-4 flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div class="left__nav flex items-center">
+            <button onclick="openNav()" class="focus:outline-none">
+                <i class="fas fa-bars text-gray-700 text-2xl"></i>
+            </button>
+            <a href="/" class="flex items-center pl-2">
+                <!-- <img src="/images/logo/Aninight.png" alt="Logo" class="h-8 w-8"> -->
+                <span class="text-lg font-semibold text-gray-700">ANINIGHT</span>
+            </a>
         </div>
-    </div>
-    <div class="navbar_content">
-        <i class="bi bi-grid"></i>
-        <ul class="menus_icon">
-            <li>
-                <i class='bx bx-sun' id="darkLight"></i>
-            </li>
-            <li class="mass_sun">
-                <i class='bx bx-bell' id="btn_bell"></i>
-                <span class="mass_flong">0</span>
-            </li>
-        </ul>
-        <div class="mass">
-            <h2 class="title_mass">System notifications</h2>
-            <ul>
-                <li>
-                    <div class="image_mass">
-                        <img src="" alt="">
-                    </div>
-                    <p>Notification message</p>
-                </li>
-            </ul>
+
+        <!-- Nav Links and Icons -->
+        <div class="hidden md:flex items-center space-x-4">
+            <a href="/" class="text-gray-700 hover:text-blue-500">Home</a>
+            <a href="/trending" class="block text-gray-700 hover:text-blue-500">Trending</a>
+            <a href="/forums" class="block text-gray-700 hover:text-blue-500">Forums</a>
+            <a href="/live/aninight" class="block text-gray-700 hover:text-blue-500">LIVE</a>
+            <!-- <a href="/anishots" class="block text-gray-700 hover:text-blue-500">Anishots</a> -->
+            <div class="relative group">
+                <a href="/" class="block text-gray-700 hover:text-blue-500">
+                    🔍 Search
+                </a>
+                <div class="absolute hidden group-hover:block bg-white shadow-lg mt-1 py-2 rounded-lg w-48 border border-gray-300 shadow-lg">
+                    <a href="/browse/anime" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">🖐🏻 Anime</a>
+                    <a href="/search" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Search</a>
+                    <a href="/categories" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Categorys</a>
+                    <a href="/articles" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Articles</a>
+                    <% if (!usersesstion) { %>
+                        <a href="/login" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Login</a>
+                        <% } %>
+                            <% if (usersesstion) { %>
+                                <a href="/upload_acticle"
+                                    class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Create</a>
+                                <% } %>
+                </div>
+            </div>
+            <% if (!usersesstion) { %>
+                <a href="/login" class="block px-4 py-2 text-gray-800 bg-red-500 text-white rounded-lg hover:bg-red-600">Login</a>
+                <% } %>
+
+                            <!-- Profile Dropdown -->
+                            <div class="relative group">
+                                <button class="focus:outline-none">
+                                    <% if (usersesstion) { %>
+                                        <a href="/profile?u=<%= usersesstion.username %>">
+                                            <img class="w-9 h-9 rounded-full border-2 border-gray-300 cursor-pointer"
+                                                src="/profiles/<%= usersesstion.profile %>" alt="User Avatar">
+                                        </a>
+                                        <% } %>
+                                </button>
+                                <% if (usersesstion) { %>
+                                    <!-- เมนูการ์ด -->
+                                    <div
+                                        class="absolute right-1 transform hidden group-hover:block w-64 p-4 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                                        <div class="flex items-center">
+                                            <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Picture"
+                                                class="w-12 h-12 rounded-full border-2 border-gray-300">
+                                            <div class="ml-3">
+                                                <h3 class="text-lg text-black font-semibold">
+                                                    <%= usersesstion.name %>
+                                                </h3>
+                                                <p class="text-gray-500">@<%= usersesstion.username %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4">
+                                            <p class="text-sm text-gray-700">
+                                                <%= usersesstion.bio %>.
+                                            </p>
+                                        </div>
+                                        <div class="mt-4">
+                                            <ul class="list-none">
+                                                <li class="py-1"><a
+                                                        href="/profile?u=<%= usersesstion.username %>"
+                                                        class="block text-gray-700 rounded-lg p-2 hover:bg-gray-100">
+                                                        <%= usersesstion.username %>
+                                                    </a></li>
+                                                <div class="relative">
+                                                    <li class="py-1"><a href="#" class="block text-gray-700 rounded-lg p-2 hover:bg-gray-100">Notifications</a>
+                                                    </li>
+                                                    <span class="absolute right-0 top-0 bg-red-500 text-white px-1 rounded-full">0</span>
+                                                </div>
+
+                                                <li class="py-1">
+                                                    <form action="/logout/user" method="post">
+                                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
+                                                            Logout
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="mt-4 border-t-2 p-2 flex items-center">
+                                            <h2 class="text-black">Change mode</h2>
+                                            <div class=" mx-auto p-4">
+                                                <div class="flex justify-end">
+                                                    <label for="theme-toggle" class="inline-flex items-center cursor-pointer">
+                                                        <div class="relative">
+                                                            <input type="checkbox" id="theme-toggle" class="sr-only">
+                                                            <div class="block-dack bg-gray-100 w-14 h-8 rounded-full">
+                                                            </div>
+                                                            <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform">
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <% } %>
+                            </div>
         </div>
-        <% if (!usersesstion) { %>
-        <img src="http://localhost:3000/profiles/1713078506481-419146687.jpg" alt="" class="profile" />
-        <% } else { %>
-            <img src="/profiles/<%= usersesstion.profile %>" alt="" class="profile" />
-            <% } %>
-    </div>
 </nav>
+
+         
+
+<style>
+    .menu-hidden {
+        display: none;
+    }
+
+    .menu-visible {
+        display: block;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .activemenu {
+        border-bottom: 3px solid #000;
+        color: #000;
+        font-weight: bold;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+</style>
+<script>
+    function closeNav() {
+        document.getElementById("my__Sidebar").style.width = "0";
+    }
+
+    function openNav() {
+        document.getElementById("my__Sidebar").style.width = "16rem";
+    }
+</script>
+
+
+<% if (usersesstion) {%>
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+    
+        // Load theme from localStorage
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('bg-black', 'text-white');
+            body.classList.remove('bg-white', 'text-black');
+            themeToggle.checked = true;
+            document.querySelector('.dot').classList.add('translate-x-full', 'bg-white');
+            document.querySelector('.block-dack').classList.add('bg-green-500');
+        }
+    
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                body.classList.add('bg-black', 'text-white');
+                body.classList.remove('bg-white', 'text-black');
+                localStorage.setItem('theme', 'dark');
+                document.querySelector('.dot').classList.add('translate-x-full', 'bg-white');
+                document.querySelector('.block-dack').classList.add('bg-green-500');
+                document.querySelector('.block-dack').classList.remove('bg-gray-100');
+            } else {
+                body.classList.add('bg-gray.100', 'text-white');
+                body.classList.remove('bg-black', 'text-white');
+                localStorage.setItem('theme', 'light');
+                document.querySelector('.dot').classList.remove('translate-x-full', 'bg-black');
+                document.querySelector('.block-dack').classList.add('bg-gray-100');
+                document.querySelector('.block-dack').classList.remove('bg-green-500');
+            }
+        });
+    </script>
+<% } %>

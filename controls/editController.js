@@ -1,6 +1,7 @@
 const Acticle = require('../models/acticle')
 const Video = require('../models/video')
 const crypto = require("crypto")
+const HttpError = require("../models/errorModel")
 const fs = require('fs');
 const path =require('path')
 
@@ -137,31 +138,63 @@ exports.editActicleuser = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
-exports.editActicleCovernow = async (req, res) => {
+exports.editActicleCovernow = async (req, res, next) => {
     const update_id = req.body.update_id;
     try {
+        // ตรวจสอบว่ามีเอกสารที่ต้องการแก้ไขหรือไม่
         const acticle = await Acticle.findOne({ _id: update_id });
         if (!acticle) {
             return res.status(404).json({ error: "acticle not found" });
         }
 
-        // ตรวจสอบว่ามีไฟล์อัพโหลดหรือไม่
-        if (!req.file) {
-            return res.status(400).json({ error: "No file uploaded" });
+        // ตรวจสอบว่ามีไฟล์อัพโหลดใหม่หรือไม่
+        if (req.files && req.files['articlecover-image']) {
+            const oldPost = await Acticle.findById(update_id);
+
+            // ลบภาพเก่าหากมี
+            if (oldPost && oldPost.photo) {
+                const oldImagePath = path.join(__dirname, '..', 'src', 'public', 'acticles_images', oldPost.photo);
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) {
+                        console.error(err);
+                        // ไม่ต้องหยุดการทำงานแม้จะลบไฟล์เก่าไม่สำเร็จ
+                    }
+                });
+            }
+
+            // ตรวจสอบและอัพโหลดไฟล์ใหม่
+            const thumbnail = req.files['articlecover-image'];
+            const fileName = thumbnail.name;
+            const splittedFilename = fileName.split('.');
+            const newFilename = crypto.randomUUID() + "." + splittedFilename[splittedFilename.length - 1];
+            const newImagePath = path.join(__dirname, '..', 'src', 'public', 'acticles_images', newFilename);
+
+            thumbnail.mv(newImagePath, async (err) => {
+                if (err) {
+                    console.error(err);
+                    return next(new HttpError("Couldn't upload new image.", 500));
+                }
+
+                // อัพเดตโพสต์ด้วยภาพใหม่
+                const updatedPost = await Acticle.findByIdAndUpdate(update_id, { photo: newFilename }, { new: true });
+                if (!updatedPost) {
+                    return next(new HttpError("Couldn't update post.", 400));
+                }
+                res.redirect('/?alertMessage=แก้ไขเรียบร้อยแล้ว');
+            });
+        } else {
+            // ไม่มีไฟล์อัพโหลดใหม่ ให้รีเฟรชโพสต์โดยไม่เปลี่ยนภาพ
+            const updatedPost = await Acticle.findByIdAndUpdate(update_id, { new: true });
+            if (!updatedPost) {
+                return next(new HttpError("Couldn't update post.", 400));
+            }
+            res.redirect('/?alertMessage=แก้ไขเรียบร้อยแล้ว');
         }
-        
-
-        // อัปเดตข้อมูลในฐานข้อมูล
-        acticle.photo = req.file.filename;
-        await acticle.save();
-
-        res.redirect('/?alertMessage=แก้ไขเรียบร้อยแล้ว');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
-    }
+    }   
 }
-
 
 exports.editVideouser = async (req, res) => {
     const update_id = req.body.update_id;
@@ -192,7 +225,10 @@ exports.Delete = async (req, res) => {
             return res.status(404).send('Video not found');
         }
 
-        const filePath = `/acticles_images/${imageToDelete.filePath}`;
+        let filePath
+
+        filePath = `/acticles_images/${imageToDelete.filePath}`;
+        filePath = `/ArticlesImages_mord/${imageToDelete.filePath}`;
         if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath);
         }

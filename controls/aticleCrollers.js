@@ -9,8 +9,9 @@ const path = require("path")
 // METHOT : /api/v1/posts/:id
 const likePost = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const userId = req.session.userlogin;
+    // รับค่าจาก query ?lang=th&id=668d4f684f9d7d43cd4311af
+    const id  = req.query; 
+    const userId = req.user._id;
 
     const post = await Acticle.findById(id);
     if (!post) {
@@ -29,10 +30,12 @@ const likePost = async (req, res, next) => {
     if (hasLiked) {
       // Remove like
       post.likes = post.likes.filter(like => like.toString() !== userId);
+      post.likesCount--;
       message = "ยกเลิกไลค์โพสต์แล้ว";
     } else {
       // Add like
       post.likes.push(userId);
+      post.likesCount++;
       message = "ไลค์โพสต์แล้ว";
     }
 
@@ -41,7 +44,7 @@ const likePost = async (req, res, next) => {
     await post.save();
 
     res.status(200).json({
-      message: message,
+      message: hasLiked ? "ยกเลิกไลค์โพสต์แล้ว" : "ไลค์โพสต์แล้ว",
       likesCount: post.likesCount
     });
   } catch (error) {
@@ -112,20 +115,7 @@ const CreateArticle = async (req, res, next) => {
 
     const tagsArray = tags ? tags.split('#').map(tag => tag.trim()).filter(tag => tag) : [];
 
-    function generateRandomPostId() {
-      let numbers = Array.from({ length: 5 }, (_, i) => i);
-      shuffleArray(numbers);
-      return numbers.join('');
-    }
-
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-    }
-
-    let postId = generateRandomPostId();
+    let postId = crypto.randomUUID();
 
     // อัปโหลดภาพปก
     let thumbnailFilename = generateFilename(thumbnail);
@@ -174,8 +164,8 @@ const CreateArticle = async (req, res, next) => {
     const Articlesave = new Acticle(postcreate);
     await Articlesave.save();
     await User.findByIdAndUpdate(usersesstion._id, { $push: { acticles: Articlesave._id } }, { new: true });
-    // res.status(200).redirect('/');
-    res.status(201).json({ message: "Article created successfully", article: postcreate });
+    res.status(200).redirect('/');
+    // res.status(201).json({ message: "Article created successfully", article: postcreate });
 
   } catch (error) {
     return next(new HttpError(error.message, 500));
@@ -185,7 +175,7 @@ const CreateArticle = async (req, res, next) => {
 const generateFilename = (file) => {
   let fileName = file.name;
   let splittedFilename = fileName.split('.');
-  return splittedFilename[0] + crypto.randomUUID() + "." + splittedFilename[splittedFilename.length - 1];
+  return crypto.randomUUID() + "." + splittedFilename[splittedFilename.length - 1];
 };
 
 module.exports = { likePost, CreateArticle, UploadImagesArticle }

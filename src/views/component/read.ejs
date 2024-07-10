@@ -29,6 +29,7 @@
         crossorigin="anonymous"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTJP520FN4"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -40,11 +41,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .liked {
-          color: red;
-        }
-      </style>
+    <% if (usersesstion) {%>
+        <script>
+           $(document).ready(function() {
+            $('#like-button').on('click', function() {
+                var button = $(this);
+                var postId = button.data('id');
+                console.log("id article",postId),
+                $.ajax({
+                    url: '/api/v1/posts/article/like',
+                    type: 'POST',
+                    headers: {
+                    'Authorization': 'Bearer ' + '<%= usersesstion.token %>', 
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({ id: postId }),
+               
+                    success: function(response) {
+                        button.toggleClass('liked');
+                        $('#like-count').text(response.likesCount);
+                        alert(response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+        </script>
+    <% } %>
 </head>
 
 <body class="bg-gray-100">
@@ -52,236 +77,152 @@
     <%- include('../sidebar_Section') %>
         <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <% if (acticle.published) { %>
-            <div class="container">
-                <div class="loading_container">
-                    <div class="loading-indicator loadingIndicator" id="loadingIndicator">
-                        <div class="spinner"></div>
-                        <p>กำลังประมวณผลข้อมูล</p>
-                    </div>
-                </div>
-                <!-- Main Content -->
-                <div class="loading" style="display: none;">
-                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-10">
-                        <script async
-                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-                            crossorigin="anonymous"></script>
-                        <!-- ads_home -->
-                        <ins class="adsbygoogle" style="display:inline-block;width:900px;height:150px"
-                            data-ad-client="ca-pub-6579807593228261" data-ad-slot="7305022131"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                        <!-- Post Header -->
-                        <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
-                            <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-                                <div>
-                                    <div class="category text-sm md:text-2xl">
-                                        <p><a href="/">หน้าหลัก</a>
+                <div class="container mx-auto p-4">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <!-- Main Content -->
+                        <div class="flex-1 bg-white p-4 rounded shadow-md">
+                            <div id="main-content" class="skeleton">
+                                <div class="title__main flex justify-between items-center">
+                                    <div class="title__header">
+                                        <h1 class="text-2xl font-bold mb-4"><%= acticle.title %></h1>
+                                       </div>
+                                    <div class="right__title-main">
+                                        <div class="relative">
+                                            <!-- Share Button -->
+                                            <button id="share-button" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                                แชร์
+                                            </button>
+
+                                        <!-- Popup Alert -->
+                                        <div class="popupalert" id="popupalert">
+                                            <p>แชร์ลิ้งแล้ว</p>
+                                        </div>
+
+                                        <div class="data__box-share hidden">
+                                            <form>
+                                                <input type="text" name="articleTitle" value="<%= acticle.title %>">
+                                                <input type="text" name="articleContent" value="<%- acticle.content %>">
+                                                <input type="file" name="articleImage" value="/acticles_images/<%= acticle.photo %>">
+                                            </form>
+                                        </div>
+                                        
+                                            <!-- Share Popup -->
+                                            <div id="share-popup" class="hidden absolute top-full right-0 mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-50">
+                                                <h3 class="text-md font-semibold mb-2">แชร์บทความนี้</h3>
+                                                <button id="copy-link" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 px-2 py-1 rounded mb-2 flex items-center justify-between">
+                                                    คัดลอกลิ้ง
+                                                    <i class="fas fa-link"></i>
+                                                </button>
+                                                <button class="share-button w-full bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded mb-2 flex items-center justify-between" data-platform="facebook">
+                                                    Facebook
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </button>
+                                                <button class="share-button w-full bg-blue-400 hover:bg-blue-500 text-white px-2 py-1 rounded mb-2 flex items-center justify-between" data-platform="twitter">
+                                                    Twitter
+                                                    <i class="fab fa-twitter"></i>
+                                                </button>
+                                                <button class="share-button w-full bg-pink-500 hover:bg-pink-600 text-white px-2 py-1 rounded mb-2 flex items-center justify-between" data-platform="tiktok">
+                                                    TikTok
+                                                    <i class="fab fa-tiktok"></i>
+                                                </button>
+                                                <button class="share-button w-full bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded mb-2 flex items-center justify-between" data-platform="youtube">
+                                                    YouTube
+                                                    <i class="fab fa-youtube"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                            
+                                    </div>
+                                </div>
+                               <div class="flex justify-between items-center" style="border-bottom: 1px solid #eee;">
+                                <div class="mb-4">
+                                    <h2 class="text-lg font-semibold bg-gray-100 rounded-full p-2">By: <a href="/editor/<%= acticle.author.username %>" target="_blank" ><%= acticle.author.username %></a></h2>
+                                    <p class="text-gray-600"><%= acticle.author.bio %></p>
+                                </div>
+                                <div class="mt-1 max-w-2xl text-sm text-gray-500">
+                                     <%= moment(acticle.createdAt).locale('th').fromNow() %>
+                                     <p>เผยแพร่เมื่อ: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>
+                                     <p class="pl-3 text-sm">
+                                        การดู <%= formatNumber(acticle.views) %> ครั้ง
+                                    </p>
+                                </div>
+                               </div>
+
+                             <!-- Advertisement Section -->
+                            <div class="ads-container my-8 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 aspect-w-16 aspect-h-9">
+                                <div class="text-center mb-4">
+                                    <p class="text-sm text-gray-500 " style="user-select: none;">Sponsored</p>
+                                </div>
+                                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                                    crossorigin="anonymous"></script>
+                                <ins class="adsbygoogle block mx-auto" style="display:block; text-align:center; width: 50%;"
+                                    data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6579807593228261"
+                                    data-ad-slot="5440757573"></ins>
+                                <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+
+                                
+                                <p><%- acticle.content %></p>
+
+
+                                <div class="gallery flex justify-center flex-col mt-5">
+                                    <% if (acticle.images.length > 0) { %>
+                                        <% acticle.images.forEach(function(image) { %>
+                                            <img src="/ArticlesImages_mord/<%= image %>" alt="Article Image" style="max-width: 100%; height: 250px; object-fit: contain;">
+                                        <% }); %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Sidebar right -->
+                        <div class="w-full md:w-1/3 bg-white p-4 rounded shadow-md">
+                            <h2 class="text-lg font-semibold mb-4">คุณอาจชอบรายการเนื้อหาต่อไปนี้</h2>
+                            <div class="tages">
+                                <div class="mt-1 flex justify-between">
+                                    <% if (acticle && acticle.tags && acticle.tags.length> 0) { %>
+                                        <h2
+                                            class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
+                                            Tags: <% acticle.tags.forEach((tag, index) => { %>
+                                                <a class="text-sky-500" href="/tag/<%= tag %>">
+                                                    <%= tag %>
+                                                </a>
+                                                <% if (index < acticle.tags.length - 1) { %>
+                                                    ,
+                                                <% } %>
+                                            <% }); %>
+                                        </h2>
+                                        <% } else { %>
+                                            <h2>Tags: ไม่มีแท็ก</h2>
+                                            <% } %>
+                                </div>
+                            </div>
+                            <h3 class="text-md font-medium mb-2">อัพเดตล่าสุด</h3>
+                            <% recentUpdates.forEach(function(update) { %>
+                                <div class="skeleton flex overflow-hidden gap-4 p-4 border border-gray-200 rounded-lg shadow-sm transition-all mb-5 hover:shadow-md">
+                                    <div class="w-1/3">
+                                        <a href="/read/<%= update.url %>?lang=<%= language %>&id=<%= update._id %>">
+                                            <img src="/acticles_images/<%= update.photo %>" alt="<%= update.title %>" class="w-full h-auto object-cover rounded-md">
+                                        </a>
+                                    </div>
+                                    <div class="w-2/3">
+                                        <a href="/read/<%= update.url %>?lang=<%= language %>&id=<%= update._id %>">
+                                            <h3 class="text-lg font-medium text-gray-800 mb-2 hover:text-blue-600 transition-colors">
+                                                <%= update.title %>
+                                            </h3>
+                                        </a>
+                                        <p class="text-sm text-gray-600 aspect-w-16 aspect-h-9 ">
+                                            <!-- Add a brief description or excerpt if available -->
+                                            <%- update.excerpt || update.content.substring(0, 100) %>...
                                         </p>
                                     </div>
-                                    <h1 class="text-sm leading-6 font-bold text-gray-900 md:text-2xl">
-                                        <%= acticle.title %>
-                                    </h1>
-                                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                        เขียนโดย <a href="/editor/<%= acticle.author.username %> ">
-                                            <%= acticle.author.username %>
-                                        </a> | <%= moment(acticle.createdAt).locale('th').fromNow() %>
-                                    </p> 
-                                    <div class="mt-1 flex justify-between">
-                                        <% if (acticle && acticle.tags && acticle.tags.length> 0) { %>
-                                            <h2
-                                                class="inline-block rounded-full border-2 mr-2 bg-white mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out hover:border-info-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-info-600 text-black">
-                                                Tags: <% acticle.tags.forEach((tag, index) => { %>
-                                                    <a class="text-sky-500" href="/tag/<%= tag %>">
-                                                        <%= tag %>
-                                                    </a>
-                                                    <% if (index < acticle.tags.length - 1) { %>
-                                                        ,
-                                                    <% } %>
-                                                <% }); %>
-                                            </h2>
-                                            <% } else { %>
-                                                <h2>Tags: ไม่มีแท็ก</h2>
-                                                <% } %>
-                                                            <p class="viewsp">
-                                                                <% function formatNumber(number) { if (number>=
-                                                                    1000000)
-                                                                    {
-                                                                    return (number / 1000000).toFixed(1) + 'm';
-                                                                    } else if (number >= 1000) {
-                                                                    return (number / 1000).toFixed(1) + 'k';
-                                                                    } else {
-                                                                    return number;
-                                                                    }
-                                                                    }
-
-                                                                    var number1 = 100;
-                                                                    var number2 = 500;
-                                                                    var number3 = 1500;
-                                                                    var number4 = 1200000;
-                                                                    %>
-                                                                    <p class="pl-3 text-sm ">
-                                                                        การดู <%= formatNumber(acticle.views) %> ครั้ง
-                                                                    </p>
-                                                            </p>
-                                                            <p>Published: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>
-                                    </div>
-                                   
                                 </div>
-                                <div class="relative flex items-center space-x-2">
-                                    <button id="copylink"
-                                        class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                        แชร์
-                                    </button>
-                                    <!-- Popup container -->
-                                    <div class="absolute top-5 w-[100px] right-4 ml-2 bg-white border border-gray-300 shadow-md rounded-md p-2"
-                                        style="display: none;" id="popup">
-                                        <span id="popupText">คัดลอกลิงค์แล้ว!</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="border-t border-gray-200">
-                                <img class="w-full h-96 object-contain" src="/acticles_images/<%= acticle.photo %>"
-                                    alt="Post Image">
-                            </div>
+                            <% }); %>
                         </div>
-
-                        <script async
-                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-                            crossorigin="anonymous"></script>
-                        <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
-                            data-ad-format="fluid" data-ad-client="ca-pub-6579807593228261"
-                            data-ad-slot="2386038227"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-
-                        <!-- ADS -->
-                        <!-- <div class="bg-white px-4 py-8 mt-[50px] mb-[50px] truncate border border-gray-200 rounded-lg">
-                        
-                    </div> -->
-
-                        <!-- Post Content -->
-                        <div class="bg-white shadow overflow-hidden sm:rounded-lg p-6">
-                            <p class="mt-1 max-w-2xl text-sm text-gray-500 border-b-2">
-                                หมวดหมู่: <%= acticle.categories %>
-                            </p>
-                            <div class="text-lg leading-7 text-gray-700" id="article-content">
-                                <p class="mb-4"><%- acticle.content %></p>
-                            </div>
-
-                            <div class="gallery flex justify-center flex-col">
-                                <% if (acticle.images.length > 0) { %>
-                                    <% acticle.images.forEach(function(image) { %>
-                                        <img src="/ArticlesImages_mord/<%= image %>" alt="Article Image" style="max-width: 100%; height: 250px; object-fit: contain;">
-                                    <% }); %>
-                                <% } %>
-                            </div>
-                        </div>
-
-                        <% if (acticle.link_info) { %>
-                            <div
-                                class="rounded-full mt-5 items-center p-1 flex justify-center border-2 mr-2 bg-sky-100 mb-2 border-info px-6 text-md font-medium uppercase leading-normal text-info transition duration-150 ease-in-out">
-                                <button class="text-black"><a
-                                        href="<%= acticle.link_info %>" target="_blank"
-                                        rel="noopener noreferrer">ดูรายละเอียนสำหรับเรื่องนี้</a></button>
-                            </div>
-                            <% } %>
-
-                        <script async
-                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
-                            crossorigin="anonymous"></script>
-                        <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article"
-                            data-ad-format="fluid" data-ad-client="ca-pub-6579807593228261"
-                            data-ad-slot="3002127657"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-
-                        <section class="mt-8">
-                            <div class="space-y-4">
-                                <div class="bg-white rounded-lg shadow-lg p-3">
-                                    <!-- Box Input Comment -->
-                                    <div class="comment mb-5">
-                                        <% if (usersesstion) {%>
-                                            <form id="commentForm" class="w-full">
-                                                <div class="flex items-center">
-                                                    <img class="w-10 h-10 rounded-full" src="http://localhost:3000/profiles/1718010908357-371355329.jpg" alt="Coment user">
-                                                    <div class="flex flex-col pl-4 w-full">
-                                                        <input type="text" name="UserName" id="UserName" value="@<%= usersesstion.username %>" readonly class="outline-none border-none">
-                                                        <div class="comtemt-text flex flex-row">
-                                                            <input class="bg-gray-100 w-full px-4 outline-none border-none" type="text" placeholder="แสดงความคิดเห็น" name="inputcomment" id="inputcomment">
-                                                            <button class="bg-blue-500 text-white rounded px-4" type="submit">ส่ง</button>
-                                                        </div>
-                                                        <p>หากแสดงความคิดไม่ขึ้นให้ รีเฟรชหน้าเว็บ </p>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        <% } else {%>
-                                        <h3 class="text-center">เข้าสู่ระบบเพื่อแสดงความคิดเห็น</h3>
-                                        <% } %>
-
-                                    </div>
-                                    <% if (acticle && acticle.replies) { %>
-                                        <% const totalReplies = acticle.replies.length; %>
-                                        <h3 class="font-bold text-1xl">ความคิดเห็นทั้งหมด <%= totalReplies %></h3>
-                                    <% } %>
-                                    <div id="outputcomment">
-                                        <% acticle.replies.slice().reverse().forEach(comment => { %>
-                                            <div class="p-4">
-                                                <div class="flex items-center">
-                                                    <img class="w-10 h-10 rounded-full" src="/profiles/<%= comment.username.profile %>"
-                                                        alt="Coment user">
-                                                    <div class="flex flex-col pl-4">
-                                                        <h3>@<%= comment.username.username %></h3>
-                                                        <div class="comtemt-text">
-                                                            <%= comment.inputcomment %>
-                                                        </div>
-                                                        <div class="flex gap-2">
-                                                            <div class="comment__operate__item">
-                                                                <form>
-                                                                    <i class="fa-regular fa-thumbs-up"></i> 
-                                                                    <span class="text-1xl likes-count">0</span>
-                                                                </form>                                            
-                                                            </div>
-                                                            <div class="comment__operate__item report">
-                                                                <i class="fa-regular fa-flag"></i>
-                                                                <span data-v-a42dab90="">รายงาน</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p class="text-gray-600 text-sm">โพสต์เมื่อ: <%=  moment(comment.createdAt ).locale('th').fromNow() %></p>
-                                            </div>
-                                            <% }); %>  
-                                    </div>
-                                </div>
-                               
-                            </div>
-                    </section>
                     </div>
                 </div>
-
-                <div id="scroll-bar-container"
-                    class="fixed flex items-center justify-center bottom-20 right-5 w-[50px] h-[50px] rounded-full bg-sky-600">
-                    <div class="flex items-center justify-center">
-
-                        <!-- สำหรับนับถอนหลักแบบตัวเลข -->
-                        <div id="countdown-timer" class="absolute text-xl font-bold text-white">60</div>
-
-                        <!-- Scrool Timeout นับถอนหลังแบบหมุนรอบ -->
-                        <div id="scroll-bar"
-                    class="w-[60px] h-[60px] border-gray-800 border-2 rounded-full"></div>
-                    </div>
-                </div>
-                
-
-                <div id="popuppoint"
-                    class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white p-4 rounded shadow-md"
-                    style="display: none;">
-                    
-                </div>
-            </div>
             <% } else { %>
                 <div class="flex items-center justify-center h-screen">
                     <div class="text-center">
@@ -289,6 +230,7 @@
                         <p class="text-xl text-gray-700 mt-4">ขออภัย, หน้าที่คุณกำลังหาไม่พบ</p>
                         <p class="text-gray-500 mt-2">หน้าที่คุณกำลังหาอาจถูกลบด้วยเนื่อกจากลิขสิทธิ์</p>
                         <p class="text-gray-500 mt-2">ลองใช้คำค้นหาใหม่เพื่อค้นหา เนื้อที่คุณต้องการดู</p>
+                        <p class="text-gray-500 mt-2">ลหรือเนื้อหานี้อาจถูกปิดแล้ว ด้วยของครีเอเตอร์</p>
                         <div class="mt-6">
                             <a href="/" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">กลับไปหน้าแรก</a>
                         </div>
@@ -312,8 +254,7 @@
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
             <script src="/js/pages/loading_datas.js"></script>
-            <!-- <script src="/js/pages/read.js" defer></script> -->
-
+            <script src="/js/pages/read.js" defer></script>
             <% if (usersesstion) {%>
                 <script>
                     let countdown = 60;

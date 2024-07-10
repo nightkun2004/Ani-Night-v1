@@ -399,11 +399,6 @@ body.dark {
 
 /* The Content */
 .content {
-    margin: 0 auto;
-    padding: 12px 16px;
-    margin-left: 250px;
-    margin-top: 90px;
-    padding: 1px 16px;
     transition: .3s;
 }
 

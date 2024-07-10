@@ -2,6 +2,7 @@ const mongoose = require("../config")
 // const Acticle = require("")
 
 const userSchema = new mongoose.Schema({
+    facebookId: String,
     userid: {
         type: String,
         unique: true,

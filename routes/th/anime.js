@@ -16,8 +16,9 @@ router.get("/browse/anime", async (req, res) => {
     const animes = await Anime.find();
     const latestUpdatedAnimes = await Anime.find().sort({ updatedAt: -1 }).limit(10);
     const newestAnimes = await Anime.find().sort({ createdAt: -1 }).limit(10);
+    const template = req.language === 'th' ? './component/th/Animelists' : './en/anime/animelists';
 
-    res.render('./component/th/Animelists', { usersesstion, animes, latestUpdatedAnimes, newestAnimes })
+    res.render(template, { usersesstion, animes, latestUpdatedAnimes, newestAnimes })
 })
 
 router.get("/browse/anime/:id", async (req, res) => {
@@ -29,11 +30,12 @@ router.get("/browse/anime/:id", async (req, res) => {
             return res.render("404", { usersesstion });
         }
         const anime = await Anime.findOne({_id: animeid});
+        const template = req.language === 'th' ? './component/th/animeinfo' : './en/anime/animeinfo';
         // console.log(anime)
-        res.render('./component/th/animeinfo', { usersesstion, anime })
+        res.render(template, { usersesstion, anime })
     } catch (err) {
         console.log(err)
-    }
+    } 
 
 })
 

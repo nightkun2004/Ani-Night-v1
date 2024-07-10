@@ -7,9 +7,13 @@
     <link rel="stylesheet" href="/css/pages/home_Section.css">
     <link rel="stylesheet" href="../css/pages/editActicle.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100">
-    <section class="mx-auto px-4 xl:max-w-7xl pt-[110px]">
+    <%- include('../../../navnar_Header') %>
+    <%- include('../../../sidebar_Section') %>
+    <section class="mx-auto px-4 xl:max-w-7xl">
         <div class="container_EditVideo">
             <div class="sidebar_left">
                 <ul>
@@ -31,7 +35,7 @@
             <div class="content_edit">
                 <h2 class="text-3xl border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขบทความพื้นฐาน</h2>
                 <div class="con_form">
-                    <form action="/edit/articlecover" method="post" enctype="multipart/form-data">
+                    <form action="/edit/article/new" method="post" enctype="multipart/form-data">
                         <input type="text" readonly name="edit_id" value="<%= article._id %>">
                         <input type="hidden" name="update_id" value="<%= article._id %>">
                         <input class="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -43,7 +47,7 @@
                                     </div>
                                     <img src="/acticles_images/<%= article.photo %>" alt="Current Thumbnail" style="max-width: 200px; height: auto;">
 
-                        <button type="submit"
+                        <button type="submit" 
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             แก้ไขภาพปก</button>
                     </form>
