@@ -22,10 +22,14 @@
 <body>
     <%- include('../navnar_Header') %>
 <%- include('../sidebar_Section') %>
-    <section class="editor mx-auto px-4 xl:max-w-7xl pt-[110px]" id="editor">
+    <section class="editor mx-auto px-4 xl:max-w-7xl" id="editor">
 
             <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
+                    <div class="banner relative w-full h-40 sm:h-64">
+                        <img style="user-select: none;" src="/banner/<%= userData.bannerImagePath %>" alt="<%= usersesstion.name %>" class="w-full rounded-lg h-full object-cover">
+                    </div>
+                    <!-- Info Profile -->
                     <div class="flex flex-col sm:flex-row items-center">
                         <img class="h-24 w-24 rounded-full object-cover" src="/profiles/<%= userData.profile %>" alt="Profile Picture">
                         <div class="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left">
@@ -51,6 +55,7 @@
                     </div>
                 </div>
             </div>
+
         <!-- ============================================
         Menus Editor ==================================== -->
         <div
@@ -102,17 +107,6 @@
         </div>
     </section>
 
-    <script>
-        window.addEventListener('scroll', function () {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-white-bg');
-            } else {
-                navbar.classList.remove('navbar-white-bg');
-            }
-        });
-
-    </script>
 </body>
 
 </html>

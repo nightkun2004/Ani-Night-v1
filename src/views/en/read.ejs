@@ -173,6 +173,29 @@
                                         <% }); %>
                                     <% } %>
                                 </div>
+
+                                <div class="comment mb-5">
+                                    <% if (usersesstion) {%>
+                                        <form id="commentForm" class="w-full">
+                                            <div class="flex items-center">
+                                                <img class="w-10 h-10 rounded-full" src="http://localhost:3000/profiles/1718010908357-371355329.jpg" alt="Coment user">
+                                                <div class="flex flex-col pl-4 w-full">
+                                                    <input type="text" name="UserName" id="UserName" value="@<%= usersesstion.username %>" readonly class="outline-none border-none">
+                                                    <div class="comtemt-text flex flex-row">
+                                                        <input class="bg-gray-100 p-2 w-full px-4 outline-none border-none" type="text" placeholder="แสดงความคิดเห็น" name="inputcomment" id="inputcomment">
+                                                        <button class="bg-blue-500 text-white rounded px-4" type="submit">ส่ง</button>
+                                                    </div>
+                                                    <p>หากแสดงความคิดไม่ขึ้นให้ รีเฟรชหน้าเว็บ </p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    <% } %>
+                                </div>
+
+                                <% if (acticle && acticle.replies) { %>
+                                    <% const totalReplies = acticle.replies.length; %>
+                                    <h3 class="font-bold text-1xl">ความคิดเห็นทั้งหมด <%= totalReplies %></h3>
+                                <% } %>
                             </div>
                         </div>
             

@@ -195,6 +195,14 @@ exports.editActicleCovernow = async (req, res, next) => {
         res.status(500).send('Internal Server Error');
     }   
 }
+exports.editBannerGet = async (req, res, next) => {
+    const usersesstion = req.session.userlogin;
+    try {
+      res.render("./component/pages/edits/editbanner", {usersesstion})
+    } catch (error) {
+        return next(new HttpError(err))
+    }   
+}
 
 exports.editVideouser = async (req, res) => {
     const update_id = req.body.update_id;

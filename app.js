@@ -90,10 +90,11 @@ app.locals.moment = moment;
 app.locals.formatNumber = formatNumber;
 app.locals.translations= setLanguage;
 app.use(setLanguage);
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '1000mb' })); // ขยายขีดจำกัด JSON
+app.use(bodyParser.urlencoded({ limit: '1000mb', extended: true }));
 app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false })); 
+app.use(express.json({ limit: '1000mb' }));
+app.use(express.urlencoded({ limit: '1000mb', extended: true }));
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 app.use(uploadRoute)
@@ -137,7 +138,10 @@ app.use((req, res, next) => {
 });
 
 
-io.on("connection", (socket) => {
-  console.log("A user connected")
-  
-})
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  socket.on('newComment', (inputcomment) => {
+      io.emit('newComment', inputcomment);
+  });
+});

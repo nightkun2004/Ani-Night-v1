@@ -24,10 +24,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '1075150200774995', // ใช้ App ID ของคุณที่ได้จาก Facebook Developer
+            appId: '1075150200774995', 
+            status: true,
             cookie: true,
             xfbml: true,
-            version: 'v12.0'
+            version: 'v20.0'
         });
 
         FB.AppEvents.logPageView();

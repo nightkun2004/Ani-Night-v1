@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขแบนเนอร์</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .modal {
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .close {
+            color: #aaa;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #upload-demo {
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+        .cr-boundary {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .cr-vp-square {
+            width: 640px !important;
+            height: 360px !important;
+        }
+        .message {
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <%- include('../../../navnar_Header') %>
+    <%- include('../../../sidebar_Section') %>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2 class="text-center font-bold text-2xl ">เลือกไฟล์ที่นี่เพื่ออัโหลดภาพแบนเนอร์ของคุณ</h2>
+            <p class="text-center">ขนาดภาพต้อง 2560 x 1440</p>
+            <span class="close">&times;</span>
+            <div id="upload-demo"></div>
+           <div class="mt-5 ">
+            <label for="">เลือกไฟล์ที่นี่</label>
+            <input type="file" id="file-upload-modal" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            <div id="message" class="message"></div>
+            <button id="crop" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg">อัพโหลด</button>
+           </div>
+        </div>
+    </div>
+
+    <script>
+        var uploadDemo = document.getElementById('upload-demo');
+        var message = document.getElementById('message');
+        var croppieInstance = new Croppie(uploadDemo, {
+            viewport: { width: 640, height: 360 },
+            boundary: { width: 800, height: 450 },
+            enableResize: true
+        });
+
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+
+        document.getElementById('file-upload-modal').addEventListener('change', function () {
+                var file = this.files[0];
+                var maxSize = 50 * 1024 * 1024; // 50 MB
+                if (file.size > maxSize) {
+                    alert('ไฟล์มีขนาดใหญ่เกินไป. ขนาดไฟล์สูงสุดคือ 50 MB.');
+                    this.value = ''; // ล้างการเลือกไฟล์
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    croppieInstance.bind({
+                        url: e.target.result
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        document.getElementById('crop').addEventListener('click', function () {
+                croppieInstance.result({
+                    type: 'canvas',
+                    size: { width: 2560, height: 1440 }
+                }).then(function (croppedImage) {
+                    fetch('/add/upload/banner', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ image: croppedImage })
+                    }).then(response => response.json())
+                        .then(data => {
+                            if (data.message === 'อัพโลดสำเร็จ') {
+                                message.className = 'message.success';
+                                message.textContent = 'อัพโหลดภาพสำเร็จ! ปิดหน้านี้ได้เลย!';
+                            } else {
+                                message.className = 'message error';
+                                message.textContent = data.message;
+                            }
+                        }).catch(error => {
+                            message.className = 'message error';
+                            message.textContent = 'เกิดข้อผิดพลาดในการอัปโหลด!';
+                        });
+                });
+            });
+    </script>
+</body>
+</html>

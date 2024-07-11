@@ -2,6 +2,7 @@ const User = require("../models/user")
 const Acticle = require("../models/acticle")
 const Payment = require('../models/playment')
 const axios = require('axios');
+const HttpError = require("../models/errorModel")
 // const authenticatetoken = require('../middleware/auth')
 // const jwt = require('jsonwebtoken')
 
@@ -103,8 +104,6 @@ exports.getAuthUser = async (req, res) => {
         res.status(500).send('An error occurred while sending user data to studio server');
     }
 }
-
-
 
 exports.logout = (req, res) => {
     req.session.destroy((err) => {

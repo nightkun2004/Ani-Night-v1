@@ -137,7 +137,7 @@ router.post('/replie/read/:id', authenticatetoken, async (req, res) => {
         };
 
         const saveconsole = await Acticle.findByIdAndUpdate(articleid, { $push: { replies: newReply } });
-        console.log(saveconsole)
+        console.log(saveconsole);
         io.emit('newComment', newReply);
         res.status(201).json({ message: 'แสดงความคิดเห็นแล้ว' });
     } catch (err) {

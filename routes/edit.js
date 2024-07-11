@@ -17,16 +17,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.get('/deleted', (req, res) => {
-   const usersesstion = req.session.userlogin;
-   res.render('deleted', { usersesstion })
-})
-
 router.get('/edit_video/editsubthai', (req,res) => {
    const usersesstion = req.session.userlogin;
    res.render('./component/pages/edits/videos/subthai', {usersesstion, active: 'dashboard'})
 }) 
 
+router.get('/add/banner', editActicle.editBannerGet)
 router.get('/delete/:id', editActicle.Delete)
 router.get('/delete/video/:id', editActicle.DeleteVideo)
 router.post('/edit_video/cover', editActicle.editVideo_cover)
@@ -39,6 +35,6 @@ router.post('/cover/videothum',upload.single('firecovervideo'), editActicle.vide
 router.post('/edit/article/user', editActicle.editActicleuser)
 router.post('/edit_acticle/cover', editActicle.editActicleCover)
 router.post('/edit/article/new', editActicle.editActicleCovernow)
-router.post('/edit/video/user', editActicle.editVideouser) 
+router.post('/edit/video/user', editActicle.editVideouser)  
 
 module.exports = router

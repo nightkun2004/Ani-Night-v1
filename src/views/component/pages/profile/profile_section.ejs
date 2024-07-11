@@ -1,53 +1,64 @@
 <!-- Profile Info -->
 <div class="max-w-6xl mx-auto mt-5 bg-white rounded-lg shadow">
-    <div class="flex justify-between items-center px-6 py-4 border-b">
-        <div class="flex items-center">
-            <% if (usersesstion.profile) { %>
-                <div class="flex-shrink-0 mr-4">
-                    <a href="/profiles/<%= usersesstion.profile %>" target="_blank" rel="noopener noreferrer">
-                        <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Picture"
-                            class="h-16 w-16 rounded-full object-cover">
-                    </a>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800">
-                        <%= usersesstion.name %>
-                    </h2>
-                    <p class="text-gray-600">@<%= usersesstion.username %>
-                    </p>
-                    <p>ไอดีผู้ใช้ : <%= usersesstion.userid %>
-                    </p>
-                </div>
-                <% } %>
+    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
+        <div class="banner relative w-full h-40 sm:h-64">
+            <img style="user-select: none;" src="/banner/<%= usersesstion.bannerImagePath %>" alt="<%= usersesstion.name %>" class="w-full rounded-lg h-full object-cover">
         </div>
-        <div class="hidden md:block">
-            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
+        <div class="flex justify-between items-center px-6 py-4 border-b">
+            <div class="flex items-center">
+                <% if (usersesstion.profile) { %>
+                    <div class="flex-shrink-0 mr-4">
+                        <a href="/profiles/<%= usersesstion.profile %>" target="_blank" rel="noopener noreferrer">
+                            <img src="/profiles/<%= usersesstion.profile %>" alt="Profile Picture"
+                                class="h-16 w-16 rounded-full object-cover">
+                        </a>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">
+                            <%= usersesstion.name %>
+                        </h2>
+                        <p class="text-gray-600">@<%= usersesstion.username %>
+                        </p>
+                        <p>ไอดีผู้ใช้ : <%= usersesstion.userid %>
+                        </p>
+                        <h2>ดูหน้าเว็บอัพเดตใหม่ <a href="/editor/<%= usersesstion.username %>">คลิกที่นี่</a></h2>
+                    </div>
+                    <% } %>
+            </div>
+            <div class="hidden md:block">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
+                        href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
+                        แดชบอร์ด</a></button>
+                        <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
+                            href="/add/banner" target="_blank" rel="noopener noreferrer">เพิ่ม banner</a></button>
+                        <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
+                        <form id="logoutForm" action="/logout/user" method="post">
+                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
+                                ออกจากระบบ
+                            </button>
+                        </form>
+            </div>
+        </div> 
+        <div class="mt-2 p-2 md:hidden">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
                     href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
                     แดชบอร์ด</a></button>
-                    <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
-                    <form id="logoutForm" action="/logout/user" method="post">
-                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
-                            ออกจากระบบ
-                        </button>
-                    </form>
+            <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
+                    href="/add/banner" target="_blank" rel="noopener noreferrer">เพิ่ม banner</a></button>
+             <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
+             <form id="logoutForm" action="/logout/user" method="post">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
+                    ออกจากระบบ
+                </button>
+            </form>
         </div>
-    </div> 
-    <div class="mt-2 p-2 md:hidden">
-        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
-                href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
-                แดชบอร์ด</a></button>
-         <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
-         <form id="logoutForm" action="/logout/user" method="post">
-            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
-                ออกจากระบบ
-            </button>
-        </form>
+        <div class="px-6 py-4">
+            <p class="text-gray-700">
+                <%= usersesstion.bio %>.
+            </p>
+        </div>
     </div>
-    <div class="px-6 py-4">
-        <p class="text-gray-700">
-            <%= usersesstion.bio %>.
-        </p>
-    </div>
+    
 </div>
 
 <!-- PoPup -->

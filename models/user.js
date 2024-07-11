@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "profile_De.jpg"
     },
+    bannerImagePath: String,
     points: {
         type: Number,
         default: 0
