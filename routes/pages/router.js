@@ -13,6 +13,9 @@ const categoriesroute = require('../../routes/pages/categories')
 const videoDashboard = require('../../routes/pages/dashboard/edits/videos/index')
 const editaimeboard = require('../../routes/pages/dashboard/edits/animeboard')
 
+// Events
+const EventRoute = require("../../routes/events")
+
 const AnimtTHRoute = require('../../routes/th/anime')
 const APISRoute = require('../../routes/apis')
 
@@ -33,5 +36,6 @@ router.use(Animeroute)
 router.use(categoriesroute)
 router.use(editaimeboard)
 router.use(forumRoute)
+router.use(EventRoute)
 
 module.exports = router

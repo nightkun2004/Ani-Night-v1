@@ -5,7 +5,7 @@ const HttpError = require("../models/errorModel")
 const crypto = require('crypto');
 require('dotenv').config()
 
-exports.getAllUser = async (req, res) => {
+const getAllUser = async (req, res) => {
     const Userdata = {
         username: req.body.username,
         email: req.body.email,
@@ -49,7 +49,7 @@ exports.getAllUser = async (req, res) => {
     }
 };
 
-exports.getSignupAPI = async (req, res) => {
+const getSignupAPI = async (req, res) => {
     const Userdata = ({
         username: req.body.username,
         email: req.body.email,
@@ -88,7 +88,7 @@ exports.getSignupAPI = async (req, res) => {
     }
 };
 
-exports.getLogin = async (req, res) => {
+const getLogin = async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {
         const { email, password } = req.body;
@@ -119,9 +119,9 @@ exports.getLogin = async (req, res) => {
         res.redirect(`/profile?u=${req.session.userlogin.username}`);
     } catch (error) {
         console.error(error);
-    }
+    } 
 };
-exports.getLoginFacebook = async (req, res) => {
+const getLoginFacebook = async (req, res) => {
     const { id, username, email, accessToken } = req.body;
 
     try {
@@ -149,7 +149,7 @@ exports.getLoginFacebook = async (req, res) => {
     }
 };
 
-exports.getAPIlogin = async (req, res) => {
+const getAPIlogin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -186,7 +186,63 @@ exports.getAPIlogin = async (req, res) => {
     }
 };
 
+const getfollow = async (req, res, next) => {
+    try {
+        const userToFollow = await User.findById(req.params.id);
+        const currentUser = await User.findById(req.user._id);
 
+        if (!userToFollow) {
+            return res.status(404).json({ message: 'User to follow not found' });
+        }
+
+        if (!currentUser) {
+            return res.status(404).json({ message: 'Current user not found' });
+        }
+
+        if (!currentUser.followersBy.includes(userToFollow._id)) {
+            currentUser.followersBy.push(userToFollow._id);
+            currentUser.followed += 1;
+            userToFollow.followersBy.push(currentUser._id);
+            userToFollow.followers += 1;
+            await currentUser.save();
+            await userToFollow.save();
+        }
+
+        res.status(200).json({ message: 'Followed successfully' });
+    } catch (error) {
+        return next(new HttpError(err))
+    }
+};
+
+const unfollow = async (req, res, next) => {
+    try {
+        const userToUnfollow = await User.findById(req.params.id);
+        const currentUser = await User.findById(req.user._id);
+
+        if (!userToUnfollow) {
+            return res.status(404).json({ message: 'User to unfollow not found' });
+        }
+
+        if (!currentUser) {
+            return res.status(404).json({ message: 'Current user not found' });
+        }
+
+        if (currentUser.followersBy.includes(userToUnfollow._id)) {
+            currentUser.followersBy = currentUser.followersBy.filter(id => id.toString() !== userToUnfollow._id.toString());
+            currentUser.followed -= 1;
+            userToUnfollow.followersBy = userToUnfollow.followersBy.filter(id => id.toString() !== currentUser._id.toString());
+            userToUnfollow.followers -= 1;
+            await currentUser.save();
+            await userToUnfollow.save();
+        }
+
+        res.status(200).json({ message: 'Unfollowed successfully' });
+    } catch (error) {
+        return next(new HttpError(err))
+    }
+};
+
+module.exports = { getfollow, unfollow, getAPIlogin, getLoginFacebook, getLogin, getSignupAPI, getAllUser}
 
 // const secretKey = crypto.randomBytes(32).toString('hex');
 // console.log(secretKey);

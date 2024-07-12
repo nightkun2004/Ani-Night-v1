@@ -4,103 +4,64 @@ const mongoose = require("../config")
 const Video = require('../models/video')
 const User = require('../models/user')
 const Episodes = require("../models/Episodes")
-const {addComent, getComent} = require('../controls/playerControle')
+const {addComent, getComent, getPlay, getEpisodes} = require('../controls/playerControle')
 
-router.get('/play/:videoid/:id', async (req, res) => {
-    try {
-        const usersesstion = req.session.userlogin;
-        const videoid = req.params.videoid;
-        const episodeId = req.params.id;
+router.get('/play/:videoid', getPlay);
+router.get('/get-episodes', getEpisodes);
 
-        const video = await Video.findOne({ videoid: videoid })
-            .populate('commentvideo episodes user author.id author username.id username replies')
-            .exec();
+// router.get('/play/:videoid/selectedEpisode/:episodeId', async (req, res) => {
+//     try {
+//         const usersesstion = req.session.userlogin;
+//         const videoid = req.params.videoid;
+//         const episodeId = req.params.episodeId;
 
-        if (!video) {
-            console.log(`Video with id ${videoid} not found.`);
-            return res.render('404', { usersesstion });
-        }
+//         const video = await Video.findOne({ videoid: videoid })
+//             .populate('commentvideo episodes user author.id author username.id username replies')
+//             .exec();
 
-        const episodes = await Episodes.find({ video: video._id })
-            .populate('video')
-            .exec();
+//         if (!video) {
+//             console.log(`Video with id ${videoid} not found.`);
+//             return res.render('404', { usersesstion });
+//         }
 
-        let selectedEpisode = null;
+//         const episodes = await Episodes.find({ video: video._id })
+//             .populate('video')
+//             .exec();
 
-        await Video.findOneAndUpdate(
-            { videoid },
-            { $set: { watched: true }, $inc: { views: 1 } },
-            { new: true, upsert: false }
-        );
+//         if (!episodes.length) {
+//             console.log(`Episodes for video with id ${video._id} not found.`);
+//             return res.render('404', { usersesstion });
+//         }
 
-        res.render('./component/play', {
-            active: 'actcile',
-            active: 'home',
-            usersesstion,
-            video,
-            episodes,
-            selectedEpisode,
-            rating: req.query.rating,
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal Server Error');
-    }
-});
+//         let selectedEpisode = null;
+//         if (episodeId) {
+//             selectedEpisode = await Episodes.findOne({ _id: episodeId });
+//             if (!selectedEpisode) {
+//                 console.log(`Selected episode with id ${episodeId} not found.`);
+//                 return res.render('404', { usersesstion });
+//             }
+//         }
 
-router.get('/play/:videoid/selectedEpisode/:episodeId', async (req, res) => {
-    try {
-        const usersesstion = req.session.userlogin;
-        const videoid = req.params.videoid;
-        const episodeId = req.params.episodeId;
+//         await Video.findOneAndUpdate(
+//             { videoid },
+//             { $set: { watched: true }, $inc: { views: 1 } },
+//             { new: true, upsert: false }
+//         );
 
-        const video = await Video.findOne({ videoid: videoid })
-            .populate('commentvideo episodes user author.id author username.id username replies')
-            .exec();
-
-        if (!video) {
-            console.log(`Video with id ${videoid} not found.`);
-            return res.render('404', { usersesstion });
-        }
-
-        const episodes = await Episodes.find({ video: video._id })
-            .populate('video')
-            .exec();
-
-        if (!episodes.length) {
-            console.log(`Episodes for video with id ${video._id} not found.`);
-            return res.render('404', { usersesstion });
-        }
-
-        let selectedEpisode = null;
-        if (episodeId) {
-            selectedEpisode = await Episodes.findOne({ _id: episodeId });
-            if (!selectedEpisode) {
-                console.log(`Selected episode with id ${episodeId} not found.`);
-                return res.render('404', { usersesstion });
-            }
-        }
-
-        await Video.findOneAndUpdate(
-            { videoid },
-            { $set: { watched: true }, $inc: { views: 1 } },
-            { new: true, upsert: false }
-        );
-
-        res.render('./component/play', {
-            active: 'actcile',
-            active: 'home',
-            usersesstion,
-            video,
-            episodes,
-            selectedEpisode,
-            rating: req.query.rating,
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal Server Error');
-    }
-});
+//         res.render('./component/play', {
+//             active: 'actcile',
+//             active: 'home',
+//             usersesstion,
+//             video,
+//             episodes,
+//             selectedEpisode,
+//             rating: req.query.rating,
+//         });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 
 router.post('/api/v2/add/comment', addComent)
 router.get('/api/v2/get/comment', getComent)

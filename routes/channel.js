@@ -3,6 +3,8 @@ const router = express.Router()
 const mongoose = require("../config")
 const Acticle = require("../models/acticle")
 const User = require('../models/user')
+const { getfollow, unfollow} = require("../controls/userController")
+const {authMiddleware} = require("../middleware/authMainuser")
 
 router.get('/editor/:url', async (req, res) => {
     try {
@@ -47,5 +49,8 @@ router.get('/editor/:url/anishots', async (req, res) => {
         res.status(500).send('Internal Server Error', err);
     }
 })
+
+router.post('/api/user/follow/:id', authMiddleware, getfollow);
+router.post('/api/user/unfollow/:id', authMiddleware, unfollow);
 
 module.exports = router

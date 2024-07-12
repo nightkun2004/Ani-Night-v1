@@ -18,29 +18,8 @@
                 <div class="banner relative w-full h-40 sm:h-64">
                     <img style="user-select: none;" src="/banner/<%= userData.bannerImagePath %>" alt="<%= userData.name %>" class="w-full rounded-lg h-full object-cover">
                 </div>
-                <div class="flex flex-col sm:flex-row items-center">
-                    <img class="h-24 w-24 rounded-full object-cover" src="/profiles/<%= userData.profile %>" alt="Profile Picture">
-                    <div class="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left">
-                        <h1 class="text-2xl font-bold text-gray-900">
-                            <%= userData.name %>
-                        </h1>
-                        <p class="text-sm text-gray-600">@<%= userData.username %>
-                        </p>
-                        <p class="text-sm text-gray-600">
-                            <%= userData.bio %>
-                        </p>
-                     
-                        
-                       
-                        <div class="mt-4 flex justify-center sm:justify-start space-x-4">
-                        <span class="text-sm text-gray-600"><strong><%= userData.followers %>:</strong> ผู้ติดตาม</span>
-                        <span class="text-sm text-gray-600"><strong><%= userData.followed %></strong> กำลังติดตาม</span>
-                        <!-- <span class="text-sm text-gray-600"><strong>0</strong> Likes</span> -->
-                    </div>
-                    <!-- <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md">Follow</button> -->
-
-                    </div>
-                </div>
+                <!-- Profile Info -->
+                <%- include('./Seection__channel') %>
             </div>
         </div>
     <!-- ============================================

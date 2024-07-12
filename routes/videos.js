@@ -21,7 +21,7 @@ const { authMiddleware } = require("../middleware/authMainuser")
 
 const perPage = 20;
 
-router.get('/foryou', async (req, res) => {
+router.get('/news-pv', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const videos = await Video.find().populate('author.id');

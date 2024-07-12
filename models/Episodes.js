@@ -6,7 +6,7 @@ const EpisodesSchema = new mongoose.Schema({
         ref: 'Video',
         required: true
     },
-    ep: { type: Number, required: true },
+    ep: { type: Number, required: true, default: 1 },
     fire: [{
         type: String,
         required: true
@@ -24,7 +24,7 @@ const EpisodesSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
-});
+}, {timestamps: true});
 
 const Episodes = mongoose.model('Episodes', EpisodesSchema);
 

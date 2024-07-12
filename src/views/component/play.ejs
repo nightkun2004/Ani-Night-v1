@@ -5,11 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <% if (selectedEpisode && selectedEpisode.fire.length && episodes > 0) { %>
-            <%= video.ep %>
-        <% } else { %>
-            <%= video.name %>
-        <% } %>
+         <%= video.name %>
     </title>
     <meta name="description" content="<%= video.description %>  | Ani Night">
     <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
@@ -78,23 +74,18 @@
 <body class="bg-gray-100">
     <%- include('../navnar_Header') %>
     <%- include('../sidebar_Section') %>
-    <section class="player_anime-container max-w-7xl mx-auto sm:px-6 lg:px-8 pt-20">
+    <section class="player_anime-container max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Section Left -->
         <div class="container-play" >
             <section class="section-player md:p-2">
                 <div class="container">
-                    <div class="video_player">
+                    <div class="video_player" data-video-id="<%= video._id %>">
                         <video webkit-playsinline playsinline preload="metadata" 
                         <% if (video.coverImage) {%>
                             poster="/cover_videos/<%= video.coverImage %>"
                         <% } %>
                         class="main-video" id="video">
-
-                        <% if (selectedEpisode && selectedEpisode.fire.length > 0) { %>
-                            <source src="/Episodes/<%= selectedEpisode.fire[0] %>" size="720" type="video/mp4">
-                        <% } else { %>
                             <source src="/videos/<%= video.filePath %>.mp4" size="720" type="video/mp4">
-                        <% } %>
 
                             <% if (video.subthai) { %>
                                 <track default label="ซับไทย" kind="subtitles" src="../subtitles/<%= video.subthai %>"
@@ -131,9 +122,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mt-2 text-black flex">
                         <%= video.name %>
-                        <% if (selectedEpisode) {%>
-                            <p class="pl-5">เลือก: <%= selectedEpisode.ep %></p>
-                       <%  } %>
                     </h2>
                      <!-- Description -->
                 <div class="description text-black mt-8">
@@ -161,40 +149,7 @@
                 </div>
                 </div>
 
-                <div class="Mobile p-1 text-black">
-                    <% if (Array.isArray(episodes)) { %>
-                        <% if (episodes && episodes.length >= 22) { %>
-                            <section class="sectioneps">
-                                <p>1-22</p>
-                            </section>
-                            <div class="flex flex-wrap w-full mb-20 gap-2">
-                                <% episodes.forEach((item, index) => { %>
-                                    <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                        pv <%= item.ep %>
-                                    </a>
-                                <% }); %>
-                            </div>
-                        <% } else if (episodes && episodes.length > 0) { %>
-                            <div class="flex flex-wrap w-full mb-20 gap-2">
-                                <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                    pv 1
-                                </a>
-                                <% episodes.forEach((item, index) => { %>
-                                    <a href="/play/<%= video.videoid %>/selectedEpisode/<%= item._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                        pv <%= item.ep %>
-                                    </a>
-                                <% }); %>
-                            </div>
-                        <% } else if (video) { %>
-                            <div class="flex flex-wrap w-full mb-20 gap-2">
-                                <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                    pv 1
-                                </a>
-                            </div>
-                        <% } %>
-                    <% } %>
-                    
-                </div>
+
                 
 
                 <div class="Mobile">
@@ -293,42 +248,8 @@
         <!-- Section Right -->
         <div class="info" >
             <!-- Episodes -->
-            <div class="pc">
-                <h3>เลือกจำนวนตอน</h3>
-                <% if (Array.isArray(episodes)) { %>
-                    <% if (episodes && episodes.length >= 22) { %>
-                        <section class="sectioneps">
-                            <p>1-22</p>
-                        </section>
-                        <div class="flex flex-wrap w-full mb-20 gap-2">
-                            <% episodes.forEach((item, index) => { %>
-                                <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                    pv <%= item.ep %>
-                                </a>
-                                <a href="/play/<%= video.videoid %>/selectedEpisode/<%= item._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                    pv <%= item.ep %>
-                                </a>
-                            <% }); %>
-                        </div>
-                    <% } else if (episodes && episodes.length > 0) { %>
-                        <div class="flex flex-wrap w-full mb-20 gap-2">
-                            <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                pv 1
-                            </a>
-                            <% episodes.forEach((item, index) => { %>
-                                <a href="/play/<%= video.videoid %>/selectedEpisode/<%= item._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                    pv <%= item.ep %>
-                                </a>
-                            <% }); %>
-                        </div>
-                    <% } else if (video) { %>
-                        <div class="flex flex-wrap w-full mb-20 gap-2">
-                            <a href="/play/<%= video.videoid %>/<%= video._id %>" class="bg-white text-black px-5 p-3 font-bold text-1xl hover:bg-gray-100">
-                                pv 1
-                            </a>
-                        </div>
-                    <% } %>
-                <% } %>
+            <div class="flex flex-wrap w-full mb-20 gap-2" id="episodes-container">
+                
             </div>
             
             </div>
@@ -403,7 +324,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-        <!-- <script src="/js/video_player.js" defer></script> -->
+        <script src="/js/video_player.js" defer></script>
         <!-- <script src="/js/CommentVideo.js" defer></script> -->
         <script src="/js/play.js" defer></script>
         <% if (usersesstion) {%>

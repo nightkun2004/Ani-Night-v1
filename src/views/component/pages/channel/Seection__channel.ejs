@@ -1,0 +1,65 @@
+<div class="flex p-5 justify-between items-center">
+    <!-- Profile Left -->
+    <div class="profile__left flex flex-row">
+        <img class="h-24 w-24 rounded-full object-cover" src="/profiles/<%= userData.profile %>" alt="Profile Picture">
+        <div class="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left">
+            <h1 class="text-2xl font-bold text-gray-900" data-userid="<%= userData._id %>">
+                <%= userData.name %>
+            </h1>
+            <p class="text-sm text-gray-600">@<%= userData.username %>
+            </p>
+            <p class="text-sm text-gray-600">
+                <%= userData.bio %>
+            </p>
+
+
+
+            <div class="mt-4 flex justify-center sm:justify-start space-x-4">
+                <span class="text-sm text-gray-600"><strong><%= userData.followers.length %></strong>: ผู้ติดตาม</span>
+                <span class="text-sm text-gray-600"><strong><%= userData.followed.length %></strong>: กำลังติดตาม</span>
+            </div>
+        </div>
+        <!-- <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md">Follow</button> -->
+
+    </div>
+    <!-- Profile Right -->
+    <div class="profileright">
+        <button id="followButton" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md" onclick="toggleFollow()">ติดตาม</button>
+    </div>
+</div>
+
+<% if (usersesstion) { %>
+    <script>
+       async function toggleFollow() {
+        const button = document.getElementById('followButton');
+        const userId = document.querySelector('h1[data-userid]').dataset.userid;
+        const action = button.textContent === 'ติดตาม' ? 'follow' : 'unfollow';
+
+        try {
+            const response = await fetch(`/api/user/${action}/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + '<%= usersesstion.token %>', 
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (response.ok) {
+                if (action === 'follow') {
+                    button.textContent = 'กดติดตามแล้ว';
+                    button.classList.remove('bg-indigo-600');
+                    button.classList.add('bg-gray-400');
+                } else {
+                    button.textContent = 'ติดตาม';
+                    button.classList.remove('bg-gray-400');
+                    button.classList.add('bg-indigo-600');
+                }
+            } else {
+                console.error('Failed to follow/unfollow');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    </script>
+<% } %>

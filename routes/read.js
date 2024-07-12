@@ -56,6 +56,7 @@ router.get('/read/:url', async (req, res) => {
             { new: true, upsert: false }
         ).populate('author.id author username.id username replies').exec();
         const articleforyou = await Acticle.find().sort({ views: -1 }).limit(6).populate('author.id author'); 
+        const articlesupdate = await Acticle.find().sort({ updatedAt: -1 });
         if (!acticle) return res.render("404", { usersesstion}); 
 
 
@@ -72,6 +73,7 @@ router.get('/read/:url', async (req, res) => {
             active: 'home', 
             active: 'trending' ,
             recentUpdates,
+            articlesupdate,
             usersesstion,
             acticle,
             articleforyou,
