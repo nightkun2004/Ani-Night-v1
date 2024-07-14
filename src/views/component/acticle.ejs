@@ -9,6 +9,7 @@
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Ani-night.online">
     <meta property="og:type" content="website">
+    <link rel="stylesheet" href="./css/acticle.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta name="twitter:description" content="เว็บที่ให้คุณเขียนบทความข่าวสารด้านอนิเมะ และรับรายได้จากค่าโฆษณา">
@@ -29,145 +30,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
-<style>
-    .slider-wrapper {
-        overflow: hidden;
-        position: relative;
-        height: 100vh; /* Fullscreen height */
-    }
-
-    .slider {
-        display: flex;
-        transition: transform 0.3s ease-in-out;
-        height: 100%;
-    }
-
-    .slide {
-        flex: 0 0 100%;
-        box-sizing: border-box;
-        background-size: cover;
-        background-position: center;
-        height: 100%;
-        display: flex;
-        align-items: center;
-    }
-
-    .slide-content {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(10px);
-        padding: 20px;
-        position: absolute;
-        bottom: 10px;
-        width: 100%;
-    }
-
-    .nav-button {
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 50%;
-        padding: 10px;
-        color: white;
-        font-size: 24px;
-    }
-    .navbar-toggler {
-            display: none;
-        }
-
-        @media (max-width: 640px) {
-            .navbar-toggler {
-                display: inline-block;
-            }
-
-            .navbar-menu {
-                display: none;
-                flex-direction: column;
-            }
-
-            .navbar-menu.active {
-                display: flex;
-            }
-        }
-        ::-webkit-scrollbar {
-      width: 6px;
-    }
-    .activemenu{
-        border-bottom: 3px solid #000;
-        color: #000;
-        font-weight: bold;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-</style>
 <body class="bg-gray-100">
-    <div class="slider-wrapper relative">
-        <div class="slider">
-            <% topViewedArticles.forEach((article, index) => { %>
-            <div class="slide" style="background-image: url('/acticles_images/<%= article.photo %>')">
-                <div class="slide-content">
-                    <h3 class="text-lg font-semibold"><%= article.title %></h3>
-                    <p class="mt-2 text-gray-600"><%= article.excerpt %></p>
-                    <p><a href="/read/<%= article.url %>?lang=<%= language %>" class="text-blue-500">อ่าน</a></p>
-                </div>
-            </div>
-            <% }) %>
-            <!-- Add more slides as needed -->
-        </div>
-        <button id="prev" class="absolute left-4 top-1/2 transform -translate-y-1/2 nav-button">❮</button>
-        <button id="next" class="absolute right-4 top-1/2 transform -translate-y-1/2 nav-button">❯</button>
-    </div>
-
-    <nav class="bg-white shadow-lg sticky top-0 w-full z-10">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between">
-                <div class="flex space-x-4">
-                    <!-- Logo -->
-                    <div>
-                        <a href="/" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-                            <span class="font-bold">ANINIGHT</span>
-                        </a>
-                    </div>
-
-                    <!-- Primary Navbar items -->
-                    <div class="hidden md:flex items-center space-x-1">
-                        <a href="/" class="py-5 px-3 text-gray-700 hover:text-gray-900">หน้าแรก</a>
-                        <a href="/animeboard" class="py-5 px-3 text-gray-700 hover:text-gray-900">บอร์ดอนิเมะ</a>
-                      <% if (usersesstion) {%>
-                        <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="py-5 px-3 text-gray-700 hover:text-gray-900">เขียน</a>
-                    <% } %>
-                        <a href="/articles" class="py-5 px-3 text-gray-700 hover:text-gray-900">บทความ</a>
-                    </div>
-                </div>
-
-                <!-- Mobile button goes here -->
-                <div class="md:hidden flex items-center">
-                    <button class="navbar-toggler mobile-menu-button">
-                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                        </svg>
+    <%- include('../navnar_Header') %>
+    <%- include('../sidebar_Section') %>
+    <div class="relative h-screen flex items-center justify-center">
+        <% topViewedArticles.forEach((article, index) => { %>
+        <div class="hero-bg absolute inset-0 bg-cover bg-center flex items-center justify-start p-8 <% if (index === 0) { %>active<% } else { %>inactive<% } %>"
+            style="background-image: url('/acticles_images/<%= article.photo %>');">
+            <div class="container mx-auto text-left text-white relative">
+                <h1 class="text-5xl font-bold"><%= article.title %></h1>
+                <p class="mt-6 max-w-xl">
+                    <%- article.content.substring(0, 100) %>...
+                </p>
+                <div class="mt-6 z-10">
+                    <button class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700">
+                        <a href="/read/<%= article.url %>?id=<%= article._id %>&lang=<%= language %>">ดูเนื้อหา</a>
                     </button>
                 </div>
+                <!-- Dots -->
+                <div class="flex space-x-2 mt-5">
+                    <% topViewedArticles.forEach((_, dotIndex) => { %>
+                    <div class="dot w-9 h-4 rounded-full <% if (dotIndex === 0) { %>dot-active<% } else { %>dot-inactive<% } %>"></div>
+                    <% }) %>
+                </div>
             </div>
+            <div class="countdown-bar"></div>
         </div>
+        <% }) %>
+    </div>
 
-        <!-- mobile menu -->
-        <div class="navbar-menu md:hidden">
-            <a href="/" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">หน้าแรก</a>
-            <a href="/animeboard" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">บอร์ดอนิเมะ</a>
-            <% if (usersesstion) {%>
-                <a href="/upload_acticle?tokenlogin=<%= usersesstion.accessToken %>" class="py-5 px-3 text-gray-700 hover:text-gray-900">เขียน</a>
-            <% } %>
-            <a href="articles" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">บทความ</a>
-        </div>
-    </nav>
 
     <div class=" px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm relative" id="lastest">
+        <div
+            class="ads-container bg-white my-8 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 aspect-w-16 aspect-h-9">
+            <!-- Ads Home -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
+                crossorigin="anonymous"></script>
+            <!-- Ani Night -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6579807593228261" data-ad-slot="9626337250"
+                data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
         <p class="text-3xl mb-6 border-l-4 border-sky-600 px-5 text-gray-600">บทความมาใหม่</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Blog Post 1 -->
@@ -279,6 +184,42 @@
             showSlide(currentIndex);
         });
     });
+</script>
+<script>
+$(document).ready(function() {
+    let currentIndex = 0;
+    const slides = $('.hero-bg');
+    const dots = $('.dot');
+    const interval = 5000;
+    let countdownTimer;
+
+    function showSlide(index) {
+        slides.removeClass('active').addClass('inactive');
+        slides.eq(index).removeClass('inactive').addClass('active');
+        dots.removeClass('dot-active').addClass('dot-inactive');
+        dots.eq(index).removeClass('dot-inactive').addClass('dot-active');
+
+        $('.countdown-bar').css('width', '0').removeClass('animating');
+        setTimeout(() => {
+            slides.eq(index).find('.countdown-bar').addClass('animating');
+        }, 0);
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+    }
+
+    dots.click(function() {
+        clearInterval(countdownTimer);
+        currentIndex = $(this).index();
+        showSlide(currentIndex);
+        countdownTimer = setInterval(nextSlide, interval);
+    });
+
+    countdownTimer = setInterval(nextSlide, interval);
+});
+
 </script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/search.js"></script>

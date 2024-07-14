@@ -186,7 +186,10 @@
                             </div>
 
                                 
-                                <p><%- acticle.content %></p>
+                            <p><%- translatedContent %></p>
+                            <% if (isTranslated) { %>
+                                <p><small>Translated by OpenAI</small></p>
+                            <% } %>
 
 
                                 <div class="gallery flex justify-center flex-col mt-5">

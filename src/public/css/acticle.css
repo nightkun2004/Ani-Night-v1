@@ -1,201 +1,47 @@
-
-.active {
-    color: #00b7ff;
-}
-
-/* nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 12px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-} */
-
-nav .narbar-left {
-    display: flex;
-    align-items: center;
-}
-
-nav .narbar-left .narbar-mobilib {
-    display: none;
-}
-
-nav .narbar-left .navbar-pc {
-    display: block;
-}
-
-nav .narbar-left .navbar-pc .logo a {
-    display: flex;
-    align-items: center;
-
-    & img {
-        width: 200px;
-        border-radius: 50%;
+@keyframes countdown {
+    0% {
+        width: 0;
     }
-
-    & p {
-        padding-left: 10px;
-        font-size: 20px;
-        font-weight: bold;
+    100% {
+        width: 100%;
     }
 }
 
-nav .navbar-right .menus ul {
-    display: flex;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
-
-nav .navbar-right .menus ul li {
-    margin: 5px;
-}
-
-nav .navbar-right .menus ul li a {
-    position: relative;
-}
-
-.menus ul li a::after {
-    content: "";
+.countdown-bar {
     position: absolute;
     bottom: 0;
     left: 0;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.8);
     width: 0;
-    height: 3px;
-    background-color: #00b7ff;
-    transition: width 0.3s ease-in-out;
+    animation: countdown 5s linear;
 }
 
- .menus ul li a:hover::after {
-    width: 100%;
+.hero-bg {
+    background-size: cover;
+    background-position: center;
 }
 
-.navbar-white-bg {
+.active {
+    opacity: 1;
+    z-index: 2;
+    transition: opacity 1s;
+}
+
+.inactive {
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 1s;
+}
+
+.dot {
+    cursor: pointer;
+}
+
+.dot-active {
     background-color: white;
-    /* อื่น ๆ ที่คุณต้องการให้เปลี่ยนแปลง เช่น สีตัวอักษร */
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    min-width: 160px;
-    z-index: 1;
-    top: 30px;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    border-radius: 12px;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-/* เมื่อโฮเวอร์ที่ .dropdown แสดง dropdown */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* เมื่อโฮเวอร์ที่ dropdown content ก็ยังแสดง dropdown */
-.dropdown-content:hover {
-    display: block;
-}
-@media screen and (max-width: 780px) {
-    nav .narbar-left .narbar-mobilib {
-        display: block;
-        width: 100%;
-    }
-
-    .monil {
-        display: flex;
-        align-items: center;
-        & button {
-            background: none;
-            border: none;
-            position: fixed;
-            top: 29px;
-            left: 20px;
-            z-index: 11;
-        }
-    }
-
-    .home .box .content h3 {
-        font-size: 19px;
-    }
-    .home .box .content p {
-
-        font-size: 14px;
-    }
-    nav .search_box  {
-        display: none;
-    }
-
-    .monil .menus-card {
-        position: absolute;
-        top: 50px;
-        left: 5px;
-        background-color: #fff;
-        width: 100%;
-        padding: 20px;
-    }
-
-    .monil .menus-card ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .monil .menus-card ul li {
-        padding: 10px 12px;
-        margin-bottom: 10px;
-    }
-
-    .monil .menus-card ul li a {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: #000;
-    }
-
-    .monil .menus-card ul li:hover {
-        background-color: #eee;
-    }
-
-    .nav .narbar-left .narbar-mobilib .monil .logo a {
-        display: flex;
-        align-items: center;
-        & img {
-            width: 50px;
-            border-radius: 50%;
-            padding-left: 10px;
-        }
-    }
-
-    nav .narbar-left .navbar-pc , nav .navbar-right .menus {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 720px) {
-    .md {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .pc {
-        display: none;
-    }
+.dot-inactive {
+    background-color: gray;
 }

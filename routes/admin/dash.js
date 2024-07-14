@@ -14,6 +14,7 @@ const Anime = require('../../models/Anime')
 const createAnime = require('../../controls/createAnimeRoute')
 const create_2024 = require('../../routes/admin/2024/create')
 const Admin_Router = require('./admin_router/admin')
+const AddbannerRoute = require("../../routes/admin/banner")
 const AnimeJune = require('../../models/animeJune')
 const { withdrawalId, getWithdrawal, refuseWithdrawal } = require('../../controls/withdrawalCto')
  
@@ -25,6 +26,7 @@ const pageAddVideoRouter = require('../../routes/admin/pages/add_Video')
 router.use(pageAddVideoRouter)
 
 const PAGE_SIZE = 5;
+
 
 router.get('/delete/anime/:id', createAnime.DeleteAnime);
 router.get('/delete/AnimeMay/:id', createAnime.DeleteAnimeMay);
@@ -57,6 +59,8 @@ router.get('/admin/dash', verifyTokenAdmin, async (req, res) => {
             total: todayCount,
             up: todayCount - yesterdayCount
         };
+        let userId = req.session.userlogin._id
+        const useradmin = await User.findById(userId)
 
         const userCount = await User.countDocuments();
         const VideosCount = await Videos.countDocuments();
@@ -69,6 +73,7 @@ router.get('/admin/dash', verifyTokenAdmin, async (req, res) => {
             usersesstion,
             articleCount,
             VideosCount,
+            useradmin,
             active: 'home-admin',
         });
     } catch (err) {
@@ -357,6 +362,7 @@ router.get('/success', (req, res) => {
 })
 
 router.use(create_2024);
-router.use(Admin_Router); 
+router.use(Admin_Router);
+router.use(AddbannerRoute)
 
 module.exports = router

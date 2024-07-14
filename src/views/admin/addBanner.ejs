@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มแบบนเนอร์และกิจกรรม</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <% if (usersesstion.approval_admin) {%>
+        <%- include('./sidebars/navbar') %>
+        <div class="main-section w-full min-h-screen">
+            <div class="bg-blue-600 p-6">
+                <h1 class="text-2xl font-bold text-white">สร้างกิจกรรม</h1>
+            </div>
+            <div class="p-6">
+                <form action="/admin/add/notification" method="POST" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="title" class="block text-gray-700">หัวข้อ</label>
+                        <input type="text" id="title" name="title" class="w-full mt-2 p-2 border rounded-lg" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="description" class="block text-gray-700">คำอธิบาย</label>
+                        <textarea id="description" name="description" class="w-full mt-2 p-2 border rounded-lg" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="link" class="block text-gray-700">ลิ้งค์</label>
+                        <input type="url" id="link" name="link" class="w-full mt-2 p-2 border rounded-lg">
+                    </div>
+                    <div class="mb-4">
+                        <label for="notification" class="block text-gray-700">ส่งการแจ้งเตือน</label>
+                        <input type="checkbox" id="notification" name="notification" class="mt-2">
+                    </div>
+                    <div class="mb-4">
+                        <label for="image" class="block text-gray-700">อัปโหลดภาพ</label>
+                        <input type="file" id="image" name="image" class="w-full mt-2 p-2 border rounded-lg">
+                    </div>
+                    <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Create Activity</button>
+                </form>
+            </div>    
+        </div>
+    <% } %>
+    
+</body>
+</html>

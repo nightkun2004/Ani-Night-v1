@@ -23,6 +23,7 @@ router.get('/articles', async (req, res) => {
             .skip((page - 1) * ITEMS_PER_PAGE) // ข้ามรายการตามหน้าที่
             .limit(ITEMS_PER_PAGE) // จำกัดจำนวนรายการที่ดึง
             .lean() 
+            .sort({createdAt: -1,})
             .exec();
 
       const template = req.language === 'th' ? './component/acticle.ejs' : './en/article';

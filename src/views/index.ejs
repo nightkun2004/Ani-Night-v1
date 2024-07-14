@@ -104,7 +104,12 @@
                     <% acticles_Bors.forEach((article)=> { %>
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                         <a href="/read/<%= article.url %>?id=<%= article._id %>&lang=<%= language %>">
-                            <img class="w-full h-48 object-cover" src="/acticles_images/<%= article.photo %>" alt="<%= article.title %>">
+                            <div style="position: relative;">
+                                <img class="w-full h-48 object-cover" src="/acticles_images/<%= article.photo %>" alt="<%= article.title %>">
+                                <p class="views" style="position: absolute; top: 0; left: 0;
+                                background-color: rgba(255, 255, 255, 0.961); color: #000;
+                                padding: 5px; border-radius: 10px 0;">การดู <%= formatNumber(article.views) %></p>
+                            </div>
                             <div class="p-6">
                                 <h2 class="text-2xl font-bold mb-2 text-gray-800">  <%= article.title %></h2>
                                 <% if (article.author && article.author.id) { %>

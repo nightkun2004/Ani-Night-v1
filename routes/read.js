@@ -9,6 +9,8 @@ const io = require("../socket")
 const { likePost } = require("../controls/aticleCrollers")
 const {authMiddleware} = require("../middleware/authMainuser")
 
+const {translateText} = require("../middleware/translateService")
+
 function setLanguage(req, res, next) {
     const lang = req.query.lang || req.headers['accept-language'] || 'en'; // ถ้าไม่ได้ระบุภาษาใน query parameter ให้ใช้ภาษาจาก Header Accept-Language หรือถ้าไม่มีให้ใช้เป็นอังกฤษ
     req.language = lang && lang.includes('th') ? 'th' : 'en'; // ตั้งค่าภาษาตามที่ผู้ใช้เลือก
@@ -17,29 +19,7 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-router.get('/read', (req,res)=> {
-    res.render('404')
-})
 
-router.post('/api/score', async (req, res) => {
-    const { userId, score } = req.body;
-    const usersesstion = req.session.userlogin;
-    try {
-        const user = await User.findOne({ _id: userId });
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        user.points += score;
-        await user.save();
-
-        res.json({ message: 'Score updated successfully', points: user.points });
-    } catch (error) {
-        console.error('Error updating score:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}); 
 
 router.get('/read/:url', async (req, res) => { 
     try {
@@ -66,6 +46,20 @@ router.get('/read/:url', async (req, res) => {
 
         const recentUpdates = await Acticle.find().sort({ createdAt: -1 }).limit(5).populate('author.id author.username');
 
+        let translatedContent = acticle.content;
+        let isTranslated = false;
+
+        if (acticle.language === 'th' && req.language !== 'th') {
+            try {
+                translatedContent = await translateText(acticle.content, req.language);
+                isTranslated = true;
+                console.log(translatedContent)
+            } catch (error) {
+                console.error('Error translating article:', error);
+                return res.status(500).send('Error translating article');
+            }
+        }
+
         const template = req.language === 'th' ? './component/read' : './en/read';
 
         res.render(template, { 
@@ -76,6 +70,8 @@ router.get('/read/:url', async (req, res) => {
             articlesupdate,
             usersesstion,
             acticle,
+            translatedContent,
+            isTranslated,
             articleforyou,
             userLiked: null,
             message: null,
@@ -87,37 +83,61 @@ router.get('/read/:url', async (req, res) => {
     }
 })
 
-router.post('/follow/:userId', async (req, res) => {
+router.get('/read', (req,res)=> {
+    res.render('404')
+})
+
+router.post('/api/score', async (req, res) => {
+    const { userId, score } = req.body;
+    const usersesstion = req.session.userlogin;
     try {
-        const userId = req.params.userId;
-        const currentUser = req.session.userlogin;
+        const user = await User.findOne({ _id: userId });
 
-        // ตรวจสอบว่าผู้ใช้ลงชื่อเข้าใช้หรือไม่
-        if (!currentUser) {
-            return res.status(401).send('Unauthorized');
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
         }
 
-        const userToFollow = await User.findById(userId);
+        user.points += score;
+        await user.save();
 
-        if (!userToFollow) {
-            return res.status(404).send('User not found');
-        }
-
-        // ตรวจสอบว่าผู้ใช้ได้ทำการติดตามผู้ใช้นี้ก่อนหรือยัง
-        if (userToFollow.followers.includes(currentUser._id)) {
-            return res.status(400).send('Already followed');
-        }
-
-        // เพิ่มผู้ใช้ที่ติดตามไว้ในฐานข้อมูล
-        userToFollow.followers.push(currentUser._id);
-        await userToFollow.save();
-
-        res.status(200).send('Followed successfully');
+        res.json({ message: 'Score updated successfully', points: user.points });
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error('Error updating score:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-});
+}); 
+
+// router.post('//follow/:userId', async (req, res) => {
+//     try {
+//         const userId = req.params.userId;
+//         const currentUser = req.session.userlogin;
+
+//         // ตรวจสอบว่าผู้ใช้ลงชื่อเข้าใช้หรือไม่
+//         if (!currentUser) {
+//             return res.status(401).send('Unauthorized');
+//         }
+
+//         const userToFollow = await User.findById(userId);
+
+//         if (!userToFollow) {
+//             return res.status(404).send('User not found');
+//         }
+
+//         // ตรวจสอบว่าผู้ใช้ได้ทำการติดตามผู้ใช้นี้ก่อนหรือยัง
+//         if (userToFollow.followers.includes(currentUser._id)) {
+//             return res.status(400).send('Already followed');
+//         }
+
+//         // เพิ่มผู้ใช้ที่ติดตามไว้ในฐานข้อมูล
+//         userToFollow.followers.push(currentUser._id);
+//         await userToFollow.save();
+
+//         res.status(200).send('Followed successfully');
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 
 router.post('/replie/read/:id', authenticatetoken, async (req, res) => {
     const usersesstion = req.session.userlogin;
