@@ -29,7 +29,9 @@ router.get('/:url/reward', async (req, res) => {
         if (!usersesstion) {
             return res.redirect('/')
         }
-        res.render('./component/pages/profile/Reward', { active: 'profile', usersesstion });
+        const userData = await User.findOne({ _id: usersesstion, username: username })
+        .populate('acticles');
+        res.render('./component/pages/profile/Reward', { active: 'profile', userData,usersesstion });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error', err);

@@ -125,6 +125,8 @@ const userSchema = new mongoose.Schema({
 })
 
 
+
+
 // lสำหรับคำนวณยอดวิว
 userSchema.methods.calculateTotalViews = async function () {
     const Acticle = require('../models/acticle');

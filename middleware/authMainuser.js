@@ -15,6 +15,25 @@ const authMiddleware = (req, res, next) => {
 
             req.user = decoded;
             next();
+        }); 
+    } else {
+        return next(new HttpError("Unauthorized. No token provided.", 401));
+    }
+};
+
+const authMiddlewareUser = (req, res, next) => {
+    const token = req.session.userlogin?.token || req.cookies['login-token'];
+
+    if (token) {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+            if (err) {
+                return next(new HttpError("Unauthorized. Invalid token.", 403));
+            }
+
+            req.user = decoded;
+        console.log(req.user)
+
+            next();
         });
     } else {
         return next(new HttpError("Unauthorized. No token provided.", 401));
@@ -30,4 +49,4 @@ const logoutAuth = (req, res, next) => {
 };
 
 
-module.exports = {authMiddleware, logoutAuth};
+module.exports = {authMiddleware,authMiddlewareUser, logoutAuth};

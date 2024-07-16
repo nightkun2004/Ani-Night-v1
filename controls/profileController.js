@@ -6,36 +6,27 @@ const HttpError = require("../models/errorModel")
 // const authenticatetoken = require('../middleware/auth')
 // const jwt = require('jsonwebtoken')
 
-
-exports.getProfile = async (req, res) => {
+exports.getProfile = async (req, res, next) => {
     try {
         const username = req.query.u;
         const usersesstion = req.session.userlogin;
+        // console.log("userID Profile", usersesstion);
 
         if (!usersesstion) {
-            return res.redirect('/');
+            return res.redirect("/")
         }
-
-        if (!username || usersesstion.username !== username) {
-            return res.redirect('/');
-        }
-        
-        const userData = await User.findOne({ _id: usersesstion._id, username: username })
+        const userData = await User.findOne({ _id: usersesstion, username: username })
             .populate('acticles');
 
         if (!userData) {
-            return res.redirect('/'); // ถ้าไม่พบข้อมูลผู้ใช้ก็รีไดเรคกลับไปที่หน้าแรก
+            return next(new HttpError("เกิดข้อผิดพลาดกับ userData"), 404)
         }
-
-        // const userHistory = await History.find({ user: usersesstion._id })
-        //     .sort({ createdAt: -1 })
-        //     .populate('article');
 
         res.render('./component/pages/profile', { active: 'profile', usersesstion, userData, alertMessage: req.query.alertMessage });
 
     } catch (error) {
         console.error(error);
-        res.status(500).send('เกิดข้อผิดกับโปรไฟล์');
+        res.status(500).send('เกิดข้อผิดพลาดกับโปรไฟล์');
     }
 }
 

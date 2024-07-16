@@ -10,7 +10,7 @@ const path = require("path")
 const likePost = async (req, res, next) => {
   try {
     // รับค่าจาก query ?lang=th&id=668d4f684f9d7d43cd4311af
-    const id  = req.query; 
+    const id = req.query;
     const userId = req.user._id;
 
     const post = await Acticle.findById(id);
@@ -178,4 +178,66 @@ const generateFilename = (file) => {
   return crypto.randomUUID() + "." + splittedFilename[splittedFilename.length - 1];
 };
 
-module.exports = { likePost, CreateArticle, UploadImagesArticle }
+
+const replyToComment = async (req, res) => {
+  const usersesstion = req.session.userlogin;
+  const { username, inputcomment } = req.body;
+
+  try {
+    const article = await Acticle.findById(req.params.id);
+    if (!article) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
+
+    const comment = article.replies.id(req.params.commentId);
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+
+    const newReply = {
+      username: {
+        id: usersesstion._id,
+        username: usersesstion.username,
+        profile: usersesstion.profile
+      },
+      inputcomment,
+      createdAt: Date.now()
+    };
+
+    comment.replies.push(newReply);
+    await article.save();
+
+    // res.status(201).json(newReply);
+    res.redirect(`/read/${article.url}`)
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+const likeComment = async (req, res) => {
+  try {
+    const article = await Article.findById(req.params.id);
+    if (!article) {
+        return res.status(404).json({ message: 'Article not found' });
+    }
+
+    const comment = article.replies.id(req.params.commentId);
+    if (!comment) {
+        return res.status(404).json({ message: 'Comment not found' });
+    }
+
+    const userId = req.session.userlogin._id;
+
+    if (comment.likedBy.includes(userId)) {
+        return res.status(400).json({ message: 'You already liked this comment' });
+    }
+
+    comment.likes += 1;
+    comment.likedBy.push(userId);
+    await article.save();
+
+    res.status(200).json({ likes: comment.likes });
+} catch (error) {
+    res.status(500).json({ message: error.message });
+}
+};
+module.exports = { likePost, CreateArticle, UploadImagesArticle, replyToComment, likeComment }

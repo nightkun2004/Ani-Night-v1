@@ -1,7 +1,7 @@
 <div class="flex p-5 justify-between items-center">
     <!-- Profile Left -->
     <div class="profile__left flex flex-row">
-        <img class="h-24 w-24 rounded-full object-cover" src="/profiles/<%= userData.profile %>" alt="Profile Picture">
+            <img class="h-24 w-24 rounded-full object-cover" src="/profiles/<%= userData.profile %>" alt="<%= userData.name %>">
         <div class="mt-4 sm:mt-0 sm:ml-6 text-center sm:text-left">
             <h1 class="text-2xl font-bold text-gray-900" data-userid="<%= userData._id %>">
                 <%= userData.name %>
@@ -11,8 +11,6 @@
             <p class="text-sm text-gray-600">
                 <%= userData.bio %>
             </p>
-
-
 
             <div class="mt-4 flex justify-center sm:justify-start space-x-4">
                 <span class="text-sm text-gray-600"><strong><%= userData.followers.length %></strong>: ผู้ติดตาม</span>
@@ -24,7 +22,18 @@
     </div>
     <!-- Profile Right -->
     <div class="profileright">
-        <button id="followButton" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md" onclick="toggleFollow()">ติดตาม</button>
+        <!-- <% if (usersesstion) { %>
+            <% if (usersesstion.followersBy.includes(currentUser._id)) { %>
+                <form action="/api/user/unfollow/<%= usersesstion._id %>" method="POST">
+                    <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md" type="submit">ยกเลิกติดตาม</button>
+                </form>
+            <% } else { %>
+                <form action="/api/user/follow/<%= usersesstion._id %>" method="POST">
+                    <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md" type="submit">ติดตาม</button>
+                </form>
+            <% } %>
+        <% } %> -->
+        <button id="followButton"  onclick="toggleFollow()">ติดตาม</button>
     </div>
 </div>
 
@@ -34,6 +43,7 @@
         const button = document.getElementById('followButton');
         const userId = document.querySelector('h1[data-userid]').dataset.userid;
         const action = button.textContent === 'ติดตาม' ? 'follow' : 'unfollow';
+        console.log(action)
 
         try {
             const response = await fetch(`/api/user/${action}/${userId}`, {
@@ -42,7 +52,9 @@
                     'Authorization': 'Bearer ' + '<%= usersesstion.token %>', 
                     'Content-Type': 'application/json',
                 }
+                
             });
+            console.log(response)
 
             if (response.ok) {
                 if (action === 'follow') {

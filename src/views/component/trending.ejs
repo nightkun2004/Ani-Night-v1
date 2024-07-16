@@ -31,26 +31,42 @@
 <body>
     <%- include('../navnar_Header') %>
     <%- include('../sidebar_Section') %>
-    <section class="trending-container mx-auto px-4 xl:max-w-7xl pt-[120px]" id="trending">
+
+    <section class="mx-auto px-4 xl:max-w-7xl ">
+        <h2 class="text-xl font-semibold mb-4">มาแรงในตอนนี้</h2>
+        <div class="trending-card__title">
+            <span class="trending-card__title-text">มาแรงในตอนนี้</span>
+        </div>
+        <div data-v-7926129b="" class="trending-card__subtitle">ยอดวิวสามารถเปลี่ยนแปลงได้ทุกวัน</div>
+        <ul class="space-y-4">
+            <% topViewedActicles.forEach((article, index)=> { %>
+            <li class="flex items-center bg-gray-800 p-4 rounded-lg">
+                <span class="flex text-3xl font-bold text-yellow-400 mr-4"><%= index + 1 %>.</span>
+                <a href="/read/<%= article.url %>?lang=<%= language %>">
+                    <div>
+                        <img src="/acticles_images/<%= article.photo %>" alt=" <%= article.title %>" class="w-24 h-auto rounded-lg float-left mr-4">
+                        <p class="text-lg italic text-white"> <%= article.title %></p>
+                    </div>
+                </a>
+            </li>
+            <% }) %>
+        </ul>
+    </section>
+    <!-- <section class="trending-container mx-auto px-4 xl:max-w-7xl pt-[120px]" id="trending">
         <div class="trams trending-card__container bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm relative">
-            <div class="trending-card__title">
-                <span class="trending-card__title-text">มาแรงในตอนนี้</span>
-            </div>
-            <div data-v-7926129b="" class="trending-card__subtitle">ยอดวิวสามารถเปลี่ยนแปลงได้ทุกวัน</div>
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <% topViewedActicles.forEach((article, index)=> { %>
                     <ul>
                         <li class="mb-4">
                             <div class="relative">
-                                <!-- รูปภาพด้านซ้าย -->
                                 <img class="w-full" src="/acticles_images/<%= article.photo %>" alt="Article Photo">
-                                <!-- index หมายถึงจำนวนที่อยู่ในรูปภาพมุ่มบนซ้าย -->
+    
                                 <p
                                     class="absolute flex items-center top-0 left-0 bg-orange-300 w-[50px] text-white px-2 py-1">
                                     <%= index + 1 %>
                                 </p>
                             </div>
-                            <!-- ข้อมูลได้ขวา -->
                             <div class="info px-4 py-2">
                                 <a href="/read/<%= article.url %>?lang=<%= language %>">
                                     <h2 class="text-lg font-bold mb-2">
@@ -66,7 +82,8 @@
                     <% }) %>
             </div>
         </div>
-    </section>
+    </section> -->
+    
 
     <%- include('../footer') %>
 

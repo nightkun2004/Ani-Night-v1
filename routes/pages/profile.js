@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const authenticatetoken = require('../../middleware/authtoken')
 const profileController = require("../../controls/profileController")
 const { verifyToken, verifyTokenAdmin } = require("../../middleware/auth")
-const { logoutAuth, authMiddleware } = require("../../middleware/authMainuser")
+const { logoutAuth, authMiddleware, authMiddlewareUser } = require("../../middleware/authMainuser")
 const crypto = require("crypto")
 const fs = require("fs")
 const HttpError = require("../../models/errorModel")
@@ -36,7 +36,7 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-router.get('/profile', verifyTokenAdmin, profileController.getProfile)
+router.get('/profile', authMiddlewareUser, profileController.getProfile)
 // router.get('/:userID', verifyTokenAdmin, profileController.getUserID)
 router.post('/playment', profileController.playment)
 router.post('/auth/user/studio', profileController.getAuthUser)

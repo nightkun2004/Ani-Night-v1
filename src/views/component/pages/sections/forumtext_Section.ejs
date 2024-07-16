@@ -37,23 +37,6 @@
                     <button class="text-3xl text-red-500 flex content-center pl-2"><i class="fa-solid fa-heart"></i></button>
                 <% } %>      
                <% } %>
-               
-               <% function formatNumber(number) { if (number>=
-                1000000)
-                {
-                return (number / 1000000).toFixed(1) + 'm';
-                } else if (number >= 1000) {
-                return (number / 1000).toFixed(1) + 'k';
-                } else {
-                return number;
-                }
-                }
-
-                var number1 = 100;
-                var number2 = 500;
-                var number3 = 1500;
-                var number4 = 1200000;
-                %>
                 <% if(!usersesstion) { %>
                     <button class="text-3xl text-blue-400 flex content-center pl-2"><i class="fa-solid fa-heart"></i></button>
                <% } %>
@@ -138,4 +121,4 @@
             </ul> 
         </div>
     </div>
-    <% }); %>
+    <% }); %> 

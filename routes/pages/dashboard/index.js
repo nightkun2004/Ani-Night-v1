@@ -18,20 +18,16 @@ router.get('/:url/dashboard', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
         const url = req.params.url;
-        const page = +req.query.page || 1; // หากไม่มีค่า page ให้เริ่มที่หน้าแรก
+        const page = +req.query.page || 1;
 
         if (!usersesstion) {
             return res.redirect('/');
         }
 
-        // ดึงข้อมูลผู้ใช้และบทความทั้งหมดของผู้ใช้
         const userData = await User.findOne({ _id: usersesstion._id, url: url })
-            .populate({
-                path: "acticles"
-            });
+            .populate('acticles')
+            .sort({ createdAt: -1 });
 
-
-        // ดึงข้อมูลการชำระเงินของผู้ใช้
         const payment = await User.findOne({ _id: usersesstion._id })
             .populate('payment')
             ;
@@ -46,7 +42,7 @@ router.get('/:url/dashboard', async (req, res) => {
             hasNextPage: ITEMS_PER_PAGE * page,
             hasPrevPage: page > 1,
             nextPage: page + 1,
-            prevPage: page - 1, 
+            prevPage: page - 1,
             lastPage: Math.ceil(ITEMS_PER_PAGE)
         });
     } catch (error) {

@@ -2,6 +2,32 @@ const mongoose = require('mongoose');
 
 const User = require('../models/user');
 
+const ReplySchema = new mongoose.Schema({
+    username: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        username: String,
+        profile: String
+    },
+    inputcomment: String,
+    likes: {
+        type: Number,
+        default: 0
+    },
+    likedBy: [{ // Add this field to track users who liked the comment
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    report: String,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    replies: [this] // For nested replies
+});
+
 const ArticleSchema = new mongoose.Schema({
     tags: {
         type: [String], // Changed to an array of strings for tags
@@ -55,29 +81,7 @@ const ArticleSchema = new mongoose.Schema({
         },
     },
     date: { type: Date, default: Date.now },
-    replies:
-        [
-
-            {
-                username: {
-                    id: {
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: "User"
-                    },
-                    username: String,
-                    profile: {
-                        type: String
-                    },
-                },
-                inputcomment: String,
-                likes: {
-                    type: Number,
-                    default: 0
-                },
-                report: String,
-                createdAt: { type: Date, default: Date.now }
-            }
-        ],
+    replies: [ReplySchema],
     url: {
         type: String
     },

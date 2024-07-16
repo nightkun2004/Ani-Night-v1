@@ -103,9 +103,12 @@ const getLogin = async (req, res) => {
         const isPasswordValid = await bcrypt.compare(password, userlogin.password);
         if (!isPasswordValid) return res.render("./component/pages/login", { data: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", usersesstion});
 
-        const { _id: id, name } = userlogin;
-        const token = jwt.sign({ id, name }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+        const { _id: id, name, profile, username } = userlogin;
+        const token = jwt.sign({ id, name,profile, username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
         res.cookie('login-token', token, { httpOnly: true, secure: true });
+
+         // บันทึก token ลงใน session
+         req.session.userlogin = token;
 
         const { password: userPassword, ...others } = userlogin._doc;
         req.session.userlogin = {
@@ -186,7 +189,7 @@ const getAPIlogin = async (req, res) => {
     }
 };
 
-const getfollow = async (req, res, next) => {
+const follow = async (req, res, next) => {
     try {
         const userToFollow = await User.findById(req.params.id);
         const currentUser = await User.findById(req.user._id);
@@ -210,7 +213,7 @@ const getfollow = async (req, res, next) => {
 
         res.status(200).json({ message: 'Followed successfully' });
     } catch (error) {
-        return next(new HttpError(err))
+        return next(new HttpError('Following user failed, please try again later.', 500));
     }
 };
 
@@ -238,11 +241,12 @@ const unfollow = async (req, res, next) => {
 
         res.status(200).json({ message: 'Unfollowed successfully' });
     } catch (error) {
-        return next(new HttpError(err))
+        return next(new HttpError('Unfollowing user failed, please try again later.', 500));
     }
 };
 
-module.exports = { getfollow, unfollow, getAPIlogin, getLoginFacebook, getLogin, getSignupAPI, getAllUser}
+
+module.exports = { follow, unfollow, getAPIlogin, getLoginFacebook, getLogin, getSignupAPI, getAllUser}
 
 // const secretKey = crypto.randomBytes(32).toString('hex');
 // console.log(secretKey);
