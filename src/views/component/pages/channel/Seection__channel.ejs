@@ -22,17 +22,6 @@
     </div>
     <!-- Profile Right -->
     <div class="profileright">
-        <!-- <% if (usersesstion) { %>
-            <% if (usersesstion.followersBy.includes(currentUser._id)) { %>
-                <form action="/api/user/unfollow/<%= usersesstion._id %>" method="POST">
-                    <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md" type="submit">ยกเลิกติดตาม</button>
-                </form>
-            <% } else { %>
-                <form action="/api/user/follow/<%= usersesstion._id %>" method="POST">
-                    <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md" type="submit">ติดตาม</button>
-                </form>
-            <% } %>
-        <% } %> -->
         <button id="followButton"  onclick="toggleFollow()">ติดตาม</button>
     </div>
 </div>
