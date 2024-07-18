@@ -12,6 +12,24 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
+// API dashboard
+router.get('/api/v2/dashboard/user/:id', async (req,res) =>{
+    try {
+        const userId = req.params.id;
+         const user = await User.findById({_id: userId});
+         if (!user) {
+             return res.status(404).send('User not found');
+         }
+
+         const totalViews = await user.calculateTotalViews();
+
+        res.status(200).json(totalViews)
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+})
+
 router.get('/studio/:id/monetization/overview', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;

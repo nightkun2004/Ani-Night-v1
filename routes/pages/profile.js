@@ -44,6 +44,7 @@ router.post('/logout/user', logoutAuth, verifyTokenAdmin, profileController.logo
  
 // API Profile
 router.get("/api/user/profile/v2/:id", profileController.getProfileApi)
+router.get("/api/user/profile/v2/:id/articles", authMiddleware, profileController.getArticlesUser)
 
 router.post('/edit_profile', authMiddleware, async (req, res, next) => {
     try {

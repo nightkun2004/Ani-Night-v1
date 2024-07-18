@@ -1,35 +1,72 @@
-<div id="my__Sidebar" class="sidepanel bg-white fixed top-0 left-0 h-full w-0 z-10 shadow-lg transition-width duration-300 ease-in-out overflow-hidden">
-    <div class="flex items-center">
-        <a href="/" title="Cidpokun" data-google="search-google" data-funs-wow="wiko">
-            <div class="logo__main flex items-center">
-                <img src="/images/logo/Aninight.png" alt="Logo" class="h-8 w-8">
-                <!-- <img src="/logos/logo__main--cidpokun.svg" alt="logo__main" class="h-10 w-full"> -->
-                 <h2 class="ml-2 text-2xl font-bold">AniNight</h2>
+<div id="my__Sidebar" class="sidepanel bg-white <%= active === 'articles' ? 'backdrop-blur-sm bg-white/30' : '' %> fixed top-0 left-0 h-full w-0 z-10 shadow-lg transition-width duration-300 ease-in-out overflow-x-hidden">
+    <div>
+        <div class="flex items-center">
+            <div class="flex items-center">
+                <a href="javascript:void(0)" class="closebtn px-8 text-xl text-right block py-4" onclick="closeNav()"><i class="fa-solid fa-bars"></i></a>
             </div>
+            <a href="/" title="Cidpokun" data-google="search-google" data-funs-wow="wiko">
+                <div class="logo__main flex items-center">
+                    <img src="/images/logo/Aninight.png" alt="Logo" class="h-8 w-8">
+                    <!-- <img src="/logos/logo__main--cidpokun.svg" alt="logo__main" class="h-10 w-full"> -->
+                     <h2 class="ml-2 text-2xl font-bold">AniNight</h2>
+                </div>
+            </a>
+        </div>
+        <a href="/" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">
+            <i class="fa-solid fa-house"></i>
+            <span class="pl-4">หน้าหลัก</span>
         </a>
-        <a href="javascript:void(0)" class="closebtn px-8 text-xl text-right block py-4" onclick="closeNav()"><i class="fa-solid fa-bars"></i></a>
+        <a href="/th/videos" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">
+            <i class="fa-solid fa-video"></i>
+            <span class="pl-4">วีดีโอ</span>
+        </a>
+        <a href="/live/aninight" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <span class="pl-4">LIVE</span>
+        </a>
+        <!-- <a href="/news-pv" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">PV ANIME</a> -->
+        <a href="/search" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="pl-4">🔍 ค้นหา</span>
+        </a>
+        <a href="/browse/anime" class="block px-4 py-2 flex text-gray-800 hover:bg-gray-200">
+            <img src="/icons/anime-icon.svg" alt="anime-icon.svg" class="w-5 h-5">
+            <span class="pl-4">🖐🏻 อนิเมะ</span>
+        </a>
+        <a href="/trending" class="block px-4 py-2 flex text-gray-800 hover:bg-gray-200">
+            <img src="/icons/trending-icon.svg" alt="trending-icon.svg" class="w-5 h-5">
+            <span class="pl-4">มาแรง</span>
+        </a>
+        <a href="/categories" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">
+            <i class="fa-solid fa-list"></i>
+            <span class="pl-4">หมวดหมู่</span>
+        </a>
+        <a href="/forums" class="block px-4 py-2 flex text-gray-800 hover:bg-gray-200">
+            <img src="/icons/forum-icon.svg" alt="forum-icon.svg" class="w-5 h-5">
+            <span class="pl-4">ฟอรัม</span>
+        </a>
+        <a href="/articles" class="block px-4 py-2 flex text-gray-800 hover:bg-gray-200">
+            <img src="/icons/article-icon.svg" alt="article-icon.svg" class="w-5 h-5">
+            <span class="pl-4">บทความ</span>
+        </a>
+        <!-- <a href="/anishots" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">Anishots</a> -->
+        <% if (!usersesstion) { %>
+            <a href="/login" class="block px-4 py-2 m-5 text-gray-800 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span class="pl-4">เข้าสู่ระบบ</span>
+            </a>
+        <% } %>
+        <% if (usersesstion) { %>
+                <a href="/profile?u=<%= usersesstion.username %>" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">
+                    <i class="fa-solid fa-user"></i>    
+                    <span class="pl-4">โปรไฟล์</span>
+                </a>
+                <a href="/upload_acticle" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">
+                    <i class="fa-solid fa-upload"></i>
+                    <span class="pl-4">เขียน</span>
+                </a>
+                <!-- <a href="/upload/create/anishot" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">สร้าง AniShot</a> -->
+        <% } %>
     </div>
-    <a href="/" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">หน้าหลัก</a>
-    <a href="/blogs" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">บทความ</a>
-    <a href="/th/videos" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">วีดีโอ</a>
-    <a href="/live/aninight" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">LIVE</a>
-    <!-- <a href="/news-pv" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">PV ANIME</a> -->
-    <% if (usersesstion) { %>
-        <a href="/profile?u=<%= usersesstion.username %>" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">โปรไฟล์</a>
-    <% } %>
-    <a href="/search" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">🔍 ค้นหา</a>
-    <a href="/browse/anime" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">🖐🏻 อนิเมะ</a>
-    <a href="/trending" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">มาแรง</a>
-    <a href="/categories" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">หมวดหมู่</a>
-    <a href="/forums" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">ฟอรัม</a>
-    <a href="/articles" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">บทความ</a>
-    <!-- <a href="/anishots" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">Anishots</a> -->
-    <% if (!usersesstion) { %>
-        <a href="/login" class="block px-4 py-2 m-5 text-gray-800 bg-red-500 text-white rounded-lg hover:bg-red-600">เข้าสู่ระบบ</a>
-    <% } %>
-    <% if (usersesstion) { %>
-            <a href="/profile?u=<%= usersesstion.username %>" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">โปรไฟล์</a>
-            <a href="/upload_acticle" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">เขียน</a>
-            <!-- <a href="/upload/create/anishot" class="block px-4 py-2  text-gray-800 hover:bg-gray-200">สร้าง AniShot</a> -->
-    <% } %>
+   
 </div>

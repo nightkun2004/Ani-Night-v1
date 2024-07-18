@@ -32,7 +32,7 @@ router.get('/categories', async (req, res) => {
         } else {
             posts = await Acticle.find().populate('author');
         }
-        res.render("./component/pages/categories", { activemenu: 'categories', usersesstion, posts });
+        res.render("./component/pages/categories", { active: 'categories', usersesstion, posts });
     } catch (err) {
         console.log(err);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูลโพสต์');

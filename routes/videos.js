@@ -115,6 +115,7 @@ router.get("/live/aninight", (req, res) => {
         usersesstion,
         token,
         streamUrl,
+        active: 'live'
     });
     // if (isRegionSupported) {
        

@@ -46,9 +46,10 @@ const corsOptions = {
 const allowedOrigins = [
   'http://localhost:4000',
   'http://127.0.0.1:5500',
-  'https://live-aninight.ani-night.online/',
+  'https://live-aninight.ani-night.online',
   'http://127.0.0.1:5500',
-  'https://ani-night.online', 
+  'https://ani-night.online',
+  'http://localhost:5173',
   'https://studio.ani-night.online'
 ];
 

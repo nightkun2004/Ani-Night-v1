@@ -93,8 +93,30 @@ exports.video_saveCover = async (req, res) => {
     }
 };
 
+// API edit
+exports.editApiaricle = async (req, res) => {
+    const update_id = req.params.id
 
-exports.editActicleuser = async (req, res) => {
+    try {
+        const { title, content, tags, url, categories, published } = req.body;
+        let updates = {
+            title,
+            content,
+            tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+            categories: categories ? categories.split(',').map(category => category.trim()) : [],
+            published: req.body.published === 'on',
+            url
+        };
+
+        await Acticle.findByIdAndUpdate(update_id, updates);
+        res.status(200).json({mass: "แก้ไขบทความสำเร็จ"})
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+exports.editActicleuser = async (req, res) => { 
     const update_id = req.body.update_id;
 
     try {

@@ -18,7 +18,7 @@ router.get("/browse/anime", async (req, res) => {
     const newestAnimes = await Anime.find().sort({ createdAt: -1 }).limit(10);
     const template = req.language === 'th' ? './component/th/Animelists' : './en/anime/animelists';
 
-    res.render(template, { usersesstion, animes, latestUpdatedAnimes, newestAnimes })
+    res.render(template, { usersesstion, animes, latestUpdatedAnimes, newestAnimes, active: 'anime' })
 })
 
 router.get("/browse/anime/:id", async (req, res) => {

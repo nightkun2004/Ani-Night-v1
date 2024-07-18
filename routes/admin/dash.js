@@ -361,6 +361,16 @@ router.get('/success', (req, res) => {
     res.render('success')
 })
 
+router.get('/get-banner-images', (req, res) => {
+    res.json({
+        images: [
+            'https://ani-night.online/banner/14cd43e9-ba3a-4ed9-af84-d9c6ffe09201.png',
+            'https://example.com/new-banner-image2.jpg'
+            // เพิ่ม URL ของรูปภาพเพิ่มเติมที่นี่
+        ]
+    });
+});
+
 router.use(create_2024);
 router.use(Admin_Router);
 router.use(AddbannerRoute)

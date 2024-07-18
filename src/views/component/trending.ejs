@@ -38,10 +38,10 @@
             <span class="trending-card__title-text">มาแรงในตอนนี้</span>
         </div>
         <div data-v-7926129b="" class="trending-card__subtitle">ยอดวิวสามารถเปลี่ยนแปลงได้ทุกวัน</div>
-        <ul class="space-y-4">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <% topViewedActicles.forEach((article, index)=> { %>
             <li class="flex items-center bg-gray-800 p-4 rounded-lg">
-                <span class="flex text-3xl font-bold text-yellow-400 mr-4"><%= index + 1 %>.</span>
+                <span class="flex italic text-right text-4xl font-bold text-yellow-400 mr-4" style="user-select: none;"><%= index + 1 %>.</span>
                 <a href="/read/<%= article.url %>?lang=<%= language %>">
                     <div>
                         <img src="/acticles_images/<%= article.photo %>" alt=" <%= article.title %>" class="w-24 h-auto rounded-lg float-left mr-4">

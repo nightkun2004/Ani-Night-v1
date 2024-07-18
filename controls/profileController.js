@@ -29,13 +29,33 @@ exports.getProfile = async (req, res, next) => {
         res.status(500).send('เกิดข้อผิดพลาดกับโปรไฟล์');
     }
 }
+exports.getArticlesUser = async (req, res, next) => {
+    try {
+        const userID = req.params.id;
+        // console.log("userID Profile", usersesstion);
+        const userData = await User.findOne({ _id: userID })
+            .populate('acticles');
+
+        if (!userData) {
+            return next(new HttpError("เกิดข้อผิดพลาดกับ userData"), 404)
+        }
+
+        res.status(200).json(userData)
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดพลาดกับโปรไฟล์');
+    }
+}
 
 exports.getProfileApi = async (req, res) => {
     try {
         const userID = req.params.id;
+        console.log(`Received userID: ${userID}`); 
 
         const userData = await User.findOne({ _id: userID })
             .populate('acticles');
+
+            // console.log(`Found userData: ${userData}`); 
 
         res.json(userData);
 
@@ -44,7 +64,6 @@ exports.getProfileApi = async (req, res) => {
         res.status(500).send('เกิดข้อผิดกับโปรไฟล์');
     }
 }
-
 
 exports.playment = async (req, res) => {
     try {

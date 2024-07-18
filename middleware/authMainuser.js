@@ -5,7 +5,7 @@ require("dotenv").config();
 const authMiddleware = (req, res, next) => {
     const authorizationHeader = req.headers.authorization;
 
-    if (authorizationHeader && authorizationHeader.startsWith("Bearer")) {
+    if (authorizationHeader && authorizationHeader.startsWith("Bearer")) { 
         const token = authorizationHeader.split(' ')[1];
 
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {

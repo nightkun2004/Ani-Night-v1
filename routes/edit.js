@@ -35,6 +35,9 @@ router.post('/cover/videothum',upload.single('firecovervideo'), editActicle.vide
 router.post('/edit/article/user', editActicle.editActicleuser)
 router.post('/edit_acticle/cover', editActicle.editActicleCover)
 router.post('/edit/article/new', editActicle.editActicleCovernow)
-router.post('/edit/video/user', editActicle.editVideouser)  
+router.post('/edit/video/user', editActicle.editVideouser)
+
+// API Edit
+router.get("/api/v2/edit/article/:id", editActicle.editApiaricle)
 
 module.exports = router
