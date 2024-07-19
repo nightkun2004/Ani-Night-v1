@@ -42,11 +42,13 @@
                     <% if (tags_se && tags_se.length > 0) { %>
                         <% tags_se.forEach(post => { %>
                             <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                                <img class="w-full h-56 object-cover" src="/acticles_images/<%= post.photo %>" alt="Thumbnail">
+                                <a href="/read/<%= post.url %>">
+                                    <img class="w-full h-56 object-cover" src="/acticles_images/<%= post.photo %>" alt="<%= post.title %>">
+                                </a>
                                 <div class="p-4">
                                     <h2 class="text-lg font-semibold text-gray-900"><a href="/read/<%= post.url %>" target="_blank" rel="noopener noreferrer"><%= post.title %></a></h2>
                                     <div class="mt-3 flex items-center">
-                                        <img class="h-8 w-8 rounded-full" src="/profiles/<%= post.author.profilepic %>" alt="Profile">
+                                        <img class="h-8 w-8 rounded-full" src="/profiles/<%= post.author.profile %>" alt="Profile">
                                         <div class="ml-3">
                                             <p class="text-sm font-medium text-gray-900"><%= post.author.username %></p>
                                             <p class="text-sm text-gray-500"><%= post.views %> views • <%= new Date(post.createdAt).toLocaleDateString() %></p>

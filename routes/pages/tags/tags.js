@@ -20,7 +20,7 @@ router.get('/tag/:tagname', async (req, res) => {
         } else {
             tags_se = await Acticle.find().populate('author');
         }
-        res.render("./component/tags/index", { activemenu: 'tags', usersesstion, tagname, tags_se });
+        res.render("./component/tags/index", { active: "tags", usersesstion, tagname, tags_se });
     } catch (err) {
         console.log(err);
         res.status(500).send('เกิดข้อผิดพลาดในการดึงข้อมูลโพสต์');
