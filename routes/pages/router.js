@@ -15,6 +15,7 @@ const editaimeboard = require('../../routes/pages/dashboard/edits/animeboard')
 
 // Events
 const EventRoute = require("../../routes/events")
+const notificationRouter = require("../../routes/pages/notification")
 
 const AnimtTHRoute = require('../../routes/th/anime')
 const APISRoute = require('../../routes/apis')
@@ -37,5 +38,6 @@ router.use(categoriesroute)
 router.use(editaimeboard)
 router.use(forumRoute)
 router.use(EventRoute)
+router.use(notificationRouter)
 
 module.exports = router

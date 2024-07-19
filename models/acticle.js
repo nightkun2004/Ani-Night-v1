@@ -29,6 +29,7 @@ const ReplySchema = new mongoose.Schema({
 });
 
 const ArticleSchema = new mongoose.Schema({
+    creatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     tags: {
         type: [String], // Changed to an array of strings for tags
         required: true
@@ -102,8 +103,18 @@ const ArticleSchema = new mongoose.Schema({
     likesCount: {
         type: Number,
         default: 0
-    }
+    },
+    adsDisplayed: { type: Number, default: 0 }
 },  { timestamps: true });
+
+ArticleSchema.methods.updateEarnings = async function () {
+    if (this.views >= 1000) {
+        const earnings = Math.floor(this.views / 1000);
+        await User.findByIdAndUpdate(this.author.id, { $inc: { earnings: earnings } });
+        this.views = this.views % 1000;
+        await this.save();
+    }
+};
 
 const Acticle = mongoose.model('Acticle', ArticleSchema);
 

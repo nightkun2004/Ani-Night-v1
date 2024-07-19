@@ -159,15 +159,15 @@
                                 </div>
                                <div class="flex justify-between items-center" style="border-bottom: 1px solid #eee;">
                                 <div class="mb-4">
-                                    <h2 class="text-lg font-semibold bg-gray-100 rounded-full p-2">By: <a href="/editor/<%= acticle.author.username %>" target="_blank" ><%= acticle.author.username %></a></h2>
+                                    <h2 class="text-lg font-semibold bg-gray-100 rounded-full p-1">เขียนโดย: <a href="/editor/<%= acticle.author.username %>" target="_blank" ><%= acticle.author.username %></a></h2>
                                     <p class="text-gray-600"><%= acticle.author.bio %></p>
                                 </div>
-                                <div class="mt-1 max-w-2xl text-sm text-gray-500">
-                                     <%= moment(acticle.createdAt).locale('th').fromNow() %>
-                                     <p>เผยแพร่เมื่อ: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>
+                                <div class="mt-1 max-w-2xl text-sm text-gray-500 flex flex-col items-center md:flex-row md:items-center">
+                                     <%= moment(acticle.createdAt).locale('th').fromNow() %>,
                                      <p class="pl-3 text-sm">
-                                        การดู <%= formatNumber(acticle.views) %> ครั้ง
+                                        การดู <%= formatNumber(acticle.views) %> ครั้ง,
                                     </p>
+                                    <p class="md:ml-2">เผยแพร่เมื่อ: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>
                                 </div>
                                </div>
 

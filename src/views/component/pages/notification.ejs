@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การแจ้งเตือนในระบบ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <%- include('../../navnar_Header') %>
+    <%- include('../../sidebar_Section') %>
+    <!-- Notifications List -->
+    <main class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-6">
+        <div class="bg-white shadow-md rounded-lg">
+            <ul>
+                <% if (notifications.length === 0) { %>
+                    <li class="py-4 px-4 text-center text-gray-500">No notifications available</li>
+                <% } else { %>
+                    <% notifications.forEach(notification => { %>
+                        <li class="py-4 px-4 border-b border-gray-200 mb-5">
+                            <div class="mb-4">
+                                <img src="<%= notification.imagePath %>" alt="Image" class="w-full h-64 object-cover rounded-lg">
+                            </div>
+                            <div class="flex-1 mb-2">
+                                <p class="text-sm">
+                                    <span class="font-bold"><%= notification.title %></span>
+                                    <%= notification.description %>
+                                </p>
+                                <p class="text-xs text-gray-500"><%= notification.createdAt.toDateString() %></p>
+                            </div>
+                            <a href="<%= notification.link %>" class="text-blue-500">ดูรายละเอียด</a>
+                        </li>
+                    <% }) %>
+                <% } %>
+
+            </ul>
+        </div>
+    <!-- https://via.placeholder.com/40 -->
+    </main>
+
+    <%- include('../../footer') %>
+</body>
+</html>
