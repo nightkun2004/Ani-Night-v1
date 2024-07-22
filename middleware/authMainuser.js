@@ -17,7 +17,7 @@ const authMiddleware = (req, res, next) => {
             next();
         }); 
     } else {
-        return next(new HttpError("Unauthorized. No token provided.", 401));
+        return res.redirect('/login');
     }
 };
 
@@ -36,7 +36,7 @@ const authMiddlewareUser = (req, res, next) => {
             next();
         });
     } else {
-        return next(new HttpError("Unauthorized. No token provided.", 401));
+        return res.redirect('/login');
     }
 };
 

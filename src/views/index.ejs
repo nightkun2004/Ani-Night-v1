@@ -62,6 +62,11 @@
         display: none;
     }
 
+    .card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
     .scrollbar-hide {
         -ms-overflow-style: none; 
         scrollbar-width: none; 
@@ -97,62 +102,171 @@
                 </div>
             </div> -->
 
-            <div class="text-center loadingIndicator">
-                <div role="status">
-                    <svg aria-hidden="true"
-                        class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-cyan-500"
-                        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="currentColor" />
-                        <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentFill" />
-                    </svg>
-                    <span class="sr-only">Loading...</span>
+            <div class="mb-5 mt-5 bg-white p-4 rounded shadow-md">
+                <div class="flex justify-between">
+                    <h2 class="text-2xl font-bold mb-5">บทความมาแรง</h2>
+
+                    <a href="/trending" class="font-bold text-md text-blue-600">ดูทั้งหมด</a>
                 </div>
-            </div>
-            <h2 class="text-3xl mb-5 font-bold">บทความมาใหม่</h2>
-            <div class="loading" style="display: none;">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Blog Post 1 -->
-                   
-                    <% acticles_Bors.forEach((article) => { %>
-                        <% if (article.published) { %>
-                            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                                <a href="/read/<%= article.url %>?id=<%= article._id %>&lang=<%= language %>">
-                                    <div style="position: relative;">
-                                        <img class="w-full h-48 object-cover" src="/acticles_images/<%= article.photo %>" alt="<%= article.title %>">
-                                        <p class="views" style="position: absolute; top: 0; left: 0;
-                                            background-color: rgba(255, 255, 255, 0.961); color: #000;
-                                            padding: 5px; border-radius: 10px 0;">การดู <%= formatNumber(article.views) %></p>
-                                    </div>
-                                    <div class="p-6">
-                                        <h2 class="text-2xl font-bold mb-2 text-gray-800"> <%= article.title %></h2>
-                                        <% if (article.author && article.author.id) { %>
-                                            <div class="flex items-center">
-                                                <img class="w-10 h-10 rounded-full mr-4" src="/profiles/<%= article.author.id.profile %>"
-                                                    alt="Author Image">
-                                                <div class="text-sm">
-                                                    <p class="text-gray-900 leading-none">
-                                                        <a href="/editor/<%= article.author.id.username %>"><%= article.author.id.username %></a>
-                                                    </p>
-                                                    <p class="text-gray-600"><%= moment(article.createdAt).format('YYYY-MM-DD HH:mm:ss') %></p>
-                                                </div>
-                                            </div>
-                                        <% } else { %>
-                                            <p>Author: ไม่พบผู้เขียน</p>
-                                        <% } %>
-                                    </div>
-                                </a>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <% topViewedArticles.forEach(top => { %>
+                      <% if (top.published) {%> 
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 card">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover" src="/acticles_images/<%= top.photo %>" alt="<%= top.title %>">
+                                <p class="italic absolute bottom-0 right-0 text-right text-7xl font-bold text-yellow-400 mr-4"><%= formatNumber(top.views) %><span class="text-sm text-white font-medium">วิว</span></p>
+                                
                             </div>
-                        <% } %>
+                            <div class="p-5">
+                                <h3 class="text-lg font-semibold mb-2"><%= top.title %></h3>
+                                <p class="text-gray-600 text-sm mb-4"><%- top.content.substring(0, 100) %>...</p>
+                                <a href="/read/<%= top.url %>?id=<%= top._id %>&lang=<%= language %>" class="text-blue-500 hover:underline">อ่านต่อ</a>
+                            </div>
+                        </div>
+                      <% } %>
                     <% }); %>
-                    
-                    
-                    <!-- More blog posts can be added here in the same format -->
                 </div>
             </div>
+
+            <div class="mb-5 mt-5 bg-white p-4 rounded shadow-md">
+                <h2 class="text-2xl font-bold mb-5">บทความที่มีการอัพเดตใหม่</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        
+                    <% updatedArticles.forEach(updated => { %>
+                      <% if (updated.published) {%> 
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 card">
+                            <img class="w-full h-48 object-cover" src="/acticles_images/<%= updated.photo %>" alt="<%= updated.title %>">
+                            <div class="p-5">
+                                <h3 class="text-lg font-semibold mb-2"><%= updated.title %></h3>
+                                <p class="text-gray-600 text-sm mb-4"><%- updated.content.substring(0, 100) %>...</p>
+                                <a href="/read/<%= updated.url %>?id=<%= updated._id %>&lang=<%= language %>" class="text-blue-500 hover:underline">อ่านต่อ</a>
+                            </div>
+                        </div>
+                      <% } %>
+                    <% }); %>
+                   
+                    <!-- https://via.placeholder.com/500x300 -->
+                    
+                </div>
+            </div>
+
+            <div class="mb-5 mt-5 bg-white p-4 rounded shadow-md">
+                <h2 class="text-2xl font-bold mb-5">แนะนำสำหรับคุณ</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        
+                    <% acticlefotYou.forEach(updated => { %>
+                      <% if (updated.published) {%> 
+                        <div class="bg-white shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 card">
+                            <img class="w-full h-48 object-cover" src="/acticles_images/<%= updated.photo %>" alt="<%= updated.title %>">
+                            <div class="p-5">
+                                <h3 class="text-lg font-semibold mb-2"><%= updated.title %></h3>
+                                <p class="text-gray-600 text-sm mb-4"><%- updated.content.substring(0, 100) %>...</p>
+                                <a href="/read/<%= updated.url %>?id=<%= updated._id %>&lang=<%= language %>" class="text-blue-500 hover:underline">อ่านต่อ</a>
+                            </div>
+                        </div>
+                      <% } %>
+                    <% }); %>
+                </div>
+            </div>
+
+            <div class="mb-5 mt-5 bg-white p-4 rounded shadow-md">
+                <div class="text-center loadingIndicator">
+                    <div role="status">
+                        <svg aria-hidden="true"
+                            class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-cyan-500"
+                            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="currentColor" />
+                            <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentFill" />
+                        </svg>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <h2 class="text-3xl mb-5 font-bold">บทความมาใหม่</h2>
+                <div class="loading" style="display: none;">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Blog Post 1 -->
+                       
+                        <% acticles_Bors.forEach((article) => { %>
+                            <% if (article.published) { %>
+                                <div class="bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform duration-300 card">
+                                    <a href="/read/<%= article.url %>?id=<%= article._id %>&lang=<%= language %>">
+                                        <div style="position: relative;">
+                                            <img class="w-full h-48 object-cover" src="/acticles_images/<%= article.photo %>" alt="<%= article.title %>">
+                                            <p class="views" style="position: absolute; top: 0; left: 0;
+                                                background-color: rgba(255, 255, 255, 0.961); color: #000;
+                                                padding: 5px; border-radius: 10px 0;">การดู <%= formatNumber(article.views) %></p>
+                                        </div>
+                                        <div class="p-6">
+                                            <h2 class="text-2xl font-bold mb-2 text-gray-800"> <%= article.title %></h2>
+                                            <% if (article.author && article.author.id) { %>
+                                                <div class="flex items-center">
+                                                    <img class="w-10 h-10 rounded-full mr-4" src="/profiles/<%= article.author.id.profile %>"
+                                                        alt="Author Image">
+                                                    <div class="text-sm">
+                                                        <p class="text-gray-900 leading-none">
+                                                            <a href="/editor/<%= article.author.id.username %>"><%= article.author.id.username %></a>
+                                                        </p>
+                                                        <p class="text-gray-600"><%= moment(article.createdAt).format('YYYY-MM-DD HH:mm:ss') %></p>
+                                                    </div>
+                                                </div>
+                                            <% } else { %>
+                                                <p>Author: ไม่พบผู้เขียน</p>
+                                            <% } %>
+                                        </div>
+                                    </a>
+                                </div>
+                            <% } %>
+                        <% }); %>
+                        
+                    </div>
+                </div>
+
+                <nav aria-label="Page navigation example" style="display: flex; justify-content: center;" class="mb-5 mt-5 overflow-hidden">
+                    <ul class="flex items-center -space-x-px h-10 text-base">
+                        <% if (prevPage) { %>
+                            <li>
+                                <a href="/?page=<%= prevPage %>"
+                                    class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Previous</span>
+                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M5 1 1 5l4 4" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <% } %>
+            
+                                <% for (let i=1; i <=lastPage; i++) { %>
+                                    <li>
+                                        <a href="/?page=<%= i %>"
+                                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                            <%= i %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+            
+                                        <% if (nextPage) { %>
+                                            <li>
+                                                <a href="/?page=<%= nextPage %>"
+                                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                    <span class="sr-only">Next</span>
+                                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <% } %>
+                    </ul>
+                </nav>
+            </div>
+
 
             <!-- Video News Updates -->
             <!-- <div class="herder__news--update__videos flex justify-between mt-2 mb-2">
@@ -191,46 +305,7 @@
             </div> -->
         </div> 
 
-        <nav aria-label="Page navigation example" style="display: flex; justify-content: center;" class="mb-5 mt-5 overflow-hidden">
-            <ul class="flex items-center -space-x-px h-10 text-base">
-                <% if (prevPage) { %>
-                    <li>
-                        <a href="/?page=<%= prevPage %>"
-                            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M5 1 1 5l4 4" />
-                            </svg>
-                        </a>
-                    </li>
-                    <% } %>
-    
-                        <% for (let i=1; i <=lastPage; i++) { %>
-                            <li>
-                                <a href="/?page=<%= i %>"
-                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <%= i %>
-                                </a>
-                            </li>
-                            <% } %>
-    
-                                <% if (nextPage) { %>
-                                    <li>
-                                        <a href="/?page=<%= nextPage %>"
-                                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <span class="sr-only">Next</span>
-                                            <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <% } %>
-            </ul>
-        </nav>
+        
 
         <%- include('./footer') %>
 

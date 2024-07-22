@@ -32,7 +32,7 @@ router.get("/browse/anime/:id", async (req, res) => {
         const anime = await Anime.findOne({_id: animeid});
         const template = req.language === 'th' ? './component/th/animeinfo' : './en/anime/animeinfo';
         // console.log(anime)
-        res.render(template, { usersesstion, anime })
+        res.render(template, { usersesstion, anime, active: 'anime' })
     } catch (err) {
         console.log(err)
     } 

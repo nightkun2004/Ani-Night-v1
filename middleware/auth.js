@@ -23,7 +23,7 @@ function verifyToken(req, res, next) {
 }
 
 function verifyTokenAdmin(req, res, next) {
-    const accessToken = req.cookies['login-token'];  // Correct way to access the cookie
+    const accessToken = req.cookies['login-token']; 
 
     if (!accessToken) {
         req.session.returnTo = req.originalUrl;

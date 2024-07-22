@@ -34,7 +34,6 @@ router.get('/search', async (req, res) => {
             res.render(template3, { active: 'home', articles: [], searchQuery: 'ค้นหาเนื้อหาที่ต้องการ', usersesstion, language: req.language, });
         }
     } catch (error) {
-        console.error(error);
         res.status(500).send('Internal Server Error', error);
     }
 })

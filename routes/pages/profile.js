@@ -36,7 +36,7 @@ function setLanguage(req, res, next) {
 
 router.use(setLanguage);
 
-router.get('/profile', authMiddlewareUser, profileController.getProfile)
+router.get('/profile', authMiddlewareUser, profileController.getProfile) 
 // router.get('/:userID', verifyTokenAdmin, profileController.getUserID)
 router.post('/playment', profileController.playment)
 router.post('/auth/user/studio', profileController.getAuthUser)

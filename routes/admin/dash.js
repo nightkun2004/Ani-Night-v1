@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { verifyToken, verifyTokenAdmin } = require('../../middleware/auth')
+const { verifyToken, verifyTokenAdmin } = require('../../middleware/auth') 
 const isAdmin = require('../../middleware/in_Admin')
 const User = require('../../models/user')
 const Article = require('../../models/acticle')

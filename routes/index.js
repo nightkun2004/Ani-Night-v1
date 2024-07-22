@@ -27,8 +27,9 @@ router.get('/', async (req, res) => {
         const AnimeBordData = await AnimeBord.find().populate('animeApril animeMay animeJune animeJuly').sort({ createdAt: -1 });
         const acticles = await Acticle.find().exec();
         const videos = await Video.find().sort({ createdAt: -1 }).limit(6);
-        const topViewedArticles = await Acticle.find().populate('author.id').sort({ createdAt: -1, views: -1 }).limit(5);
-        const acticlefotYou = await Acticle.find().populate('author.id').sort({ views: -1 }).limit(10);
+        const topViewedArticles = await Acticle.find().populate('author.id').sort({ views: -1 }).limit(5);
+        const acticlefotYou = await Acticle.find().populate('author.id').sort({ views: -1 }).limit(5);
+        const updatedArticles = await Acticle.find().populate('author.id').sort({ updatedAt: -1 }).limit(3);
         const page = +req.query.page || 1; // หากไม่มีค่า page ให้เริ่มที่หน้าแรก 
         const totalActicles = await Acticle.countDocuments();
         const acticles_Bors = await Acticle.find().
@@ -51,6 +52,7 @@ router.get('/', async (req, res) => {
             alertMessage,
             topViewedArticles, 
             acticlefotYou,
+            updatedArticles,
             videos,
             language: req.language,
             translations: req.translations ,

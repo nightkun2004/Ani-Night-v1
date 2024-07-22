@@ -151,7 +151,7 @@ const CreateArticle = async (req, res, next) => {
       url: postId,
       iduser: iduser,
       profile: usersesstion.profile,
-      published: published ? published : true,
+      published: req.body.published === 'on',
       author: {
         id: usersesstion._id,
         username: usersesstion.username,

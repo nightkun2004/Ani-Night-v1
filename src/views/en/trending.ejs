@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/acticle.css">
+    <link rel="stylesheet" href="./css/pages/th/trending.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/font/font1.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
@@ -25,90 +26,32 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
-<style>
-    .trams {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .img_pic_acticle {
-        width: 220px;
-        height: 120px;
-        object-fit: contain;
-    }
-
-    .pic {
-        position: relative;
-    }
-
-    .top {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100px;
-        background-color: rgb(255, 179, 79);
-        color: #fff;
-        border-radius: 0 0 60px 0;
-    }
-
-    .title {
-        color: #333;
-        font-size: 20px;
-        font-weight: 500;
-        margin-bottom: 20px;
-        padding-left: 5px;
-    }
-
-    .top span {
-        font-size: 29px;
-        font-weight: bold;
-    }
-
-    .item_tra {
-        display: flex;
-        margin-bottom: 30px;
-    }
-</style>
 
 <body>
    <%- include('./navbar/navnar_Header') %>
    <%- include('./navbar/sidebar_Section') %>
 
     <section class="trending-container mx-auto px-4 xl:max-w-7xl" id="trending">
-        <div class="trams trending-card__container bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm relative">
+        <section class="mx-auto px-4 xl:max-w-7xl ">
+            <h2 class="text-xl font-semibold mb-4">Hot right now</h2>
             <div class="trending-card__title">
-                <span class="trending-card__title-text">Trending</span>
+                <span class="trending-card__title-text">Hot right now</span>
             </div>
             <div data-v-7926129b="" class="trending-card__subtitle">The number of views can change every day.</div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <% topViewedActicles.forEach((article, index)=> { %>
-                    <ul>
-                        <li class="mb-4">
-                            <div class="relative">
-                                <!-- รูปภาพด้านซ้าย -->
-                                <img class="w-full" src="/acticles_images/<%= article.photo %>" alt="Article Photo">
-                                <!-- index หมายถึงจำนวนที่อยู่ในรูปภาพมุ่มบนซ้าย -->
-                                <p
-                                    class="absolute flex items-center top-0 left-0 bg-orange-300 w-[50px] text-white px-2 py-1">
-                                    <%= index + 1 %>
-                                </p>
-                            </div>
-                            <!-- ข้อมูลได้ขวา -->
-                            <div class="info px-4 py-2">
-                                <a href="/read/<%= article.url %>?lang=<%= language %>">
-                                    <h2 class="text-lg font-bold mb-2">
-                                        <%= article.title %>
-                                    </h2>
-                                    <div class="views text-gray-500">
-                                        <%= article.views %> views
-                                    </div>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                    <% }) %>
-            </div>
-        </div>
+                <li class="flex items-center bg-gray-800 p-4 rounded-lg">
+                    <span class="flex italic text-right text-4xl font-bold text-yellow-400 mr-4" style="user-select: none;"><%= index + 1 %>.</span>
+                    <a href="/read/<%= article.url %>?lang=<%= language %>">
+                        <div>
+                            <img src="/acticles_images/<%= article.photo %>" alt=" <%= article.title %>" class="w-24 h-auto rounded-lg float-left mr-4">
+                            <p class="text-lg italic text-white"> <%= article.title %></p>
+                        </div>
+                    </a>
+                </li>
+                <% }) %>
+            </ul>
+        </section>
     </section>
 
     <%- include('../footer') %>

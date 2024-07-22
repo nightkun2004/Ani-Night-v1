@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แก้ไขภาพปก</title>
-    <link rel="stylesheet" href="/css/pages/home_Section.css">
-    <link rel="stylesheet" href="../css/pages/editActicle.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
@@ -13,17 +11,17 @@
 <body class="bg-gray-100">
     <%- include('../../../navnar_Header') %>
     <%- include('../../../sidebar_Section') %>
-    <section class="mx-auto px-4 xl:max-w-7xl">
-        <div class="container_EditVideo">
-            <div class="sidebar_left">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="w-full md:w-1/3 bg-white p-4 rounded shadow-md overflow-x-hidden mb-5">
                 <ul>
-                    <li  >
+                    <li  class="px-2 mb-5 p-2">
                         <form action="/edit_acticle/" method="post">
                             <input type="hidden" name="edit_id" value="<%= article._id %>">
                             <button type="submit">แก้ไขบทความพื้นฐาน</button>
                         </form>
                     </li>
-                   <li class="border-l-4 border-sky-600 border-right">
+                   <li class="border-l-4 px-2 mb-5 p-2 border-sky-600 border-right">
                     <form action="/edit_acticle/cover" method="post">
                         <input type="hidden" name="edit_id" value="<%= article._id %>">
                         <button type="submit">แก้ไขภาพปก</button>
@@ -32,23 +30,27 @@
                 </ul>
             </div>
 
-            <div class="content_edit">
+            <div class="flex-1 bg-white p-4 rounded shadow-md">
                 <h2 class="text-3xl border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขบทความพื้นฐาน</h2>
                 <div class="con_form">
                     <form action="/edit/article/new" method="post" enctype="multipart/form-data">
-                        <input type="text" readonly name="edit_id" value="<%= article._id %>">
+                        <input type="text" class="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly name="edit_id" value="<%= article._id %>">
                         <input type="hidden" name="update_id" value="<%= article._id %>">
                         <input class="bg-gray-50 mb-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     type="hidden" id="username" name="username"
                                     value="<%= usersesstion.username %>" readonly>
                                     <div class="mb-4">
-                                        <label for="bio" class="block text-gray-700">แก้ไขภาพปก</label>
+                                        <label for="bio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แก้ไขภาพปก</label>
                                         <input type="file" name="articlecover-image" id="profile-image" multiple class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                                     </div>
-                                    <img src="/acticles_images/<%= article.photo %>" alt="Current Thumbnail" style="max-width: 200px; height: auto;">
+                    
+                    <div class="bg-gray-100 rounded relative w-full h-[220px] md:h-[330px]">
+                        <img src="/acticles_images/<%= article.photo %>" alt="Current Thumbnail" class="absolute rounded inset-0 w-full h-full object-cover">
+                    </div>
+                                    
 
                         <button type="submit" 
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            class="text-white mt-5 w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             แก้ไขภาพปก</button>
                     </form>
                 </div>

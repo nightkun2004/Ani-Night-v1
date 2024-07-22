@@ -35,6 +35,7 @@
     <%- include('../sidebar_Section') %>
     <div class="relative h-screen flex items-center justify-center">
         <% topViewedArticles.forEach((article, index) => { %>
+            <% if (article.published) {%>
         <div class="hero-bg absolute inset-0 bg-cover bg-center flex items-center justify-start p-8 <% if (index === 0) { %>active<% } else { %>inactive<% } %>"
             style="background-image: url('/acticles_images/<%= article.photo %>');">
             <div class="container mx-auto text-left text-white relative">
@@ -56,6 +57,7 @@
             </div>
             <div class="countdown-bar"></div>
         </div>
+        <% } %>
         <% }) %>
     </div>
 
@@ -77,6 +79,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Blog Post 1 -->
             <% acticles.forEach((article)=> { %>
+                <% if (article.published) {%>
             <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                 <a href="/read/<%= article.url %>?lang=<%= language %>">
                     <img class="w-full h-48 object-cover" src="/acticles_images/<%= article.photo %>" alt="Post Image">
@@ -97,6 +100,7 @@
                     </div>
                 </a>
             </div>
+            <% } %>
             <% }) %>
             <!-- More blog posts can be added here in the same format -->
         </div>
