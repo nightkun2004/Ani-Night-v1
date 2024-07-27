@@ -6,7 +6,7 @@ const User = require('../models/user')
 const comments = require('../models/comment')
 const authenticatetoken = require("../middleware/authtoken")
 const io = require("../socket")
-const { likePost , replyToComment, likeComment} = require("../controls/aticleCrollers")
+const { likePost , replyToComment, likeComment, getArticles} = require("../controls/aticleCrollers")
 const {authMiddleware} = require("../middleware/authMainuser")
 
 const {translateText} = require("../middleware/translateService")
@@ -168,6 +168,7 @@ router.post('/replie/read/:id', authenticatetoken, async (req, res) => {
     }
 });
 
+router.get("/api/v1/articles/backup", getArticles)
 router.post("/api/v1/posts/article/like", authMiddleware, likePost)
 router.post('/articles/:id/comments/:commentId/replies', replyToComment)
 router.post('/articles/:id/comments/:commentId/like', likeComment)

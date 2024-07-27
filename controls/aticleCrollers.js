@@ -5,6 +5,16 @@ const crypto = require("crypto")
 const fs = require("fs")
 const path = require("path")
 
+
+const getArticles = async (req,res) =>{
+  try {
+    const Articles = await Acticle.find().exec()
+    res.status(200).json({massage:"ข้อมูลทั้งหมด", Articles})
+  } catch (err) {
+      res.status(500).json({massage: "เกิดข้อผิดพลาดการดึงข้อมูล Users ทั้งหมด", err})
+  }
+}
+
 // ============================= LIKE Post
 // METHOT : /api/v1/posts/:id
 const likePost = async (req, res, next) => {
@@ -240,4 +250,4 @@ const likeComment = async (req, res) => {
     res.status(500).json({ message: error.message });
 }
 };
-module.exports = { likePost, CreateArticle, UploadImagesArticle, replyToComment, likeComment }
+module.exports = { likePost, CreateArticle, getArticles, UploadImagesArticle, replyToComment, likeComment }

@@ -88,6 +88,15 @@ const getSignupAPI = async (req, res) => {
     }
 };
 
+const getUsersAll = async (req,res) =>{
+    try {
+        const Users = await User.find().exec()
+        res.status(200).json({massage:"ข้อมูลทั้งหมด", Users})
+    } catch (err) {
+        res.status(500).json({massage: "เกิดข้อผิดพลาดการดึงข้อมูล Users ทั้งหมด", err})
+    }
+}
+
 const getLogin = async (req, res) => {
     const usersesstion = req.session.userlogin;
     try {
@@ -246,7 +255,7 @@ const unfollow = async (req, res, next) => {
 };
 
 
-module.exports = { follow, unfollow, getAPIlogin, getLoginFacebook, getLogin, getSignupAPI, getAllUser}
+module.exports = { follow, unfollow, getAPIlogin, getLoginFacebook, getLogin, getSignupAPI, getUsersAll, getAllUser}
 
 // const secretKey = crypto.randomBytes(32).toString('hex');
 // console.log(secretKey);
