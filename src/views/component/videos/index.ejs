@@ -63,7 +63,7 @@
                             <% if (paginatedVideos.length > 0) { %>
                                 <% paginatedVideos.forEach(video=> { %>
                             <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                                <a href="/play/<%= video.videoid %>/<%= video._id %>" target="_blank" rel="noopener noreferrer">
+                                <a href="/play/<%= video._id %>" target="_blank" rel="noopener noreferrer">
                                     <img src="/cover_videos/<%= video.coverImage %>" alt="Thumbnail" class="w-full h-44 object-cover">
                                 <div class="p-4">
                                     <% if (video && video.description) { %>

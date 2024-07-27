@@ -53,7 +53,7 @@ router.get('/news-pv', async (req, res) => {
 
         res.render('./component/videos/index', {
             active: 'foryou',
-            usersesstion,
+            usersesstion, 
             videos,
             totalPages,
             paginatedVideos,

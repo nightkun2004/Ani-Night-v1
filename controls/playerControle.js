@@ -9,7 +9,7 @@ const getPlay = async (req, res, next) => {
         const usersesstion = req.session.userlogin;
         const videoid = req.params.videoid;
 
-        const video = await Video.findOne({ videoid: videoid })
+        const video = await Video.findOne({ _id: videoid })
             .populate('commentvideo episodes user author.id author username.id username replies')
             .exec();
 
