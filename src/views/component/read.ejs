@@ -9,7 +9,6 @@
     </title>
     <link rel="stylesheet" href="../css/pages/read.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
     <meta name="keyword" content="<%= acticle.title %>">
     <meta name="keyword" content="<%= acticle.categories %>">
     <meta property="og:title" content="<%= acticle.title %>">
@@ -18,6 +17,20 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="ani-night.online">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url"
+        content="https://ani-night.online/read/<%= acticle.url %>" />
+    <meta property="og:title" content="
+    <%= acticle.title %>
+        " />
+        <meta property="og:description" content="<%- acticle.content %>" />
+
+    <meta property="og:image" content="https://ani-night.online/acticles_images/<%= acticle.photo %>" />
+
+
+
     <meta property="og:type" content="website">
     <meta name="twitter:description" content="เว็บที่ให้คุณเขียนบทความข่าวสารด้านอนิเมะ และรับรายได้จากค่าโฆษณา">
     <meta name="google-site-verification" content="eyTwMkNmyYZFyV7ag9MuAEh5uOPdc4uZ6ONSM3w5HRI">
@@ -25,10 +38,10 @@
     <meta name="twitter:title" content="<%= acticle.title %>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <meta name="twitter:image" content="https://www.ani-night.online/acticles_images/<%= acticle.photo %>">
-    <meta name="googlebot" content="notranslate">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
         crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+        <link rel="shortcut icon" href="/images/logo/Aninight.png" type="image/x-icon">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTJP520FN4"></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>

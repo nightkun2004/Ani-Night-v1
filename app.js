@@ -43,6 +43,8 @@ const corsOptions = {
   credentials: true,
 };
 
+// mongodb+srv://Nightkun:i5uF4aLMR0KBM8NT@cluster0.sn8vcd9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
 const allowedOrigins = [
   'http://localhost:4000',
   'http://127.0.0.1:5500',

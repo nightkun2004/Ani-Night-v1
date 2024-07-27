@@ -35,10 +35,10 @@
         console.log(action)
 
         try {
-            const response = await fetch(`/api/user/${action}/${userId}`, {
+            const response = await fetch(`/channel/${action}/${userId}`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': 'Bearer ' + '<%= usersesstion.token %>', 
+                    'Authorization': 'Bearer ' + 'ดึง token จากคุกกี้', 
                     'Content-Type': 'application/json',
                 }
                 

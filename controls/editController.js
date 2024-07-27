@@ -105,7 +105,7 @@ exports.editApiaricle = async (req, res) => {
             tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
             categories: categories ? categories.split(',').map(category => category.trim()) : [],
             published: req.body.published === 'on',
-            url
+            url 
         };
 
         await Acticle.findByIdAndUpdate(update_id, updates);

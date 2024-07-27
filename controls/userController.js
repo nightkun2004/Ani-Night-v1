@@ -113,7 +113,7 @@ const getLogin = async (req, res) => {
         const { password: userPassword, ...others } = userlogin._doc;
         req.session.userlogin = {
             ...others,
-            token,
+            token, 
             alertMessage: req.query.alertMessage || '',
         };
 
