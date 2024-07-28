@@ -37,6 +37,7 @@ video_playersPlay.forEach(video_player => {
           <span class="current">0:00</span> /
           <span class="duration">0:00</span>
         </div>
+        
       </div>
 
       <div class="controls-right">
@@ -358,7 +359,39 @@ video_playersPlay.forEach(video_player => {
     var adContainer = document.getElementById('video-ad-container');
     var adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, mainVideo);
     var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
-    var adsManager; // ประกาศตัวแปร adsManager ที่นี่
+    var adsManager;
+    let adStartTime = 0;
+    let adDuration = 0;
+    let currentAdNumber = 0;
+    let totalAds = 0;
+    var adPlayed = false;
+
+    function playAdAndVideo() {
+        if (!adPlayed) {
+            adPlayed = true; // ตั้งค่าให้โฆษณาเล่นแล้ว
+            adDisplayContainer.initialize();
+            adsLoader.requestAds(adsRequest);
+        } else {
+            // ถ้าโฆษณาเล่นแล้ว ให้เล่นวีดีโอเนื้อหาเลย
+            mainVideo.play();
+        }
+    }
+
+    function updateAdTimer() {
+        if (adStartTime > 0) {
+            const currentTime = (new Date().getTime() - adStartTime) / 1000;
+            const minutes = Math.floor(currentTime / 60);
+            const seconds = Math.floor(currentTime % 60);
+
+            document.querySelector('.ad-timer .current-ad').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
 
     adsLoader.addEventListener(
         google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
@@ -373,7 +406,7 @@ video_playersPlay.forEach(video_player => {
     );
 
     var adsRequest = new google.ima.AdsRequest();
-    adsRequest.adTagUrl = 'https://tpc.googlesyndication.com/ima3vpaid?vad_format=linear&correlator=&adtagurl=https%3A%2F%2Fpubads.g.doubleclick.net%2Fgampad%2Flive%2Fads%3Fiu%3D%2F22745653040%2Fhttps%3A%2F%2F%2F%2Fkunsota.blogspot.com%2F%2Fp%2F%2Fblog-page_50.html%26description_url%3Dhttps%253A%252F%252Fani-night.online%26tfcd%3D0%26npa%3D0%26sz%3D400x300%257C640x480%26gdfp_req%3D1%26unviewed_position_start%3D1%26output%3Dvast%26env%3Dvp%26vpos%3Dpreroll%26vpmute%3D0%26vpa%3Dauto%26type%3Djs%26vad_type%3Dlinear';
+    adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/live/ads?iu=/22745653040/https:////kunsota.blogspot.com//p//blog-page_50.html&description_url=https%3A%2F%2Fani-night.online&tfcd=0&npa=0&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=';
 
     adsRequest.linearAdSlotWidth = adContainer.offsetWidth;
     adsRequest.linearAdSlotHeight = adContainer.offsetHeight;
@@ -383,6 +416,7 @@ video_playersPlay.forEach(video_player => {
     mainVideo.onplay = function () {
         adDisplayContainer.initialize();
         adsLoader.requestAds(adsRequest);
+        playAdAndVideo();
     };
 
     function onAdsManagerLoaded(adsManagerLoadedEvent) {
@@ -398,6 +432,7 @@ video_playersPlay.forEach(video_player => {
         try {
             adsManager.init(adContainer.offsetWidth, adContainer.offsetHeight, google.ima.ViewMode.NORMAL);
             adsManager.start();
+            controls.classList.remove("active");
         } catch (adError) {
             console.log('AdsManager could not be started');
             mainVideo.play();
@@ -408,22 +443,38 @@ video_playersPlay.forEach(video_player => {
         var ad = adEvent.getAd();
         switch (adEvent.type) {
             case google.ima.AdEvent.Type.LOADED:
-                if (!ad.isLinear()) {
-                    mainVideo.play();
+                if (ad.isLinear()) {
+                    adDuration = ad.getDuration();
+                    totalAds = 1; // ตั้งค่าให้มีโฆษณาแค่หนึ่งตัว
+                    controls.classList.add("hidden");
+                    document.querySelector('.ads-timer').style.display = 'block'
+                    document.querySelector('.ad-timer .duration-ad').textContent = formatTime(adDuration);
+                    document.querySelector('.ad-timer .ad-count').textContent = `${currentAdNumber + 1}/${totalAds}`;
                 }
                 break;
             case google.ima.AdEvent.Type.STARTED:
                 if (ad.isLinear()) {
-                    // Ad started
+                    adStartTime = new Date().getTime();
+                    setInterval(updateAdTimer, 1000); // Update every second
+                    controls.classList.remove("active");
+                    adCentervdo.style.display = 'none';
+                    pauseVideo();
                 }
                 break;
             case google.ima.AdEvent.Type.COMPLETE:
                 if (ad.isLinear()) {
-                    // Ad completed
+                    controls.classList.add("active");
+                    controls.classList.remove("hidden");
+                    adCentervdo.style.display = 'none';
+                    document.querySelector('.ad-timer').style.display = 'none';
+                    // เมื่อโฆษณาเสร็จสิ้น ให้เล่นวีดีโอเนื้อหา
+                    mainVideo.play();
                 }
                 break;
             case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
                 adsManager.destroy();
+                controls.classList.add("active");
+                adCentervdo.style.display = 'block';
                 break;
         }
     }
@@ -434,6 +485,8 @@ video_playersPlay.forEach(video_player => {
             adsManager.destroy();
         }
         mainVideo.play();
+        // แสดง controls เมื่อเกิดข้อผิดพลาดในโฆษณา
+        controls.classList.add("active");
     }
 
     function onContentPauseRequested() {
