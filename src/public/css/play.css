@@ -441,6 +441,17 @@
     justify-content: center;
 }
 
+.ad-center-vdo {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    background-color: #0000002a;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+}
+
 @media screen and (max-width: 880px) {
     .player_anime-container {
         flex-direction: column;

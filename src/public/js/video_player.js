@@ -164,7 +164,7 @@ video_playersPlay.forEach(video_player => {
         tracks = video_player.querySelectorAll("track"),
         tracksad = video_player.querySelectorAll("trackad"),
         loader = video_player.querySelector(".loader"),
-        icon_Close = video_player.querySelector(".icon-close"),
+        adCentervdo = video_player.querySelector(".ad-center-vdo"),
         volumeCard = video_player.querySelector('.maincolunCard');
 
 
@@ -342,6 +342,7 @@ video_playersPlay.forEach(video_player => {
         play_pause.innerHTML = "pause";
         play_pause.title = "pause";
         video_player.classList.add("paused");
+        adCentervdo.style.display = 'none';
         mainVideo.play();
     }
 
@@ -350,6 +351,7 @@ video_playersPlay.forEach(video_player => {
         play_pause.innerHTML = "play_arrow";
         play_pause.title = "play";
         video_player.classList.remove("paused");
+        adCentervdo.style.display = 'block';
         mainVideo.pause();
     }
 
@@ -371,7 +373,7 @@ video_playersPlay.forEach(video_player => {
     );
 
     var adsRequest = new google.ima.AdsRequest();
-    adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/live/ads?iu=/22745653040/Anight-web-play&description_url=https%3A%2F%2Fani-night.online&tfcd=0&npa=0&sz=200x200%7C200x446%7C400x300%7C640x480&ciu_szs=fluid&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=';
+    adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/live/ads?sz=234x60|400x300|640x480|200x200&iu=/22745653040/ad-center-play&ciu_szs=200x200&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]';
 
     adsRequest.linearAdSlotWidth = adContainer.offsetWidth;
     adsRequest.linearAdSlotHeight = adContainer.offsetHeight;

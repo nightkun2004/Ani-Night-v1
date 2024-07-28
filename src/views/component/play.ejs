@@ -48,12 +48,14 @@
     <!-- <script src="/js/play.js" defer></script> -->
     <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
     <script>
-        window.googletag = window.googletag || { cmd: [] };
-        googletag.cmd.push(function () {
-            googletag.defineSlot('/22745653040/AniNightPlayad-1', [1024, 768], 'div-gpt-ad-1722087154334-0').addService(googletag.pubads());
-            googletag.pubads().enableSingleRequest();
-            googletag.enableServices();
-        });
+    window.googletag = window.googletag || {cmd: []};
+    googletag.cmd.push(function() {
+        googletag.defineSlot('/22745653040/ad-center-play', [200, 200], 'div-gpt-ad-1722178792550-0').addService(googletag.companionAds()).addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.pubads().enableVideoAds();
+        googletag.companionAds().setRefreshUnfilledSlots(true);
+        googletag.enableServices();
+    });
     </script>
 </head>
 <body>
@@ -79,6 +81,14 @@
                         <% } %>
                     </video>
                     <div id="video-ad-container" class="ad-container"></div>
+                    <div class="ad-center-vdo">
+                        <!-- /22745653040/ad-center-play -->
+                        <div id='div-gpt-ad-1722178792550-0' style='min-width: 200px; min-height: 200px;'>
+                            <script>
+                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1722178792550-0'); });
+                            </script>
+                        </div>
+                    </div>
                     <div id="comments-container" class="comments-container"></div>
                     <div class="watermark">
                         <h3>AniNight</h3>
