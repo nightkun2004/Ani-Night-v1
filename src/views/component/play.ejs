@@ -64,7 +64,8 @@
      <div class="flex justify-center mt-8 mb-8">
         <div class="w-full max-w-4xl bg-white p-4 shadow-lg rounded-lg">
             <div class="relative container rounded-lg bg-black">
-                <div class="video_player rounded-lg" id="video-ad-container" style="user-select: none;" data-video-id="<%= video._id %>">
+                <div class="video_player rounded-lg" id="video-ad-container" style="user-select: none;">
+                    <h1 class="videoidtoken" data-videoid="<%= video._id %>"></h1>
                     <video
                     <% if (video.coverImage) {%>
                         poster="/cover_videos/<%= video.coverImage %>"
@@ -92,7 +93,7 @@
                     <input type="text" id="comment-input" class="w-full outline-none" placeholder="พิมพ์ความคิดเห็นลอยของคุณที่นี่...">
                     <button class="bg-sky-500 rounded px-4" type="submit">ส่ง</button>
                 </form>
-                <%- include('./js/videoPlayer') %>
+
             </div><hr class="mt-5 mb-5">
             <div class="mt-4 text-black">
                 <h2 class="text-xl font-bold"><%= video.name %></h2>

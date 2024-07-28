@@ -166,10 +166,15 @@ video_playersPlay.forEach(video_player => {
         loader = video_player.querySelector(".loader"),
         icon_Close = video_player.querySelector(".icon-close"),
         volumeCard = video_player.querySelector('.maincolunCard');
+        
 
     const volumeControl = document.getElementById("volumeControl");
     const volumeIndicator = document.getElementById("volumeIndicator");
     const btn_volume = document.querySelector('.volume')
+    const videoId = document.querySelector('.videoidtoken').dataset.videoid;
+    const commentForm = document.getElementById('comment-form');
+    const commentInput = document.getElementById('comment-input');
+    const commentsContainer = document.getElementById('comments-container');
 
     let thumbnail = video_player.querySelector(".thumbnail");
 
@@ -184,6 +189,89 @@ video_playersPlay.forEach(video_player => {
         }
     }
     const caption = captions.querySelectorAll("ul li");
+
+    commentForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const commentText = commentInput.value.trim();
+        const currentTime = mainVideo.currentTime;
+
+        if (commentText !== '') {
+            try {
+                const response = await fetch('/api/v2/add/comment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: commentText,
+                        time: currentTime,
+                        videoId: videoId,
+                    }),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    addComment(commentText);
+                    commentInput.value = ''; // เคลียร์ช่องใส่ข้อความ
+                } else {
+                    console.error('Error:', result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    });
+
+    let displayedComments = new Set(); // Set สำหรับเก็บสถานะของความคิดเห็นที่แสดงแล้ว
+
+    mainVideo.addEventListener('timeupdate', async function () {
+        const currentTime = Math.floor(mainVideo.currentTime); // ใช้เวลาในวินาทีเต็ม
+
+        // ตรวจสอบว่าความคิดเห็นของวินาทีนั้นถูกแสดงแล้วหรือยัง
+        if (displayedComments.has(currentTime)) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/v2/get/comment?time=${currentTime}&videoId=${videoId}`); // ส่งเวลาที่แปลงเป็นนาที
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const comments = await response.json();
+
+            comments.forEach(comment => {
+                addComment(comment.content);
+            });
+
+            displayedComments.add(currentTime);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+
+    const speedInput = document.getElementById('speed-input');
+
+    function addComment(commentText) {
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.innerText = commentText;
+
+        commentsContainer.appendChild(commentElement);
+
+        const speed = parseFloat(speedInput.value);
+        commentElement.style.animationDuration = `${speed}s`;
+
+        const containerHeight = commentsContainer.offsetHeight;
+        const commentHeight = 24;
+        const randomTop = Math.random() * (containerHeight - commentHeight);
+        commentElement.style.top = `${randomTop}px`;
+
+        commentElement.addEventListener('animationend', () => {
+            commentElement.remove();
+        });
+    }
 
     // function fetchEpisode() {
     //     const episodeSelect = data.setAttribute('')
@@ -248,101 +336,6 @@ video_playersPlay.forEach(video_player => {
     }
 
     const audio = audios.querySelectorAll("ul li");
-
-    // var adsLoaded = false;
-    // var adContainer;
-    // var adDisplayContainer;
-    // var adsLoader;
-    // var adsManager;
-
-    // window.addEventListener('load', function (event) {
-    //     initializeIMA();
-    //     mainVideo.addEventListener('play', function (event) {
-    //         loadAds(event);
-    //     });
-    // });
-
-    // window.addEventListener('resize', function(event) {
-    //     console.log("window resized");
-    //     if(adsManager) {
-    //       var width = videoElement.clientWidth;
-    //       var height = videoElement.clientHeight;
-    //       adsManager.resize(width, height, google.ima.ViewMode.NORMAL);
-    //     }
-    //   });
-
-    // function initializeIMA() {
-    //     console.log("initializing IMA");
-    //     adContainer = document.getElementById('ad-container');
-    //     adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, mainVideo);
-    //     adsLoader = new google.ima.AdsLoader(adDisplayContainer);
-    //     adsLoader.addEventListener(
-    //         google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-    //         onAdsManagerLoaded,
-    //         false);
-    //     adsLoader.addEventListener(
-    //         google.ima.AdErrorEvent.Type.AD_ERROR,
-    //         onAdError,
-    //         false);
-
-    //     mainVideo.addEventListener('ended', function () {
-    //         adsLoader.contentComplete();
-    //     });
-
-    //     var adsRequest = new google.ima.AdsRequest();
-    //     adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' +
-    //         'iu=/21775744923/external/single_ad_samples&sz=640x480&' +
-    //         'cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&' +
-    //         'gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
-
-    //     adsRequest.linearAdSlotWidth = videoElement.clientWidth;
-    //     adsRequest.linearAdSlotHeight = videoElement.clientHeight;
-    //     adsRequest.nonLinearAdSlotWidth = videoElement.clientWidth;
-    //     adsRequest.nonLinearAdSlotHeight = videoElement.clientHeight / 3;
-
-    //     adsLoader.requestAds(adsRequest);
-
-    //     function onAdsManagerLoaded(adsManagerLoadedEvent) {
-    //         // Instantiate the AdsManager from the adsLoader response and pass it the video element
-    //         adsManager = adsManagerLoadedEvent.getAdsManager(
-    //             videoElement);
-    //     }
-
-    //     function onAdError(adErrorEvent) {
-    //         // Handle the error logging.
-    //         console.log(adErrorEvent.getError());
-    //         if (adsManager) {
-    //             adsManager.destroy();
-    //         }
-    //     }
-    // }
-
-    //     function loadAds(event) {
-    //         // Prevent this function from running on if there are already ads loaded
-    //         if (adsLoaded) {
-    //             return;
-    //         }
-    //         adsLoaded = true;
-
-    //         // Prevent triggering immediate playback when ads are loading
-    //         event.preventDefault();
-
-    //         console.log("loading ads");
-    //         // Initialize the container. Must be done via a user action on mobile devices.
-    //         videoElement.load();
-    //         adDisplayContainer.initialize();
-
-    //         var width = videoElement.clientWidth;
-    //         var height = videoElement.clientHeight;
-    //         try {
-    //             adsManager.init(width, height, google.ima.ViewMode.NORMAL);
-    //             adsManager.start();
-    //         } catch (adError) {
-    //             // Play the video without ads, if an error occurs
-    //             console.log("AdsManager could not be started");
-    //             mainVideo.play();
-    //         }
-    //     }
 
     // Play video function
     function playVideo() {
