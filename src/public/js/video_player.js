@@ -475,7 +475,7 @@ video_playersPlay.forEach(video_player => {
             case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
                 adsManager.destroy();
                 controls.classList.add("active");
-                adCentervdo.style.display = 'block';
+                adCentervdo.style.display = 'none';
                 break;
         }
     }
