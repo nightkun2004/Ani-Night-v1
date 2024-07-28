@@ -63,10 +63,12 @@
     <!-- Main_Cintent -->
      <div class="flex justify-center mt-8 mb-8">
         <div class="w-full max-w-4xl bg-white p-4 shadow-lg rounded-lg">
-            <div class="relative container rounded-lg bg-black">
-                <div class="video_player rounded-lg" id="video-ad-container" style="user-select: none;">
+            <div class="relative container overflow-hidden rounded-lg bg-black">
+                <div class="video_player overflow-hidden  rounded-lg" style="user-select: none;">
                     <h1 class="videoidtoken" data-videoid="<%= video._id %>"></h1>
                     <video
+                    sandbox="allow-scripts allow-same-origin"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     <% if (video.coverImage) {%>
                         poster="/cover_videos/<%= video.coverImage %>"
                     <% } %> class="main-video" id="video">
@@ -76,7 +78,7 @@
                             srclang="th">
                         <% } %>
                     </video>
-                    <div class="ad-container"></div>
+                    <div id="video-ad-container" class="ad-container"></div>
                     <div id="comments-container" class="comments-container"></div>
                     <div class="watermark">
                         <h3>AniNight</h3>

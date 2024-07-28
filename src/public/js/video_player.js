@@ -166,7 +166,7 @@ video_playersPlay.forEach(video_player => {
         loader = video_player.querySelector(".loader"),
         icon_Close = video_player.querySelector(".icon-close"),
         volumeCard = video_player.querySelector('.maincolunCard');
-        
+
 
     const volumeControl = document.getElementById("volumeControl");
     const volumeIndicator = document.getElementById("volumeIndicator");
@@ -356,17 +356,19 @@ video_playersPlay.forEach(video_player => {
     var adContainer = document.getElementById('video-ad-container');
     var adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, mainVideo);
     var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
-    var adsManager; 
+    var adsManager; // ประกาศตัวแปร adsManager ที่นี่
 
     adsLoader.addEventListener(
         google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
         onAdsManagerLoaded,
-        false);
+        false
+    );
 
     adsLoader.addEventListener(
         google.ima.AdErrorEvent.Type.AD_ERROR,
         onAdError,
-        false);
+        false
+    );
 
     var adsRequest = new google.ima.AdsRequest();
     adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/live/ads?iu=/22745653040/Anight-web-play&description_url=https%3A%2F%2Fani-night.online&tfcd=0&npa=0&sz=200x200%7C200x446%7C400x300%7C640x480&ciu_szs=fluid&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=';
@@ -382,7 +384,7 @@ video_playersPlay.forEach(video_player => {
     };
 
     function onAdsManagerLoaded(adsManagerLoadedEvent) {
-        var adsManager = adsManagerLoadedEvent.getAdsManager(mainVideo);
+        adsManager = adsManagerLoadedEvent.getAdsManager(mainVideo);
         adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
         adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
         adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, onContentResumeRequested);
