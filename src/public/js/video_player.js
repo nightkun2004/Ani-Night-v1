@@ -373,7 +373,7 @@ video_playersPlay.forEach(video_player => {
     );
 
     var adsRequest = new google.ima.AdsRequest();
-    adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/live/ads?sz=234x60|400x300|640x480|200x200&iu=/22745653040/ad-center-play&ciu_szs=200x200&env=vp&impl=s&gdfp_req=1&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]';
+    adsRequest.adTagUrl = 'https://tpc.googlesyndication.com/ima3vpaid?vad_format=linear&correlator=&adtagurl=https%3A%2F%2Fpubads.g.doubleclick.net%2Fgampad%2Flive%2Fads%3Fiu%3D%2F22745653040%2Fhttps%3A%2F%2F%2F%2Fkunsota.blogspot.com%2F%2Fp%2F%2Fblog-page_50.html%26description_url%3Dhttps%253A%252F%252Fani-night.online%26tfcd%3D0%26npa%3D0%26sz%3D400x300%257C640x480%26gdfp_req%3D1%26unviewed_position_start%3D1%26output%3Dvast%26env%3Dvp%26vpos%3Dpreroll%26vpmute%3D0%26vpa%3Dauto%26type%3Djs%26vad_type%3Dlinear';
 
     adsRequest.linearAdSlotWidth = adContainer.offsetWidth;
     adsRequest.linearAdSlotHeight = adContainer.offsetHeight;
