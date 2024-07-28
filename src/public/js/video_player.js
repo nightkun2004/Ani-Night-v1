@@ -356,6 +356,7 @@ video_playersPlay.forEach(video_player => {
     var adContainer = document.getElementById('video-ad-container');
     var adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, mainVideo);
     var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+    var adsManager; 
 
     adsLoader.addEventListener(
         google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
