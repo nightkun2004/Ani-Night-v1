@@ -445,11 +445,12 @@ video_playersPlay.forEach(video_player => {
             case google.ima.AdEvent.Type.LOADED:
                 if (ad.isLinear()) {
                     adDuration = ad.getDuration();
-                    totalAds = 1; // ตั้งค่าให้มีโฆษณาแค่หนึ่งตัว
+                    totalAds = 3;
+                    adCentervdo.style.display = 'none';
                     controls.classList.add("hidden");
                     document.querySelector('.ads-timer').style.display = 'block'
                     document.querySelector('.ad-timer .duration-ad').textContent = formatTime(adDuration);
-                    document.querySelector('.ad-timer .ad-count').textContent = `${currentAdNumber + 1}/${totalAds}`;
+                    document.querySelector('.ad-timer .ad-count').textContent = `${currentAdNumber + 1}[${totalAds}]`;
                 }
                 break;
             case google.ima.AdEvent.Type.STARTED:
