@@ -1,5 +1,5 @@
-const video_players = document.querySelectorAll(".video_player");
-video_players.forEach(video_player => {
+const video_playersPlay = document.querySelectorAll(".video_player");
+video_playersPlay.forEach(video_player => {
     const video_player_html = `<div class="loader"></div> 
   ${video_player.innerHTML}
   <p class="caption_text"></p>
