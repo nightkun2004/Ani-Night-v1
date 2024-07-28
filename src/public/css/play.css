@@ -430,6 +430,20 @@
     display: block;
 }
 
+.ad-container {
+    position:absolute;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+.ad-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 @media screen and (max-width: 880px) {
     .player_anime-container {
         flex-direction: column;

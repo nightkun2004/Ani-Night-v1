@@ -1,4 +1,3 @@
-// let's select all required tags or elements
 const video_players = document.querySelectorAll(".video_player");
 video_players.forEach(video_player => {
     const video_player_html = `<div class="loader"></div> 
@@ -186,56 +185,56 @@ video_players.forEach(video_player => {
     }
     const caption = captions.querySelectorAll("ul li");
 
-    function fetchEpisode() {
-        const episodeSelect = data.setAttribute('')
-        const videoId = episodeSelect.getAttribute('data-video-id');
-        const epNumber = episodeSelect.value;
-        console.log(videoId)
-    
-        fetch(`/get-episodes?videoid=${videoId}&ep=${epNumber}`)
-            .then(response => response.json())
-            .then(data => {
-                const containerEpisodes = document.getElementById('episodes-container');
-                containerEpisodes.innerHTML = ''; // Clear previous episodes
-    
-                if (data.message) {
-                    containerEpisodes.innerHTML = `<p>${data.message}</p>`;
-                } else {
-                    // Update the video player source and play the video
-                    const mainVideo = document.getElementById('video-player');
-                    const videoSource = document.getElementById('video-source');
-                    videoSource.src = `/videos/${data[0].fire[0]}`;
-                    mainVideo.load();
-                    mainVideo.play();
-    
-                    // Display episode cards
-                    data.forEach(episode => {
-                        const episodeCard = document.createElement('a');
-                        episodeCard.href = '#';
-                        episodeCard.className = 'bg-white text-black px-5 py-3 font-bold text-xl hover:bg-gray-100 transition-colors duration-200';
-                        episodeCard.dataset.episodeFile = episode.fire[0];
-                        episodeCard.innerText = `Episode ${episode.ep}`;
-                        episodeCard.onclick = function (event) {
-                            event.preventDefault(); // Prevent the default anchor behavior
-                            playEpisode(episode.fire[0]);
-                        };
-                        containerEpisodes.appendChild(episodeCard);
-                    });
-    
-                    // Display episode details
-                    data.forEach(episode => {
-                        const episodeElement = document.createElement('div');
-                        episodeElement.innerHTML = `<h2>${episode.title}</h2><p>${episode.description}</p>`;
-                        containerEpisodes.appendChild(episodeElement);
-                    });
-                }
-            })
-            .catch(error => console.error('Error fetching episodes:', error));
-    }
-    
-    // Call fetchEpisode() to load episodes when the page loads or when needed
-    fetchEpisode();
-    
+    // function fetchEpisode() {
+    //     const episodeSelect = data.setAttribute('')
+    //     const videoId = episodeSelect.getAttribute('data-video-id');
+    //     const epNumber = episodeSelect.value;
+    //     console.log(videoId)
+
+    //     fetch(`/get-episodes?videoid=${videoId}&ep=${epNumber}`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             const containerEpisodes = document.getElementById('episodes-container');
+    //             containerEpisodes.innerHTML = ''; // Clear previous episodes
+
+    //             if (data.message) {
+    //                 containerEpisodes.innerHTML = `<p>${data.message}</p>`;
+    //             } else {
+    //                 // Update the video player source and play the video
+    //                 const mainVideo = document.getElementById('video-player');
+    //                 const videoSource = document.getElementById('video-source');
+    //                 videoSource.src = `/videos/${data[0].fire[0]}`;
+    //                 mainVideo.load();
+    //                 mainVideo.play();
+
+    //                 // Display episode cards
+    //                 data.forEach(episode => {
+    //                     const episodeCard = document.createElement('a');
+    //                     episodeCard.href = '#';
+    //                     episodeCard.className = 'bg-white text-black px-5 py-3 font-bold text-xl hover:bg-gray-100 transition-colors duration-200';
+    //                     episodeCard.dataset.episodeFile = episode.fire[0];
+    //                     episodeCard.innerText = `Episode ${episode.ep}`;
+    //                     episodeCard.onclick = function (event) {
+    //                         event.preventDefault(); // Prevent the default anchor behavior
+    //                         playEpisode(episode.fire[0]);
+    //                     };
+    //                     containerEpisodes.appendChild(episodeCard);
+    //                 });
+
+    //                 // Display episode details
+    //                 data.forEach(episode => {
+    //                     const episodeElement = document.createElement('div');
+    //                     episodeElement.innerHTML = `<h2>${episode.title}</h2><p>${episode.description}</p>`;
+    //                     containerEpisodes.appendChild(episodeElement);
+    //                 });
+    //             }
+    //         })
+    //         .catch(error => console.error('Error fetching episodes:', error));
+    // }
+
+    // // Call fetchEpisode() to load episodes when the page loads or when needed
+    // fetchEpisode();
+
 
     if (tracksad.length != 0) {
         audio_labels.insertAdjacentHTML(
@@ -360,6 +359,93 @@ video_players.forEach(video_player => {
         video_player.classList.remove("paused");
         mainVideo.pause();
     }
+
+    var adContainer = document.getElementById('video-ad-container');
+    var adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, mainVideo);
+    var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+
+    adsLoader.addEventListener(
+        google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+        onAdsManagerLoaded,
+        false);
+
+    adsLoader.addEventListener(
+        google.ima.AdErrorEvent.Type.AD_ERROR,
+        onAdError,
+        false);
+
+    var adsRequest = new google.ima.AdsRequest();
+    adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/live/ads?iu=/22745653040/Anight-web-play&description_url=https%3A%2F%2Fani-night.online&tfcd=0&npa=0&sz=200x200%7C200x446%7C400x300%7C640x480&ciu_szs=fluid&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=';
+
+    adsRequest.linearAdSlotWidth = adContainer.offsetWidth;
+    adsRequest.linearAdSlotHeight = adContainer.offsetHeight;
+    adsRequest.nonLinearAdSlotWidth = adContainer.offsetWidth;
+    adsRequest.nonLinearAdSlotHeight = adContainer.offsetHeight;
+
+    mainVideo.onplay = function () {
+        adDisplayContainer.initialize();
+        adsLoader.requestAds(adsRequest);
+    };
+
+    function onAdsManagerLoaded(adsManagerLoadedEvent) {
+        var adsManager = adsManagerLoadedEvent.getAdsManager(mainVideo);
+        adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
+        adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, onContentPauseRequested);
+        adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, onContentResumeRequested);
+        adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, onAdEvent);
+        adsManager.addEventListener(google.ima.AdEvent.Type.LOADED, onAdEvent);
+        adsManager.addEventListener(google.ima.AdEvent.Type.STARTED, onAdEvent);
+        adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, onAdEvent);
+
+        try {
+            adsManager.init(adContainer.offsetWidth, adContainer.offsetHeight, google.ima.ViewMode.NORMAL);
+            adsManager.start();
+        } catch (adError) {
+            console.log('AdsManager could not be started');
+            mainVideo.play();
+        }
+    }
+
+    function onAdEvent(adEvent) {
+        var ad = adEvent.getAd();
+        switch (adEvent.type) {
+            case google.ima.AdEvent.Type.LOADED:
+                if (!ad.isLinear()) {
+                    mainVideo.play();
+                }
+                break;
+            case google.ima.AdEvent.Type.STARTED:
+                if (ad.isLinear()) {
+                    // Ad started
+                }
+                break;
+            case google.ima.AdEvent.Type.COMPLETE:
+                if (ad.isLinear()) {
+                    // Ad completed
+                }
+                break;
+            case google.ima.AdEvent.Type.ALL_ADS_COMPLETED:
+                adsManager.destroy();
+                break;
+        }
+    }
+
+    function onAdError(adErrorEvent) {
+        console.log('Ad error: ' + adErrorEvent.getError().toString());
+        if (adsManager) {
+            adsManager.destroy();
+        }
+        mainVideo.play();
+    }
+
+    function onContentPauseRequested() {
+        mainVideo.pause();
+    }
+
+    function onContentResumeRequested() {
+        mainVideo.play();
+    }
+
 
     document.addEventListener("keydown", function (event) {
         if (event.key === " ") {
