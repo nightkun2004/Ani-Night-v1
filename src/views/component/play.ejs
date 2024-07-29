@@ -65,31 +65,32 @@
     <!-- Main_Cintent -->
      <div class="flex justify-center mt-8 mb-8">
         <div class="w-full max-w-4xl bg-white p-4 shadow-lg rounded-lg">
-            <div class="relative container overflow-hidden rounded-lg bg-black">
+            <div class="relative container overflow-hidden h-[190px] sm:h-[330px] md:h-[440px] md-w-full lg:[550px] rounded-lg bg-black">
                 <div class="video_player overflow-hidden  rounded-lg" style="user-select: none;">
                     <h1 class="videoidtoken" data-videoid="<%= video._id %>"></h1>
                     <video
-                    sandbox="allow-scripts allow-same-origin"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     <% if (video.coverImage) {%>
                         poster="/cover_videos/<%= video.coverImage %>"
                     <% } %> class="main-video" id="video">
-                    <source src="/videos/<%= video.filePath %>.mp4" size="720" type="video/mp4">
+                    <source src="/videos/<%= video.filePath %>" size="720" type="video/mp4">
                     <% if (video.subthai) { %>
                         <track default label="ซับไทย" kind="subtitles" src="../subtitles/<%= video.subthai %>"
                             srclang="th">
                         <% } %>
                     </video>
                     <div id="video-ad-container" class="ad-container"></div>
-                    <div class="ad-center-vdo">
-                        <!-- /22745653040/ad-center-play -->
-                        <div id='div-gpt-ad-1722178792550-0' style='min-width: 200px; min-height: 200px;'>
-                            <script>
-                            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1722178792550-0'); });
-                            </script>
+                    <div class="ads-config-respoinse hidden md:block">
+                        <p class="icon-close"><i class="fas fa-times-circle text-red-500 text-3xl"></i></p>
+                        <div class="ad-center-vdo">
+                            <!-- /22745653040/ad-center-play -->
+                            <div id='div-gpt-ad-1722178792550-0' style='min-width: 200px; min-height: 200px;'>
+                                <script>
+                                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1722178792550-0'); });
+                                </script>
+                            </div>
                         </div>
                     </div>
-                    <div id="comments-container" class="comments-container"></div>
+                    <div id="comments-container" class="comments-container" style="z-index: 10;"></div>
                     <div class="watermark">
                         <h3>AniNight</h3>
                     </div>

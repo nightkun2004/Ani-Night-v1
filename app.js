@@ -93,7 +93,7 @@ app.locals.moment = moment;
 app.locals.formatNumber = formatNumber;
 app.locals.translations= setLanguage;
 app.use(setLanguage);
-app.use(bodyParser.json({ limit: '1000mb' })); // ขยายขีดจำกัด JSON
+app.use(bodyParser.json({ limit: '1000mb' }));
 app.use(bodyParser.urlencoded({ limit: '1000mb', extended: true }));
 app.use(cookieParser());
 app.use(express.json({ limit: '1000mb' }));

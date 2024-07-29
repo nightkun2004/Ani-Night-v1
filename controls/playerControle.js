@@ -11,7 +11,7 @@ const getPlay = async (req, res, next) => {
 
         const video = await Video.findOne({ _id: videoid })
             .populate('commentvideo episodes user author.id author username.id username replies')
-            .exec();
+            .exec(); 
 
         if (!video) {
             console.log(`Video with id ${videoid} not found.`);

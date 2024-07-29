@@ -61,23 +61,35 @@ video::cue {
     overflow: hidden;
 }
 
-.ads_container {
+.ads-config-respoinse {
     width: 300px;
     height: 300px;
     position: absolute;
+    background-color: #000;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     user-select: none;
+    z-index: 50;
 }
 
-.ads_container .icon-close {
+@media screen and (max-width:480px) {
+    .ads-config-respoinse {
+        width: 50px;
+        height: 50px;
+        display: none;
+        overflow: hidden;
+    }
+    .ads-config-respoinse .icon-close{
+        right: 0;
+    }
+}
+
+.ads-config-respoinse .icon-close {
     position: absolute;
     right: -50px;
     top: 0;
-    background-color: #fff;
-    border-radius: 50%;
-    padding: 10px;
+    z-index: 50;
     cursor: pointer;
 }
 
@@ -152,6 +164,7 @@ video::cue {
     left: 0;
     width: 100%;
     height: 200px;
+    z-index: 1;
 }
 
 .comment {
@@ -207,7 +220,7 @@ video::cue {
     width: 100%;
     background: rgb(0 0 0 / 29%);
     box-shadow: 0 0 40px 10px rgb(0 0 0 / 25%);
-    z-index: 3;
+    z-index: 60;
     transform: translateY(180%);
     transition: 0.3s;
     padding: 0px 10px;
@@ -301,11 +314,10 @@ video::cue {
 }
 .ad-timer {
     position: absolute;
-    top: 20px;
+    top: 50px;
     right: 10px;
-    font-size: 24px;
+    font-size: 12px;
     white-space: nowrap;
-    border-radius: 10px;
     padding: 10px;
     color: #ffea00;
     margin-left: 5px;

@@ -165,7 +165,8 @@ video_playersPlay.forEach(video_player => {
         tracks = video_player.querySelectorAll("track"),
         tracksad = video_player.querySelectorAll("trackad"),
         loader = video_player.querySelector(".loader"),
-        adCentervdo = video_player.querySelector(".ad-center-vdo"),
+        adCentervdo = video_player.querySelector(".ads-config-respoinse"),
+        IconCloseAds = video_player.querySelector(".icon-close"),
         volumeCard = video_player.querySelector('.maincolunCard');
 
 
@@ -178,6 +179,10 @@ video_playersPlay.forEach(video_player => {
     const commentsContainer = document.getElementById('comments-container');
 
     let thumbnail = video_player.querySelector(".thumbnail");
+
+    IconCloseAds.addEventListener('click', ()=>{
+        document.querySelector(".ads-config-respoinse").style.display = 'none'
+    })
 
     if (tracks.length != 0) {
         caption_labels.insertAdjacentHTML(
@@ -352,7 +357,6 @@ video_playersPlay.forEach(video_player => {
         play_pause.innerHTML = "play_arrow";
         play_pause.title = "play";
         video_player.classList.remove("paused");
-        adCentervdo.style.display = 'block';
         mainVideo.pause();
     }
 
@@ -445,12 +449,12 @@ video_playersPlay.forEach(video_player => {
             case google.ima.AdEvent.Type.LOADED:
                 if (ad.isLinear()) {
                     adDuration = ad.getDuration();
-                    totalAds = 3;
+                    totalAds = 6;
                     adCentervdo.style.display = 'none';
-                    controls.classList.add("hidden");
                     document.querySelector('.ads-timer').style.display = 'block'
+                    document.querySelector('.ad-center-vdo').style.display = 'none'
                     document.querySelector('.ad-timer .duration-ad').textContent = formatTime(adDuration);
-                    document.querySelector('.ad-timer .ad-count').textContent = `${currentAdNumber + 1}[${totalAds}]`;
+                    document.querySelector('.ad-timer .ad-count').textContent = `${currentAdNumber + 1}จาก:[${totalAds}]`;
                 }
                 break;
             case google.ima.AdEvent.Type.STARTED:
