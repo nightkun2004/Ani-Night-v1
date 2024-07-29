@@ -12,6 +12,11 @@ const videoSchema = new mongoose.Schema({
         required: true
     },
     filePath: String,
+    filequality144p: String,
+    filequality240p: String,
+    filequality360p: String,
+    filequality480p: String,
+    filequality720p: String,
     categories: String,
     videoid: {
         type: String

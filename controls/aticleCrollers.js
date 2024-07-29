@@ -150,7 +150,7 @@ const CreateArticle = async (req, res, next) => {
 
     const postcreate = {
       title: name,
-      content: content,
+      content: content, 
       username: username,
       categories: Array.isArray(categories) ? categories : [categories],
       tags: tagsArray,

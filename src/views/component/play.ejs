@@ -66,13 +66,31 @@
      <div class="flex justify-center mt-8 mb-8">
         <div class="w-full max-w-4xl bg-white p-4 shadow-lg rounded-lg">
             <div class="relative container overflow-hidden h-[190px] sm:h-[330px] md:h-[440px] md-w-full lg:[550px] rounded-lg bg-black">
+               <% if (video.isPublished) {%>
                 <div class="video_player overflow-hidden  rounded-lg" style="user-select: none;">
                     <h1 class="videoidtoken" data-videoid="<%= video._id %>"></h1>
                     <video
                     <% if (video.coverImage) {%>
                         poster="/cover_videos/<%= video.coverImage %>"
                     <% } %> class="main-video" id="video">
-                    <source src="/videos/<%= video.filePath %>" size="720" type="video/mp4">
+                   
+                  
+                     <% if (video.filequality144p) {%> %>
+                        <source src="/videos/<%= video.filequality144p %>" size="144" type="video/mp4">
+                    <% } %>
+                    <% if (video.filequality240p) {%>
+                        <source src="/videos/<%= video.filequality240p %>" size="240" type="video/mp4">
+                        <% } %>
+                    <% if (video.filequality360p) {%>
+                        <source src="/videos/<%= video.filequality360p %>" size="360" type="video/mp4">
+                        <% } %>
+                    <% if (video.filequality480p) {%>
+                        <source src="/videos/<%= video.filequality480p %>" size="480" type="video/mp4">
+                        <% } %>
+                    <% if (video.filequality720p) {%>
+                        <source src="/videos/<%= video.filequality720p %>" size="720" type="video/mp4">
+                        <% } %>
+                        <!-- <source src="/videos/<%= video.filePath %>" size="720" type="video/mp4"> -->
                     <% if (video.subthai) { %>
                         <track default label="ซับไทย" kind="subtitles" src="../subtitles/<%= video.subthai %>"
                             srclang="th">
@@ -103,6 +121,21 @@
                         </div>
                     </div>
                 </div>
+           <% } else {%>
+            <div style="user-select: none;" class="flex items-center justify-center error-video">
+                <div class="text-center">
+                    <h1 class="text-6xl font-bold text-red-500">404</h1>
+                    <p class="text-xl text-red-500 mt-4">ขออภัย วีดีโอดูไม่ได้</p>
+                    <p class="text-red-500 mt-2">หน้าที่คุณกำลังหาอาจถูกลบด้วยเนื่อกจากลิขสิทธิ์ การเผยแพร่</p>
+                    <div class="mt-6">
+                        <a href="/" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">กลับไปหน้าแรก</a>
+                    </div>
+                    <!-- <div class="mt-50 flex justify-center">
+                        <img src="https://path-to-your-animation.gif" alt="Not Found Animation" class="w-64 h-64 animate-bounce-slow">
+                    </div> -->
+                </div>
+            </div>
+             <% } %>
                 <div style="user-select: none;" class="absolute top-2 left-2 bg-black bg-opacity-75 text-white p-4 text-sm rounded">เวอร์ชั่นทดสอบ</div>
             </div>
             <div class="comment-sky bg-white text-black flex p-3">

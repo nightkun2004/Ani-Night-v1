@@ -441,6 +441,14 @@
     justify-content: center;
 }
 
+.error-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
 @media screen and (max-width: 880px) {
     .player_anime-container {
         flex-direction: column;

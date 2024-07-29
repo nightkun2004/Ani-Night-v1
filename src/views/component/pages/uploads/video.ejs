@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./css/font/font1.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
      crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./css/pages/videos.css"> 
+    <link rel="stylesheet" href="/css/pages/videos.css"> 
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
     <script type="text/javascript" src="/js/index.js"></script>
@@ -34,7 +34,7 @@
     <section class="uplaod_video mx-auto px-4 xl:max-w-7xl pt-[50px]">
         <div class="bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm">
             <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">อัพโหลดวีดีโอ</h2>
-            <form class="max-w-sm mx-auto" action="/upload/video/main" method="POST" enctype="multipart/form-data">
+            <form class="max-w-sm mx-auto" id="formUpload" action="/upload/video/main" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="iduser" value="">
                 <div class="mb-5">
                     <label for="name_act"
@@ -70,15 +70,6 @@
                         <option value="เกม">เกม</option>
                     </select>
  
-
-                    <!-- <label for="thaiSubtitle">Thai Subtitle:</label>
-                    <input type="file" id="thaiSubtitle" name="subthai" accept=".vtt" required><br><br>
-                    
-                    <label for="englishSubtitle">English Subtitle:</label>
-                    <input type="file" id="englishSubtitle" name="subeng" accept=".vtt" ><br><br>
-                    
-                    <label for="japaneseSubtitle">Japanese Subtitle:</label>
-                    <input type="file" id="japaneseSubtitle" name="subjpan" accept=".vtt" ><br><br> -->
                 </div>
 
                 <div class="mb-5">
@@ -104,20 +95,22 @@
                 <div class="content-video">
                     <video class="w-[200px]" id="previewVideo" src="" controls></video>
                 </div>
-                
-                <div id="progressPopup"><h2>กำลังอัพโหลดอัปโหลดวีดีโอ...</h2>
-                    <span id="progressPercent">0%</span>
-                    <div id="progressBarContainer">
-                        <div id="progressBar"></div>
-                    </div>
-                </div>
-                <div id="succeed">
-                    <h2>อัปโหลดแล้ว</h2>
-                    <p>ส่งที่ทำต่อไปนี้คุณสามารถกดไปที่กลับหน้าหลักได้</p>
-                    <button><a href="/">กลับหน้าหลัก</a></button>
-                </div>
-                
             </div>
+
+            <div id="progressPopup" style="display: none;">
+                <h2>กำลังอัปโหลดวีดีโอ...</h2>
+                <span id="progressPercent">0%</span>
+                <div id="progressBarContainer">
+                    <div id="progressBar"></div>
+                </div>
+            </div>
+            
+            <div id="succeed" style="display: none;">
+                <h2>อัปโหลดแล้ว</h2>
+                <p>ส่งที่ทำต่อไปนี้คุณสามารถกดไปที่กลับหน้าหลักได้</p>
+                <button><a href="/">กลับหน้าหลัก</a></button>
+            </div>
+            
         </div>
     </section>
     <%- include('../../../footer') %>
@@ -144,3 +137,5 @@
     </script>
 </body>
 </html>
+
+

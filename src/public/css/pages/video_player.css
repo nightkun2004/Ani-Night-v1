@@ -223,7 +223,6 @@ video::cue {
     z-index: 60;
     transform: translateY(180%);
     transition: 0.3s;
-    padding: 0px 10px;
 }
 
 .container .video_player .controls.active {
@@ -246,6 +245,7 @@ video::cue {
     background: #f0f0f063;
     cursor: pointer;
     position: absolute;
+    border-radius: 20px;
     z-index: 10;
 }
 
@@ -254,6 +254,7 @@ video::cue {
     height: 5px;
     margin: auto;
     background: #5d5d5d; 
+    border-radius: 20px;
     cursor: pointer;
     position: relative;
 }
@@ -262,6 +263,7 @@ video::cue {
     position: relative;
     width: 0%;
     background: rgb(0, 162, 255);
+    border-radius: 20px;
     height: inherit;
     border-radius: inherit;
     cursor: pointer;
