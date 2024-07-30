@@ -32,20 +32,14 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    followers: {
-        type: Number,
-        default: 0
-    },
-    followersBy: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-        }
-    ],
-    followed: {
-        type: Number,
-        default: 0
-    },
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     bio: {
         type: String,
         default: "ลองใสคำอธิบายเพื่อแนะนำให้ผู้ใช้อื่นรู้จังสิ..."
@@ -118,12 +112,21 @@ const userSchema = new mongoose.Schema({
             ref: 'WithdrawalHistory'
         }
     ],
+    role: {
+        type: String,
+        enum: ["user", "content_creator", "partners"],
+        default: "user"
+    },
+    isApproved: {
+        type: Boolean,
+        default: false
+    },
     anishotsCount: Number,
     approval_admin: {
         type: Boolean,
         default: false
     },
-})
+}, { timestamps: true })
 
 
 

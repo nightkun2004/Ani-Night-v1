@@ -37,16 +37,24 @@ router.get('/successful', async (req, res) => {
 router.post('/upload/video/main', async (req, res) => {
     try {
         const usersesstion = req.session.userlogin;
-        const { namevideo, dec_video, tags, categories } = req.body;
+        const { namevideo, dec_video, tags, categories, published } = req.body;
         const videoFile = req.files.file_video;
+        const thumbnailvideo = req.files.thumbnailvideo;
         // console.log(videoFile)
         if (!videoFile) {
             return res.status(404).json({ massage: "คุณไม่ได้เลือกวีดีโอ" })
+        }
+        if (!thumbnailvideo) {
+            return res.status(404).json({ massage: "คุณไม่ได้เลือก thumbnailvideo" })
         }
 
         let postId = crypto.randomUUID();
         // console.log(postId)
         // อัปโหลดวีดีโอ
+        let thumbnailFilename = `${crypto.randomUUID()}.jpg`;
+        let thumbnailUploadPath = path.join(__dirname, '../../../', 'src', 'public', 'cover_videos', thumbnailFilename);
+        await thumbnailvideo.mv(thumbnailUploadPath);
+
         let videoFilename = `${crypto.randomUUID()}.mp4`;
         let videoUploadPath = path.join(__dirname, '../../../', 'src', 'public', 'videos', videoFilename);
         await videoFile.mv(videoUploadPath);
@@ -60,13 +68,14 @@ router.post('/upload/video/main', async (req, res) => {
             tags: Array.isArray(tags) ? tags : [tags],
             categories: categories,
             filePath: videoFilename,
+            coverImage: thumbnailFilename,
             filequality144p: processedFiles['144p'] ? path.basename(processedFiles['144p']) : '',
             filequality240p: processedFiles['240p'] ? path.basename(processedFiles['240p']) : '',
             filequality360p: processedFiles['360p'] ? path.basename(processedFiles['360p']) : '',
             filequality480p: processedFiles['480p'] ? path.basename(processedFiles['480p']) : '',
             filequality720p: processedFiles['720p'] ? path.basename(processedFiles['720p']) : '',
             videoid: postId,
-            published: req.body.published ? req.body.published : true,
+            isPublished: req.body.published === 'on',
             author: {
                 id: usersesstion._id,
                 username: usersesstion.username, 

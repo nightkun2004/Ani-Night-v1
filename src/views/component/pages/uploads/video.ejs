@@ -12,11 +12,15 @@
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/acticle.css">
     <link rel="stylesheet" href="./css/pages/uploads/video.css">
+    <link rel="stylesheet" href="./css/pages/video_player.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/font/font1.css">
+    <script src="https://kit.fontawesome.com/df26bd9708.js" crossorigin="anonymous"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6579807593228261"
      crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/pages/videos.css"> 
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
     <script type="text/javascript" src="/js/index.js"></script>
@@ -26,33 +30,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
         integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 <body>
 
     <%- include('../../../navnar_Header') %>
     <%- include('../../../sidebar_Section') %>
-    <section class="uplaod_video mx-auto px-4 xl:max-w-7xl pt-[50px]">
-        <div class="bg-white px-6 md:px-12 py-8 md:py-12 mt-8 shadow-sm">
-            <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">อัพโหลดวีดีโอ</h2>
-            <form class="max-w-sm mx-auto" id="formUpload" action="/upload/video/main" method="POST" enctype="multipart/form-data">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="flex flex-col md:flex-row gap-4">
+        <div class="flex-1 bg-white p-4 rounded shadow-md w-full">
+            <h2 class="text-2xl font-bold text-center">อัพโหลดวีดีโอ</h2>
+            <form class="max-w-sm mx-auto" id="formUpload" class="w-full" action="/upload/video/main" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="iduser" value="">
                 <div class="mb-5">
                     <label for="name_act"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อวีดีโอ</label>
                     <input type="text" id="namevideo" name="namevideo" value=""
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                         required>
                 </div>
                 <div class="mb-5">
                     <label for="name_act"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">คำอธิบายวีดีโอ</label>
-                        <textarea name="dec_video" id="dec_video" cols="30" rows="10" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"></textarea>
+                        <textarea name="dec_video" id="dec_video" cols="30" rows="10" class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"></textarea>
                 </div>
                 <div class="mb-5">
                     <label for="tages"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ใสแท็กเนื้อหาของคุณ</label>
                     <input type="text" id="tags" name="tags"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                        class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     <span>ไม่ต้องใส่ # นะ ใส่ได้แท้กเดียว</span>
                 </div> 
                 <div class="mb-5">
@@ -87,22 +93,37 @@
                         </label>
                     </div> 
                 </div>
+                <div class="mb-5">
+                    <label for="thumbnailvideo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ปกวีดีโอ</label>
+                    <input type="file"
+                        class="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-b-50 dark:text-gray-400 focus:outline-none dark:bg-blue-400  dark:border-gray-600 dark:placeholder-blue-400"
+                        id="thumbnailvideo" name="thumbnailvideo" multiple accept="image/* .jpg" onchange="previewthumbnailvideo(this, 'previewthumbnail')">
+                </div>
+                <div class="mb-5">
+                    <div class="flex">
+                        <div class="flex items-center h-5">
+                            <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" id="published" name="published"
+                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        </div>
+                        <div class="ms-2 text-sm">
+                            <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">เผยแพร่วีดีโอตอนนี้</label>
+                            <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">หากคุณยังไม่ได้เผยแพร่ คุณไม่ต้องติ้งช่องนี้ หากคุณต้องการเผยแพร่เลยให้ติ้งไว้</p>
+                        </div>
+                    </div>
+                </div>
                 <button type="submit"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     ส่งวีดีโอ</button>
             </form>
-            <div class="previewsvideos">
-                <div class="content-video">
-                    <video class="w-[200px]" id="previewVideo" src="" controls></video>
-                </div>
-            </div>
 
             <div id="progressPopup" style="display: none;">
-                <h2>กำลังอัปโหลดวีดีโอ...</h2>
+                <h2>กำลังอัปโหลดวีดีโอแล้ว...</h2>
                 <span id="progressPercent">0%</span>
                 <div id="progressBarContainer">
                     <div id="progressBar"></div>
                 </div>
+                <p>เรากำลังตรวสอบวีดีโอ โปรดรอสักครู่....... สัก 5 นาที หากขนาดไฟล์วีดีโอใหญ่อาจนานกว่าปกติ</p>
+                <p>คุณสามารถเปิดหน้านี้ทิ้งไว้แล้วรอได้ครับ</p>
             </div>
             
             <div id="succeed" style="display: none;">
@@ -112,13 +133,40 @@
             </div>
             
         </div>
+        <div class="w-full md:w-1/3 bg-white p-4 rounded shadow-md overflow-x-hidden mb-5">
+            <h3>ตัวอย่างเนื้อหา</h3>
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <a href="#">
+                    <img class="w-full h-[190px] object-cover" id="previewthumbnail" src="" alt="Video Image">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold mb-2 text-gray-800" id="nameVideotext-test">Name Video</h2>
+                        <p class="text-gray-600 text-sm mb-4" id="dec_demo"></p>
+                        <div class="flex items-center">
+                            <img class="w-10 h-10 rounded-full mr-4" src="/profiles/Profile-PNG-Images-defaullt.png"
+                                alt="Author Image">
+                            <div class="text-sm">
+                                <p class="text-gray-900 leading-none"><a href="#">Name Editor</a></p>
+                                <p class="text-gray-600"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div><hr class="mb-5 mt-5">
+            <h3>ตัวอย่างวีดีโอ</h3>
+            <div class="previewsvideos">
+                <div class="video_player">
+                    <video class="w-[200px] main-video" id="previewVideo" src="" controls></video>
+                </div>
+            </div>
+        </div>
     </section>
+</div>
     <%- include('../../../footer') %>
 
     <script src="/js/pages/uploads/video.js"></script>
     <script>
-        function previewImage(input) {
-            var preview = document.getElementById('preview');
+        function previewthumbnailvideo(input) {
+            var preview = document.getElementById('previewthumbnail');
             var file = input.files[0];
             var reader = new FileReader();
 
@@ -134,7 +182,20 @@
                 preview.style.display = 'none';
             }
         }
-    </script>
+
+        function changeTextvideo(event) {
+    const TextVideo_name = document.getElementById("nameVideotext-test");
+    TextVideo_name.textContent = event.target.value;
+}
+        function changedec_video(event) {
+    const TextVideohangedec_video = document.getElementById("dec_demo");
+    TextVideohangedec_video.textContent = event.target.value;
+}
+
+document.getElementById('namevideo').addEventListener('input', changeTextvideo);
+document.getElementById('dec_video').addEventListener('input', changedec_video);
+
+                </script>
 </body>
 </html>
 

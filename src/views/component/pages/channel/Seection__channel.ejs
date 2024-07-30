@@ -13,9 +13,14 @@
             </p>
 
             <div class="mt-4 flex justify-center sm:justify-start space-x-4">
-                <span class="text-sm text-gray-600"><strong><%= userData.followers.length %></strong>: ผู้ติดตาม</span>
-                <span class="text-sm text-gray-600"><strong><%= userData.followed.length %></strong>: กำลังติดตาม</span>
+                <span class="text-sm text-gray-600">
+                    <strong><%= (userData.followers ? userData.followers.length : 0) %></strong>: ผู้ติดตาม
+                </span>
+                <span class="text-sm text-gray-600">
+                    <strong><%= (userData.following ? userData.following.length : 0) %></strong>: กำลังติดตาม
+                </span>
             </div>
+            
         </div>
         <!-- <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md">Follow</button> -->
 
