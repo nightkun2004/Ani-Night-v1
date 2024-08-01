@@ -1,4 +1,4 @@
-const stripe = require('stripe')(process.env.STRIPE_WEBHOOK_SECRET);
+const stripe = require('stripe')('pk_live_51PeS2dDtyvwkHWIGgCROgyQBRbUaziHVpULYiZ3vbA976h61BnOXUzTYc0JaXEwnhw1y2XaebIuMrx7NH2oDcowR00617UrMVx');
 const User = require('../models/user');
 const Payment = require('../models/playment');
 require("dotenv").config();
