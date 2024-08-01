@@ -1,8 +1,9 @@
-const stripe = require('stripe')('pk_live_51PeS2dDtyvwkHWIGgCROgyQBRbUaziHVpULYiZ3vbA976h61BnOXUzTYc0JaXEwnhw1y2XaebIuMrx7NH2oDcowR00617UrMVx');
+const stripe = require('stripe')(process.env.STRIPE_WEBHOOK_SECRET);
 const User = require('../models/user');
 const Payment = require('../models/playment');
 require("dotenv").config();
-const endpointSecret = "whsec_6425b49dbb3debdf853686a8d12b6dc5e79f364fa5bb682b47ad41e788fe4306";
+
+const endpointSecret = process.env.ENDPOINTSECRET
 
 const getTopup = async (req, res) => {
     const usersesstion = req.session.userlogin;
