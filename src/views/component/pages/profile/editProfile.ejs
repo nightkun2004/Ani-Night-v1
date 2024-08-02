@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขโปรไฟล์</title>
+    <link rel="stylesheet" href="../css/font/font1.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="editPopup" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div class="bg-white rounded-lg overflow-hidden max-w-md w-full">
+          <!-- Header -->
+          <div class="bg-gray-100 py-3 px-4 flex items-center justify-between">
+            <h2 class="text-lg font-bold text-gray-800">แก้ไข</h2>
+            <button id="closeButton" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <!-- Content -->
+          <div class="p-4 overflow-auto h-[500px]">
+            <form id="editProfileForm" method="POST" enctype="multipart/form-data" class=" max-w-6xl mx-auto mt-8">
+                <div class="form_groud">
+                    <label for="name">ชื่อช่อง</label>
+                    <div class="input_box_form_edit">
+                        <input type="text" name="name" id="name" value="<%= usersesstion.name %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
+                    </div>
+                </div>
+                <div class="form_groud">
+                    <label for="name">ชื่อผู้ใช้</label>
+                    <div class="input_box_form_edit">
+                        <input type="text" name="username" id="username" value="<%= usersesstion.username %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
+                    </div>
+                </div>
+                <div class="form_groud">
+                    <label for="name">เพิ่มประวัติ</label>
+                    <div class="input_box_form_edit">
+                        <textarea name="bio" id="bio" cols="30" maxlength="400" rows="10" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
+                   <%= usersesstion.bio %>
+                </textarea>
+                    </div>
+                    <p>ใส่สุ่งสุด 400 คำ</p>
+                </div>
+                <div class="form_groud">
+                    <label for="name">url โปรไฟล์</label>
+                    <div class="input_box_form_edit">
+                        <input type="text" name="url" id="url" value="<%= usersesstion.url %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
+                    </div>
+                    <p style="margin-top: 10px;">โปรดใส่เป็นภาษาอังกฤษ</p>
+                </div>
+                <div class="form_groud">
+                    <h3 class="header_edit_file"></h3>
+                    <div class="card">
+                        <div class="drop_box">
+                            <header>
+                                <h4>เลือกไฟล์ที่นี่ แก้ไขโปรไฟล์</h4>
+                            </header>
+                            <p>รองรับไฟล์ .jpg .png </p>
+                            <input id="dropzone-file" type="file" name="profileprofile" accept="image/*"
+                            onchange="previewthumbnail(this)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form_groud">
+                    <img id="preview" style="width: 100px; height: 100px; border-radius: 50px; border: 1px solid #eee;"
+                        src="" alt="">
+                </div> 
+          </div>
+          <!-- Footer -->
+          <div class="bg-gray-100 py-3 px-4 flex justify-end">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">บันทึก</button>
+        </form>
+            <button id="cancelButton" class="bg-gray-200 text-gray-700 hover:text-gray-800 px-4 py-2 rounded-full ml-2 focus:outline-none">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+         function previewthumbnail(input) {
+            var preview = document.getElementById('preview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+                preview.style.display = 'none';
+            }
+        }
+      </script>
+
+      <% if (usersesstion) {%>
+        <script>
+            document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+              event.preventDefault(); 
+          
+              const formData = new FormData(this);
+              const token = '<%= usersesstion.token %>';
+          
+              fetch('/edit_profile', {
+                  method: 'POST',
+                  headers: {
+                      'Authorization': 'Bearer ' + token 
+                  },
+                  body: formData,
+                  credentials: 'include'
+              })
+              .then(response => {
+                  if (!response.ok) {
+                      return response.json().then(errorData => {
+                          throw new Error(errorData.message || 'เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์');
+                      });
+                  }
+                  return response.json();
+              })
+              .then(data => {
+                  alert(data.message);
+                  if (data.redirect) {
+                      window.location.href = data.redirect;
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  alert('เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์');
+              });
+          });
+          
+            </script>
+    <% } %>
+</body>
+</html>

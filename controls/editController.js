@@ -3,7 +3,7 @@ const Video = require('../models/video')
 const crypto = require("crypto")
 const HttpError = require("../models/errorModel")
 const fs = require('fs');
-const path =require('path')
+const path = require('path')
 
 exports.editActicle = async (req, res) => {
     const usersesstion = req.session.userlogin
@@ -105,18 +105,18 @@ exports.editApiaricle = async (req, res) => {
             tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
             categories: categories ? categories.split(',').map(category => category.trim()) : [],
             published: req.body.published === 'on',
-            url 
+            url
         };
 
         await Acticle.findByIdAndUpdate(update_id, updates);
-        res.status(200).json({mass: "แก้ไขบทความสำเร็จ"})
+        res.status(200).json({ mass: "แก้ไขบทความสำเร็จ" })
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 }
 
-exports.editActicleuser = async (req, res) => { 
+exports.editActicleuser = async (req, res) => {
     const update_id = req.body.update_id;
 
     try {
@@ -215,15 +215,24 @@ exports.editActicleCovernow = async (req, res, next) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
-    }   
+    }
 }
 exports.editBannerGet = async (req, res, next) => {
     const usersesstion = req.session.userlogin;
     try {
-      res.render("./component/pages/edits/editbanner", {usersesstion})
+        res.render("./component/pages/edits/editbanner", { usersesstion, active: "banner" })
     } catch (error) {
         return next(new HttpError(err))
-    }   
+    }
+}
+
+exports.editProfile = async (req, res, next) => {
+    const usersesstion = req.session.userlogin;
+    try {
+        res.render("./component/pages/profile/editProfile", { usersesstion, active: "editprofile" })
+    } catch (error) {
+        return next(new HttpError(err))
+    }
 }
 
 exports.editVideouser = async (req, res) => {
@@ -236,6 +245,7 @@ exports.editVideouser = async (req, res) => {
                 name: req.body.namevideo,
                 description: req.body.dec_video,
                 categories: req.body.categories,
+                isPublished: req.body.published === 'on',
             }
         );
 
@@ -276,17 +286,32 @@ exports.DeleteVideo = async (req, res) => {
         const usersesstion = req.session.userlogin;
         const VidoeToDelete = await Video.findById(req.params.id);
 
-        if (!VidoeToDelete) {
+        const videoToDelete = await Video.findById(req.params.id);
+
+        if (!videoToDelete) {
             return res.status(404).send('Video not found');
         }
 
-        const filePath = `/videos/${VidoeToDelete.filePath}`;
-        if (fs.existsSync(filePath)) {
-            fs.unlinkSync(filePath);
+        // ลบไฟล์วีดีโอหลัก
+        const videoFilePath = path.join(__dirname, '..', 'src', 'public', 'videos', videoToDelete.filePath);
+        if (fs.existsSync(videoFilePath)) {
+            fs.unlinkSync(videoFilePath);
         }
 
+        // ลบไฟล์คุณภาพต่างๆ
+        const resolutions = ['144p', '240p', '360p', '480p', '720p'];
+        resolutions.forEach(res => {
+            const qualityFilePath = path.join(__dirname, '..', 'src', 'public', 'videos', `${path.basename(videoToDelete.filePath, '.mp4')}_${res}.mp4`);
+            if (fs.existsSync(qualityFilePath)) {
+                fs.unlinkSync(qualityFilePath);
+            }
+        });
+
+        // ลบข้อมูลวีดีโอจากฐานข้อมูล
         await Video.findByIdAndDelete(req.params.id, { useFindAndModify: false });
-        res.redirect(`/${usersesstion.url}/dashboard/video?tokenlogin=${usersesstion.accessToken}`);
+
+        await Video.findByIdAndDelete(req.params.id, { useFindAndModify: false });
+        res.redirect(`/${usersesstion.url}/dashboard/video`);
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');

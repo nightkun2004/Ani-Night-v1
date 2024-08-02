@@ -23,6 +23,7 @@ router.get('/edit_video/editsubthai', (req,res) => {
 }) 
 
 router.get('/add/banner', editActicle.editBannerGet)
+router.get('/profile/edit/profile/user', editActicle.editProfile)
 router.get('/delete/:id', editActicle.Delete)
 router.get('/delete/video/:id', editActicle.DeleteVideo)
 router.post('/edit_video/cover', editActicle.editVideo_cover)

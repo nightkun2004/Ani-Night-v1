@@ -2,7 +2,7 @@
 <div class="max-w-6xl mx-auto mt-8 mb-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Post 1 -->
     <% if (userData && userData.acticles && userData.acticles.length> 0) { %>
-        <% userData.acticles.forEach(acticle=> { %>
+        <% userData.acticles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(acticle => { %>
             <div class="bg-white rounded-lg shadow">
                 <a href="/read/<%= acticle.url %>?lang=th&id=<%= acticle._id %>">
                     <img class="w-full h-60 object-cover rounded-t-lg" src="/acticles_images/<%= acticle.photo %>"
@@ -10,7 +10,7 @@
                     <div class="px-6 py-4">
                         <h3 class="text-lg font-bold text-gray-800">
                             <%= acticle.title %>
-                        </h3>
+                        </h3> 
                         <p class="text-gray-700 mt-2">
                             <%= acticle.views %> วิว.
                         </p>

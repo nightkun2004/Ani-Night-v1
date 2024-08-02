@@ -69,19 +69,18 @@
                 </li> -->
             </ul>
         </nav>
-        <div class="mt-8 bg-white px-6 md:px-12 py-4 shadow-md rounded-md relative">
+        <div>
             <div style="display: block; justify-content: center; align-items: center;" class="loading-indicator loadingIndicator" id="loadingIndicator">
                 <div class="spinner"></div>
             </div>
             <div class="loading" style="display: none;">
                 <div class="videos_edits">
-                    <ul class="videoEdits grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-">
                         <% if (userData && userData.videos && userData.videos.length> 0) { %>
                             <% userData.videos.forEach(video=> { %>
-                                <li class="item rounded-lg border-inherit p-2 bg-gray-50">
+                                <li class="bg-white shadow-md rounded-lg overflow-hidden p-2">
                                     <div class="img_edit">
-                                        <video controls class="w-[100%] h-[200px]"
-                                            src="/videos/<%= video.filePath %>.mp4"></video>
+                                        <img src="/cover_videos/<%= video.coverImage %>" alt="Thumbnail" class="w-full h-44 object-cover">
                                     </div>
                                     <div class="text_info">
                                         <h class="p-[10px] mb-[10px] text-2xl" title="<%= video.name %>">
@@ -93,14 +92,16 @@
                                                 <button type="submit"
                                                     class="btn-deitarticle rounded-lg bg-green-500 w-full mb-[20px] p-2">แก้ไข</button>
                                             </form>
-                                            <a class="btnde bg-red-500 p-2 rounded-lg w-full"
-                                            onclick="confirmDelete(event)" href="/delete/video/<%= video._id %>">ลบ</a>
+                                            <button class=" bg-red-500 p-2 rounded-lg w-full ">
+                                                <a class="text-white"
+                                            onclick="confirmDelete(event)" href="/delete/video/<%= video._id %>">ลบวีดีโอ</a>
+                                            </button>
                                         </div>
                                     </div>
                                 </li>
                                 <% }); %>
                                     <% } else { %>
-                                        <p style="text-align: center; color: #000;">ยังไม่มีเนื้อหาบทความที่สร้างครับ.
+                                        <p style="text-align: center; color: #000;">ยังไม่มีเนื้อหาวีดีโอที่สร้างครับ.
                                         </p>
                                         <% } %>
 

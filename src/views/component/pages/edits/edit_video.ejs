@@ -17,43 +17,43 @@
 
 <body>
     <%- include('../../../navnar_Header') %>
-    <section class="">
-        <div class="container_EditVideo mx-auto px-4 xl:max-w-7xl pt-[110px]">
-            <div class="sidebar_left">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="w-full md:w-1/3 bg-white p-4 rounded shadow-md overflow-x-hidden mb-5">
                 <ul>
-                    <li class="border-b-4  border-blue-300">
+                    <li class="border-l-4 px-2 mb-5 p-2 border-sky-600 border-right">
                         <form action="/edit_video" method="post">
                             <input type="hidden" name="edit_id" value="<%= video._id %>">
                             <button type="submit">แก้ไขวีดีโอพื้นฐาน</button>
                         </form>
                     </li>
-                    <li>
+                    <li class="px-2 mb-5 p-2">
                         <form action="/add_subthai" method="POST">
                             <input type="hidden" name="edit_id" value="<%= video._id %>">
                             <button type="submit">เพิ่มซับไทย</button>
                         </form>
                     </li>
-                    <li>
+                    <li class="px-2 mb-5 p-2">
                         <form action="/add_ottplatforms" method="post">
                             <input type="hidden" name="edit_id" value="<%= video._id %>">
                             <button type="submit">เพิ่มลิ้งแพลตฟอร์ม</button>
-                        </form>
+                        </form> 
                     </li>
-                    <li>
+                    <li class="px-2 mb-5 p-2">
                         <form action="/edit_video/cover" method="post">
                             <input type="hidden" name="edit_id" value="<%= video._id %>">
                             <button type="submit">แก้ไขภาพปก</button>
                         </form>
                     </li>
-                    <li>
+                    <li class="px-2 mb-5 p-2">
                         <a href="#">
                             เพิ่มลิ้งนักพากย์
                         </a>
                     </li>
                 </ul>
             </div>
-
-            <div class="content_edit">
+ 
+            <div class="flex-1 bg-white p-4 rounded shadow-md">
                 <h2 class="text-3xl mb-6 mt-5 border-l-4 border-sky-600 px-5 text-gray-600">แก้ไขวีดีโอพื้นฐาน</h2>
                 <div class="con_form">
                     <form action="/edit/video/user" method="post">
@@ -77,6 +77,19 @@
                             <label for="tag">แก้ไขแท็ก</label>
                             <input style="outline: none;" type="text" name="categories" value="<%= video.categories %>"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-sky-50 dark:shadow-sm-light">
+                        </div>
+
+                        <div class="mb-5">
+                            <div class="flex">
+                                <div class="flex items-center h-5">
+                                    <input id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox" id="published" <% if (video.isPublished) { %> checked <% } %>  name="published"
+                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                </div>
+                                <div class="ms-2 text-sm">
+                                    <label for="helper-checkbox" class="font-medium text-gray-900 dark:text-gray-300">เผยแพร่วีดีโอตอนนี้</label>
+                                    <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500 dark:text-gray-300">หากคุณยังไม่ได้เผยแพร่ คุณไม่ต้องติ้งช่องนี้ หากคุณต้องการเผยแพร่เลยให้ติ้งไว้</p>
+                                </div>
+                            </div>
                         </div>
 
                         <button type="submit"

@@ -107,7 +107,7 @@ video_playersPlay.forEach(video_player => {
         <span>เลือกคุณภาพ </span>
       </span>
       <ul>
-        <li data-quality="auto" class="active">auto</li>
+        <li data-quality="auto" class="active">อัตโนมัต</li>
       </ul>
     </div>
   </div>
@@ -183,6 +183,7 @@ video_playersPlay.forEach(video_player => {
     IconCloseAds.addEventListener('click', ()=>{
         document.querySelector(".ads-config-respoinse").style.display = 'none'
     })
+    
 
     if (tracks.length != 0) {
         caption_labels.insertAdjacentHTML(

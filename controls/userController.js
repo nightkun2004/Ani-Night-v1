@@ -103,14 +103,20 @@ const getLogin = async (req, res) => {
         const { email, password } = req.body;
  
         if (!email || !password) {
-            return res.render("./component/pages/login", { data: "กรุณากรอกทุกช่อง" , usersesstion});
+            return res.render("./component/pages/login", { data: "กรุณากรอกทุกช่อง" , usersesstion, active: 'login'});
         }
 
+        if (usersesstion) {
+            return res.redirect(`/profile?u=${req.session.userlogin.username}`);
+        }
+
+
+
         const userlogin = await User.findOne({ email });
-        if (!userlogin) return res.render("./component/pages/login", {data: "อ่าา เราไม่พบบัญชีผู้ใช้ของคุณ", usersesstion}); 
+        if (!userlogin) return res.render("./component/pages/login", {data: "อ่าา เราไม่พบบัญชีผู้ใช้ของคุณ", usersesstion,  active: 'login'}); 
 
         const isPasswordValid = await bcrypt.compare(password, userlogin.password);
-        if (!isPasswordValid) return res.render("./component/pages/login", { data: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", usersesstion});
+        if (!isPasswordValid) return res.render("./component/pages/login", { data: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", usersesstion, active: 'login'});
 
         const { _id: id, name, profile, username } = userlogin;
         const token = jwt.sign({ id, name,profile, username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });

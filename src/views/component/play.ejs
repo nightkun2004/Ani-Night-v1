@@ -90,7 +90,7 @@
                     <% if (video.filequality720p) {%>
                         <source src="/videos/<%= video.filequality720p %>" size="720" type="video/mp4">
                         <% } %>
-                        <!-- <source src="/videos/<%= video.filePath %>" size="720" type="video/mp4"> -->
+                        <source src="/videos/<%= video.filePath %>" size="ต้นฉบับ" type="video/mp4">
                     <% if (video.subthai) { %>
                         <track default label="ซับไทย" kind="subtitles" src="../subtitles/<%= video.subthai %>"
                             srclang="th">
@@ -189,19 +189,13 @@
                         <span class="text-sm text-gray-500">ยอดรับชม <%= video.views %>  คน · แสดงครั้งแรกเมื่อวันที่ <%= new Date(video.createdAt).toLocaleDateString('en-EN') %> · #ยังอยู่เวอร์ชั่นทดสอบ</span>
                         <% } %>
                        <div class="flex flex-col">
-                        <% if(video.description.length <=50) { %>
                             <%= video.description %>
-                                <% } else { %>
-                           <span class="short-text">
-                                 <%- video.description.substring(0, 50) + '  ....' %>
-                             </span>
                 
                               <span class="full-text" style="display: none;">
                                         <%- video.description %>
                                </span>
                                <span class="more-btn">ดูเพิ่มเติม</span>
                                <span class="less-btn" style="display: none;">ย่อ</span>
-                      <% } %>
                        </div>
                     </div>
                     <div class="flex w-full">

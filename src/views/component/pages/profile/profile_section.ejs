@@ -1,59 +1,51 @@
 <!-- Profile Info -->
 <div class="max-w-6xl mx-auto mt-5 bg-white rounded-lg shadow">
-    <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
-        <div class="banner relative w-full h-40 sm:h-64">
-            <img style="user-select: none;" src="/banner/<%= userData.bannerImagePath %>" alt="<%= userData.name %>" class="w-full rounded-lg h-full object-cover">
-        </div>
-        <div class="flex justify-between items-center px-6 py-4 border-b">
-            <div class="flex items-center">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <% if (userData.bannerImagePath) {%>
+            <div class="banner relative w-full h-40 sm:h-64">
+                <img style="user-select: none;" src="/banner/<%= userData.bannerImagePath %>" alt="<%= userData.name %>" class="w-full rounded-lg h-full object-cover">
+            </div>
+        <% } %>
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center px-6 py-4 border-b">
+            <div class="flex flex-col md:flex-row text-center md:text-left">
                 <% if (userData.profile) { %>
-                    <div class="flex-shrink-0 mr-4">
+                    
+                    <div class="flex justify-center mr-4">
                         <a href="/profiles/<%= userData.profile %>" target="_blank" rel="noopener noreferrer">
                             <img src="/profiles/<%= userData.profile %>" alt="Profile Picture"
                                 class="h-16 w-16 rounded-full object-cover">
                         </a>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-800">
+                    <div class="gap-3" style="font-family: 'Kanit', sans-serif;">
+                        <h2 class="text-xl mb-2 font-bold text-gray-800">
                             <%= userData.name %> 
                         </h2>
-                        <p class="text-gray-600">@<%= userData.username %>
+                        <p class="text-gray-600 mb-2">@<%= userData.username %>
                         </p>
-                        <p>ไอดีผู้ใช้ : <%= usersesstion.userid %>
+                        <p class="mb-2"><strong>บทบาท:</strong> <%= userData.role === "user" ? "ผู้ใช้" : userData.role === "content_creator" ? "ครีเอเตอร์" : userData.role === "partners" ? "เป็นครีเอเตอร์แบบชำระเงิน" : userData.role %></p>
+                        <p class="mb-2"><strong>ไอดีผู้ใช้:</strong> <%= usersesstion.userid %>
                         </p>
-                        <h2>ดูหน้าเว็บอัพเดตใหม่ <a href="/editor/<%= usersesstion.username %>">คลิกที่นี่</a></h2>
+                        <p class="mb-2"><strong>อีเมล:</strong> <%= userData.email %></p>
+                        <p class="mb-2"><strong>วันที่เข้าร่วม:</strong> <%= new Date(userData.createdAt).toLocaleDateString() %></p>
+                        <h2><strong>ดูหน้าเว็บอัพเดตใหม่:</strong> <a target="_blank" href="/editor/<%= usersesstion.username %>">คลิกที่นี่</a></h2>
                     </div>
                     <% } %>
             </div>
-            <div class="hidden md:block">
-                <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
-                        href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
-                        แดชบอร์ด</a></button>
-                        <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
-                            href="/add/banner" target="_blank" rel="noopener noreferrer">เพิ่ม banner</a></button>
-                        <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
-                        <form id="logoutForm" action="/logout/user" method="post">
-                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
-                                ออกจากระบบ
-                            </button>
-                        </form>
+            <div class="relative inline-block text-left">
+                <button id="menu-button" class="text-black px-4 py-2 rounded-md">
+                    <i class="fa-solid fa-ellipsis-vertical text-2xl"></i>
+                </button>
+                <div id="menu-content" class="absolute md:top-0 md:right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg hidden">
+                    <a href="/studio/<%= usersesstion._id %>/monetization/overview" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">แดชบอร์ด</a>
+                    <a href="/add/banner" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">เพิ่มแบนเนอร์</a>
+                    <a href="/<%= usersesstion.url %>/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">แก้ไขเนื้อหา</a>
+                    <a href="/profile/edit/profile/user" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">แก้ไขโปรไฟล์</a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">ออกจากระบบ</a>
+                </div>
             </div>
         </div> 
-        <div class="mt-2 p-2 md:hidden">
-            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
-                    href="/studio/<%= usersesstion._id %>/monetization/overview" target="_blank" rel="noopener noreferrer">ไปที่
-                    แดชบอร์ด</a></button>
-            <button class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2  rounded-full focus:outline-none"><a class="text-sm md:text-1xl"
-                    href="/add/banner" target="_blank" rel="noopener noreferrer">เพิ่ม banner</a></button>
-             <button id="editButton" class="editButton bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">แก้ไขโปรไฟล์</button>
-             <form id="logoutForm" action="/logout/user" method="post">
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none" onclick="logout(event)">
-                    ออกจากระบบ
-                </button>
-            </form>
-        </div>
         <div class="px-6 py-4">
-            <p class="text-gray-700">
+            <p class="text-gray-700"  style="font-family: 'Kanit', sans-serif;">
                 <%= usersesstion.bio %>.
             </p>
         </div>
@@ -62,75 +54,6 @@
 </div>
 
 <!-- PoPup -->
-
-<div id="editPopup" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
-    <div class="bg-white rounded-lg overflow-hidden max-w-md w-full">
-      <!-- Header -->
-      <div class="bg-gray-100 py-3 px-4 flex items-center justify-between">
-        <h2 class="text-lg font-bold text-gray-800">แก้ไข</h2>
-        <button id="closeButton" class="text-gray-600 hover:text-gray-800 focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-      <!-- Content -->
-      <div class="p-4 overflow-auto h-[500px]">
-        <form id="editProfileForm" method="POST" enctype="multipart/form-data" class=" max-w-6xl mx-auto mt-8">
-            <div class="form_groud">
-                <label for="name">ชื่อช่อง</label>
-                <div class="input_box_form_edit">
-                    <input type="text" name="name" id="name" value="<%= usersesstion.name %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
-                </div>
-            </div>
-            <div class="form_groud">
-                <label for="name">ชื่อผู้ใช้</label>
-                <div class="input_box_form_edit">
-                    <input type="text" name="username" id="username" value="<%= usersesstion.username %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
-                </div>
-            </div>
-            <div class="form_groud">
-                <label for="name">เพิ่มประวัติ</label>
-                <div class="input_box_form_edit">
-                    <textarea name="bio" id="bio" cols="30" maxlength="400" rows="10" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
-               <%= usersesstion.bio %>
-            </textarea>
-                </div>
-                <p>ใส่สุ่งสุด 400 คำ</p>
-            </div>
-            <div class="form_groud">
-                <label for="name">url โปรไฟล์</label>
-                <div class="input_box_form_edit">
-                    <input type="text" name="url" id="url" value="<%= usersesstion.url %>" class="w-full p-2 border outline-none bg-gray-100 border-gray-300 rounded mt-1">
-                </div>
-                <p style="margin-top: 10px;">โปรดใส่เป็นภาษาอังกฤษ</p>
-            </div>
-            <div class="form_groud">
-                <h3 class="header_edit_file"></h3>
-                <div class="card">
-                    <div class="drop_box">
-                        <header>
-                            <h4>เลือกไฟล์ที่นี่ แก้ไขโปรไฟล์</h4>
-                        </header>
-                        <p>รองรับไฟล์ .jpg .png </p>
-                        <input id="dropzone-file" type="file" name="profileprofile" accept="image/*"
-                            onchange="previewImage(this)" />
-                    </div>
-                </div>
-            </div>
-            <div class="form_groud">
-                <img id="preview" style="width: 100px; height: 100px; border-radius: 50px; border: 1px solid #eee;"
-                    src="" alt="">
-            </div> 
-      </div>
-      <!-- Footer -->
-      <div class="bg-gray-100 py-3 px-4 flex justify-end">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">บันทึก</button>
-    </form>
-        <button id="cancelButton" class="bg-gray-200 text-gray-700 hover:text-gray-800 px-4 py-2 rounded-full ml-2 focus:outline-none">ยกเลิก</button>
-      </div>
-    </div>
-  </div>
 
   <div id="popup-m" class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 hidden bg-opacity-50 z-50">
     <div class="bg-white rounded-lg overflow-hidden max-w-md w-full">
@@ -169,7 +92,7 @@
     });
 </script>
 <style>
-    /* Customize scrollbar */
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
     ::-webkit-scrollbar {
       width: 12px;
     }
@@ -204,42 +127,20 @@
         });
     }
   </script>
+ <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuButton = document.getElementById('menu-button');
+        const menuContent = document.getElementById('menu-content');
+        
+        menuButton.addEventListener('click', () => {
+            menuContent.classList.toggle('hidden');
+        });
 
-  <% if (usersesstion) {%>
-    <script>
-        document.getElementById('editProfileForm').addEventListener('submit', function(event) {
-          event.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
-      
-          const formData = new FormData(this);
-          const token = '<%= usersesstion.token %>'; // รับ token จากฝั่งเซิร์ฟเวอร์
-      
-          fetch('/edit_profile', {
-              method: 'POST',
-              headers: {
-                  'Authorization': 'Bearer ' + token // เพิ่ม Authorization header
-              },
-              body: formData,
-              credentials: 'include' // ส่งคุกกี้ที่ต้องการ
-          })
-          .then(response => {
-              if (!response.ok) {
-                  return response.json().then(errorData => {
-                      throw new Error(errorData.message || 'เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์');
-                  });
-              }
-              return response.json(); // รับข้อมูลจากเซิร์ฟเวอร์ในรูปแบบ JSON
-          })
-          .then(data => {
-              alert(data.message); // แสดงข้อความตอบกลับจากเซิร์ฟเวอร์
-              if (data.redirect) {
-                  window.location.href = data.redirect; // เปลี่ยนเส้นทางหากมีการเปลี่ยนเส้นทาง
-              }
-          })
-          .catch(error => {
-              console.error('Error:', error);
-              alert('เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์');
-          });
-      });
-      
-        </script>
-<% } %>
+        // Close the menu if clicked outside
+        document.addEventListener('click', (event) => {
+            if (!menuButton.contains(event.target) && !menuContent.contains(event.target)) {
+                menuContent.classList.add('hidden');
+            }
+        });
+    });
+</script>
