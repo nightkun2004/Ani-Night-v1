@@ -106,7 +106,7 @@ const getLogin = async (req, res) => {
             return res.render("./component/pages/login", { data: "กรุณากรอกทุกช่อง" , usersesstion, active: 'login'});
         }
 
-        if (usersesstion) {
+        if (usersesstion) { 
             return res.redirect(`/profile?u=${req.session.userlogin.username}`);
         }
 

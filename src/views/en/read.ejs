@@ -75,16 +75,18 @@
 <body class="bg-gray-100">
     <%- include('./navbar/navnar_Header') %>
     <%- include('./navbar/sidebar_Section') %>
-        <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="app max-w-7xl mx-auto lg:px-8">
             <% if (acticle.published) { %>
-                <div class="container mx-auto p-4">
+                <div class="container mx-auto md:p-4">
                     <div class="flex flex-col md:flex-row gap-4">
                         <!-- Main Content -->
                         <div class="flex-1 bg-white p-4 rounded shadow-md">
                             <div id="main-content" class="skeleton">
                                 <div class="title__main flex justify-between items-center">
                                     <div class="title__header">
-                                        <h1 class="text-2xl font-bold mb-4"><%= acticle.title %></h1>
+                                        <h1 class="text-2xl font-bold mb-4">
+                                            <a href="/read/<%= acticle.url %>/?lang=<%= language %>"><%= acticle.title %></a>
+                                        </h1>
                                        </div>
                                     <div class="right__title-main">
                                         <div class="relative">
@@ -139,14 +141,14 @@
                                     <h2 class="text-lg font-semibold bg-gray-100 rounded-full p-2">By: <a href="/editor/<%= acticle.author.username %>" target="_blank" ><%= acticle.author.username %></a></h2>
                                     <p class="text-gray-600"><%= acticle.author.bio %></p>
                                 </div>
-                                <div class="mt-1 max-w-2xl text-sm text-gray-500 flex flex-col items-center md:flex-row md:items-center">
-                                     <%= moment(acticle.createdAt).locale('en').fromNow() %>,
-                                     <p>Published on: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>,
-                                     <p class="pl-3 text-sm">
-                                        viewing <%= formatNumber(acticle.views) %> Views
-                                    </p>
-                                </div>
                                </div>
+                               <div class="mt-1 max-w-2xl text-sm text-gray-500 flex items-center">
+                                <%= moment(acticle.createdAt).locale('en').fromNow() %>,
+                                <p>Published on: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>,
+                                <p class="pl-3 text-sm">
+                                   viewing <%= formatNumber(acticle.views) %> Views
+                               </p>
+                           </div>
 
                              <!-- Advertisement Section -->
                             <div class="ads-container my-8 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 aspect-w-16 aspect-h-9">
@@ -255,6 +257,14 @@
                                     </div>
                                 <% } %>
                             <% }); %>
+                        </div>
+                    </div>
+                    <div class="my-8 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 aspect-w-16 aspect-h-9">
+                        <!-- /22745653040/Ani_night-read -->
+                        <div id='div-gpt-ad-1722758068851-0'>
+                            <script>
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1722758068851-0'); });
+                            </script>
                         </div>
                     </div>
                 </div>

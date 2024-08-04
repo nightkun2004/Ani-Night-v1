@@ -84,21 +84,34 @@
         });
         </script>
     <% } %>
+        <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+    window.googletag = window.googletag || {cmd: []};
+    googletag.cmd.push(function() {
+        googletag.defineSlot('/22745653040/Ani_night-read', ['fluid'], 'div-gpt-ad-1722758068851-0').addService(googletag.companionAds()).addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.pubads().enableVideoAds();
+        googletag.companionAds().setRefreshUnfilledSlots(true);
+        googletag.enableServices();
+    });
+    </script>
 </head>
 
 <body class="bg-white">
     <%- include('../navnar_Header') %>
     <%- include('../sidebar_Section') %>
-        <div class="app max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="app max-w-7xl mx-auto lg:px-8">
             <% if (acticle.published) { %>
-                <div class="container mx-auto p-4">
+                <div class="container mx-auto md:4">
                     <div class="flex flex-col md:flex-row gap-4">
                         <!-- Main Content -->
                         <div class="flex-1 bg-white p-4 rounded shadow-md">
                             <div id="main-content" class="skeleton">
                                 <div class="title__main flex justify-between items-center">
                                     <div class="title__header">
-                                        <h1 class="text-2xl font-bold mb-4"><%= acticle.title %></h1>
+                                        <h1 class="text-2xl font-bold mb-4">
+                                            <a href="/read/<%= acticle.url %>?lang=<%= language %>"><%= acticle.title %></a>
+                                        </h1>
                                        </div>
                                     <div class="right__title-main">
                                         <div class="relative">
@@ -150,17 +163,18 @@
                                 </div>
                                <div class="flex justify-between items-center" style="border-bottom: 1px solid #eee;">
                                 <div class="mb-4">
-                                    <h2 class="text-lg font-semibold bg-gray-100 rounded-full p-1">เขียนโดย: <a href="/editor/<%= acticle.author.username %>" target="_blank" ><%= acticle.author.username %></a></h2>
+                                    <h2 class="text-sm font-semibold bg-gray-100 rounded-full p-1">เขียนโดย: <a href="/editor/<%= acticle.author.username %>" target="_blank" ><%= acticle.author.username %></a></h2>
                                     <p class="text-gray-600"><%= acticle.author.bio %></p>
                                 </div>
-                                <div class="mt-1 max-w-2xl text-sm text-gray-500 flex flex-col items-center md:flex-row md:items-center">
-                                     <%= moment(acticle.createdAt).locale('th').fromNow() %>,
-                                     <p class="pl-3 text-sm">
-                                        การดู <%= formatNumber(acticle.views) %> ครั้ง,
-                                    </p>
-                                    <p class="md:ml-2">เผยแพร่เมื่อ: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>
-                                </div>
+                                
                                </div>
+                               <div class="mt-1 max-w-2xl text-sm text-gray-500 flex  items-center ">
+                                <%= moment(acticle.createdAt).locale('th').fromNow() %>,
+                                <p class="pl-3 text-sm">
+                                   การดู <%= formatNumber(acticle.views) %> ครั้ง,
+                               </p>
+                               <p class="md:ml-2">เผยแพร่เมื่อ: <%= new Date(acticle.createdAt).toLocaleDateString() %></p>
+                           </div>
 
                              <!-- Advertisement Section -->
                             <div class="ads-container my-8 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 aspect-w-16 aspect-h-9">
@@ -357,6 +371,14 @@
                                 <% } %>
                             <% }); %>
                             
+                        </div>
+                    </div>
+                    <div class="my-8 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 aspect-w-16 aspect-h-9">
+                        <!-- /22745653040/Ani_night-read -->
+                        <div id='div-gpt-ad-1722758068851-0'>
+                            <script>
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1722758068851-0'); });
+                            </script>
                         </div>
                     </div>
                 </div>

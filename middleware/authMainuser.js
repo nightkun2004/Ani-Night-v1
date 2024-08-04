@@ -19,7 +19,7 @@ const authMiddleware = (req, res, next) => {
     } else {
         return res.redirect('/login');
     }
-};
+}; 
 
 const authMiddlewareUser = (req, res, next) => {
     const token = req.session.userlogin?.token || req.cookies['login-token'];
@@ -27,11 +27,10 @@ const authMiddlewareUser = (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err) {
-                return res.redirect('/login');
+                return res.status(419).json({massage:"โทเคนของคุณหมดอายุ โปรดเข้าสู่ระบบใหม่"})
             }
 
             req.user = decoded;
-        console.log(req.user)
 
             next();
         });
